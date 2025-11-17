@@ -152,6 +152,8 @@
             box-shadow: 0 4px 25px rgba(224, 31, 122, 0.5);
             letter-spacing: 1px;
             text-transform: uppercase;
+            cursor: pointer;
+            border: none;
         }
 
         .cta-button:hover {
@@ -162,6 +164,16 @@
         .services-section {
             padding: 80px 0;
             background: #000000;
+            display: none;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .services-section.revealed {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .section-title {
@@ -811,6 +823,88 @@
             letter-spacing: 1px;
         }
 
+        /* V Logo Reveal Animation */
+        .v-reveal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000000;
+            z-index: 99999;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .v-reveal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .v-logo-reveal {
+            font-size: 15rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #e01f7a 0%, #ff1744 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -10px;
+            animation: vReveal 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: drop-shadow(0 0 60px rgba(224, 31, 122, 0.8));
+            position: relative;
+        }
+
+        @keyframes vReveal {
+            0% {
+                opacity: 0;
+                transform: scale(0.3) rotate(-45deg);
+                filter: blur(20px) drop-shadow(0 0 60px rgba(224, 31, 122, 0.8));
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2) rotate(5deg);
+                filter: blur(5px) drop-shadow(0 0 80px rgba(224, 31, 122, 1));
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+                filter: blur(0px) drop-shadow(0 0 60px rgba(224, 31, 122, 0.8));
+            }
+        }
+
+        .v-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .v-particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: #e01f7a;
+            border-radius: 50%;
+            animation: particleFloat 1.5s ease-out forwards;
+            box-shadow: 0 0 10px rgba(224, 31, 122, 0.8);
+        }
+
+        @keyframes particleFloat {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--tx), var(--ty)) scale(0);
+            }
+        }
+
         @media (max-width: 768px) {
             .services-grid {
                 grid-template-columns: 1fr;
@@ -828,6 +922,9 @@
             }
             .form-actions {
                 flex-direction: column;
+            }
+            .v-logo-reveal {
+                font-size: 8rem;
             }
         }
     </style>
@@ -852,7 +949,7 @@
             <div class="container">
                 <h1>VORANIX</h1>
                 <p class="tagline">Where Power Hires Power.</p>
-                <a href="#services" class="cta-button">Explore Our Services</a>
+                <button class="cta-button" onclick="revealServices()">Explore Our Services</button>
             </div>
         </div>
     </section>
@@ -927,7 +1024,11 @@
             </div>
         </div>
     </section>
-    </footer>
+
+    <div class="v-reveal-overlay" id="vRevealOverlay">
+        <div class="v-particles" id="vParticles"></div>
+        <div class="v-logo-reveal">V</div>
+    </div>
 
     <div class="posts-modal" id="postsModal">
         <div class="posts-container">
@@ -988,7 +1089,7 @@
         const posts = [
             "محتاج عدد يعمل interview و يبدأ شغل علي طول هساعدك ف الإنترڤيو و هبقى معاك \nStep by Step\nSalary up to 18 k",
             "شركة Teleperformance محتاجة فوق ال٥٠ واحد الشهر دا وعشان كدا البروسيس بتخلص بسرعة \nوكمان زودوا السالري بقى 18000 NET \n✅ Transportation Provided \n✅ Training paid",
-            "ده أفضل وقت تقدم فيه فى Teleperformance عشان تتقبل لأننا محتاجين أكبر عدد الفترة دى ✅\nوبأعلي سالاري كمان 💰🔥\nوهبعتلك كل أسئلة الانترڤيو وهساعدك تعدي منه كمان\n\n📌مرتب يبدأ من 18😏\n📌مستوى الانجلش +B1\n📌اكونتات لذيذة ومفيهاش rush calls ومش شرط خبرة\nمستني اي ابعتلي دلوقتي 🫵🔥",
+            "ده أفضل وقت تقدم فيه فى Teleperformance عشان تتقبل لأننا محتاجين أكبر عدد الفترة دى ✅\nوبأعلي سالاري كمان 💰🔥\nوهبعتلك كل أسئلة الانترڤيو وهساعدك تعدي منه كمان\n\n📌مرتب يبدأ من 18😁\n📌مستوي الانجلش +B1\n📌اكونتات لذيذة ومفيهاش rush calls ومش شرط خبرة\nمستني اي ابعتلي دلوقتي 🫵🔥",
             "⚡ الفرصة مش هتستناك! ⚡\nHiring Now: شباب عندهم English B2 وبيفضلوا الشغل بالليل.\n🔥 Limited spots – hurry up before it's gone!\n💡 فرصة قوية تبدأ شغل بسرعة وتثبت نفسك.",
             "📞Call center english\nال Salary لحد 20,000 💰✅\nخريجين من القاهرة✅\nلو مستواك يبدأ من +B1 كلمني✅\nالشغل علي طول و هعديك من الانترڤيو‼️",
             "القبول ف Concentrix و تي بي عالي اوي الفترة دي 🔥\nعاوزين خريجين كتيييير🔥👨‍🎓\nو Concentrix بتاخد دلوقتي من B1+ 💪🏻‼️\nوهساعدك تعدى الانترڤيو وهبقى معاك خطوه بخطوه🤚",
@@ -1093,6 +1194,55 @@
             } else {
                 themeToggle.innerHTML = '<i class="fas fa-bolt"></i>';
             }
+        }
+
+        // Reveal services with V animation
+        function revealServices() {
+            const overlay = document.getElementById('vRevealOverlay');
+            const servicesSection = document.querySelector('.services-section');
+            const particlesContainer = document.getElementById('vParticles');
+            
+            // Clear previous particles
+            particlesContainer.innerHTML = '';
+            
+            // Create particles
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'v-particle';
+                
+                const angle = (Math.PI * 2 * i) / 30;
+                const distance = 200 + Math.random() * 200;
+                const tx = Math.cos(angle) * distance;
+                const ty = Math.sin(angle) * distance;
+                
+                particle.style.left = '50%';
+                particle.style.top = '50%';
+                particle.style.setProperty('--tx', `${tx}px`);
+                particle.style.setProperty('--ty', `${ty}px`);
+                particle.style.animationDelay = `${i * 0.02}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+            
+            // Show overlay
+            overlay.classList.add('active');
+            
+            // Hide overlay and show services after animation
+            setTimeout(() => {
+                overlay.classList.remove('active');
+                servicesSection.style.display = 'block';
+                
+                // Trigger reveal animation
+                setTimeout(() => {
+                    servicesSection.classList.add('revealed');
+                    
+                    // Scroll to services section smoothly
+                    servicesSection.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'start' 
+                    });
+                }, 50);
+            }, 1500);
         }
 
         // Posts modal functionality
