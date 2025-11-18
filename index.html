@@ -930,6 +930,11 @@
     </style>
 </head>
 <body>
+    <!-- إضافة عنصر الصوت المخفي -->
+    <audio id="exploreSound" preload="auto">
+        <source src="https://github.com/voranixx/VORANIXX.github.io/raw/refs/heads/main/song.mp3" type="audio/mpeg">
+    </audio>
+
     <header>
         <div class="container">
             <div class="header-content">
@@ -1085,6 +1090,9 @@
     </div>
 
     <script>
+        // إضافة متغير لتتبع حالة الصوت
+        let soundPlayed = false;
+
         // Posts data
         const posts = [
             "محتاج عدد يعمل interview و يبدأ شغل علي طول هساعدك ف الإنترڤيو و هبقى معاك \nStep by Step\nSalary up to 18 k",
@@ -1196,8 +1204,17 @@
             }
         }
 
-        // Reveal services with V animation
+        // Reveal services with V animation and play sound
         function revealServices() {
+            // تشغيل الصوت فقط إذا لم يتم تشغيله من قبل
+            if (!soundPlayed) {
+                const exploreSound = document.getElementById('exploreSound');
+                exploreSound.play().catch(e => {
+                    console.log("لم يتمكن المتصفح من تشغيل الصوت تلقائياً:", e);
+                });
+                soundPlayed = true;
+            }
+            
             const overlay = document.getElementById('vRevealOverlay');
             const servicesSection = document.querySelector('.services-section');
             const particlesContainer = document.getElementById('vParticles');
