@@ -69,7 +69,13 @@
             letter-spacing: 8px;
         }
 
-        .theme-toggle {
+        .header-controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .theme-toggle, .sound-toggle {
             background: rgba(224, 31, 122, 0.1);
             border: 1px solid rgba(224, 31, 122, 0.3);
             border-radius: 50%;
@@ -84,10 +90,15 @@
             color: #e01f7a;
         }
 
-        .theme-toggle:hover {
+        .theme-toggle:hover, .sound-toggle:hover {
             transform: scale(1.1);
             background: rgba(224, 31, 122, 0.2);
             box-shadow: 0 0 20px rgba(224, 31, 122, 0.4);
+        }
+
+        .sound-toggle.muted {
+            background: rgba(255, 255, 255, 0.1);
+            color: #999999;
         }
 
         .hero {
@@ -926,6 +937,9 @@
             .v-logo-reveal {
                 font-size: 8rem;
             }
+            .header-controls {
+                gap: 10px;
+            }
         }
     </style>
 </head>
@@ -942,9 +956,14 @@
                     <span class="logo-v">V</span>
                     <span class="logo-text">ORANIX</span>
                 </div>
-                <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle">
-                    <i class="fas fa-bolt"></i>
-                </button>
+                <div class="header-controls">
+                    <button class="sound-toggle" id="soundToggle" onclick="toggleSound()">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                    <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle">
+                        <i class="fas fa-bolt"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </header>
@@ -1092,6 +1111,7 @@
     <script>
         // إضافة متغير لتتبع حالة الصوت
         let soundPlayed = false;
+        let isMuted = false;
 
         // Posts data
         const posts = [
@@ -1204,11 +1224,30 @@
             }
         }
 
+        // Sound toggle functionality
+        function toggleSound() {
+            const soundToggle = document.getElementById('soundToggle');
+            const exploreSound = document.getElementById('exploreSound');
+            
+            isMuted = !isMuted;
+            
+            if (isMuted) {
+                soundToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                soundToggle.classList.add('muted');
+                exploreSound.volume = 0;
+            } else {
+                soundToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
+                soundToggle.classList.remove('muted');
+                exploreSound.volume = 0.5;
+            }
+        }
+
         // Reveal services with V animation and play sound
         function revealServices() {
-            // تشغيل الصوت فقط إذا لم يتم تشغيله من قبل
-            if (!soundPlayed) {
+            // تشغيل الصوت فقط إذا لم يتم تشغيله من قبل ولم يكن في وضع كتم الصوت
+            if (!soundPlayed && !isMuted) {
                 const exploreSound = document.getElementById('exploreSound');
+                exploreSound.volume = 0.5; // ضبط مستوى الصوت إلى 50%
                 exploreSound.play().catch(e => {
                     console.log("لم يتمكن المتصفح من تشغيل الصوت تلقائياً:", e);
                 });
