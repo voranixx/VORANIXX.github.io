@@ -150,26 +150,147 @@
             color: #e01f7a;
         }
 
-        .cta-button {
-            display: inline-block;
-            padding: 18px 45px;
-            background: linear-gradient(135deg, #e01f7a 0%, #ff1744 100%);
-            color: white;
-            font-weight: 700;
-            font-size: 1.1rem;
-            border-radius: 50px;
-            text-decoration: none;
-            transition: all 0.3s;
-            box-shadow: 0 4px 25px rgba(224, 31, 122, 0.5);
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            cursor: pointer;
-            border: none;
+        /* استبدال نمط الزر القديم بالجديد */
+        .super-button {
+          position: relative;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 12px;
+          padding: 18px 45px;
+          background: linear-gradient(145deg, #0f0f0f, #1c1c1c);
+          border: 2px solid rgba(224, 31, 122, 0.3);
+          border-radius: 100px;
+          color: #fff;
+          font-size: 1.1rem;
+          font-weight: 700;
+          letter-spacing: 1px;
+          cursor: pointer;
+          overflow: hidden;
+          transition: all 0.4s ease-in-out;
+          box-shadow: 0 0 20px rgba(224, 31, 122, 0.2);
+          backdrop-filter: blur(8px);
+          z-index: 1;
+          text-transform: uppercase;
         }
 
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 35px rgba(224, 31, 122, 0.7);
+        .super-button::before {
+          content: "";
+          position: absolute;
+          top: -50%;
+          left: -50%;
+          width: 200%;
+          height: 200%;
+          background: conic-gradient(from 0deg, #e01f7a, #ff1744, #e01f7a);
+          animation: rotate 15s linear infinite;
+          z-index: -2;
+        }
+
+        .super-button::after {
+          content: "";
+          position: absolute;
+          inset: 2px;
+          background: #000000;
+          border-radius: inherit;
+          z-index: -1;
+        }
+
+        .super-button:hover {
+          transform: translateY(-3px) scale(1.05);
+          box-shadow: 0 8px 35px rgba(224, 31, 122, 0.5);
+        }
+
+        .super-button:hover .arrow {
+          transform: translateX(6px);
+        }
+
+        .arrow {
+          width: 22px;
+          height: 22px;
+          transition: transform 0.3s ease-in-out;
+          color: #e01f7a;
+        }
+
+        @keyframes rotate {
+          0% {
+            transform: rotate(0deg);
+          }
+          100% {
+            transform: rotate(360deg);
+          }
+        }
+
+        /* تحسين شريط التمرير */
+        .scroll-indicator {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            opacity: 0;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .scroll-indicator.visible {
+            display: flex;
+            opacity: 1;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator.hidden {
+            opacity: 0;
+            transform: translateX(-50%) translateY(20px);
+        }
+
+        .scroll-text {
+            color: #e01f7a;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(224, 31, 122, 0.5);
+        }
+
+        .scroll-arrow {
+            width: 30px;
+            height: 30px;
+            border-right: 3px solid #e01f7a;
+            border-bottom: 3px solid #e01f7a;
+            transform: rotate(45deg);
+            animation: arrowPulse 1.5s infinite;
+            box-shadow: 0 0 10px rgba(224, 31, 122, 0.5);
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+
+        @keyframes arrowPulse {
+            0%, 100% {
+                opacity: 0.7;
+                transform: rotate(45deg) scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: rotate(45deg) scale(1.1);
+            }
         }
 
         .services-section {
@@ -949,6 +1070,12 @@
         <source src="https://github.com/voranixx/VORANIXX.github.io/raw/refs/heads/main/song.mp3" type="audio/mpeg">
     </audio>
 
+    <!-- إضافة شريط التمرير -->
+    <div class="scroll-indicator" id="scrollIndicator">
+        <span class="scroll-text">Scroll Down</span>
+        <div class="scroll-arrow"></div>
+    </div>
+
     <header>
         <div class="container">
             <div class="header-content">
@@ -973,7 +1100,19 @@
             <div class="container">
                 <h1>VORANIX</h1>
                 <p class="tagline">Where Power Hires Power.</p>
-                <button class="cta-button" onclick="revealServices()">Explore Our Services</button>
+                <!-- استبدال الزر القديم بالجديد -->
+                <button class="super-button" onclick="revealServices()">
+                  <span>Explore Our Services</span>
+                  <svg fill="none" viewBox="0 0 24 24" class="arrow">
+                    <path
+                      stroke-linejoin="round"
+                      stroke-linecap="round"
+                      stroke-width="2"
+                      stroke="currentColor"
+                      d="M5 12h14M13 6l6 6-6 6"
+                    ></path>
+                  </svg>
+                </button>
             </div>
         </div>
     </section>
@@ -1016,7 +1155,7 @@
                     </div>
                 </div>
 
-                <div class="service-card" onclick="handleCardClick('https://docs.google.com/forms/d/e/1FAIpQLSck6DSuoWXcXmu64tuQ62xV7dJeWM0p_h2WREscTYxQF_4KzQ/viewform?usp=sharing&ouid=106717157283782625669', 'form')">
+                <div class="service-card" onclick="handleCardClick('https://docs.google.com/spreadsheets/d/1xO4-TO7aL-Ex64Z6guhY8HGHZbe7KzgfQ4DkfftZWjg/edit?usp=sharing', 'form')">
                     <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=800&q=80');"></div>
                     <div class="card-content">
                         <span class="card-badge"><i class="fas fa-file-alt"></i> 8M+ Submissions</span>
@@ -1113,6 +1252,10 @@
         let soundPlayed = false;
         let isMuted = false;
 
+        // متغيرات شريط التمرير
+        let scrollIndicatorShown = false;
+        let scrollIndicatorHidden = false;
+
         // Posts data
         const posts = [
             "محتاج عدد يعمل interview و يبدأ شغل علي طول هساعدك ف الإنترڤيو و هبقى معاك \nStep by Step\nSalary up to 18 k",
@@ -1156,6 +1299,30 @@
         let scrollSpeed = 400;
         let scrollInterval;
         let isScrolling = false;
+
+        // دالة لإظهار شريط التمرير
+        function showScrollIndicator() {
+            if (!scrollIndicatorShown) {
+                const scrollIndicator = document.getElementById('scrollIndicator');
+                scrollIndicator.classList.add('visible');
+                scrollIndicatorShown = true;
+                
+                // إخفاء شريط التمرير بعد 5 ثوانٍ تلقائيًا
+                setTimeout(() => {
+                    if (!scrollIndicatorHidden) {
+                        hideScrollIndicator();
+                    }
+                }, 5000);
+            }
+        }
+
+        // دالة لإخفاء شريط التمرير
+        function hideScrollIndicator() {
+            const scrollIndicator = document.getElementById('scrollIndicator');
+            scrollIndicator.classList.remove('visible');
+            scrollIndicator.classList.add('hidden');
+            scrollIndicatorHidden = true;
+        }
 
         // Initialize posts carousel
         function initPostsCarousel() {
@@ -1238,7 +1405,7 @@
             } else {
                 soundToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
                 soundToggle.classList.remove('muted');
-                exploreSound.volume = 0.5;
+                exploreSound.volume = 0.15; // تغيير مستوى الصوت إلى 15%
             }
         }
 
@@ -1247,7 +1414,7 @@
             // تشغيل الصوت فقط إذا لم يتم تشغيله من قبل ولم يكن في وضع كتم الصوت
             if (!soundPlayed && !isMuted) {
                 const exploreSound = document.getElementById('exploreSound');
-                exploreSound.volume = 0.5; // ضبط مستوى الصوت إلى 50%
+                exploreSound.volume = 0.15; // ضبط مستوى الصوت إلى 15%
                 exploreSound.play().catch(e => {
                     console.log("لم يتمكن المتصفح من تشغيل الصوت تلقائياً:", e);
                 });
@@ -1292,11 +1459,14 @@
                 setTimeout(() => {
                     servicesSection.classList.add('revealed');
                     
-                    // Scroll to services section smoothly
-                    servicesSection.scrollIntoView({ 
-                        behavior: 'smooth', 
-                        block: 'start' 
-                    });
+                    // إظهار شريط التمرير بعد انتهاء الرسوم المتحركة
+                    showScrollIndicator();
+                    
+                    // إلغاء التمرير التلقائي
+                    // servicesSection.scrollIntoView({ 
+                    //     behavior: 'smooth', 
+                    //     block: 'start' 
+                    // });
                 }, 50);
             }, 1500);
         }
@@ -1441,8 +1611,21 @@
             });
             
             document.addEventListener('touchend', stopScrolling);
+            
+            // إخفاء شريط التمرير عند التمرير لأسفل
+            window.addEventListener('scroll', function() {
+                if (scrollIndicatorShown && !scrollIndicatorHidden) {
+                    if (window.scrollY > 100) {
+                        hideScrollIndicator();
+                    }
+                }
+            });
+
+            // إخفاء شريط التمرير عند النقر عليه
+            document.getElementById('scrollIndicator').addEventListener('click', function() {
+                hideScrollIndicator();
+            });
         });
     </script>
 </body>
 </html>
-
