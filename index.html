@@ -1175,13 +1175,14 @@
                     </div>
                 </div>
 
-                <div class="service-card" onclick="handleCardClick('https://chat.whatsapp.com/FQgWckMDPs72mB8PLVUCOt', 'chat')">
-                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&q=80');"></div>
+                <!-- بطاقة Smart Job Matching الجديدة -->
+                <div class="service-card" onclick="handleCardClick('smart-job-matching.html', 'matching')">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&q=80');"></div>
                     <div class="card-content">
-                        <span class="card-badge"><i class="fas fa-comments"></i> Free Training</span>
-                        <h3 class="card-title">Training Group</h3>
-                        <p class="card-description">Join our WhatsApp group and take a free training session with industry experts.</p>
-                        <a href="#" class="card-link">Join Now <span class="arrow">→</span></a>
+                        <span class="card-badge"><i class="fas fa-robot"></i> AI Powered</span>
+                        <h3 class="card-title">Smart Job Matching</h3>
+                        <p class="card-description">Tell us about yourself and we'll find the most suitable job offers from VORANIX's extensive network.</p>
+                        <a href="#" class="card-link">Find Your Match <span class="arrow">→</span></a>
                     </div>
                 </div>
             </div>
@@ -1589,9 +1590,9 @@
                     container.innerHTML = '<i class="fas fa-robot bot-animation"></i>';
                     text.textContent = 'Opening Telegram Bot...';
                     break;
-                case 'chat':
-                    container.innerHTML = '<div class="chat-animation"><div class="chat-bubble"></div><div class="chat-bubble"></div><div class="chat-bubble"></div></div>';
-                    text.textContent = 'Opening WhatsApp Group...';
+                case 'matching':
+                    container.innerHTML = '<i class="fas fa-robot bot-animation"></i>';
+                    text.textContent = 'Loading Smart Job Matching...';
                     break;
                 default:
                     container.innerHTML = '<div class="file-animation"><i class="fas fa-folder-open file-icon"></i></div>';
