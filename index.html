@@ -1906,37 +1906,37 @@
                 switch(message) {
                     case 'welcome message':
                         this.currentStep = 'main_menu';
-                        response.text = "Hello, are you interested in working at a call center? (Work from site)\"\n\nThis is your opening message for new candidates.";
+                        response.text = "👋 **Welcome Message Script:**\n\n\"Hello, are you interested in working at a call center? (Work from site)\"\n\nThis is your opening message for new candidates.";
                         response.buttons = [["If yes", "Back 🔙"]];
                         break;
                         
                     case 'if yes':
                         this.currentStep = 'main_menu';
-                        response.text = "Nice,\n\nPlease lemme know more details to assist you effectively and recommend a suitable offer & I'll contact u ASAP.\n\n📋 **Required Information:**\n\n1️⃣ Grad or undergrad?\n2️⃣ What about military service?\n3️⃣ Age?\n4️⃣ Location?\n5️⃣ Your language/s level";
+                        response.text = "✅ **Follow-up Questions:**\n\nNice,\n\nPlease lemme know more details to assist you effectively and recommend a suitable offer & I'll contact u ASAP.\n\n📋 **Required Information:**\n\n1️⃣ Grad or undergrad?\n2️⃣ What about military service?\n3️⃣ Age?\n4️⃣ Location?\n5️⃣ Your language/s level";
                         response.buttons = [["Back 🔙"]];
                         break;
                         
                     case 'send voice note':
                         this.currentStep = 'main_menu';
-                        response.text = "Please send a 1-2 minute voice note introducing yourself and sharing your experience, so we can send you the best offer.\n\n**Tips for a good voice note:**\n• Speak clearly and confidently\n• Mention your experience\n• State your career goals\n• Keep it professional";
+                        response.text = "🎤 **Voice Note Instructions:**\n\nPlease send a 1-2 minute voice note introducing yourself and sharing your experience, so we can send you the best offer.\n\n**Tips for a good voice note:**\n• Speak clearly and confidently\n• Mention your experience\n• State your career goals\n• Keep it professional";
                         response.buttons = [["If Voice note sent ✔", "Back 🔙"]];
                         break;
                         
                     case 'if voice note sent ✔':
                         this.currentStep = 'main_menu';
-                        response.text = "Your request was submitted successfully ✅\n\nFeedback will be provided as soon as possible inshallah for your VN Assessment.\n\n⚠️ **Important:** Please don't apply again for the same offer/company through anyone else to avoid duplication issues.\n\n❤️ Good luck!\n\nℹ️ Just to let you know, not replying doesn't mean you were rejected. You can message me again if 42 hours have passed without reply.";
+                        response.text = "✅ **Voice Note Submitted Confirmation:**\n\nYour request was submitted successfully ✅\n\nFeedback will be provided as soon as possible inshallah for your VN Assessment.\n\n⚠️ **Important:** Please don't apply again for the same offer/company through anyone else to avoid duplication issues.\n\n❤️ Good luck!\n\nℹ️ Just to let you know, not replying doesn't mean you were rejected. You can message me again if 42 hours have passed without reply.";
                         response.buttons = [["Back 🔙"]];
                         break;
                         
                     case 'if accepted ✔':
                         this.currentStep = 'main_menu';
-                        response.text = "Hello [Candidate Name], hope you're doing great!\n\nI just wanted to say how much I appreciated your voice note — it's clear that you've put in great effort, and it truly shows.\n\nYour dedication and commitment are really impressive, and while there's always room to grow (as with all of us), you're definitely on the right track.\n\nWe're happy to have you on board and excited to see how you continue to develop your skills!\n\nCongratulations and all the best 🎉";
+                        response.text = "🎉 **Acceptance Message:**\n\nHello [Candidate Name], hope you're doing great!\n\nI just wanted to say how much I appreciated your voice note — it's clear that you've put in great effort, and it truly shows.\n\nYour dedication and commitment are really impressive, and while there's always room to grow (as with all of us), you're definitely on the right track.\n\nWe're happy to have you on board and excited to see how you continue to develop your skills!\n\nCongratulations and all the best 🎉";
                         response.buttons = [["Back 🔙"]];
                         break;
                         
                     case 'if rejected ❌':
                         this.currentStep = 'main_menu';
-                        response.text = "Hello [Candidate Name],\n\nHope you're doing well! I just wanted to share some quick feedback about your voice note.\n\nAt the moment, your English needs a bit more improvement to reach the level we're targeting. That said, I really appreciate the effort you put in — it shows genuine interest and commitment.\n\nKeep practicing and improving your fluency — you're definitely on your way up!\n\nWe'd be happy to see you again when you feel more ready. 💪";
+                        response.text = "💪 **Rejection Feedback (Constructive):**\n\nHello [Candidate Name],\n\nHope you're doing well! I just wanted to share some quick feedback about your voice note.\n\nAt the moment, your English needs a bit more improvement to reach the level we're targeting. That said, I really appreciate the effort you put in — it shows genuine interest and commitment.\n\nKeep practicing and improving your fluency — you're definitely on your way up!\n\nWe'd be happy to see you again when you feel more ready. 💪";
                         response.buttons = [["Back 🔙"]];
                         break;
                         
@@ -1949,13 +1949,13 @@
                                 this.companies[i + 1] || ''
                             ]);
                         }
-                        response.text = "Choose the company for the interview confirmation message:";
+                        response.text = "🏢 **Select Company for Confirmation:**\n\nChoose the company for the interview confirmation message:";
                         response.buttons = companyRows;
                         break;
                         
                     case 'form':
                         this.currentStep = 'main_menu';
-                        response.text = "(Fill in the below data, please.) \n\n📝\n\n• **Full Name:**\n• **Phone:**\n• **National Id:**\n• **Email address:**\n• **Graduation Status:**\n• **Experience:**\n\nPlease send this information to complete your application.";
+                        response.text = "📋 **Candidate Information Form:**\n\n**Form** \n(Fill in the below data, please.) \n\n📝 **Required Information:**\n\n• **Full Name:**\n• **Phone:**\n• **National Id:**\n• **Email address:**\n• **Graduation Status:**\n• **Experience:**\n\nPlease send this information to complete your application.";
                         response.buttons = [["Back 🔙"]];
                         break;
                         
