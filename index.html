@@ -150,7 +150,6 @@
             color: #e01f7a;
         }
 
-        /* استبدال نمط الزر القديم بالجديد */
         .super-button {
           position: relative;
           display: inline-flex;
@@ -220,92 +219,21 @@
           }
         }
 
-        /* تحسين شريط التمرير */
-        .scroll-indicator {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 100;
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            opacity: 0;
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-
-        .scroll-indicator.visible {
-            display: flex;
-            opacity: 1;
-            animation: bounce 2s infinite;
-        }
-
-        .scroll-indicator.hidden {
-            opacity: 0;
-            transform: translateX(-50%) translateY(20px);
-        }
-
-        .scroll-text {
-            color: #e01f7a;
-            font-size: 0.9rem;
-            font-weight: 600;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            text-shadow: 0 0 10px rgba(224, 31, 122, 0.5);
-        }
-
-        .scroll-arrow {
-            width: 30px;
-            height: 30px;
-            border-right: 3px solid #e01f7a;
-            border-bottom: 3px solid #e01f7a;
-            transform: rotate(45deg);
-            animation: arrowPulse 1.5s infinite;
-            box-shadow: 0 0 10px rgba(224, 31, 122, 0.5);
-            background: rgba(0, 0, 0, 0.7);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateX(-50%) translateY(0);
-            }
-            40% {
-                transform: translateX(-50%) translateY(-10px);
-            }
-            60% {
-                transform: translateX(-50%) translateY(-5px);
-            }
-        }
-
-        @keyframes arrowPulse {
-            0%, 100% {
-                opacity: 0.7;
-                transform: rotate(45deg) scale(1);
-            }
-            50% {
-                opacity: 1;
-                transform: rotate(45deg) scale(1.1);
-            }
-        }
-
+        /* تحسين منطقة الخدمات */
         .services-section {
             padding: 80px 0;
             background: #000000;
-            display: none;
+            display: block;
             opacity: 0;
             transform: translateY(50px);
+            visibility: hidden;
             transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .services-section.revealed {
-            display: block;
             opacity: 1;
             transform: translateY(0);
+            visibility: visible;
         }
 
         .section-title {
@@ -408,14 +336,572 @@
             font-size: 0.95rem;
         }
 
-        .arrow {
-            transition: transform 0.3s;
-        }
-
         .service-card:hover .arrow {
             transform: translateX(5px);
         }
 
+        /* ============== تصميم الشات مع زر النسخ ============== */
+        .chat-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .chat-modal.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .chat-container {
+            background: linear-gradient(145deg, #0a0a0a, #111111);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 1000px;
+            height: 85vh;
+            position: relative;
+            border: 2px solid rgba(224, 31, 122, 0.4);
+            box-shadow: 0 20px 60px rgba(224, 31, 122, 0.3),
+                        0 0 200px rgba(224, 31, 122, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, rgba(224, 31, 122, 0.15), rgba(224, 31, 122, 0.05));
+            padding: 24px 30px;
+            border-bottom: 1px solid rgba(224, 31, 122, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-shrink: 0;
+        }
+
+        .chat-header-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex: 1;
+        }
+
+        .chat-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #e01f7a, #ff1744);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            box-shadow: 0 4px 20px rgba(224, 31, 122, 0.5);
+        }
+
+        .chat-title {
+            flex: 1;
+        }
+
+        .chat-title h2 {
+            color: #ffffff;
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .chat-title p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .chat-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: #4ade80;
+            background: rgba(74, 222, 128, 0.1);
+            padding: 6px 12px;
+            border-radius: 20px;
+            border: 1px solid rgba(74, 222, 128, 0.2);
+        }
+
+        .chat-close {
+            background: rgba(224, 31, 122, 0.15);
+            border: 1px solid rgba(224, 31, 122, 0.3);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.3rem;
+            color: #e01f7a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .chat-close:hover {
+            transform: rotate(90deg);
+            background: rgba(224, 31, 122, 0.3);
+            box-shadow: 0 0 20px rgba(224, 31, 122, 0.4);
+        }
+
+        .messages-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            background: linear-gradient(180deg, rgba(10, 10, 10, 0.95) 0%, rgba(17, 17, 17, 0.98) 100%);
+        }
+
+        .messages-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .messages-container::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+        }
+
+        .messages-container::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #e01f7a, #ff1744);
+            border-radius: 4px;
+        }
+
+        .messages-container::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #ff1744, #e01f7a);
+        }
+
+        /* تصميم الرسائل مع زر النسخ */
+        .message {
+            max-width: 85%;
+            padding: 20px 25px;
+            border-radius: 24px;
+            word-wrap: break-word;
+            position: relative;
+            animation: messageAppear 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            line-height: 1.6;
+            font-size: 1.05rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .message:hover {
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .message:hover .copy-message-btn {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        @keyframes messageAppear {
+            from { 
+                opacity: 0; 
+                transform: translateY(20px) scale(0.95); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0) scale(1); 
+            }
+        }
+
+        .user-message {
+            background: linear-gradient(135deg, 
+                rgba(224, 31, 122, 0.25) 0%,
+                rgba(255, 23, 68, 0.25) 100%
+            );
+            align-self: flex-end;
+            border-bottom-right-radius: 8px;
+            border: 1px solid rgba(224, 31, 122, 0.4);
+            color: #ffffff;
+            padding-right: 60px;
+        }
+
+        .bot-message {
+            background: linear-gradient(135deg, 
+                rgba(30, 30, 40, 0.95) 0%,
+                rgba(40, 40, 50, 0.95) 100%
+            );
+            align-self: flex-start;
+            border-bottom-left-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #f0f0f0;
+            padding-right: 60px;
+        }
+
+        /* زر النسخ للرسائل */
+        .copy-message-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #fff;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateX(10px);
+            z-index: 2;
+            backdrop-filter: blur(5px);
+        }
+
+        .copy-message-btn:hover {
+            background: rgba(224, 31, 122, 0.3);
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(224, 31, 122, 0.4);
+        }
+
+        .copy-message-btn.copied {
+            background: rgba(74, 222, 128, 0.3);
+            border-color: rgba(74, 222, 128, 0.5);
+            color: #4ade80;
+        }
+
+        .message-time {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            margin-top: 10px;
+            text-align: right;
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 6px;
+        }
+
+        .buttons-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 20px;
+            animation: buttonsAppear 0.5s ease-out;
+        }
+
+        @keyframes buttonsAppear {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .chat-button {
+            background: linear-gradient(135deg, 
+                rgba(224, 31, 122, 0.2) 0%,
+                rgba(255, 23, 68, 0.2) 100%
+            );
+            border: 1px solid rgba(224, 31, 122, 0.3);
+            color: #ffffff;
+            padding: 14px 22px;
+            border-radius: 16px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            flex: 1;
+            min-width: 160px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .chat-button:hover {
+            background: linear-gradient(135deg, 
+                rgba(224, 31, 122, 0.3) 0%,
+                rgba(255, 23, 68, 0.3) 100%
+            );
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(224, 31, 122, 0.4);
+            border-color: rgba(224, 31, 122, 0.5);
+        }
+
+        .input-container {
+            padding: 25px 30px;
+            background: linear-gradient(180deg, 
+                rgba(20, 20, 20, 0.95) 0%,
+                rgba(10, 10, 10, 1) 100%
+            );
+            border-top: 1px solid rgba(224, 31, 122, 0.3);
+            display: flex;
+            gap: 15px;
+            flex-shrink: 0;
+        }
+
+        #messageInput {
+            flex: 1;
+            padding: 18px 24px;
+            border: 1px solid rgba(224, 31, 122, 0.3);
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.05rem;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        #messageInput:focus {
+            outline: none;
+            border-color: #e01f7a;
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 3px rgba(224, 31, 122, 0.2);
+        }
+
+        #sendButton {
+            background: linear-gradient(135deg, #e01f7a 0%, #ff1744 100%);
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            font-size: 1.3rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #sendButton:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 35px rgba(224, 31, 122, 0.6);
+        }
+
+        .typing-indicator {
+            display: none;
+            align-self: flex-start;
+        }
+
+        .typing-bubble {
+            background: linear-gradient(135deg, 
+                rgba(30, 30, 40, 0.95) 0%,
+                rgba(40, 40, 50, 0.95) 100%
+            );
+            padding: 20px 25px;
+            border-radius: 24px;
+            border-bottom-left-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .typing-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .typing-text {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 4px;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background: linear-gradient(135deg, #e01f7a, #ff1744);
+            border-radius: 50%;
+            animation: typingDot 1.4s infinite ease-in-out;
+        }
+
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+        .typing-dot:nth-child(3) { animation-delay: 0s; }
+
+        @keyframes typingDot {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+
+        .clear-chat {
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.1) 0%,
+                rgba(255, 255, 255, 0.05) 100%
+            );
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, 0.9);
+            padding: 10px 20px;
+            border-radius: 16px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: absolute;
+            bottom: 100px;
+            right: 30px;
+            backdrop-filter: blur(10px);
+            z-index: 10;
+        }
+
+        .clear-chat:hover {
+            background: linear-gradient(135deg, 
+                rgba(224, 31, 122, 0.2) 0%,
+                rgba(255, 23, 68, 0.2) 100%
+            );
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(224, 31, 122, 0.3);
+            border-color: rgba(224, 31, 122, 0.4);
+        }
+
+        /* رسالة تأكيد النسخ */
+        .copy-notification {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #4ade80, #22c55e);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 8px 25px rgba(74, 222, 128, 0.4);
+            z-index: 10000;
+            opacity: 0;
+            animation: slideUpCopy 0.3s ease forwards, fadeOutCopy 0.3s ease 1.7s forwards;
+        }
+
+        @keyframes slideUpCopy {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        @keyframes fadeOutCopy {
+            from {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-20px);
+            }
+        }
+
+        /* ============== بقية التنسيقات ============== */
+        .scroll-indicator {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            opacity: 0;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .scroll-indicator.visible {
+            display: flex;
+            opacity: 1;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator.hidden {
+            opacity: 0;
+            transform: translateX(-50%) translateY(20px);
+        }
+
+        .scroll-text {
+            color: #e01f7a;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(224, 31, 122, 0.5);
+        }
+
+        .scroll-arrow {
+            width: 30px;
+            height: 30px;
+            border-right: 3px solid #e01f7a;
+            border-bottom: 3px solid #e01f7a;
+            transform: rotate(45deg);
+            animation: arrowPulse 1.5s infinite;
+            box-shadow: 0 0 10px rgba(224, 31, 122, 0.5);
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+
+        @keyframes arrowPulse {
+            0%, 100% {
+                opacity: 0.7;
+                transform: rotate(45deg) scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: rotate(45deg) scale(1.1);
+            }
+        }
+
+        /* بقية أنماط Posts Modal */
         .posts-modal {
             display: none;
             position: fixed;
@@ -1061,6 +1547,42 @@
             .header-controls {
                 gap: 10px;
             }
+            .chat-button {
+                min-width: 140px;
+                font-size: 0.95rem;
+                padding: 12px 18px;
+            }
+            .message {
+                max-width: 90%;
+                padding: 18px 20px;
+                font-size: 1rem;
+                padding-right: 50px;
+            }
+            .copy-message-btn {
+                width: 30px;
+                height: 30px;
+                font-size: 0.8rem;
+                top: 10px;
+                right: 10px;
+            }
+            .input-container {
+                padding: 20px;
+            }
+            #messageInput {
+                padding: 16px 20px;
+                font-size: 1rem;
+            }
+            #sendButton {
+                width: 55px;
+                height: 55px;
+                font-size: 1.2rem;
+            }
+            .clear-chat {
+                bottom: 90px;
+                right: 20px;
+                padding: 8px 16px;
+                font-size: 0.8rem;
+            }
         }
     </style>
 </head>
@@ -1100,7 +1622,6 @@
             <div class="container">
                 <h1>VORANIX</h1>
                 <p class="tagline">Where Power Hires Power.</p>
-                <!-- استبدال الزر القديم بالجديد -->
                 <button class="super-button" onclick="revealServices()">
                   <span>Explore Our Services</span>
                   <svg fill="none" viewBox="0 0 24 24" class="arrow">
@@ -1165,17 +1686,18 @@
                     </div>
                 </div>
 
-                <div class="service-card" onclick="handleCardClick('https://t.me/Seifscripts_bot', 'bot')">
+                <!-- بطاقة الشات -->
+                <div class="service-card" onclick="openChatModal()">
                     <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80');"></div>
                     <div class="card-content">
-                        <span class="card-badge"><i class="fas fa-bolt"></i> AI Powered</span>
-                        <h3 class="card-title">Scripts</h3>
-                        <p class="card-description">Telegram bot designed to guide you through the full recruitment process.</p>
-                        <a href="#" class="card-link">Start Bot <span class="arrow">→</span></a>
+                        <span class="card-badge"><i class="fas fa-robot"></i> Interactive Bot</span>
+                        <h3 class="card-title">Recruitment Assistant</h3>
+                        <p class="card-description">Interactive chatbot that guides you through the full recruitment process with scripts and templates.</p>
+                        <a href="#" class="card-link">Start Chat <span class="arrow">→</span></a>
                     </div>
                 </div>
 
-                <!-- بطاقة Smart Job Matching الجديدة -->
+                <!-- بطاقة Smart Job Matching -->
                 <div class="service-card" onclick="handleCardClick('smart-job-matching.html', 'matching')">
                     <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&q=80');"></div>
                     <div class="card-content">
@@ -1188,6 +1710,55 @@
             </div>
         </div>
     </section>
+
+    <!-- نافذة الشات -->
+    <div class="chat-modal" id="chatModal">
+        <div class="chat-container">
+            <div class="chat-header">
+                <div class="chat-header-content">
+                    <div class="chat-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="chat-title">
+                        <h2>VORANIX Assistant</h2>
+                        <p>Recruitment & Scripts Bot</p>
+                    </div>
+                    <div class="chat-status">
+                        <i class="fas fa-circle"></i>
+                        <span>Online</span>
+                    </div>
+                </div>
+                <button class="chat-close" onclick="closeChatModal()">×</button>
+            </div>
+            
+            <div class="messages-container" id="messagesContainer">
+                <!-- الرسائل ستظهر هنا -->
+            </div>
+            
+            <div class="typing-indicator" id="typingIndicator">
+                <div class="typing-bubble">
+                    <div class="typing-content">
+                        <div class="typing-text">Typing</div>
+                        <div class="typing-dots">
+                            <div class="typing-dot"></div>
+                            <div class="typing-dot"></div>
+                            <div class="typing-dot"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="input-container">
+                <input type="text" id="messageInput" placeholder="Type your message or select a button..." autocomplete="off">
+                <button id="sendButton"><i class="fas fa-paper-plane"></i></button>
+            </div>
+            
+            <button class="clear-chat" onclick="clearChat()">
+                <i class="fas fa-trash"></i>
+                Clear Chat
+            </button>
+        </div>
+    </div>
 
     <div class="v-reveal-overlay" id="vRevealOverlay">
         <div class="v-particles" id="vParticles"></div>
@@ -1249,229 +1820,451 @@
     </div>
 
     <script>
-        // إضافة متغير لتتبع حالة الصوت
+        // ============ النظام الرئيسي ============
         let soundPlayed = false;
         let isMuted = false;
-
-        // متغيرات شريط التمرير
         let scrollIndicatorShown = false;
         let scrollIndicatorHidden = false;
-
-        // Posts data - UPDATED WITH REAL JOB OFFERS
-        const posts = [
-            // Active Offers
-            "🔥 VORANIX IS HIRING – Upselling Specialist (Remote) 🔥\n\nVORANIX is expanding, and we're looking for confident, high-energy sales talent to join our upselling team.\n\nRequirements:\n• Strong experience in sales or cold calling\n• C1 English level\n• Comfortable with high-volume outbound calls\n• Competitive mindset and strong closing skills\n\nShift: 6 PM – 3 AM Egypt time\nSalary: 20,000 EGP NET\nFull-time – Remote\n\nReady to join VORANIX? Apply now!",
-            
-            "⚡ VORANIX is Hiring – Teleperformance ⚡\nPosition: Customer Service Representative\n\n💰 Benefits:\n• Salary up to 18,500 EGP NET\n• Paid Training\n• Social & Medical Insurance\n• Transportation Provided\n• Gym Access\n\n✅ Requirements:\n• Egyptians Only\n• English B1+ – C1\n• Graduates, Dropouts, Gap-Year Students\n• Flexible with rotational shifts\n\n🕐 Shifts: Rotational 24/7",
-            
-            "🔥 WE'RE HIRING 🔥\nPosition: Call Center Agent / Cold Calling\nWork From Home\nPayment: Paid in USD 💵\n\n💰 Salary Package: 20,000 EGP Net + Unlimited commissions\n✅ Requirements: No Experience Required\nOwn tools required (laptop, Headset, Good internet connection)\n\n🎯 Weekly & monthly performance bonuses\nFlexible, remote work environment\nFast-paced, supportive team culture",
-            
-            "🎯 We're Hiring! – Tele-Sales Agent (Female)\n💰 Salary: 7,000 EGP + Commission\n🕐 Working Hours: 11 AM to 7 PM\n\n✨ Requirements:\n• Minimum 6 months of Tele-sales experience\n• Fluent in Arabic and good in English\n• Graduate, motivated, and eager to achieve targets\n\n📋 Job Description:\n• Contacting potential clients\n• Identifying their needs\n• Presenting suitable projects\n• Following up until the deal is closed!\n\n🌍 Location: Villa 184, Banfseg 4, 1st Settlement.",
-            
-            "⚡ VORANIX Is Hiring – English Cold Calling Agents ⚡\nWe are expanding our English Account!\n\nRequirements:\n• Fluent English (B2+ or C1 level)\n• Experience in Telesales or Cold Calling\n• Strong Communication and Negotiation Skills\n\nSalary Compensation:\n• 0-1 year experience: 20,000 EGP\n• 2-3 years experience: 25,000 EGP\n• 4-5+ years experience: 30,000 EGP\n\nForeigners can apply with active Egyptian bank account",
-            
-            "⚡ VORANIX Is Hiring – German Cold Calling Agents ⚡\nGerman Account Expansion!\n\nRequirements:\n• German Speaker (B2+/C1 Level)\n• English (B1/B2 Level)\n• Experience in Telesales or Cold Calling\n\n💰 Salary Package:\n• 30,000 EGP Net Salary\n• + 2,000 EGP KPIs\n• + 3,000 EGP Transportation\n• + Commissions\n✨ 35,000 EGP Gross (excluding commissions)",
-            
-            "⚡ VORANIX Is Hiring – Italian Cold Calling Agents ⚡\nItalian Account Expansion!\n\nRequirements:\n• Italian Speaker (B2+/C1 Level)\n• English (B1/B2 Level)\n• Experience in Telesales or Cold Calling\n\n💰 Salary Package:\n• 25,000 EGP Net Salary\n• + 2,000 EGP KPIs\n• + 3,000 EGP Transportation\n• + Commissions\n✨ 30,000 EGP Gross (excluding commissions)",
-            
-            "🔥 VORANIX IS HIRING!\nJoin Outsourcing Skill — USA Account\nNo experience needed – we train and pay while learning!\n\nWho We Want:\n• Undergraduates, graduates, and foreigners\n• Motivation and good English\n\nWhat We Offer:\n• Paid Training: EGP 200/day\n• US Shifts: 3 PM – 12 AM\n• Work from Home after 1 month\n• Weekends Off\n• Net Salary: EGP 10K – 12K + Unlimited Commission\n\nLocation: Maadi",
-            
-            "🏨 Hotel Survey Agent Position Available!\nLocation: Sheraton\n\nRequirements:\n• Fluent English Speakers\n• Call Center Experience is a plus\n• Graduates & Undergraduates welcome\n\n💰 Package:\n• Basic Salary: 12,000 EGP\n• KPIS: 2000 EGP\n• Unlimited Commission + Performance Bonus\n• Medical Insurance After 3 Months\n\n🕐 Shifts: 3:30 PM – 2:00 AM",
-            
-            "🌍 Creative Basket – Travel Industry 🌍\nPosition: Telesales (Opener)\nLocation: Makram Ebeid, Nasr City\n\nRequirements:\n• English level B2–C1 (must)\n• Minimum 3 months telesales experience (travel industry)\n\nOffer:\n• Basic salary 9K – 15K (based on experience)\n• Transportation allowance included\n• Commission: $1 per night\n• Shift: 3:00 PM – 12:00 AM",
-            
-            "🔥 WE'RE HIRING TELESALES SUPERSTARS! 🔥\nLooking to level up your career?\n\n💰 Salary: 15K – 20K NET\n💵 Uncapped USD Commission (Avg 350$)\n\n✨ Requirements:\n• C1 English level\n• Graduates, dropouts, or gap year\n• Previous Sales experience\n• Flexibility with night shifts\n\n💎 Benefits:\n• Social & Medical insurance after 6 months\n• Strong learning & development curve\n• Exciting Launching Account 🚀\n\n🕒 Shifts: 3:45 PM – 1:00 AM or 4:00 PM – 1:30 AM",
-            
-            "🦇 VORANIX is hiring for InTouchcx English 🦇\nCustomer Service Account (voice, mails, chats)\n\n✅ Online interview\n✅ Preferably Experience in customer service\n• English – B2 & above\n\n💰 Salary: 21k Gross per month\n• Rotational shifts and days off\n• Transportation provided\n• Door to door after 9 PM for girls\n• Insurance\n\n✅ Ready to start 24th of November\n📍 Location: Maadi",
-            
-            "🇫🇷 Hiring – Bilingual French Customer Service Account\n(voice customer support)\n\n✅ Onsite interview\n✅ No previous experience required\n✅ Egyptians only\n✅ Graduates only\n\nRequirements:\n• French: C1\n• English: B2\n• Male candidates: Military status verified\n\n💰 Salary Package: 39,000 EGP Gross\n📌 Rotational shifts\n📌 Transportation provided\n📌 Medical & Social Insurance\n\n✅ Ready to start 27th of October\n📍 Location: El Sheikh Zayed",
-            
-            "🇪🇸 VORANIX is hiring for Spanish Call Center Account\n(voice customer support)\n\n✅ Online interview\n✅ CS Experience is a Must\n\nLanguage Requirements:\n• Spanish – B2\n• English – B2\n\n💰 Salary: 30,000 EGP Gross per month\n• Rotational shifts\n• Transportation provided\n• Door to door after 9 PM for girls\n• Insurance\n\n✅ Ready to start immediately\n📍 Location: Maadi",
-            
-            "🇩🇪 Hiring – Bilingual German Customer Service Account\n(voice customer support)\n\n✅ Online interview\n✅ Egyptians & Foreigners welcome\n✅ Grads, Gap year, Dropout\n\nRequirements:\n• German: B2\n• English: B2\n• 6 months of GDS experience is a must\n\n💰 Salary Package: 47,000 EGP Gross\n📌 Rotational shifts and days off\n📌 Transportation provided\n📌 Medical & Social Insurance\n\n📍 Location: Maadi",
-            
-            "💸 Wanna get paid in dollars?\nBusiness developer representatives for US account\n\n✅ Net salary: 345$\n✅ Transportation allowance: 42$\n✅ KPIs: 30$\n✅ Commission in dollars 💸\n✅ Medical and social after 3 months\n✅ Saturday and Sunday off\n✅ Shift: 3.30 pm till 12:30 am\n✅ Experience in cold calling for 6 months is a must\n✅ Location: Maadi\n✅ Training: 3 weeks fully paid dollars\n• C1 speakers only",
-            
-            "🎯 Hiring – Telesales Agents for UK Account! 🇬🇧\n\n💬 Who We're Looking For:\n• Excellent to Fluent English (B2–C1 Level)\n• British Accent (Preferably)\n• No experience needed – full training provided!\n• Egyptians only (19–28 years old)\n• Graduates, undergrads, gap years & dropouts welcome!\n\n💰 What You'll Get:\n• 12,000 EGP Net Salary\n• + 1,000 EGP KPIs bonus\n• + Unlimited Commissions!\n• Paid Training\n• Optional Benefits Packages\n• Clear Growth Opportunities\n\n🕒 Fixed Shift: 3 PM – 11 PM\n📅 Saturday & Sunday Off\n📍 Location: Nasr City",
-            
-            "🎯 Hiring – Telesales Agents for UK Account! 🇬🇧\nSecond Shift Available!\n\n💬 Requirements:\n• Excellent to Fluent English (B2–C1 Level)\n• British Accent (Preferably)\n• No experience needed\n• Egyptians only (19–28 years old)\n\n💰 Package:\n• 12,000 EGP Net Salary\n• + 1,000 EGP KPIs bonus\n• + Unlimited Commissions!\n• Paid Training\n\n🕒 Fixed Shift: 12:00 PM – 8:00 PM\n📅 Saturday & Sunday Off\n📍 Location: Nasr City",
-            
-            "🇺🇸 HIRING Fluent/Excellent English Speakers!\nCNS Marketing Solutions - USA Campaign\n\nRequirements:\n• Fluent/Excellent command of English\n• No experience needed\n• Graduates & Undergraduates welcome\n\n💰 Salary: 10K Basic + Commissions UP to 20K 💸\n🕒 Working days: Monday - Friday\n• Saturday and Sunday OFF\n• Fixed shift: 3:00 till 11:00 PM\n• 5 Days Training (Paid)\n\n📍 Location: Nasr City",
-            
-            "📢 Hiring Now – Telesales (U.S. Account)\n\nBenefits:\n• Transportation (Door-to-Door) for females\n• Salary: 10,000 EGP NET + Commission\n• Paid Training (upon passing)\n\nRequirements:\n• Fluent/Excellent English\n• Fresh graduates & undergraduates welcome\n• No previous experience required\n• Males & Females welcome\n\n🕒 Working Hours: 2:45 PM – 12:00 AM\n📅 Working Days: Monday – Friday\n📍 Location: Makram Ebeid or Abbassiya",
-            
-            "🌍 We're Hiring! Travel Industry Professionals\nCanadian HVAC Account 🇨🇦\n\n💰 Package Includes:\n• 15,000 EGP Net Salary\n• 2,500 EGP KPIs\n• Quarterly Incentives\n• Annual Profit Share\n\nRequirements:\n• English Level: B2 / B2+\n• Egyptians / Foreigners\n• Travel industry experience preferred\n\n🕓 Shift: 3 PM – 12 AM (Night – EST Shift)\n🏠 Work from home after 3 days training\n📍 Location: Maadi",
-            
-            "🔥 We're hiring – Full-Time Acquisition Specialist (Remote)\n\n🕓 Shift: 4:00 PM – 12:00 AM (Cairo time)\n💸 Salary: 215 EGP/hour + commission\n(Average 35,000 EGP/month once fully active)\n\n📞 Requirements:\n• Excellent English skills (C1–C2 level)\n• Previous experience in real estate roles is a MUST\n• Foreigners can apply\n• Remote setup available",
-            
-            "🎧 We're Hiring! Inbound Customer Service Agent 💬\n\n💼 Campaign: Inbound Customer Service\n🌍 Nationality: Egyptians only\n🎓 Education: Graduates only\n🗣️ Language: English\n💻 Type: Email & Voice support\n\n🕓 Shift: 4 PM – 1 AM\n💰 Salary Package:\n• Basic: 13,000 EGP\n• Attendance Bonus: 2,500 EGP\n• KPI Bonus: 2,500 EGP\n• Transport Allowance: 1,100 EGP\n\n📋 Written Test Required",
-            
-            "🎧 We're Hiring! Inbound Customer Service Agent 💬\nSecond Position Available\n\n💼 Campaign: Inbound Customer Service\n🌍 Nationality: Up to 20% foreigners allowed\n🎓 Education: Graduates or Gap Year only\n🗣️ Language: English\n💻 Type: Email & Voice support\n\n🕓 Shift: 4 PM – 1 AM\n💰 Salary Package:\n• Basic: 11,000 EGP\n• Attendance Bonus: 2,000 EGP\n• KPI Bonus: 2,000 EGP\n• Transport Allowance: 1,100 EGP",
-            
-            "🎧 We're Hiring! Inbound Customer Service Agent 💬\nVoice Only Position\n\n💼 Campaign: Inbound Customer Service\n🌍 Nationality: Egyptians only\n🎓 Education: Graduates only\n🗣️ Language: English\n💻 Type: Voice only\n\n🕓 Shift: 4 PM – 1 AM\n💰 Salary Package:\n• Basic: 13,000 EGP\n• Attendance Bonus: 2,500 EGP\n• KPI Bonus: 2,500 EGP\n• Transport Allowance: 1,100 EGP",
-            
-            "🔥 VORANIX is Hiring! 🇵🇹 Portuguese Speakers 🔥\nChat Account Position\n\n💼 Experience: Minimum 6 months in B2B Sales\n🗣️ Portuguese B2 (Monolingual)\n🎓 Undergraduates welcome\n🌍 Foreigners can apply\n\n🌙 Shift: 7:00 PM – 4:00 AM (Fixed Night)\n💰 Salary: 35K EGP (Gross) + Uncapped Commission\n🚗 Transportation Allowance provided\n🧑‍🏫 Training: 1 week (unpaid)\n📍 Location: Nasr City",
-            
-            "🔥 VORANIX is Hiring! 🇹🇷 Turkish Speakers 🔥\nChat Account Position\n\n💼 Experience: Minimum 6 months in B2B Sales\n🗣️ Turkish B2 (Monolingual)\n🎓 Undergraduates welcome\n🌍 Foreigners can apply\n\n🌙 Shift: 3:00 PM – 12:00 AM (Fixed Night)\n💰 Salary: 40K EGP (Gross) + Uncapped Commission\n🚗 Transportation Allowance provided\n🧑‍🏫 Training: 1 week (unpaid)\n📍 Location: Nasr City",
-            
-            "🔥 VORANIX is Hiring! 🇫🇷 French Speakers 🔥\nChat Account Position\n\n💼 Experience: Minimum 6 months in B2B Sales\n🗣️ French B2 (Monolingual)\n🎓 Undergraduates welcome\n🌍 Foreigners can apply\n\n🌙 Shift: 4:00 PM – 1:00 AM (Fixed Night)\n💰 Salary: 27K EGP (Gross) + Uncapped Commission\n🚗 Transportation Allowance provided\n🧑‍🏫 Training: 1 week (unpaid)\n📍 Location: Nasr City",
-            
-            "🔥 VORANIX is Hiring! 🇮🇹 Italian Speakers 🔥\nChat Account Position\n\n💼 Experience: Minimum 6 months in B2B Sales\n🗣️ Italian B2 (Monolingual)\n🎓 Undergraduates welcome\n🌍 Foreigners can apply\n\n🌙 Shift: 2:00 PM – 11:00 PM (Fixed Night)\n💰 Salary: 27K EGP (Gross) + Uncapped Commission\n🚗 Transportation Allowance provided\n🧑‍🏫 Training: 1 week (unpaid)\n📍 Location: Nasr City",
-            
-            "🔥 VORANIX is Hiring! 🇩🇪 German Speakers 🔥\nChat Account Position\n\n💼 Experience: Minimum 6 months in B2B Sales\n🗣️ German B2 (Monolingual)\n🎓 Undergraduates welcome\n🌍 Foreigners can apply\n\n🌙 Shift: 2:00 PM – 11:00 PM (Fixed Night)\n💰 Salary: 45K EGP (Gross) + Uncapped Commission\n🚗 Transportation Allowance provided\n🧑‍🏫 Training: 1 week (unpaid)\n📍 Location: Nasr City",
-            
-            "🚨 We're Hiring! Telesales Team\nJoin with mentorship and real promotion opportunities!\n\n📞 Position: Telesales Representative\n🌍 Shift: US / Australia (10 PM – 7 AM)\n📍 Location: Heliopolis\n💰 Salary: 17,500 EGP Net + commission\n\nWho Can Apply:\n• Egyptians & Foreigners\n• Fresh grads & undergrads\n• No sales experience needed\n• Max age 39\n\n🔥 Motivated and goal-driven candidates only.",
-            
-            "🏥 Job Title: DME Telesales Representative\nLocation: Nasr City\n\nRequirements:\n• Fluent English Speakers\n• DME Experience is a plus\n• Graduates & Undergraduates welcome\n\nPackage:\n• Basic Salary: 10,000 EGP\n• Unlimited Commission\n• Performance Bonus\n\nWorking Hours: 3:00 PM – 11:00 PM\nDays Off: Saturday & Sunday",
-            
-            "💼 Position: Telesales Agent – English Speakers (C1)\nAccount: US Staffing\n\nRequirements:\n• 6 Months Of Telesales Experience\n• C1 English Level\n\n💰 Salary:\n• 11,500 EGP basic\n• + 2,000 EGP KPI's\n• + commission\n\n📍 Location: Tahrir\n👤 Age Limit: up to 30\n🕒 Shifts: Fixed evening shifts (US hours)\n🚗 Transportation allowance provided",
-            
-            "VORANIX is hiring For Evolve Marketing LLC\nPosition: Telemarketer Agent\n\nLocation: Heliopolis\nShift: 4:00 PM – 12:00 AM (Monday – Friday)\nTransportation: Night drop-off for females\n\nRequirements:\n• English level B2–C1\n• Clear military status\n• Available to start beginning of next month\n\n💰 Offer & Benefits:\n• Basic Salary + KPIs: 10,000 EGP\n• Commission: 2,200 – 10,000 EGP\n• Total Package: Up to 20,000 EGP\n• Medical & Social Insurance\n• Paid Training",
-            
-            "We're Hiring – Customer Service Representative\nLocation: Tahrir, Downtown Cairo\n\n🕒 Shifts:\n• 4 to 12:30 AM\n• 6 to 2:30 AM\n• 8 to 4:30 AM\n(Rotational as per business needs)\n\n💰 Salary: Up to 15,000 EGP\n(Basic 11500 + transportation 1650 + 2k KPI'S)\n\nRequirements:\n✔ Fluent in English\n✔ Experience in customer service\n✔ Strong communication skills\n✔ Strong Technical background",
-            
-            "✈️ Travel Advisor Position\nNear shore area - B1 English level\n\nRequirements:\n• Experience in hotel reservations and booking is a must\n• Basic salary 9K net + Commission\n• Medical and social insurance after 3 months\n• Career growth opportunity\n\n🕒 Shifts: 2 rotation shifts from 10 AM to 10 PM\n(9 working hours including 1 hour break)\n📍 Location: Tahrir-Elboustan Mall, Downtown Cairo\n🌍 Foreigners are welcome",
-            
-            "📞 Telesales DME Account\n\nRequirements:\n• English speakers B2\n• Egyptians and Sudanese can apply\n• Undergraduates are preferred\n• Age: 17 to 27\n\n💰 Salary: 9K net + Commissions up to 20k\n🕒 Fixed shifts: 3.30 to 11.30 PM\n📍 Location: Nasr City\n\n✅ No experience needed\n✅ No transportation provided\n✅ Interviews: 12pm to 1:30pm",
-            
-            "🇬🇧 Telesales agents - UK account\n\n💰 Salary: Earn up to 13k + unlimited commission\n🕒 Fixed shift: Monday - Friday (12:15pm - 8:30 pm)\n📅 Saturday & Sunday OFF\n\n👥 Requirements:\n• Undergrads, Grads welcome\n• Solid B2 English speakers or above\n• Social & medical insurance\n📍 Location: Maadi",
-            
-            "👨‍💼 Team-leader position - UK account\n\n💰 Salary: 10k (negotiable) + unlimited commission\n🕒 Fixed shift: Monday - Friday (12:15 pm - 8:30 pm)\n📅 Saturday and Sunday OFF\n\n👥 Requirements:\n• Undergrads Graduates welcome\n• Experience in call center industry is a MUST\n• Social & medical insurance\n📍 Location: Maadi",
-            
-            "👨‍🏫 Telesales Trainer Position\n\nRequirements:\n• C1 English level\n• Experience in call center industry\n\nBenefits:\n• Social & Medical Insurance\n• Attractive Salary + unlimited commission\n• Fixed Morning shift (12:15 pm - 8:30 pm)\n• Fixed days off (Saturdays & Sundays)\n\n💰 Salary based on interview evaluation\n👥 Grads, Undergrads welcome\n📍 Location: Maadi",
-            
-            "💼 Medical Travel Advisor Position\n📍 Location: Nasr City\n\n🗓 Working Days: Monday – Saturday\n⏰ Shifts (fixed, no rotation):\n• 2 PM – 10 PM\n• 8 PM – 4 AM\n• 10 PM – 6 AM\n\n💰 Compensation Package:\n• 16,500 EGP NET\n• Uncapped Commission (avg. $300+)\n• Quarterly Bonus\n• Annual Bonus = 50% of total annual commission\n\n⚡ Requirements:\n• Fluent English (B2 or higher)\n• Strong communication skills",
-            
-            "🚀 Stereo Outsourcing is hiring Sales professionals!\nHighest salaries in market for DME\n\nBenefits:\n• Healthy Working environment\n• Most competitive salaries: 12k Basic + uncapped commission\n• Fixed shifts: Monday to Friday (4PM to 12PM)\n• Saturday and Sunday OFF\n• Daily, Weekly and Monthly Spiffs for top performers\n\nRequirements:\n• Must be energetic and disciplined\n• 6+ months experience on DME\n• English level: B2 to C1\n• Must be able to start right away (No training provided)\n📍 Location: Makram Ebeid, Nasr City\n👥 Students, Grads, Dropouts and foreigners welcome"
-        ];
-
-        // Carousel variables
         let scrollSpeed = 400;
         let scrollInterval;
         let isScrolling = false;
 
-        // دالة لإظهار شريط التمرير
-        function showScrollIndicator() {
-            if (!scrollIndicatorShown) {
-                const scrollIndicator = document.getElementById('scrollIndicator');
-                scrollIndicator.classList.add('visible');
-                scrollIndicatorShown = true;
+        // ============ نظام الشات مع خاصية النسخ ============
+        const chatSystem = {
+            currentStep: 'main_menu',
+            chatHistory: [],
+            companies: [
+                "Leadbull", "Dyninno", "Realogy", "Insource", "OUTSOURCING SKILL", "NAOS",
+                "Telephonic", "Vitrin Clinic", "LTS", "Phoenix", "IntouchCX", "TTC",
+                "HANG-UP Solutions", "CXPERTS", "Ultatek", "CNS", "FOODHUB", "Creative Basket",
+                "Volumex", "BPO HIVE"
+            ],
+            
+            // معالجة الرسائل
+            handleMessage: function(message) {
+                const lowerMessage = message.toLowerCase().trim();
                 
-                // إخفاء شريط التمرير بعد 5 ثوانٍ تلقائيًا
+                // إضافة رسالة المستخدم
+                this.addMessage(message, 'user');
+                
+                // عرض مؤشر الكتابة
+                this.showTypingIndicator();
+                
+                // معالجة الرسالة بعد تأخير
                 setTimeout(() => {
-                    if (!scrollIndicatorHidden) {
-                        hideScrollIndicator();
-                    }
-                }, 5000);
-            }
-        }
-
-        // دالة لإخفاء شريط التمرير
-        function hideScrollIndicator() {
-            const scrollIndicator = document.getElementById('scrollIndicator');
-            scrollIndicator.classList.remove('visible');
-            scrollIndicator.classList.add('hidden');
-            scrollIndicatorHidden = true;
-        }
-
-        // Initialize posts carousel
-        function initPostsCarousel() {
-            const postsTrack = document.getElementById('postsTrack');
-            postsTrack.innerHTML = '';
+                    this.hideTypingIndicator();
+                    const response = this.getBotResponse(message);
+                    this.addMessage(response.text, 'bot', response.buttons);
+                }, 800);
+            },
             
-            posts.forEach((post, index) => {
-                const postItem = document.createElement('div');
-                postItem.className = 'post-item';
-                postItem.setAttribute('data-index', index);
+            // توليد رد البوت
+            getBotResponse: function(message) {
+                const lowerMessage = message.toLowerCase().trim();
                 
-                const postText = document.createElement('div');
-                postText.className = 'post-text';
-                postText.textContent = post;
-                
-                const copyBtn = document.createElement('button');
-                copyBtn.className = 'copy-btn';
-                copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Post';
-                copyBtn.onclick = function() { copyPost(this, index); };
-                
-                postItem.appendChild(postText);
-                postItem.appendChild(copyBtn);
-                postsTrack.appendChild(postItem);
-            });
-        }
-
-        // Scroll posts carousel
-        function scrollPosts(direction) {
-            const postsTrack = document.getElementById('postsTrack');
-            const scrollAmount = 350;
-            
-            if (direction === 'left') {
-                postsTrack.scrollLeft -= scrollAmount;
-            } else {
-                postsTrack.scrollLeft += scrollAmount;
-            }
-        }
-
-        // Start continuous scrolling
-        function startScrolling(direction) {
-            if (isScrolling) return;
-            
-            isScrolling = true;
-            scrollInterval = setInterval(() => {
-                scrollPosts(direction);
-                if (scrollSpeed < 800) {
-                    scrollSpeed += 50;
+                // البدء أو العودة للقائمة
+                if (lowerMessage === '/start' || lowerMessage === 'start' || lowerMessage === 'back 🔙') {
+                    this.currentStep = 'main_menu';
+                    return {
+                        text: "Welcome! 👋\n\nI'm your VORANIX Recruitment Assistant. I'll guide you through our recruitment scripts and templates.\n\nPlease choose what you need from the options below:",
+                        buttons: [
+                            ["Welcome Message", "Send Voice note"],
+                            ["If Accepted ✔", "If Rejected ❌"],
+                            ["Conformation Message", "Form"],
+                            ["Interview Questions", "Back 🔙"]
+                        ]
+                    };
                 }
-            }, 150);
-        }
-
-        // Stop continuous scrolling
-        function stopScrolling() {
-            isScrolling = false;
-            clearInterval(scrollInterval);
-            scrollSpeed = 400;
-        }
-
-        // Theme toggle functionality
-        function toggleTheme() {
-            const themeToggle = document.getElementById('themeToggle');
-            if (themeToggle.innerHTML.includes('bolt')) {
-                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-            } else {
-                themeToggle.innerHTML = '<i class="fas fa-bolt"></i>';
-            }
-        }
-
-        // Sound toggle functionality
-        function toggleSound() {
-            const soundToggle = document.getElementById('soundToggle');
-            const exploreSound = document.getElementById('exploreSound');
+                
+                // التعامل مع الخطوات
+                switch(this.currentStep) {
+                    case 'main_menu':
+                        return this.handleMainMenu(lowerMessage);
+                    case 'conformation_message':
+                        return this.handleConformation(lowerMessage);
+                    default:
+                        this.currentStep = 'main_menu';
+                        return {
+                            text: "Let's start over. Choose what you need:",
+                            buttons: [
+                                ["Welcome Message", "Send Voice note"],
+                                ["If Accepted ✔", "If Rejected ❌"],
+                                ["Conformation Message", "Form"],
+                                ["Interview Questions", "Back 🔙"]
+                            ]
+                        };
+                }
+            },
             
-            isMuted = !isMuted;
+            // معالجة القائمة الرئيسية
+            handleMainMenu: function(message) {
+                let response = {
+                    text: "",
+                    buttons: null
+                };
+                
+                switch(message) {
+                    case 'welcome message':
+                        this.currentStep = 'main_menu';
+                        response.text = "Hello, are you interested in working at a call center? (Work from site)\"\n\nThis is your opening message for new candidates.";
+                        response.buttons = [["If yes", "Back 🔙"]];
+                        break;
+                        
+                    case 'if yes':
+                        this.currentStep = 'main_menu';
+                        response.text = "Nice,\n\nPlease lemme know more details to assist you effectively and recommend a suitable offer & I'll contact u ASAP.\n\n📋 **Required Information:**\n\n1️⃣ Grad or undergrad?\n2️⃣ What about military service?\n3️⃣ Age?\n4️⃣ Location?\n5️⃣ Your language/s level";
+                        response.buttons = [["Back 🔙"]];
+                        break;
+                        
+                    case 'send voice note':
+                        this.currentStep = 'main_menu';
+                        response.text = "Please send a 1-2 minute voice note introducing yourself and sharing your experience, so we can send you the best offer.\n\n**Tips for a good voice note:**\n• Speak clearly and confidently\n• Mention your experience\n• State your career goals\n• Keep it professional";
+                        response.buttons = [["If Voice note sent ✔", "Back 🔙"]];
+                        break;
+                        
+                    case 'if voice note sent ✔':
+                        this.currentStep = 'main_menu';
+                        response.text = "Your request was submitted successfully ✅\n\nFeedback will be provided as soon as possible inshallah for your VN Assessment.\n\n⚠️ **Important:** Please don't apply again for the same offer/company through anyone else to avoid duplication issues.\n\n❤️ Good luck!\n\nℹ️ Just to let you know, not replying doesn't mean you were rejected. You can message me again if 42 hours have passed without reply.";
+                        response.buttons = [["Back 🔙"]];
+                        break;
+                        
+                    case 'if accepted ✔':
+                        this.currentStep = 'main_menu';
+                        response.text = "Hello [Candidate Name], hope you're doing great!\n\nI just wanted to say how much I appreciated your voice note — it's clear that you've put in great effort, and it truly shows.\n\nYour dedication and commitment are really impressive, and while there's always room to grow (as with all of us), you're definitely on the right track.\n\nWe're happy to have you on board and excited to see how you continue to develop your skills!\n\nCongratulations and all the best 🎉";
+                        response.buttons = [["Back 🔙"]];
+                        break;
+                        
+                    case 'if rejected ❌':
+                        this.currentStep = 'main_menu';
+                        response.text = "Hello [Candidate Name],\n\nHope you're doing well! I just wanted to share some quick feedback about your voice note.\n\nAt the moment, your English needs a bit more improvement to reach the level we're targeting. That said, I really appreciate the effort you put in — it shows genuine interest and commitment.\n\nKeep practicing and improving your fluency — you're definitely on your way up!\n\nWe'd be happy to see you again when you feel more ready. 💪";
+                        response.buttons = [["Back 🔙"]];
+                        break;
+                        
+                    case 'conformation message':
+                        this.currentStep = 'conformation_message';
+                        const companyRows = [];
+                        for (let i = 0; i < this.companies.length; i += 2) {
+                            companyRows.push([
+                                this.companies[i],
+                                this.companies[i + 1] || ''
+                            ]);
+                        }
+                        response.text = "Choose the company for the interview confirmation message:";
+                        response.buttons = companyRows;
+                        break;
+                        
+                    case 'form':
+                        this.currentStep = 'main_menu';
+                        response.text = "(Fill in the below data, please.) \n\n📝\n\n• **Full Name:**\n• **Phone:**\n• **National Id:**\n• **Email address:**\n• **Graduation Status:**\n• **Experience:**\n\nPlease send this information to complete your application.";
+                        response.buttons = [["Back 🔙"]];
+                        break;
+                        
+                    case 'interview questions':
+                        this.currentStep = 'main_menu';
+                        response.text = this.getInterviewQuestions();
+                        response.buttons = [["Back 🔙"]];
+                        break;
+                        
+                    default:
+                        response.text = "Please choose from the buttons below 👇";
+                        response.buttons = [
+                            ["Welcome Message", "Send Voice note"],
+                            ["If Accepted ✔", "If Rejected ❌"],
+                            ["Conformation Message", "Form"],
+                            ["Interview Questions", "Back 🔙"]
+                        ];
+                }
+                
+                return response;
+            },
             
-            if (isMuted) {
-                soundToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
-                soundToggle.classList.add('muted');
-                exploreSound.volume = 0;
-            } else {
-                soundToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
-                soundToggle.classList.remove('muted');
-                exploreSound.volume = 0.15;
+            // معالجة تأكيد الشركة
+            handleConformation: function(message) {
+                const lowerMessage = message.toLowerCase();
+                
+                // البحث عن الشركة
+                for (const company of this.companies) {
+                    if (lowerMessage === company.toLowerCase()) {
+                        this.currentStep = 'main_menu';
+                        return {
+                            text: `✅ **Interview Confirmation for ${company}:**\n\nWe are confirming your interview in ${company} tomorrow insha'allah.\n\n📅 **Details:**\n• **Date:** [Add Date]\n• **Time:** [Add Time]\n• **Dress Code:** Smart Casual\n• **Location:** [Add Location]\n\nPlease reply with **"Confirmed"** if you're coming in the stated time above for sure.\n\n⚠️ **Important:** Don't forget to tell them that you are recruited by **"Voranix"**\n\n🎯 Wish you the best of Luck!`,
+                            buttons: [["Back 🔙"]]
+                        };
+                    }
+                }
+                
+                // إذا لم تكن شركة، أعد أزرار الشركات
+                const companyRows = [];
+                for (let i = 0; i < this.companies.length; i += 2) {
+                    companyRows.push([
+                        this.companies[i],
+                        this.companies[i + 1] || ''
+                    ]);
+                }
+                return {
+                    text: "🏢 **Select Company:**\n\nChoose the company for the interview confirmation:",
+                    buttons: companyRows
+                };
+            },
+            
+            // أسئلة المقابلة
+            getInterviewQuestions: function() {
+                return `🎯 **Call Center Interview Questions & Answers:**
+
+📝 **Essential Questions:**
+
+1. **Tell me about yourself**
+   *Sample Answer:*
+   I'm good in communication as a graduate. I like to work with people and help them solve their issues. I want a stable job and I want to learn English, practice customer service.
+
+2. **Why do you want the call center job?**
+   *Sample Answer:*
+   I personally would like to work in a call center to have the ability to improve my communication, enhance my English language acquiring skills and professionally grow where there is defined system.
+
+3. **What do you know about our organization?**
+   *Sample Answer:*
+   I understand your company to be a respected name in the customer service field, and that you offer high quality services to businesses overseas.
+
+4. **How do you deal with a customer who's angry?**
+   *Sample Answer:*
+   I keep my cool, listen tightly to the customer, say I'm sorry it didn't work and try to resolve the problem with a professional approach.
+
+5. **What is customer service?**
+   *Sample Answer:*
+   Customer service is about being of service to the customer, solving their problem and ensuring that they have a positive experience with the company.`;
+            },
+            
+            // إضافة رسالة للشات مع زر النسخ
+            addMessage: function(text, sender, buttons = null) {
+                const messagesContainer = document.getElementById('messagesContainer');
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${sender}-message`;
+                
+                const time = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                
+                messageDiv.innerHTML = `
+                    <div class="message-content">${text}</div>
+                    <div class="message-time">
+                        <i class="far fa-clock"></i>
+                        ${time}
+                    </div>
+                `;
+                
+                // إضافة زر النسخ للرسائل
+                if (sender === 'bot' || sender === 'user') {
+                    const copyBtn = document.createElement('button');
+                    copyBtn.className = 'copy-message-btn';
+                    copyBtn.innerHTML = '<i class="far fa-copy"></i>';
+                    copyBtn.title = 'Copy message';
+                    copyBtn.onclick = (e) => {
+                        e.stopPropagation();
+                        this.copyMessageText(text, copyBtn);
+                    };
+                    messageDiv.appendChild(copyBtn);
+                    
+                    // أيضًا نسخ عند النقر على الرسالة نفسها
+                    messageDiv.addEventListener('click', (e) => {
+                        if (!e.target.classList.contains('copy-message-btn') && 
+                            !e.target.closest('.copy-message-btn') &&
+                            !e.target.closest('.chat-button')) {
+                            this.copyMessageText(text, copyBtn);
+                        }
+                    });
+                }
+                
+                if (buttons && sender === 'bot') {
+                    const buttonsContainer = document.createElement('div');
+                    buttonsContainer.className = 'buttons-container';
+                    
+                    buttons.forEach(row => {
+                        row.forEach(buttonText => {
+                            if (buttonText.trim() !== '') {
+                                const button = document.createElement('button');
+                                button.className = 'chat-button';
+                                button.textContent = buttonText;
+                                button.onclick = () => {
+                                    chatSystem.handleMessage(buttonText);
+                                };
+                                buttonsContainer.appendChild(button);
+                            }
+                        });
+                    });
+                    
+                    messageDiv.appendChild(buttonsContainer);
+                }
+                
+                messagesContainer.appendChild(messageDiv);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                
+                // حفظ في التاريخ
+                this.chatHistory.push({
+                    sender: sender,
+                    text: text,
+                    time: time
+                });
+            },
+            
+            // دالة نسخ نص الرسالة
+            copyMessageText: function(text, button) {
+                // تنظيف النص من علامات HTML البسيطة
+                const cleanText = text
+                    .replace(/\*\*(.*?)\*\*/g, '$1') // إزالة **bold**
+                    .replace(/\n/g, '\n') // الحفاظ على الأسطر الجديدة
+                    .replace(/•/g, '-') // تحويل النقاط
+                    .replace(/[❶-❾]/g, '') // إزالة الأرقام الدائرية
+                    .replace(/[➊-➒]/g, '') // إزالة الأرقام الدائرية الأخرى
+                    .replace(/👉/g, '→') // تحويل الإيموجي
+                    .replace(/🎯/g, '') // إزالة الإيموجي
+                    .replace(/📝/g, '') // إزالة الإيموجي
+                    .replace(/✅/g, '✓') // تحويل الإيموجي
+                    .replace(/⚠️/g, '!') // تحويل الإيموجي
+                    .replace(/❤️/g, '') // إزالة الإيموجي
+                    .replace(/ℹ️/g, '') // إزالة الإيموجي
+                    .replace(/🎉/g, '') // إزالة الإيموجي
+                    .replace(/💪/g, '') // إزالة الإيموجي
+                    .replace(/📋/g, '') // إزالة الإيموجي
+                    .replace(/👋/g, '') // إزالة الإيموجي
+                    .replace(/🎤/g, '') // إزالة الإيموجي
+                    .replace(/🏢/g, '') // إزالة الإيموجي
+                    .replace(/📅/g, '') // إزالة الإيموجي
+                    .replace(/🤖/g, '') // إزالة الإيموجي
+                    .trim();
+                
+                navigator.clipboard.writeText(cleanText).then(() => {
+                    // تغيير لون زر النسخ
+                    button.classList.add('copied');
+                    button.innerHTML = '<i class="fas fa-check"></i>';
+                    
+                    // إظهار إشعار النسخ
+                    this.showCopyNotification();
+                    
+                    // إعادة الزر إلى حالته الأصلية بعد 2 ثانية
+                    setTimeout(() => {
+                        button.classList.remove('copied');
+                        button.innerHTML = '<i class="far fa-copy"></i>';
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy text: ', err);
+                    // محاولة استخدام طريقة بديلة
+                    const textArea = document.createElement('textarea');
+                    textArea.value = cleanText;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                    
+                    // إظهار إشعار النسخ حتى مع الطريقة البديلة
+                    button.classList.add('copied');
+                    button.innerHTML = '<i class="fas fa-check"></i>';
+                    this.showCopyNotification();
+                    
+                    setTimeout(() => {
+                        button.classList.remove('copied');
+                        button.innerHTML = '<i class="far fa-copy"></i>';
+                    }, 2000);
+                });
+            },
+            
+            // إظهار إشعار النسخ
+            showCopyNotification: function() {
+                // إزالة أي إشعارات سابقة
+                const existingNotification = document.querySelector('.copy-notification');
+                if (existingNotification) {
+                    existingNotification.remove();
+                }
+                
+                // إنشاء إشعار جديد
+                const notification = document.createElement('div');
+                notification.className = 'copy-notification';
+                notification.innerHTML = `
+                    <i class="fas fa-check-circle"></i>
+                    <span>Message copied to clipboard!</span>
+                `;
+                
+                document.body.appendChild(notification);
+                
+                // إزالة الإشعار بعد 2 ثانية
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.remove();
+                    }
+                }, 2000);
+            },
+            
+            // عرض مؤشر الكتابة
+            showTypingIndicator: function() {
+                const typingIndicator = document.getElementById('typingIndicator');
+                typingIndicator.style.display = 'block';
+            },
+            
+            // إخفاء مؤشر الكتابة
+            hideTypingIndicator: function() {
+                const typingIndicator = document.getElementById('typingIndicator');
+                typingIndicator.style.display = 'none';
+            },
+            
+            // بدء محادثة جديدة
+            startNewChat: function() {
+                const messagesContainer = document.getElementById('messagesContainer');
+                messagesContainer.innerHTML = '';
+                this.currentStep = 'main_menu';
+                this.chatHistory = [];
+                
+                this.addMessage(
+                    "🤖 **Welcome to VORANIX Recruitment Assistant!**\n\nI'm here to help you with recruitment scripts, interview questions, and templates.\n\nChoose what you need from the options below:",
+                    'bot',
+                    [
+                        ["Welcome Message", "Send Voice note"],
+                        ["If Accepted ✔", "If Rejected ❌"],
+                        ["Conformation Message", "Form"],
+                        ["Interview Questions", "Back 🔙"]
+                    ]
+                );
+            },
+            
+            // مسح الشات
+            clearChat: function() {
+                if (confirm('Are you sure you want to clear the chat?')) {
+                    this.startNewChat();
+                }
             }
+        };
+
+        // ============ دوال فتح وإغلاق الشات ============
+        function openChatModal() {
+            const modal = document.getElementById('chatModal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            // بدء محادثة جديدة
+            setTimeout(() => {
+                chatSystem.startNewChat();
+            }, 300);
         }
 
-        // Reveal services with V animation and play sound
+        function closeChatModal() {
+            const modal = document.getElementById('chatModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function clearChat() {
+            chatSystem.clearChat();
+        }
+
+        // ============ دالة revealServices ============
         function revealServices() {
             if (!soundPlayed && !isMuted) {
                 const exploreSound = document.getElementById('exploreSound');
                 exploreSound.volume = 0.15;
                 exploreSound.play().catch(e => {
-                    console.log("لم يتمكن المتصفح من تشغيل الصوت تلقائياً:", e);
+                    console.log("لم يتمكن المتصفح من تشغيل الصوت:", e);
                 });
                 soundPlayed = true;
             }
             
             const overlay = document.getElementById('vRevealOverlay');
-            const servicesSection = document.querySelector('.services-section');
+            const servicesSection = document.getElementById('services');
             const particlesContainer = document.getElementById('vParticles');
             
             particlesContainer.innerHTML = '';
@@ -1498,16 +2291,149 @@
             
             setTimeout(() => {
                 overlay.classList.remove('active');
-                servicesSection.style.display = 'block';
+                servicesSection.classList.add('revealed');
                 
-                setTimeout(() => {
-                    servicesSection.classList.add('revealed');
-                    showScrollIndicator();
-                }, 50);
+                servicesSection.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                
+                showScrollIndicator();
             }, 1500);
         }
 
-        // Posts modal functionality
+        // ============ دوال مساعدة ============
+        function showScrollIndicator() {
+            if (!scrollIndicatorShown) {
+                const scrollIndicator = document.getElementById('scrollIndicator');
+                scrollIndicator.classList.add('visible');
+                scrollIndicatorShown = true;
+                
+                setTimeout(() => {
+                    if (!scrollIndicatorHidden) {
+                        hideScrollIndicator();
+                    }
+                }, 5000);
+            }
+        }
+
+        function hideScrollIndicator() {
+            const scrollIndicator = document.getElementById('scrollIndicator');
+            scrollIndicator.classList.remove('visible');
+            scrollIndicator.classList.add('hidden');
+            scrollIndicatorHidden = true;
+        }
+
+        function toggleTheme() {
+            const themeToggle = document.getElementById('themeToggle');
+            if (themeToggle.innerHTML.includes('bolt')) {
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            } else {
+                themeToggle.innerHTML = '<i class="fas fa-bolt"></i>';
+            }
+        }
+
+        function toggleSound() {
+            const soundToggle = document.getElementById('soundToggle');
+            const exploreSound = document.getElementById('exploreSound');
+            
+            isMuted = !isMuted;
+            
+            if (isMuted) {
+                soundToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                soundToggle.classList.add('muted');
+                exploreSound.volume = 0;
+            } else {
+                soundToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
+                soundToggle.classList.remove('muted');
+                exploreSound.volume = 0.15;
+            }
+        }
+
+        // ============ تهيئة الصفحة ============
+        document.addEventListener('DOMContentLoaded', function() {
+            // إعداد الشات
+            const messageInput = document.getElementById('messageInput');
+            const sendButton = document.getElementById('sendButton');
+            
+            function sendMessage() {
+                const message = messageInput.value.trim();
+                if (message) {
+                    chatSystem.handleMessage(message);
+                    messageInput.value = '';
+                }
+            }
+            
+            sendButton.addEventListener('click', sendMessage);
+            messageInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+            
+            // إغلاق النوافذ عند النقر خارجها
+            document.getElementById('chatModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeChatModal();
+                }
+            });
+            
+            document.getElementById('postsModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closePostsModal();
+                }
+            });
+            
+            document.getElementById('addPostModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeAddPostModal();
+                }
+            });
+            
+            // إخفاء شريط التمرير
+            window.addEventListener('scroll', function() {
+                if (scrollIndicatorShown && !scrollIndicatorHidden) {
+                    if (window.scrollY > 100) {
+                        hideScrollIndicator();
+                    }
+                }
+            });
+            
+            document.getElementById('scrollIndicator').addEventListener('click', function() {
+                hideScrollIndicator();
+            });
+        });
+
+        // ============ نظام البوستات ============
+        const posts = [
+            "🔥 VORANIX IS HIRING – Upselling Specialist (Remote) 🔥\n\nVORANIX is expanding, and we're looking for confident, high-energy sales talent to join our upselling team.\n\nRequirements:\n• Strong experience in sales or cold calling\n• C1 English level\n• Comfortable with high-volume outbound calls\n• Competitive mindset and strong closing skills\n\nShift: 6 PM – 3 AM Egypt time\nSalary: 20,000 EGP NET\nFull-time – Remote\n\nReady to join VORANIX? Apply now!",
+            // ... باقي البوستات
+        ];
+
+        function initPostsCarousel() {
+            const postsTrack = document.getElementById('postsTrack');
+            postsTrack.innerHTML = '';
+            
+            posts.forEach((post, index) => {
+                const postItem = document.createElement('div');
+                postItem.className = 'post-item';
+                postItem.setAttribute('data-index', index);
+                
+                const postText = document.createElement('div');
+                postText.className = 'post-text';
+                postText.textContent = post;
+                
+                const copyBtn = document.createElement('button');
+                copyBtn.className = 'copy-btn';
+                copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Post';
+                copyBtn.onclick = function() { copyPost(this, index); };
+                
+                postItem.appendChild(postText);
+                postItem.appendChild(copyBtn);
+                postsTrack.appendChild(postItem);
+            });
+        }
+
         function openPostsModal() {
             document.getElementById('postsModal').classList.add('active');
             initPostsCarousel();
@@ -1517,7 +2443,6 @@
             document.getElementById('postsModal').classList.remove('active');
         }
 
-        // Add post modal functionality
         function openAddPostModal() {
             document.getElementById('addPostModal').classList.add('active');
         }
@@ -1526,7 +2451,6 @@
             document.getElementById('addPostModal').classList.remove('active');
         }
 
-        // Save custom post
         function saveCustomPost() {
             const postText = document.getElementById('customPostText').value.trim();
             if (postText) {
@@ -1540,7 +2464,6 @@
             }
         }
 
-        // Select random post
         function selectRandomPost() {
             const postItems = document.querySelectorAll('.post-item');
             postItems.forEach(item => item.classList.remove('highlight'));
@@ -1552,7 +2475,6 @@
             selectedPost.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
         }
 
-        // Copy post text
         function copyPost(button, index) {
             const text = posts[index];
             navigator.clipboard.writeText(text).then(() => {
@@ -1569,7 +2491,6 @@
             });
         }
 
-        // Transition animation for external links
         function handleCardClick(url, type) {
             const overlay = document.getElementById('transitionOverlay');
             const container = document.getElementById('animationContainer');
@@ -1585,10 +2506,6 @@
                 case 'form':
                     container.innerHTML = '<div class="form-animation"><div class="form-line"></div><div class="form-line"></div><div class="form-line"></div></div>';
                     text.textContent = 'Loading Form...';
-                    break;
-                case 'bot':
-                    container.innerHTML = '<i class="fas fa-robot bot-animation"></i>';
-                    text.textContent = 'Opening Telegram Bot...';
                     break;
                 case 'matching':
                     container.innerHTML = '<i class="fas fa-robot bot-animation"></i>';
@@ -1607,60 +2524,9 @@
             }, 1200);
         }
 
-        // Close modals when clicking outside
-        window.onclick = function(event) {
-            const postsModal = document.getElementById('postsModal');
-            const addPostModal = document.getElementById('addPostModal');
-            
-            if (event.target === postsModal) {
-                closePostsModal();
-            }
-            
-            if (event.target === addPostModal) {
-                closeAddPostModal();
-            }
-        }
-
-        // Initialize posts carousel on page load
+        // تهيئة الكاروسيل عند التحميل
         document.addEventListener('DOMContentLoaded', function() {
             initPostsCarousel();
-            
-            const leftBtn = document.getElementById('leftBtn');
-            const rightBtn = document.getElementById('rightBtn');
-            
-            leftBtn.addEventListener('click', () => scrollPosts('left'));
-            rightBtn.addEventListener('click', () => scrollPosts('right'));
-            
-            leftBtn.addEventListener('mousedown', () => startScrolling('left'));
-            rightBtn.addEventListener('mousedown', () => startScrolling('right'));
-            
-            document.addEventListener('mouseup', stopScrolling);
-            
-            leftBtn.addEventListener('touchstart', (e) => {
-                e.preventDefault();
-                startScrolling('left');
-            });
-            
-            rightBtn.addEventListener('touchstart', (e) => {
-                e.preventDefault();
-                startScrolling('right');
-            });
-            
-            document.addEventListener('touchend', stopScrolling);
-            
-            // إخفاء شريط التمرير عند التمرير لأسفل
-            window.addEventListener('scroll', function() {
-                if (scrollIndicatorShown && !scrollIndicatorHidden) {
-                    if (window.scrollY > 100) {
-                        hideScrollIndicator();
-                    }
-                }
-            });
-
-            // إخفاء شريط التمرير عند النقر عليه
-            document.getElementById('scrollIndicator').addEventListener('click', function() {
-                hideScrollIndicator();
-            });
         });
     </script>
 </body>
