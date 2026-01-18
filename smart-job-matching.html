@@ -22,6 +22,9 @@
             --voranix-red-light: #ff4d4d;
             --voranix-green: #2ecc71;
             --voranix-yellow: #f1c40f;
+            --voranix-blue: #3498db;
+            --voranix-purple: #9b59b6;
+            --voranix-orange: #e67e22;
             --text-primary: #ffffff;
             --text-secondary: #cccccc;
             --border-color: #333333;
@@ -640,6 +643,25 @@
             color: var(--voranix-yellow);
             border: 1px solid rgba(241, 196, 15, 0.3);
         }
+        
+        .badge-remote {
+            background-color: rgba(52, 152, 219, 0.2);
+            color: var(--voranix-blue);
+            border: 1px solid rgba(52, 152, 219, 0.3);
+        }
+        
+        .badge-language-special {
+            background-color: rgba(155, 89, 182, 0.2);
+            color: var(--voranix-purple);
+            border: 1px solid rgba(155, 89, 182, 0.3);
+        }
+        
+        /* Language flags in job cards */
+        .language-flag {
+            display: inline-block;
+            margin-right: 5px;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
@@ -772,6 +794,48 @@
                                         <option value="C2">C2 (Proficient)</option>
                                     </select>
                                 </div>
+                                <div class="language-checkbox">
+                                    <label>
+                                        <input type="checkbox" class="lang-checkbox" value="portuguese" data-level="portugueseLevel">
+                                        Portuguese
+                                    </label>
+                                    <select class="lang-level" id="portugueseLevel" disabled>
+                                        <option value="A1">A1 (Beginner)</option>
+                                        <option value="A2">A2 (Elementary)</option>
+                                        <option value="B1">B1 (Intermediate)</option>
+                                        <option value="B2">B2 (Upper Intermediate)</option>
+                                        <option value="C1">C1 (Advanced)</option>
+                                        <option value="C2">C2 (Proficient)</option>
+                                    </select>
+                                </div>
+                                <div class="language-checkbox">
+                                    <label>
+                                        <input type="checkbox" class="lang-checkbox" value="turkish" data-level="turkishLevel">
+                                        Turkish
+                                    </label>
+                                    <select class="lang-level" id="turkishLevel" disabled>
+                                        <option value="A1">A1 (Beginner)</option>
+                                        <option value="A2">A2 (Elementary)</option>
+                                        <option value="B1">B1 (Intermediate)</option>
+                                        <option value="B2">B2 (Upper Intermediate)</option>
+                                        <option value="C1">C1 (Advanced)</option>
+                                        <option value="C2">C2 (Proficient)</option>
+                                    </select>
+                                </div>
+                                <div class="language-checkbox">
+                                    <label>
+                                        <input type="checkbox" class="lang-checkbox" value="greek" data-level="greekLevel">
+                                        Greek
+                                    </label>
+                                    <select class="lang-level" id="greekLevel" disabled>
+                                        <option value="A1">A1 (Beginner)</option>
+                                        <option value="A2">A2 (Elementary)</option>
+                                        <option value="B1">B1 (Intermediate)</option>
+                                        <option value="B2">B2 (Upper Intermediate)</option>
+                                        <option value="C1">C1 (Advanced)</option>
+                                        <option value="C2">C2 (Proficient)</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         
@@ -784,6 +848,9 @@
                                 <option value="new-cairo">New Cairo</option>
                                 <option value="downtown">Downtown Cairo</option>
                                 <option value="alexandria">Alexandria</option>
+                                <option value="october-city">October City</option>
+                                <option value="heliopolis">Heliopolis</option>
+                                <option value="smart-village">Smart Village</option>
                                 <option value="remote">Work From Home</option>
                                 <option value="any">Any Location</option>
                             </select>
@@ -795,6 +862,7 @@
                                 <option value="egyptian">Egyptian</option>
                                 <option value="foreigner">Foreigner</option>
                                 <option value="both">Both Egyptian & Foreigner</option>
+                                <option value="egyptian-sudanese">Egyptian & Sudanese</option>
                             </select>
                         </div>
                         
@@ -874,21 +942,32 @@
             </div>
         </div>
     </div>
-    
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-logo">VORANIX</div>
-            <div class="footer-tagline">Connecting Talent with Opportunity</div>
-            <div class="copyright">© 2023 VORANIX. All rights reserved.</div>
-        </div>
-    </footer>
-    
+
     <script>
-        // Job offers data - extracted from the provided text with new offers added
+        // Job offers data - UPDATED WITH 52 OFFERS
         const jobOffers = [
             {
                 id: 1,
+                status: "Active",
+                company: "Evolve Marketing LLC",
+                account: "Telemarketing",
+                shifts: "Fixed Shifts 4:00 PM To 12:00 PM",
+                interview: "Monday To Friday From 6PM To 9PM",
+                location: "Masr El gedida - Heliopolis",
+                graduation: "undergrads /grads/ gap year / dropouts",
+                nationality: "Egyptians Only",
+                maxAge: 30,
+                language: "B2/C1",
+                languageRequirement: "B2",
+                salary: "20K Package",
+                process: "They directly go to the interview after filling the form",
+                training: "2 Weeks",
+                details: "VORANIX is hiring For Evolve Marketing LLC – Telemarketer Agent. Location: Heliopolis. Shift: 4:00 PM – 12:00 AM (Monday – Friday). Transportation: Night drop-off points for females (after training week). Requirements: English level B2–C1 (must). Clear military status (postponed/exempted/completed). Available to start beginning of next month. No prior commitments with other employers. Offer & Benefits: Total Package: Up to 20,000 EGP. Medical & Social Insurance provided. Paid Training & Evaluation.",
+                locationType: "office",
+                targetLanguage: "english"
+            },
+            {
+                id: 2,
                 status: "Active",
                 company: "Teleperformance",
                 account: "Customer Service",
@@ -908,7 +987,527 @@
                 targetLanguage: "english"
             },
             {
-                id: 2,
+                id: 3,
+                status: "Active",
+                company: "Buzz (Alex)",
+                account: "SDR",
+                shifts: "Fixed Shift 11:00 AM to 7:30 PM",
+                interview: "Call Interview",
+                location: "Alexandria",
+                graduation: "Undergrads - Grads - Dropout - Gap year",
+                nationality: "Egyptians Only",
+                maxAge: 39,
+                language: "English B2+ → C1",
+                languageRequirement: "B2",
+                salary: "Salary Range is 15K to 30K",
+                process: "They Receive a Call Interview",
+                training: "Not specified",
+                details: "Sales Development Representatives position in Alexandria. Requirements: English Level C1, minimum 1.5 years of sales experience. Salary: 15,000 – 30,000 EGP. Work Mode: Remote for the first 3 months then office-based in Alexandria. Working Hours: 11:00 AM – 7:30 PM.",
+                locationType: "office",
+                targetLanguage: "english"
+            },
+            {
+                id: 4,
+                status: "Active",
+                company: "Buzz Italian",
+                account: "SDR",
+                shifts: "Fixed Shift 11:00 AM to 7:30 PM",
+                interview: "Call Interview",
+                location: "Nasr City",
+                graduation: "Undergrads - Grads - Dropout - Gap year",
+                nationality: "Egyptians Only",
+                maxAge: 39,
+                language: "B2+ Italian, B1 English",
+                languageRequirement: "B2",
+                salary: "Salary Range is 30K to 35K",
+                process: "They Receive a Call Interview",
+                training: "Not specified",
+                details: "Italian Cold Calling Agents for Italian Account. Requirements: Italian Speaker (B2+/C1 Level) & English (B1/B2 Level). Experience in Telesales or Cold Calling. Salary: 25,000 EGP Net Salary + 2,000 EGP KPIs + 3,000 EGP Transportation + Commissions. Total: 30,000 EGP Gross (excluding commissions). Foreigners can apply only if they have an active bank account in Egypt.",
+                locationType: "office",
+                targetLanguage: "italian"
+            },
+            {
+                id: 5,
+                status: "Active",
+                company: "Buzz Greek",
+                account: "SDR",
+                shifts: "Fixed Shift 11:00 AM to 7:30 PM",
+                interview: "Call Interview",
+                location: "Nasr City, Alexandria",
+                graduation: "Undergrads - Grads - Dropout - Gap year",
+                nationality: "Egyptians Only",
+                maxAge: 39,
+                language: "B2+ Greek, B1 English",
+                languageRequirement: "B2",
+                salary: "Salary Range is 25K to 35K",
+                process: "They Receive a Call Interview",
+                training: "Not specified",
+                details: "Greek Speaker (B2+/C1) with English B1/B2. Telesales/Customer Service Experience. Salary: 25K – 30K EGP Gross (Commissions excluded).",
+                locationType: "office",
+                targetLanguage: "greek"
+            },
+            {
+                id: 6,
+                status: "Active",
+                company: "Buzz B1",
+                account: "SDR",
+                shifts: "Fixed Shift 11:00 AM to 7:30 PM",
+                interview: "Call Interview",
+                location: "Nasr City",
+                graduation: "Undergrads - Grads - Dropout - Gap year",
+                nationality: "Egyptians Only",
+                maxAge: 39,
+                language: "English B1",
+                languageRequirement: "B1",
+                salary: "Negotiable",
+                process: "They Receive a Call Interview",
+                training: "Not specified",
+                details: "Arabic Account needing English B1. Senior Telesales/Senior Sales. Fixed Shift: 11:00 AM – 7:30 PM. Egyptians Only. Max Age 39. Experience Required: 5+ years in Telesales or Sales. Salary: Negotiable.",
+                locationType: "office",
+                targetLanguage: "arabic"
+            },
+            {
+                id: 7,
+                status: "Active",
+                company: "WGS",
+                account: "B2B Cold Calling",
+                shifts: "4:00 PM To 11:00 PM",
+                interview: "Online Interview",
+                location: "Nasr City",
+                graduation: "undergrads /grads/ gap year / dropouts",
+                nationality: "Egyptians / Foreigners",
+                maxAge: 35,
+                language: "B2+/C1",
+                languageRequirement: "B2",
+                salary: "10K Net + 1.5K Kpis + 1.5K Allowance+ 20$ per closed deal",
+                process: "They Receive a Call Interview",
+                training: "Not specified",
+                details: "Cold Calling Campaign (B2B). Shift: 4:00 PM – 11:00 PM (45 mins break). Monday to Friday, Days Off: Saturday & Sunday (Fixed). Salary: 10,000 EGP NET + 1,500 EGP KPIs + 1,500 EGP Allowance + $20 per closed deal. Work Options: Work From Home after a certain period or Hybrid. Minimum 3 months experience in Cold Calling / Telesales / Customer Service. English Level: B2+ / C1. Egyptians & Foreigners inside Egypt are welcome.",
+                locationType: "office",
+                targetLanguage: "english"
+            },
+            {
+                id: 8,
+                status: "Active",
+                company: "ABS",
+                account: "Solar Campaign",
+                shifts: "4:00 PM To 1:00 AM",
+                interview: "Online Interviews",
+                location: "Nasr City",
+                graduation: "Undergrads - Grads - Dropout - Gap year",
+                nationality: "Egyptians Only",
+                maxAge: 35,
+                language: "English B2+ → C1",
+                languageRequirement: "B2",
+                salary: "15K Net + 1.5K Kpis + 1.5K Allowance+ 25$ per closed deal",
+                process: "They Receive a Call Interview",
+                training: "Not specified",
+                details: "Solar Campaign. Shift: 4:00 PM – 1:00 AM (1-hour and 30 mins break). Monday to Friday, Days Off: Saturday & Sunday (Fixed). Salary: 15,000 EGP NET + 1,500 EGP KPIs + 1,500 EGP Allowance + $25 per closed deal. Work Options: Work From Home after a certain period or Hybrid. Minimum 3 months experience in Cold Calling / Telesales / Customer Service. English Level: B2+ / C1. Egyptians & Foreigners inside Egypt are welcome.",
+                locationType: "office",
+                targetLanguage: "english"
+            },
+            {
+                id: 9,
+                status: "Active",
+                company: "Octopus Arabic",
+                account: "Telesales",
+                shifts: "4:00Pm till 1:00Am / 6:00Pm till 3:00Am",
+                interview: "From 12Pm to 4Pm",
+                location: "Alexandria",
+                graduation: "Grads Only",
+                nationality: "Egyptians Only",
+                maxAge: 38,
+                language: "A2/B1 English",
+                languageRequirement: "A2",
+                salary: "17.5K Net + Social and Medical insurance",
+                process: "They directly go to the interview after filling the form",
+                training: "Not specified",
+                details: "Telesales Debt Settlement. English Level: B2+. Egyptians only. Max Age: 35. Undergraduates can apply. Salary & Benefits: Net Salary: 17,500 EGP, Social Insurance, Medical Insurance. Fixed Shifts: 1st Shift: 4:00 PM – 1:00 AM, 2nd Shift: 6:00 PM – 3:00 AM. Days Off: 2 rotational days off.",
+                locationType: "office",
+                targetLanguage: "english"
+            },
+            {
+                id: 10,
+                status: "Active",
+                company: "Octopus Spanish",
+                account: "Telesales",
+                shifts: "Rotational Shifts",
+                interview: "Phone Interview",
+                location: "Alexandria",
+                graduation: "Grads Only",
+                nationality: "Egyptians Only",
+                maxAge: 38,
+                language: "B2 Spanish, B1 English",
+                languageRequirement: "B2",
+                salary: "23,000 – 25,000 EGP (Based on language proficiency)",
+                process: "They Receive a Call Interview",
+                training: "Paid training",
+                details: "Spanish Account (Bilingual). Flexible rotational shifts (24/7) and days off – Males & Females. Graduates / Undergraduates (no commitments). B2 Spanish/English B1. Salary: 23,000 – 25,000 EGP (Based on language proficiency). Transportation provided and door to door for Females starting 12Am. No experience required.",
+                locationType: "office",
+                targetLanguage: "spanish"
+            },
+            {
+                id: 11,
+                status: "Active",
+                company: "FOODHUB",
+                account: "Telesales",
+                shifts: "Fixed Shifts 2:00 PM To 11:00 PM",
+                interview: "Monday To Thursday From 3 PM To 9:00 PM",
+                location: "October City",
+                graduation: "Grads Only",
+                nationality: "Egyptians Only",
+                maxAge: 40,
+                language: "B2/C1 + Exp in Telesales",
+                languageRequirement: "B2",
+                salary: "Basic 17K + Commission",
+                process: "They directly go to the interview after filling the form",
+                training: "2 Weeks",
+                details: "Food hub offer: 12k basic + 3k kpis+ 1k sales bonus + 1k medical insurance. Basic 17k + unlimited commission. Transportation provided. Grads only, males only. Fixed Shifts: from 2pm to 11pm. Paid training. Experience: minimum 6 months in telesales.",
+                locationType: "office",
+                targetLanguage: "english"
+            },
+            {
+                id: 12,
+                status: "Active",
+                company: "IntouchCX English 🇺🇸",
+                account: "Customer Service",
+                shifts: "Rotational Shifts",
+                interview: "Validation, then assessment, then virtual interview",
+                location: "Maadi",
+                graduation: "Grads Only",
+                nationality: "Egyptians Only",
+                maxAge: 47,
+                language: "English B2",
+                languageRequirement: "B2",
+                salary: "21K Gross",
+                process: "Validation, then assessment, then virtual interview",
+                training: "30 days",
+                details: "InTouchcx English (voice, mails, chats customer service). Online interview. Experience in CS is a MUST. Language Requirements: English – B2 & above. Salary: 21k Gross per month. Rotational shifts and days off. Transportation provided door to door after 9 PM for girls. Insurance.",
+                locationType: "office",
+                targetLanguage: "english"
+            },
+            {
+                id: 13,
+                status: "Active",
+                company: "Datalytics",
+                account: "USA Account",
+                shifts: "Fixed Shifts 2:45 PM To 12 PM",
+                interview: "Monday To Friday From 6 PM To 8 PM",
+                location: "Elmokattam",
+                graduation: "undergrads /grads/ gap year / dropouts",
+                nationality: "Egyptians / Foreigners",
+                maxAge: 35,
+                language: "C1",
+                languageRequirement: "C1",
+                salary: "15K up to 20K Net + Uncapped Commission in USD",
+                process: "They directly go to the interview after filling the form",
+                training: "30 days",
+                details: "Telesales position with salary 15K – 20K NET + Uncapped USD Commission (Avg 350$). Requirements: C1 English level, graduates/dropouts/gap year, previous sales experience, flexibility with night shifts. Benefits: Social & Medical insurance after 6 months, strong learning & development curve.",
+                locationType: "office",
+                targetLanguage: "english"
+            },
+            {
+                id: 14,
+                status: "Active",
+                company: "HANG-UP Solutions",
+                account: "DME ACCOUNT (FULL TIME)",
+                shifts: "Fixed Shifts 3:00 PM To 12:00 PM",
+                interview: "Monday To Thursday From 4 PM To 8 PM",
+                location: "Nasr City",
+                graduation: "undergrads /grads/ gap year / dropouts",
+                nationality: "Egyptians Only",
+                maxAge: 27,
+                language: "English B2",
+                languageRequirement: "B2",
+                salary: "10K + Commission",
+                process: "They directly go to the interview after filling the form",
+                training: "Not specified",
+                details: "Telesales (U.S. Account). Benefits: Transportation (Door-to-Door) for females (on the way back). Salary: 10,000 EGP NET + Attractive Commission (starting from 2,000+ EGP). Paid Training (upon passing training). Requirements: Fluent/Excellent command of English. Fresh graduates & undergraduates are welcome. No previous experience required. Males & Females are welcome. Working Days: Monday – Friday. Working Hours: 2:45 PM – 12:00 AM.",
+                locationType: "office",
+                targetLanguage: "english"
+            },
+            {
+                id: 15,
+                status: "Active",
+                company: "IntouchCX (FRENCH)",
+                account: "Customer Service",
+                shifts: "Rotational shifts",
+                interview: "Validation, then assessment, then virtual interview",
+                location: "Maadi",
+                graduation: "Grads Only",
+                nationality: "Egyptians / Foreigners",
+                maxAge: 47,
+                language: "C1 French, B2 English",
+                languageRequirement: "C1",
+                salary: "34K Gross",
+                process: "Validation, then assessment, then virtual interview",
+                training: "30 days",
+                details: "Bilingual French Customer Service Account - call center role (voice customer support). Onsite interview (candidates will first receive a call from the recruitment team). 6 months CS experience. Egyptians only. Graduates only. Requirements: French: C1, English: B2. For male candidates: Military status must be verified. Salary Package: 34,000 EGP Gross. Rotational shifts and days off. Transportation provided (optional – allowance deducted if used). Medical & Social Insurance.",
+                locationType: "office",
+                targetLanguage: "french"
+            },
+            {
+                id: 16,
+                status: "Active",
+                company: "Leadbull",
+                account: "Canadian HVAC Account",
+                shifts: "Fixed Shifts 3:00 PM To 12:00 PM",
+                interview: "Validation, then assessment, then virtual interview",
+                location: "Maadi",
+                graduation: "grads/ gap year / dropouts",
+                nationality: "Egyptians / Foreigners",
+                maxAge: 35,
+                language: "B2/C1",
+                languageRequirement: "B2",
+                salary: "Basic 15K + 2.5 K KPIs + Commission & Spiffs",
+                process: "Validation, then assessment, then virtual interview",
+                training: "30 Days , Paid if the candidate passed",
+                details: "Join our Canadian Telesales Account. Package Includes: 15,000 EGP Net Salary, 2,500 EGP KPIs, Quarterly Incentives, Annual Profit Share. Requirements: English Level: B2 / B2+, Egyptians / Foreigners. Shift: 3 PM – 12 AM (Night – EST Shift). Work from home after 3 days training.",
+                locationType: "office",
+                targetLanguage: "english"
+            },
+            {
+                id: 17,
+                status: "Active",
+                company: "IntouchCX (Spanish 🇪🇸)",
+                account: "Customer Service",
+                shifts: "Rotational shifts",
+                interview: "Validation, then assessment, then virtual interview",
+                location: "Maadi",
+                graduation: "Grads/ Gap year/ Dropout",
+                nationality: "Egyptians / Foreigners",
+                maxAge: 47,
+                language: "B2 Spanish, B2 English",
+                languageRequirement: "B2",
+                salary: "30K Gross",
+                process: "Validation, then assessment, then virtual interview",
+                training: "30 days",
+                details: "Spanish Call Center Account (voice customer support). Online interview. CS Experience is a Must. Language Requirements: Spanish – B2, English – B2. Salary: 30,000 EGP Gross per month. Rotational shifts and days. Transportation provided door to door after 9 PM for girls. Insurance.",
+                locationType: "office",
+                targetLanguage: "spanish"
+            },
+            {
+                id: 18,
+                status: "Active",
+                company: "IntouchCX (German 🇩🇪)",
+                account: "Customer Service",
+                shifts: "Rotational shifts",
+                interview: "Validation, then assessment, then virtual interview",
+                location: "Maadi",
+                graduation: "Grads/ Gap year/ Dropout",
+                nationality: "Egyptians / Foreigners",
+                maxAge: 47,
+                language: "B2 German, B2 English",
+                languageRequirement: "B2",
+                salary: "54K Gross",
+                process: "Validation, then assessment, then virtual interview",
+                training: "30 days",
+                details: "Bilingual German Customer Service Account (voice customer support). Online interview. Egyptians & Foreigners with a valid work permit are welcome. Grads, Gap year, Dropout. Requirements: German: B2, English: B2. 6 months of GDS experience is a must. Salary Package: 47,000 EGP Gross. Rotational shifts and days off. Transportation provided (optional – allowance deducted if used). Medical & Social Insurance.",
+                locationType: "office",
+                targetLanguage: "german"
+            },
+            {
+                id: 19,
+                status: "Active",
+                company: "Ultatek",
+                account: "US Account",
+                shifts: "Fixed Shifts 3:30 PM To 12:30 PM",
+                interview: "Call Interview",
+                location: "Maadi",
+                graduation: "undergrads /grads/ gap year / dropouts",
+                nationality: "Egyptians Only",
+                maxAge: 47,
+                language: "B2+/C1",
+                languageRequirement: "C1",
+                salary: "Basic 345$ + KPIS & Transportation Allowance",
+                process: "They Receive a Call Interview",
+                training: "30 days",
+                details: "Business developer representatives for an appointment setter US account. Immediate hiring! Net salary: 345$, Transportation allowance:42$, KPIs:30$, commission in dollars. Medical and social and contract after 3 months probation. Saturday and Sunday off. Shift: 3.30 pm till 12:30 am.",
+                locationType: "office",
+                targetLanguage: "english"
+            },
+            {
+                id: 20,
+                status: "Active",
+                company: "TTC",
+                account: "US Account",
+                shifts: "Fixed 3:00Pm till 11:00Pm",
+                interview: "Monday To Friday From 3 PM To 5 PM",
+                location: "Alexandria (Fleming)",
+                graduation: "Grads / Undergrads / Gap Year / Drop out",
+                nationality: "Egyptians Only",
+                maxAge: 30,
+                language: "English C1",
+                languageRequirement: "C1",
+                salary: "300$ + 30$ KPIs + 27$ trans allowance",
+                process: "They directly go to the interview after filling the form",
+                training: "30 days",
+                details: "Business developer representative for an appointment setter US account in Alex. Net salary: 300$, Transportation allowance:27$, KPIs:30$ (based on adherence and performance), Uncapped commissions in dollars. Medical and social contract after 3 months probation. Saturday and Sunday off. Training from 3 weeks fully paid dollars. Shift: from 3:30 till 12:30. Experience in cold calling for 6 months is Must. English level C1.",
+                locationType: "office",
+                targetLanguage: "english"
+            },
+            {
+                id: 21,
+                status: "Active",
+                company: "TTC",
+                account: "UK Account",
+                shifts: "Fixed 12:00PM till 8:00PM",
+                interview: "Monday To Friday From 3 PM To 5 PM",
+                location: "Nasr City",
+                graduation: "Grads / Undergrads / Gap Year / Drop out",
+                nationality: "Egyptians Only",
+                maxAge: 28,
+                language: "English B2+",
+                languageRequirement: "B2",
+                salary: "12k Net + Commissions starts from 2k + 1k KPIS",
+                process: "They directly go to the interview after filling the form",
+                training: "30 days",
+                details: "Telesales Agents for a UK Account. Requirements: Excellent to Fluent English (B2–C1 Level), British Accent (Preferably), No experience needed, Egyptians only (19–28 years old). Salary: 12,000 EGP Net + 1,000 EGP KPIs bonus + Unlimited Commissions. Paid Training. Fixed Shift: 3 PM – 11 PM (1-hour break included). Saturday & Sunday Off – Fixed Weekends!",
+                locationType: "office",
+                targetLanguage: "english"
+            },
+            {
+                id: 22,
+                status: "Active",
+                company: "CNS",
+                account: "USA ACCOUNT",
+                shifts: "Fixed 3:00Pm till 11:00Pm",
+                interview: "Monday to Friday 4:30Pm till 8:30Pm",
+                location: "Nasr City",
+                graduation: "undergrads /grads/ gap year / dropouts",
+                nationality: "Egyptians / Sudanese",
+                maxAge: 27,
+                language: "English B2/B2+",
+                languageRequirement: "B2",
+                salary: "10k Net + Commissions up to 20k",
+                process: "They directly go to the interview after filling the form",
+                training: "3 weeks",
+                details: "Fluent/Excellent English Speakers for Telesales Vacancy in USA Campaign. No experience needed. Graduates & Undergraduates are welcome. Working days: Monday - Friday. Saturdays and Sundays are OFF. 5 Days Training (Paid). Salary: 10K Basic salary + Commissions UP to 20K.",
+                locationType: "office",
+                targetLanguage: "english"
+            },
+            {
+                id: 23,
+                status: "Active",
+                company: "CXPERTS",
+                account: "Telesales Account",
+                shifts: "Fixed Shifts 4:30 PM To 1:00 AM",
+                interview: "Monday To Friday From 4 To 9 PM",
+                location: "Nasr City",
+                graduation: "female & males grads / undergrads",
+                nationality: "Egyptians / Foreigners",
+                maxAge: 30,
+                language: "B2+ / C1",
+                languageRequirement: "B2",
+                salary: "Basic Salary 11.5K + 2K Kpis",
+                process: "They directly go to the interview after filling the form",
+                training: "1~2 Weeks",
+                details: "Telesales Agent – English Speakers (C1). Account: US Staffing. Requirements: 1-2 Years Of Telesales Experience. Salary: 11,500 EGP basic + 2,000 EGP KPI's + commission. Location: Tahrir. Age Limit: up to 30. Shifts: Fixed evening shifts (US hours). Benefits: Transportation allowance provided.",
+                locationType: "office",
+                targetLanguage: "english"
+            },
+            {
+                id: 24,
+                status: "Active",
+                company: "Creative Basket",
+                account: "Travel Advisor",
+                shifts: "Fixed Shifts 3:00 PM To 12:00 PM",
+                interview: "Monday To Thursday From 3 PM To 7 PM",
+                location: "Nasr City",
+                graduation: "undergrads /grads/ gap year / dropouts",
+                nationality: "Egyptians / Foreigners",
+                maxAge: 35,
+                language: "B2/C1",
+                languageRequirement: "B2",
+                salary: "From 9K Up to 15K Depends on the Experience",
+                process: "They directly go to the interview after filling the form",
+                training: "2 Weeks",
+                details: "Travel Industry Telesales (Opener) position. Requirements: English level B2–C1 (must). Minimum 3 months telesales experience (travel industry is a must). Offer: Basic salary 9K – 15K (based on experience). Transportation allowance included. Commission: $1 per night.",
+                locationType: "office",
+                targetLanguage: "english"
+            },
+            {
+                id: 25,
+                status: "Active",
+                company: "Realogy",
+                account: "Real Estate",
+                shifts: "Fixed Shifts 11:00 AM To 7:00 PM",
+                interview: "Call Interviews",
+                location: "Tahrir, DownTown",
+                graduation: "Grads Only",
+                nationality: "Egyptians Only",
+                maxAge: 20,
+                language: "English B1",
+                languageRequirement: "B1",
+                salary: "7K Net + Commission",
+                process: "They directly go to the interview after filling the form",
+                training: "Not specified",
+                details: "Tele-Sales Agent (Female). Salary: 7,000 EGP. Working Hours: From 11 AM to 7 PM. Requirements: Minimum 6 months of Tele-sales experience (a must). Fluent in Arabic and good in English. Graduate, motivated, and eager to achieve targets. Job Description: We provide fresh leads, and you'll be responsible for contacting potential clients, identifying their needs, presenting the suitable project, scheduling meetings (online or physical), following up until the deal is closed!",
+                locationType: "office",
+                targetLanguage: "english"
+            },
+            {
+                id: 26,
+                status: "Active",
+                company: "BuzzCx English 🇺🇸",
+                account: "UK Account",
+                shifts: "Fixed Shifts 1:00 PM till 9:30 PM",
+                interview: "Call Interview",
+                location: "Nasr City",
+                graduation: "Grads/Undergrads",
+                nationality: "Egyptians / Foreigners",
+                maxAge: 31,
+                language: "English B2+/C1",
+                languageRequirement: "B2",
+                salary: "20K–30K basic salary, depending on experience",
+                process: "They Receive a Call Interview",
+                training: "1 Month",
+                details: "English Cold Calling Agents. We are expanding our English Account and looking for confident, motivated Cold Calling Agents. Fluent English (B2+ or C1 level). Experience in Telesales or Cold Calling is a strong advantage. Salary Compensation: 0 to 1 year experience: 20,000 EGP; 2 to 3 years experience: 25,000 EGP; 4 to 5+ years experience: 30,000 EGP. All packages include base salary, KPIs, and transportation allowance. Foreigners can apply only if they have an active bank account in Egypt.",
+                locationType: "office",
+                targetLanguage: "english"
+            },
+            {
+                id: 27,
+                status: "Active",
+                company: "BuzzCx German 🇩🇪",
+                account: "UK Account",
+                shifts: "Fixed Shifts 1:00 PM till 9:30 PM",
+                interview: "Call Interview",
+                location: "Nasr City",
+                graduation: "Grads/Undergrads",
+                nationality: "Egyptians / Foreigners",
+                maxAge: 31,
+                language: "German B2+/C1, English B1/B2",
+                languageRequirement: "B2",
+                salary: "35K including (KPIs / Transportation) + Commission",
+                process: "They Receive a Call Interview",
+                training: "1 Month",
+                details: "German Cold Calling Agents. German Speaker (B2+/C1 Level) & English (B1/B2 Level). Experience in Telesales or Cold Calling. Salary Compensation (German Account): 30,000 EGP Net Salary + 2,000 EGP KPIs + 3,000 EGP Transportation + Commissions. Total: 35,000 EGP Gross (excluding commissions). Foreigners can apply only if they have an active bank account in Egypt.",
+                locationType: "office",
+                targetLanguage: "german"
+            },
+            {
+                id: 28,
+                status: "Active",
+                company: "BuzzCx Italian 🇮🇹",
+                account: "UK Account",
+                shifts: "Fixed Shifts 1:00 PM till 9:30 PM",
+                interview: "Call Interview",
+                location: "Nasr City",
+                graduation: "Grads/Undergrads",
+                nationality: "Egyptians / Foreigners",
+                maxAge: 31,
+                language: "Italian B2+/C1, English B1/B2",
+                languageRequirement: "B2",
+                salary: "30K including (KPIs / Transportation) + Commission",
+                process: "They Receive a Call Interview",
+                training: "1 Month",
+                details: "Italian Cold Calling Agents. Italian Speaker (B2+/C1 Level) & English (B1/B2 Level). Experience in Telesales or Cold Calling. Salary Compensation (Italian Account): 25,000 EGP Net Salary + 2,000 EGP KPIs + 3,000 EGP Transportation + Commissions. Total: 30,000 EGP Gross (excluding commissions). Foreigners can apply only if they have an active bank account in Egypt.",
+                locationType: "office",
+                targetLanguage: "italian"
+            },
+            {
+                id: 29,
                 status: "Active",
                 company: "BPO HIVE",
                 account: "US Account",
@@ -928,7 +1527,107 @@
                 targetLanguage: "english"
             },
             {
-                id: 3,
+                id: 30,
+                status: "Active",
+                company: "LTS",
+                account: "Survey Agent",
+                shifts: "Fixed Shifts",
+                interview: "Phone Interview",
+                location: "Sheraton",
+                graduation: "undergrads /grads/ gap year / dropouts",
+                nationality: "Egyptians Only",
+                maxAge: 35,
+                language: "B2/C1",
+                languageRequirement: "B2",
+                salary: "Basic 12K + 2K KPIS + Commission",
+                process: "They Receive a Call Interview",
+                training: "30 Days",
+                details: "Hotel Survey Agent position. Requirements: Fluent English Speakers, Call Center Experience is a plus (not required), Graduates & Undergraduates are welcome. Package: Basic Salary: 12,000 EGP, KPIS: 2000 EGP, Unlimited Commission, Performance Bonus, Medical Insurance After 3 Months. The first shift starts at 3:30 PM, and the last shift ends at 2:00 AM.",
+                locationType: "office",
+                targetLanguage: "english"
+            },
+            {
+                id: 31,
+                status: "Active",
+                company: "OUTSOURCING SKILL",
+                account: "DME Account",
+                shifts: "Fixed shift 3:00PM TO 12:00AM",
+                interview: "Monday To Thursday From 4 PM To 6 PM",
+                location: "Maadi",
+                graduation: "Grads/Undergrads",
+                nationality: "Egyptians/Foreigners",
+                maxAge: 30,
+                language: "English B2",
+                languageRequirement: "B2",
+                salary: "10K to 12K Net + Commission",
+                process: "They Receive a Call Interview",
+                training: "1 Month",
+                details: "Join Outsourcing Skill — USA Account for a high-reward telesales career. No experience needed we train and pay you while learning. Who We Want: Undergraduates, graduates, and foreigners. Motivation and good English. What We Offer: Paid Training: EGP 200/day. US Shifts: 3 PM – 12 AM (Females until 11 PM). Work from Home after 1 month. Weekends Off. Net Salary: EGP 10K – 12K + Unlimited Commission. Weekly Payouts + Gifts + Loyalty Bonus.",
+                locationType: "office",
+                targetLanguage: "english"
+            },
+            {
+                id: 32,
+                status: "Active",
+                company: "Callix",
+                account: "DME Account",
+                shifts: "Boys : 3:00PM TO 12:00 AM / Girls : 3:00PM TO 11:00 PM",
+                interview: "Monday To Friday From 3:30 PM To 10:00 PM",
+                location: "Nasr City",
+                graduation: "Grads/Undergrads",
+                nationality: "Egyptians/Foreigners (Except from South Sudan)",
+                maxAge: 27,
+                language: "English B1+/C1",
+                languageRequirement: "B1",
+                salary: "10K Net + Commission",
+                process: "They directly go to the interview after filling the form",
+                training: "2 weeks",
+                details: "Telesales Representative. Full-time, from office. Working Hours: Boys: 3 PM – 12 AM, Girls: 3 PM – 11 PM. Who Can Apply: Age between 18 to 30 years old. Graduates or Undergraduates (without attendance / gap year welcome). Foreigners accepted except from South Sudan or non-Arab countries. Strong communication skills and a positive attitude. What We Offer: Basic salary: EGP 10,000 + Unlimited commission! A dynamic and supportive work environment.",
+                locationType: "office",
+                targetLanguage: "english"
+            },
+            {
+                id: 33,
+                status: "Active",
+                company: "HANG-UP Solutions",
+                account: "DME ACCOUNT (PART TIME)",
+                shifts: "Fixed Shifts 7:00 PM To 12:00 PM",
+                interview: "Monday To Thursday From 4 PM To 8 PM",
+                location: "Nasr City",
+                graduation: "Grads / Undergrads (females Only)",
+                nationality: "Egyptians / Foreigners",
+                maxAge: 38,
+                language: "English B2",
+                languageRequirement: "B2",
+                salary: "5K + Commission",
+                process: "They directly go to the interview after filling the form",
+                training: "1 Week",
+                details: "Part-Time (Work From Home) for DME Account. Salary: EGP 5,000 + Commission. Shift: 7:00 PM to 12:00 AM. Break: 30 minutes. Setup: Fully remote after training. Training: 1 week on-site. After training you will work from home. Training is paid upon successful completion. Requirements: Stable internet connection, Headset and laptop or PC, Excellent English proficiency.",
+                locationType: "remote",
+                targetLanguage: "english"
+            },
+            {
+                id: 34,
+                status: "Active",
+                company: "Dyninno",
+                account: "Travel Sales Consultant",
+                shifts: "Rotational Shifts",
+                interview: "Call Interview",
+                location: "Smart Village (Giza residents) / New Cairo (Cairo residents)",
+                graduation: "Grads Only",
+                nationality: "Egyptians Only",
+                maxAge: 47,
+                language: "English C1",
+                languageRequirement: "C1",
+                salary: "Basic 10.5K + Commission in USD",
+                process: "They Receive a Call Interview",
+                training: "1 Month",
+                details: "Ready to start your career with a multinational company in the travel industry? You'll be helping customers from the US, UK, and Canada find and book the best flight deals. Your role includes handling calls, providing excellent travel solutions. Requirements: Graduates only (certificate required), Egyptian nationality, Fluent English speakers (C1 level or above), Minimum 1 year of call center experience (Sales or Customer Service), Flexibility to work fixed night or overnight shifts. What You'll Get: Unlimited performance-based bonus in USD, EGP 10,500 net salary (take-home), Medical, social & life insurance (AXA), Transportation provided.",
+                locationType: "office",
+                targetLanguage: "english"
+            },
+            {
+                id: 35,
                 status: "Active",
                 company: "IntouchCX (French 🇫🇷)",
                 account: "Customer Service",
@@ -943,32 +1642,272 @@
                 salary: "39k Gross",
                 process: "Validation, then assessment, then virtual interview",
                 training: "30 days",
-                details: "Bilingual French Customer Service Account - call center role (voice customer support). Onsite interview (candidates will first receive a call from the recruitment team). No previous experience required. Egyptians only. Graduates only. Requirements: French C1, English B2.",
+                details: "Bilingual French Customer Service Account - call center role (voice customer support). Onsite interview (candidates will first receive a call from the recruitment team). No previous experience required. Egyptians only. Graduates only. Requirements: French C1, English B2. Salary Package: 39,000 EGP Gross. Rotational shifts and days off. Transportation provided (optional – allowance deducted if used). Medical & Social Insurance.",
                 locationType: "office",
                 targetLanguage: "french"
             },
             {
-                id: 4,
+                id: 36,
                 status: "Active",
-                company: "Creative Basket",
-                account: "Travel Advisor",
-                shifts: "Fixed Shifts 3:00 PM To 12:00 PM",
-                interview: "Monday To Thursday From 3 PM To 7 PM",
-                location: "Nasr City",
-                graduation: "undergrads /grads/ gap year / dropouts",
+                company: "Insource",
+                account: "Customer Service",
+                shifts: "Rotational shifts",
+                interview: "Validation, then assessment, then virtual interview",
+                location: "Maadi",
+                graduation: "Grads",
                 nationality: "Egyptians / Foreigners",
-                maxAge: 40,
-                language: "B2/C1",
+                maxAge: 47,
+                language: "B2 French, B2 English",
                 languageRequirement: "B2",
-                salary: "From 9K Up to 15K Depends on the Experience",
-                process: "They directly go to the interview after filling the form",
-                training: "2 Weeks",
-                details: "Travel Industry Telesales (Opener) position. Requirements: English level B2–C1 (must). Minimum 3 months telesales experience (travel industry is a must). Offer: Basic salary 9K – 15K (based on experience). Transportation allowance included. Commission: $1 per night.",
+                salary: "47K Gross",
+                process: "Validation, then assessment, then virtual interview",
+                training: "30 days",
+                details: "Bilingual French Customer Service Account (voice customer support). Online interview. Egyptians & Foreigners with a valid work permit are welcome. Grads. Requirements: French: B2, English: B2. 6 months of GDS experience is a must. Salary Package: 37,000 EGP Gross. Rotational shifts and days off. Transportation provided (optional – allowance deducted if used). Medical & Social Insurance.",
+                locationType: "office",
+                targetLanguage: "french"
+            },
+            {
+                id: 37,
+                status: "Active",
+                company: "VolumeX",
+                account: "DME Account",
+                shifts: "Fixed Shifts 4:00 PM To 12:00 AM",
+                interview: "Virtual Interview",
+                location: "WFH",
+                graduation: "Grads/Undergrads",
+                nationality: "Egyptians / Foreigners",
+                maxAge: 30,
+                language: "English C1/C2",
+                languageRequirement: "C1",
+                salary: "215 EGP Per Hour + Commission",
+                process: "They receive a phone call interview",
+                training: "2 weeks",
+                details: "Full-Time Acquisition Specialist (Remote). Shift: 4:00 PM – 12:00 AM (Cairo time). Salary: 215 EGP/hour + attractive commission (Average 35,000 EGP/month once fully active). Requirements: Excellent English skills (C1–C2 level, written & spoken), previous experience in real estate roles is a MUST (cold calling, lead manager, appointment setter, or acquisitions). Foreigners can apply. Remote setup available.",
+                locationType: "remote",
+                targetLanguage: "english"
+            },
+            {
+                id: 38,
+                status: "Active",
+                company: "N A O S",
+                account: "Inbound Customer Service Agent (Email,Voice)",
+                shifts: "Fixed 4:00Pm till 1:00Am",
+                interview: "Monday To Friday From 5:00 PM To 7:00 PM",
+                location: "Maadi",
+                graduation: "Grads Only",
+                nationality: "Egyptians only",
+                maxAge: 29,
+                language: "English B2/C1",
+                languageRequirement: "B2",
+                salary: "13K Net + 2.5K Bonus + 2.5 KPIS",
+                process: "They receive a phone call interview",
+                training: "5 days",
+                details: "Inbound Customer Service Agent. Campaign Type: Inbound Customer Service. Nationality: Egyptians only. Education: Graduates only (no undergrads). Language: English. Interaction Type: Email & Voice support. Shift: 4 PM – 1 AM. Break: 1 hour. Days Off: Thursday & Friday. Salary Package: Basic: 13,000 EGP, Attendance Bonus: 2,500 EGP, KPI Bonus: 2,500 EGP, Transport Allowance: around 1,100 EGP. No commissions. Written Test: Required. Training: 5 days (by NAOS).",
                 locationType: "office",
                 targetLanguage: "english"
             },
             {
-                id: 5,
+                id: 39,
+                status: "Active",
+                company: "N A O S",
+                account: "Inbound Customer Service Agent (Email,Voice)",
+                shifts: "Fixed 4:00Pm till 1:00Am",
+                interview: "Monday To Friday From 5:00 PM To 7:00 PM",
+                location: "Maadi",
+                graduation: "Grads / Gap Year",
+                nationality: "Up to 20% foreigners allowed (Egyptians preferred)",
+                maxAge: 29,
+                language: "English B2/C1",
+                languageRequirement: "B2",
+                salary: "11K Net + 2K Bonus + 2K KPIs",
+                process: "They receive a phone call interview",
+                training: "5 days",
+                details: "Inbound Customer Service Agent. Campaign Type: Inbound Customer Service. Nationality: Up to 20% foreigners allowed (Egyptians preferred). Education: Graduates or Gap Year only — No undergrads. Language: English. Interaction Type: Email & Voice support. Working Hours: 8 hours (4 PM – 1 AM). Break: 1 hour. Days Off: Saturday & Sunday. Salary Package: Basic: 11,000 EGP, Attendance Bonus: 2,000 EGP, KPI Bonus: 2,000 EGP, Transport Allowance: around 1,100 EGP. No commissions. Written Test: Required.",
+                locationType: "office",
+                targetLanguage: "english"
+            },
+            {
+                id: 40,
+                status: "Active",
+                company: "N A O S",
+                account: "Inbound Customer Service Agent (Email,Voice)",
+                shifts: "Fixed 4:00Pm till 1:00Am",
+                interview: "Monday To Friday From 5:00 PM To 7:00 PM",
+                location: "Maadi",
+                graduation: "Grads Only",
+                nationality: "Egyptians only",
+                maxAge: 29,
+                language: "English B2/C1",
+                languageRequirement: "B2",
+                salary: "11K Net + 2K Bonus + 2K KPIs",
+                process: "They receive a phone call interview",
+                training: "5 days",
+                details: "Inbound Customer Service Agent. Campaign Type: Inbound Customer Service. Nationality: Egyptians only. Education: Graduates only – No undergrads. Language: English. Interaction Type: Email & Voice support. Shift: 4 PM – 1 AM. Break: 1 hour. Days Off: Saturday & Sunday. Salary Package: Basic: 11,000 EGP, Attendance Bonus: 2,000 EGP, KPI Bonus: 2,000 EGP, Transport Allowance: around 1,200 EGP. No commissions. Written Test: Required. Training Duration: Normal Length (around 5 days).",
+                locationType: "office",
+                targetLanguage: "english"
+            },
+            {
+                id: 41,
+                status: "Active",
+                company: "N A O S",
+                account: "Inbound Customer Service Agent (Voice)",
+                shifts: "Fixed 4:00Pm till 1:00Am",
+                interview: "Monday To Friday From 5:00 PM To 7:00 PM",
+                location: "Maadi",
+                graduation: "Grads Only",
+                nationality: "Egyptians only",
+                maxAge: 29,
+                language: "English B2/C1",
+                languageRequirement: "B2",
+                salary: "13K Net + 2.5K Bonus + 2.5K KPIs",
+                process: "They receive a phone call interview",
+                training: "5 days",
+                details: "Inbound Customer Service Agent. Campaign Type: Inbound Customer Service. Nationality: Egyptians only. Education: Graduates only – No undergrads. Language: English. Interaction Type: Voice only. Working Hours: 8 hours (4 PM – 1 AM). Break: 1 hour. Days Off: Thursday & Friday. Salary Package: Basic: 13,000 EGP, Attendance Bonus: 2,500 EGP, KPI Bonus: 2,500 EGP, Transport Allowance: around 1,100 EGP. No commissions. Written Test: Required. Training Duration: Short (around 5 days).",
+                locationType: "office",
+                targetLanguage: "english"
+            },
+            {
+                id: 42,
+                status: "Active",
+                company: "Telephonic Portuguese 🇵🇹",
+                account: "Chat Account",
+                shifts: "Fixed 7:00Pm till 4:00Am",
+                interview: "Phone interview",
+                location: "Nasr City",
+                graduation: "undergrads /grads/ gap year / dropouts",
+                nationality: "Egyptians / Foreigners",
+                maxAge: 29,
+                language: "Portuguese B2",
+                languageRequirement: "B2",
+                salary: "35K Gross + Uncapped Commission",
+                process: "They receive a phone call interview",
+                training: "1 week (unpaid)",
+                details: "Portuguese Speakers for a Chat Account. Experience: Minimum 6 months in B2B Sales. Portuguese B2 (Monolingual). Undergraduates are welcome. Foreigners can apply. Shift: 7:00 PM – 4:00 AM (Fixed Night Shift, 2 days off rotational). Salary: 35K EGP (Gross) + Uncapped Commission. Transportation Allowance provided. Training: 1 week (unpaid).",
+                locationType: "office",
+                targetLanguage: "portuguese"
+            },
+            {
+                id: 43,
+                status: "Active",
+                company: "Telephonic Turkish 🇹🇷",
+                account: "Chat Account",
+                shifts: "Fixed 3:00Pm till 12:00Am",
+                interview: "Phone interview",
+                location: "Nasr City",
+                graduation: "undergrads /grads/ gap year / dropouts",
+                nationality: "Egyptians / Foreigners",
+                maxAge: 29,
+                language: "Turkish B2",
+                languageRequirement: "B2",
+                salary: "40K Gross + Uncapped Commission",
+                process: "They receive a phone call interview",
+                training: "1 week (unpaid)",
+                details: "Turkish Speakers for a Chat Account. Experience: Minimum 6 months in B2B Sales. Turkish B2 (Monolingual). Undergraduates are welcome. Foreigners can apply. Shift: 3:00 PM – 12:00 AM (Fixed Night Shift, 2 days off rotational). Salary: 40K EGP (Gross) + Uncapped Commission. Transportation Allowance provided. Training: 1 week (unpaid).",
+                locationType: "office",
+                targetLanguage: "turkish"
+            },
+            {
+                id: 44,
+                status: "Active",
+                company: "Telephonic French 🇫🇷",
+                account: "Chat Account",
+                shifts: "Fixed 4:00Pm till 1:00Am",
+                interview: "Phone interview",
+                location: "Nasr City",
+                graduation: "undergrads /grads/ gap year / dropouts",
+                nationality: "Egyptians / Foreigners",
+                maxAge: 29,
+                language: "French B2",
+                languageRequirement: "B2",
+                salary: "27K Gross + Uncapped Commission",
+                process: "They receive a phone call interview",
+                training: "1 week (unpaid)",
+                details: "French Speakers for a Chat Account. Experience: Minimum 6 months in B2B Sales. French B2 (Monolingual). Undergraduates are welcome. Foreigners can apply. Shift: 4:00 PM – 1:00 AM (Fixed Night Shift, 2 days off rotational). Salary: 27K EGP (Gross) + Uncapped Commission. Transportation Allowance provided. Training: 1 week (unpaid).",
+                locationType: "office",
+                targetLanguage: "french"
+            },
+            {
+                id: 45,
+                status: "Active",
+                company: "Telephonic Italian 🇮🇹",
+                account: "Chat Account",
+                shifts: "Fixed 2:00PM till 11:00PM",
+                interview: "Phone interview",
+                location: "Nasr City",
+                graduation: "undergrads /grads/ gap year / dropouts",
+                nationality: "Egyptians / Foreigners",
+                maxAge: 29,
+                language: "Italian B2",
+                languageRequirement: "B2",
+                salary: "27K Gross + Uncapped Commission",
+                process: "They receive a phone call interview",
+                training: "1 week (unpaid)",
+                details: "Italian Speakers for a Chat Account. Experience: Minimum 6 months in B2B Sales. Italian B2 (Monolingual). Undergraduates are welcome. Foreigners can apply. Shift: 2:00 PM – 11:00 PM (Fixed Night Shift, 2 days off rotational). Salary: 27K EGP (Gross) + Uncapped Commission. Transportation Allowance provided. Training: 1 week (unpaid).",
+                locationType: "office",
+                targetLanguage: "italian"
+            },
+            {
+                id: 46,
+                status: "Active",
+                company: "Telephonic German 🇩🇪",
+                account: "Chat Account",
+                shifts: "Fixed 2:00PM till 11:00PM",
+                interview: "Phone interview",
+                location: "Nasr City",
+                graduation: "undergrads /grads/ gap year / dropouts",
+                nationality: "Egyptians / Foreigners",
+                maxAge: 29,
+                language: "German B2",
+                languageRequirement: "B2",
+                salary: "45K Gross + Uncapped Commission",
+                process: "They receive a phone call interview",
+                training: "1 week (unpaid)",
+                details: "German Speakers for a Chat Account. Experience: Minimum 6 months in B2B Sales. German B2 (Monolingular). Undergraduates are welcome. Foreigners can apply. Shift: 2:00 PM – 11:00 PM (Fixed Night Shift, 2 days off rotational). Salary: 45K EGP (Gross) + Uncapped Commission. Transportation Allowance provided. Training: 1 week (unpaid).",
+                locationType: "office",
+                targetLanguage: "german"
+            },
+            {
+                id: 47,
+                status: "Active",
+                company: "Vitrin Clinic",
+                account: "Australian Account",
+                shifts: "Fixed Shifts 10:00 PM To 7:00 AM",
+                interview: "Sunday To Wednesday 1:00Pm To 3:00Pm",
+                location: "Heliopolis",
+                graduation: "female & males grads / undergrads",
+                nationality: "Egyptians / Foreigners",
+                maxAge: 39,
+                language: "B2+/C1",
+                languageRequirement: "B2",
+                salary: "17.5K Net (Including KPIs) + commission + promotion after 3–6 months",
+                process: "They directly go to the interview after filling the form",
+                training: "Not specified",
+                details: "Telesales Representative. Shift: US / Australia (10 PM – 7 AM). Salary: 17,500 EGP Net + commission + promotion after 3–6 months. Who Can Apply: Egyptians & Foreigners, Fresh grads & undergrads, No sales experience needed, Max age 39. Voice Note Questions: Age? Customer service or telesales? Previous experience? Key differences between opener & closer? 6 months income expectation? Biggest weakness? Motivated and goal-driven candidates only.",
+                locationType: "office",
+                targetLanguage: "english"
+            },
+            {
+                id: 48,
+                status: "Active",
+                company: "Phoenix",
+                account: "DME Account",
+                shifts: "Fixed Shifts 3:00 PM To 11:00 PM",
+                interview: "Monday To Friday From 5:00 PM To 7:00 PM",
+                location: "Nasr City",
+                graduation: "Grads & Undergrads",
+                nationality: "Egyptians / Foreigners",
+                maxAge: 30,
+                language: "B2/C1",
+                languageRequirement: "B2",
+                salary: "Basic 10K + Commission & Spiffs",
+                process: "They directly go to the interview after filling the form",
+                training: "Not specified",
+                details: "DME Telesales Representative. Requirements: Fluent English Speakers, DME Experience is a plus (not required), Graduates & Undergraduates are welcome. Package: Basic Salary: 10,000 EGP, Unlimited Commission, Performance Bonus. Working Hours: 3:00 PM – 11:00 PM. Days Off: Saturday & Sunday.",
+                locationType: "office",
+                targetLanguage: "english"
+            },
+            {
+                id: 49,
                 status: "Hold",
                 company: "VORANIX",
                 account: "US Account",
@@ -983,334 +1922,67 @@
                 salary: "20K Net",
                 process: "Virtual Interview",
                 training: "3 days",
-                details: "Upselling Specialist (Remote). VORANIX is expanding, and we're looking for confident, high-energy sales talent. Requirements: Strong experience in sales or cold calling, C1 English level, comfortable with high-volume outbound calls, competitive mindset and strong closing skills. Shift: 6 PM – 3 AM Egypt time.",
+                details: "Upselling Specialist (Remote). VORANIX is expanding, and we're looking for confident, high-energy sales talent. Requirements: Strong experience in sales or cold calling, C1 English level, comfortable with high-volume outbound calls, competitive mindset and strong closing skills. Shift: 6 PM – 3 AM Egypt time. Paid training only if passed. Salary: 20,000 EGP NET. Full-time – Remote.",
                 locationType: "remote",
                 targetLanguage: "english"
             },
             {
-                id: 6,
+                id: 50,
                 status: "Active",
-                company: "IntouchCX English 🇺🇸",
-                account: "USA Account",
-                shifts: "3:45Pm till 1:00Am / 4:00Pm till 1:30Am",
-                interview: "Monday To Friday From 6 PM To 8 PM",
-                location: "Elmokattam",
-                graduation: "undergrads /grads/ gap year / dropouts",
-                nationality: "Egyptians / Foreigners",
-                maxAge: 47,
-                language: "C1",
-                languageRequirement: "C1",
-                salary: "15K up to 20K Net + Uncapped Commission in USD",
-                process: "They directly go to the interview after filling the form",
-                training: "2 Weeks",
-                details: "Telesales position with salary 15K – 20K NET + Uncapped USD Commission (Avg 350$). Requirements: C1 English level, graduates/dropouts/gap year, previous sales experience, flexibility with night shifts. Benefits: Social & Medical insurance after 6 months, strong learning & development curve.",
-                locationType: "office",
-                targetLanguage: "english"
-            },
-            {
-                id: 7,
-                status: "Active",
-                company: "Ultatek",
-                account: "US Account",
-                shifts: "Fixed Shifts 3:30 PM To 12:30 PM",
-                interview: "Call Interview",
-                location: "Maadi",
-                graduation: "Grads/ Gap year/ Dropout",
-                nationality: "Egyptians / Foreigners",
-                maxAge: 47,
-                language: "B2+/C1",
-                languageRequirement: "C1",
-                salary: "Basic 345$ + KPIS & Transportation Allowance",
-                process: "They Receive a Call Interview",
-                training: "30 days",
-                details: "Business developer representatives for an appointment setter US account. Immediate hiring! Net salary: 345$, Transportation allowance:42$, KPIs:30$, commission in dollars. Medical and social and contract after 3 months probation. Saturday and Sunday off. Shift: 3.30 pm till 12:30 am.",
-                locationType: "office",
-                targetLanguage: "english"
-            },
-            {
-                id: 8,
-                status: "Active",
-                company: "TTC",
-                account: "UK Account",
-                shifts: "Fixed 12:00PM till 8:00PM",
-                interview: "Monday To Friday From 3 PM To 5 PM",
-                location: "Alexandria (Fleming)",
-                graduation: "Grads / Undergrads / Gap Year / Drop out",
-                nationality: "Egyptians Only",
-                maxAge: 28,
-                language: "English B2+",
-                languageRequirement: "B2",
-                salary: "12k Net + Commissions starts from 2k + 1k KPIS",
-                process: "They directly go to the interview after filling the form",
-                training: "30 days",
-                details: "Telesales Agents for a UK Account. Requirements: Excellent to Fluent English (B2–C1 Level), British Accent (Preferably), No experience needed, Egyptians only (19–28 years old). Salary: 12,000 EGP Net + 1,000 EGP KPIs bonus + Unlimited Commissions. Paid Training. Fixed Shift: 12:00 PM – 8:00 PM.",
-                locationType: "office",
-                targetLanguage: "english"
-            },
-            {
-                id: 9,
-                status: "Active",
-                company: "BuzzCx English 🇺🇸",
-                account: "UK Account",
-                shifts: "Fixed Shifts 11:00 AM To 7:00 PM",
-                interview: "Call Interview",
-                location: "Nasr City",
-                graduation: "Grads/Undergrads",
-                nationality: "Egyptians / Foreigners",
-                maxAge: 35,
-                language: "English B2+/C1",
-                languageRequirement: "B2",
-                salary: "10K Net + Commission",
-                process: "They Receive a Call Interview",
-                training: "1 Month",
-                details: "English Cold Calling Agents. We are expanding our English Account and looking for confident, motivated Cold Calling Agents. Fluent English (B2+ or C1 level). Experience in Telesales or Cold Calling is a strong advantage. Foreigners can apply only if they have an active bank account in Egypt.",
-                locationType: "office",
-                targetLanguage: "english"
-            },
-            {
-                id: 10,
-                status: "Active",
-                company: "VolumeX",
-                account: "DME Account",
-                shifts: "Fixed Shifts 4:00 PM To 12:00 AM",
-                interview: "Monday To Friday From 5:00 PM To 7:00 PM",
-                location: "WFH",
+                company: "CXPERTS",
+                account: "Customer Service Account",
+                shifts: "Rotational Shifts",
+                interview: "5PM to 9PM",
+                location: "Tahrir, DownTown",
                 graduation: "undergrads /grads/ gap year / dropouts",
                 nationality: "Egyptians / Foreigners",
                 maxAge: 30,
-                language: "B2/C1",
-                languageRequirement: "B2",
-                salary: "215 EGP Per Hour + Commission",
-                process: "They receive a phone call interview",
-                training: "2 weeks",
-                details: "Full-Time Acquisition Specialist (Remote). Shift: 4:00 PM – 12:00 AM (Cairo time). Salary: 215 EGP/hour + attractive commission (Average 35,000 EGP/month once fully active). Requirements: Excellent English skills (C1–C2 level, written & spoken), previous experience in real estate roles is a MUST. Foreigners can apply.",
-                locationType: "remote",
-                targetLanguage: "english"
-            },
-            {
-                id: 11,
-                status: "Active",
-                company: "LTS",
-                account: "Survey Agent",
-                shifts: "Fixed Shifts",
-                interview: "Phone Interview",
-                location: "Sheraton",
-                graduation: "undergrads /grads/ gap year / dropouts",
-                nationality: "Egyptians Only",
-                maxAge: 40,
-                language: "B2/C1",
-                languageRequirement: "B2",
-                salary: "Basic 12K + 2K KPIS + Commission",
-                process: "They Receive a Call Interview",
-                training: "30 Days",
-                details: "Hotel Survey Agent position. Requirements: Fluent English Speakers, Call Center Experience is a plus (not required), Graduates & Undergraduates are welcome. Package: Basic Salary: 12,000 EGP, KPIS: 2000 EGP, Unlimited Commission, Performance Bonus, Medical Insurance After 3 Months.",
-                locationType: "office",
-                targetLanguage: "english"
-            },
-            {
-                id: 12,
-                status: "Active",
-                company: "FOODHUB",
-                account: "Telesales",
-                shifts: "Fixed Shifts 2:00 PM To 11:00 PM",
-                interview: "Monday To Thursday From 3 PM To 9:00 PM",
-                location: "October City",
-                graduation: "Grads Only",
-                nationality: "Egyptians Only",
-                maxAge: 20,
-                language: "B2/C1 + Exp in Telesales",
-                languageRequirement: "B2",
-                salary: "Basic 17K + Commission",
-                process: "They directly go to the interview after filling the form",
-                training: "2 Weeks",
-                details: "Food hub offer: 12k basic + 3k kpis+ 1k sales bonus + 1k medical insurance. Basic 17k + unlimited commission. Transportation provided. Grads only, males only. Fixed Shifts: from 2pm to 11pm. Paid training. Experience: minimum 6 months in telesales.",
-                locationType: "office",
-                targetLanguage: "english"
-            },
-            {
-                id: 13,
-                status: "Active",
-                company: "Datalytics",
-                account: "Travel Advisor",
-                shifts: "Fixed Shifts 3:00 PM To 12:00 PM",
-                interview: "Monday To Thursday From 3 PM To 7 PM",
-                location: "Nasr City",
-                graduation: "undergrads /grads/ gap year / dropouts",
-                nationality: "Egyptians / Foreigners",
-                maxAge: 35,
-                language: "B2/C1",
-                languageRequirement: "B2",
-                salary: "From 9K Up to 15K Depends on the Experience",
-                process: "They directly go to the interview after filling the form",
-                training: "2 Weeks",
-                details: "Travel Advisor position with opportunities for growth. Requirements: B2/C1 English level, experience in travel industry preferred but not required. Fixed shifts with competitive salary and commission structure.",
-                locationType: "office",
-                targetLanguage: "english"
-            },
-            {
-                id: 14,
-                status: "Active",
-                company: "CNS",
-                account: "USA ACCOUNT",
-                shifts: "Fixed 3:00Pm till 11:00Pm",
-                interview: "Monday to Friday 4:30Pm till 8:30Pm",
-                location: "Nasr City",
-                graduation: "undergrads /grads/ gap year / dropouts",
-                nationality: "Egyptians / Foreigners",
-                maxAge: 27,
                 language: "English B2/B2+",
                 languageRequirement: "B2",
-                salary: "10k Net + Commissions up to 20k",
+                salary: "Up to 15k",
                 process: "They directly go to the interview after filling the form",
-                training: "3 weeks",
-                details: "Fluent/Excellent English Speakers for Telesales Vacancy in USA Campaign. No experience needed. Graduates & Undergraduates are welcome. Working days: Monday - Friday. Saturdays and Sundays are OFF. 5 Days Training (Paid).",
+                training: "Not specified",
+                details: "Customer Service Representative. Location: Tahrir, Downtown Cairo. there are 3 shifts from 4 to 12:30 AM, from 6 to 2:30 AM, from 8 to 4:30 AM, rotational shifts as per business needs with rotational days off. Salary: Up to 15,000 EGP (Basic 11500 + transportation allowance 1650 EGP+ 2k KPI'S). Medical and social insurance provided after 3 months. Requirements: Fluent in English, Experience in customer service, Strong communication skills, Strong Technical background.",
                 locationType: "office",
                 targetLanguage: "english"
             },
             {
-                id: 15,
+                id: 51,
                 status: "Active",
-                company: "Callix",
-                account: "Telesales Account",
-                shifts: "Fixed Shifts 4:30 PM To 1:00 AM",
-                interview: "Monday To Friday From 4 To 9 PM",
-                location: "Nasr City",
-                graduation: "female & males grads \\ undergrads",
-                nationality: "Egyptians / Foreigners",
-                maxAge: 30,
-                language: "B2+ / C1",
-                languageRequirement: "B2",
-                salary: "Basic Salary 11.5K + 2K Kpis",
-                process: "They directly go to the interview after filling the form",
-                training: "1~2 Weeks",
-                details: "Telesales Agent position. Requirements: B2+ / C1 English level. Experience in telesales is preferred. Fixed evening shifts with competitive basic salary plus KPIs.",
-                locationType: "office",
-                targetLanguage: "english"
-            },
-            // NEW ARABIC OFFER
-            {
-                id: 16,
-                status: "Active",
-                company: "Octopus",
-                account: "Arabic Account",
-                shifts: "Rotational Shifts (From 12Pm to 4Pm)",
-                interview: "They directly go to the interview after filling the form",
-                location: "Alexandria",
-                graduation: "undergrads /grads/ gap year / dropouts",
-                nationality: "Egyptians Only",
-                maxAge: 38,
-                language: "A2/B1 English",
-                languageRequirement: "A2",
-                salary: "7,000 – 8,000 EGP (based on interview)",
-                process: "Direct interview after form submission",
-                training: "Paid training",
-                details: "🚀 We're Hiring – Arabic Account 🚀\n\n🔄 Flexible rotational shifts (24/7) and days off – Males & Females\n🎓 Graduates / Undergraduates (no commitments)\n🗣️ English Level: A2 or B1\n💰 Salary: 7,000 – 8,000 EGP (based on interview)\n⏳ No commitments for the upcoming period\n🚗 Transportation provided and door to door for Females starting 12Am\n✅ No experience needed\n📍 Location: Alexandria\n🚀 Ready to start immediately",
-                locationType: "office",
-                targetLanguage: "arabic"
-            },
-            // NEW SPANISH OFFER
-            {
-                id: 17,
-                status: "Active",
-                company: "Octopus",
-                account: "Spanish Account (Bilingual)",
+                company: "Ileads",
+                account: "Travel Advisor Account",
                 shifts: "Rotational Shifts",
-                interview: "Phone Interview",
-                location: "Alexandria",
+                interview: "5PM to 9PM",
+                location: "Tahrir, DownTown",
                 graduation: "undergrads /grads/ gap year / dropouts",
-                nationality: "Egyptians Only",
-                maxAge: 38,
-                language: "B2 Spanish, B1 English",
-                languageRequirement: "B2",
-                salary: "23,000 – 25,000 EGP (Based on language proficiency)",
-                process: "They Receive a Call Interview",
-                training: "Paid training",
-                details: "🚀 We're Hiring – Spanish Account (Bilingual)🚀\n\n🔄 Flexible rotational shifts (24/7) and days off – Males & Females\n🎓 Graduates / Undergraduates (no commitments)\n🗣️ B2 Spanish/English B1\n💰 Salary: 23,000 – 25,000 EGP (Based on language proficiency)\n🚗 Transportation provided and door to door for Females starting 12Am\n✅ No experience required\n📍 Location: Alexandria\n🚀 Ready to start immediately",
-                locationType: "office",
-                targetLanguage: "spanish",
-                requiresSpanish: true
-            },
-            // NEW CALLIX DME ACCOUNT OFFER
-            {
-                id: 18,
-                status: "Active",
-                company: "Callix",
-                account: "DME Account",
-                shifts: "Boys: 3:00PM TO 12:00 AM, Girls: 3:00PM TO 11:00 PM",
-                interview: "Monday To Friday From 3:30 PM To 10:00 PM",
-                location: "Nasr City",
-                graduation: "Grads/Undergrads",
-                nationality: "Egyptians/Foreigners (Except from South Sudan)",
+                nationality: "Egyptians / Foreigners ((FEMALES ONLY))",
                 maxAge: 30,
-                language: "English B1+/C1",
+                language: "English B1+",
                 languageRequirement: "B1",
-                salary: "10K Net + Commission",
+                salary: "9K Net + Commission",
                 process: "They directly go to the interview after filling the form",
-                training: "2 weeks",
-                details: "💼 Position: Telesales Representative\n🏢 Type: Full-time, from office\n📍 Location: 4 Emad El- Dein Kamel, Abbas El Akkad.\n\n*Working Hours:*\nBoys: 3 PM – 12 AM\nGirls: 3 PM – 11 PM\n\n*Who Can Apply:*\nAge between 18 to 30 years old\nGraduates or Undergraduates (without attendance / gap year welcome)\nForeigners accepted except from South Sudan or non-Arab countries\nStrong communication skills and a positive attitude\n\n*What We Offer:*\nBasic salary: *EGP 10,000*\n+ Unlimited commission! 💸\nA dynamic and supportive work environment\nIf you're ambitious, motivated, and ready to earn big this is your chance.\n*Apply now* and start your telesales career with Insource Company.",
+                training: "10 days",
+                details: "Travel Advisor position for near shore area. B1 English level. experience in hotel reservations and booking is a must. Basic salary 9K net + Commission. Medical and social insurance provided after 3 months. Career growth opportunity. 2 rotation shifts from 10 AM to 10 PM (9 working hours including 1 hour break) + 2 rotational days off. foreigners are more than welcome. Location: Tahrir-Elboustan Mall, Downtown Cairo.",
                 locationType: "office",
                 targetLanguage: "english"
             },
-            // NEW WGS B2B COLD CALLING OFFER
             {
-                id: 19,
+                id: 52,
                 status: "Active",
-                company: "WGS",
-                account: "B2B Cold Calling",
-                shifts: "4:00 PM To 11:00 PM",
-                interview: "Online Interview",
-                location: "Nasr City – 25 Mohamed Youssef Moussa St",
-                graduation: "undergrads /grads/ gap year / dropouts",
+                company: "Outsourcing 4 You",
+                account: "DME Account",
+                shifts: "Fixed 3:30Pm till 11:30Pm",
+                interview: "12pm till 1:30pm",
+                location: "Nasr City",
+                graduation: "Grads / Undergrads / Gap Year / Drop out",
                 nationality: "Egyptians / Foreigners",
-                maxAge: 35,
-                language: "B2+/C1",
+                maxAge: 27,
+                language: "English B2",
                 languageRequirement: "B2",
-                salary: "10K Net + 1.5K Kpis + 1.5K Allowance+ 20$ per closed deal",
-                process: "They Receive a Call Interview",
-                training: "Not specified",
-                details: "📢 We're Hiring – Cold Calling Campaign (B2B)\n\n⏰ 4:00 PM – 11:00 PM (45 mins break)\n📅 Monday to Friday\n🎉 Days Off: Saturday & Sunday (Fixed)\n\n💰 Salary:\n💵 10,000 EGP NET\n➕ 1,500 EGP KPIs\n➕ 1,500 EGP Allowance\n💸 $20 per closed deal\n\n🏠 Work Options (Based on Performance):\n✨ Work From Home after a certain period\n✨ Hybrid: 3 days on-site + 2 days from home\n\n🧠 Minimum 3 months experience in Cold Calling / Telesales / Customer Service\n🗣️ English Level: B2+ / C1\n🌍 Egyptians & Foreigners inside Egypt are welcome\n📍 Location: Nasr City – 25 Mohamed Youssef Moussa St.",
-                locationType: "office",
-                targetLanguage: "english"
-            },
-            // NEW WGS SOLAR CAMPAIGN OFFER
-            {
-                id: 20,
-                status: "Active",
-                company: "WGS",
-                account: "Solar Campaign",
-                shifts: "4:00 PM To 1:00 AM",
-                interview: "Online Interview",
-                location: "Nasr City – 25 Mohamed Youssef Moussa St",
-                graduation: "undergrads /grads/ gap year / dropouts",
-                nationality: "Egyptians / Foreigners",
-                maxAge: 35,
-                language: "B2+/C1",
-                languageRequirement: "B2",
-                salary: "15K Net + 1.5K Kpis + 1.5K Allowance+ 25$ per closed deal",
-                process: "They Receive a Call Interview",
-                training: "Not specified",
-                details: "📢 We're Hiring – Solar Campaign \n\n⏰ 4:00 PM – 1:00 AM (1-hour and 30 mins break)\n📅 Monday to Friday\n🎉 Days Off: Saturday & Sunday (Fixed)\n\n💰 Salary:\n💵 15,000 EGP NET\n➕ 1,500 EGP KPIs\n➕ 1,500 EGP Allowance\n💸 $25 per closed deal\n\n🏠 Work Options (Based on Performance):\n✨ Work From Home after a certain period\n✨ Hybrid: 3 days on-site + 2 days from home\n\n🧠 Minimum 3 months experience in Cold Calling / Telesales / Customer Service\n🗣️ English Level: B2+ / C1\n🌍 Egyptians & Foreigners inside Egypt are welcome\n📍 Location: Nasr City – 25 Mohamed Youssef Moussa St.",
-                locationType: "office",
-                targetLanguage: "english"
-            },
-            // NEW BUZZ ALEX SDR OFFER
-            {
-                id: 21,
-                status: "Active",
-                company: "Buzz (Alex)",
-                account: "SDR",
-                shifts: "Fixed Shift 11:00 AM to 7:30 PM",
-                interview: "Call Interview",
-                location: "Alexandria",
-                graduation: "Undergrads - Grads - Dropout - Gap year",
-                nationality: "Egyptians Only",
-                maxAge: 31,
-                language: "English B2+ → C1",
-                languageRequirement: "C1",
-                salary: "Salary Range is 15K to 30K",
-                process: "They Receive a Call Interview",
-                training: "Not specified",
-                details: "🔥 WE ARE HIRING – SDRs\nSales Development Representatives | Alexandria\n\nRequirements:\n🇬🇧 English Level: C1\n🧠 Minimum 1.5 years of sales experience\nStrong communication and objection-handling skills\n\nSalary: 💰 15,000 – 30,000 EGP\nFinal package will be discussed during the interview.\n\nWork Mode: 🏠 Remote for the first 3 months\n📍 Then office-based in Alexandria\n\nWorking Hours: ⏰ 11:00 AM – 7:30 PM\n\n🚀 Apply with VORANIX.",
+                salary: "9K net + Commissions up to 20k",
+                process: "They directly go to the interview after filling the form",
+                training: "3 days , paid if the candidate is accepted",
+                details: "English speakers B2. Egyptians and Sudanese can apply. Undergraduates are preferred. Age : from 17 to 27. Telesales DME account. Salary : 9K net + Commissions up to 20k. Fixed shifts : 3.30 to 11.30 PM. No transportation provided. No exp needed.",
                 locationType: "office",
                 targetLanguage: "english"
             }
@@ -1340,14 +2012,17 @@
 
         // Location proximity mapping
         const locationProximity = {
-            'nasr-city': ['nasr-city', 'new-cairo', 'downtown', 'heliopolis'],
+            'nasr-city': ['nasr-city', 'new-cairo', 'downtown', 'heliopolis', 'makram ebeid'],
             'maadi': ['maadi', 'new-cairo', 'october city', 'sheikh-zayed'],
             'sheikh-zayed': ['sheikh-zayed', 'october city', 'new-cairo', '6th of october'],
             'new-cairo': ['new-cairo', 'nasr-city', 'heliopolis', 'maadi'],
-            'downtown': ['downtown', 'nasr-city', 'garden city', 'zamalek'],
+            'downtown': ['downtown', 'nasr-city', 'garden city', 'zamalek', 'tahrir'],
             'alexandria': ['alexandria', 'fleming'],
+            'october-city': ['october city', 'sheikh-zayed', '6th of october'],
+            'heliopolis': ['heliopolis', 'nasr-city', 'new-cairo'],
+            'smart-village': ['smart village', 'giza', '6th of october'],
             'remote': ['remote', 'wfh', 'work from home'],
-            'any': ['nasr-city', 'maadi', 'sheikh-zayed', 'new-cairo', 'downtown', 'alexandria', 'remote', 'wfh']
+            'any': ['nasr-city', 'maadi', 'sheikh-zayed', 'new-cairo', 'downtown', 'alexandria', 'october-city', 'heliopolis', 'smart-village', 'remote', 'wfh']
         };
 
         // Language level mapping with flexibility (including A1, A2)
@@ -1368,6 +2043,19 @@
             'B2': ['B1', 'B2', 'C1'],
             'C1': ['B2', 'C1', 'C2'],
             'C2': ['C1', 'C2']
+        };
+
+        // Language flag emojis
+        const languageFlags = {
+            'english': '🇺🇸',
+            'arabic': '🇪🇬',
+            'spanish': '🇪🇸',
+            'french': '🇫🇷',
+            'german': '🇩🇪',
+            'italian': '🇮🇹',
+            'portuguese': '🇵🇹',
+            'turkish': '🇹🇷',
+            'greek': '🇬🇷'
         };
 
         // Initialize page
@@ -1496,6 +2184,10 @@
                               jobGraduation.includes('welcome') ||
                               jobGraduation.includes('undergrads /grads/ gap year / dropouts')) {
                         // Acceptable
+                    } else if (userStatus === 'gap-year' && jobGraduation.includes('gap year')) {
+                        // Acceptable
+                    } else if (userStatus === 'dropout' && jobGraduation.includes('dropout')) {
+                        // Acceptable
                     } else {
                         matchScore -= 30; // Significant penalty but still show
                     }
@@ -1504,8 +2196,8 @@
                     const jobLanguageReq = job.languageRequirement || 'B1';
                     const jobEnglishLevel = languageLevels[jobLanguageReq] || 1;
                     
-                    // For specific language jobs (Spanish, Arabic, French)
-                    if (job.targetLanguage === 'spanish' || job.targetLanguage === 'arabic' || job.targetLanguage === 'french') {
+                    // For specific language jobs (Spanish, Arabic, French, German, Italian, Portuguese, Turkish, Greek)
+                    if (job.targetLanguage !== 'english') {
                         const requiredLang = job.targetLanguage;
                         
                         if (additionalLanguages[requiredLang]) {
@@ -1550,7 +2242,7 @@
                                     return false;
                                 }
                             } else if (requiredLang !== 'english') {
-                                // For non-English jobs (Spanish, Arabic, French) that the user doesn't have
+                                // For non-English jobs that the user doesn't have
                                 return false;
                             }
                         }
@@ -1645,13 +2337,19 @@
                     
                     // 5. Nationality check
                     const jobNationality = job.nationality.toLowerCase();
-                    if (nationality === 'egyptian' && jobNationality.includes('egyptians only')) {
+                    const userNationality = nationality;
+                    
+                    if (userNationality === 'egyptian' && jobNationality.includes('egyptians only')) {
                         // Acceptable
-                    } else if (nationality === 'foreigner' && jobNationality.includes('foreigners')) {
+                    } else if (userNationality === 'foreigner' && jobNationality.includes('foreigners')) {
                         // Acceptable
-                    } else if (nationality === 'both' && (jobNationality.includes('egyptians') || jobNationality.includes('foreigners'))) {
+                    } else if (userNationality === 'both' && (jobNationality.includes('egyptians') || jobNationality.includes('foreigners'))) {
+                        // Acceptable
+                    } else if (userNationality === 'egyptian-sudanese' && (jobNationality.includes('egyptians') || jobNationality.includes('sudanese') || jobNationality.includes('egyptians / sudanese'))) {
                         // Acceptable
                     } else if (jobNationality.includes('egyptians / foreigners')) {
+                        // Acceptable for all
+                    } else if (jobNationality.includes('egyptians & foreigners')) {
                         // Acceptable for all
                     } else {
                         matchScore -= 40; // Significant penalty but still show
@@ -1663,9 +2361,17 @@
                         matchScore -= 20; // Penalty for lack of experience
                     }
                     
-                    // 7. Bonus for high salary jobs (like Spanish account)
-                    if (job.salary.includes('23,000') || job.salary.includes('25,000')) {
+                    // 7. Bonus for high salary jobs (like Spanish, German accounts)
+                    if (job.salary.includes('23,000') || job.salary.includes('25,000') || 
+                        job.salary.includes('30K') || job.salary.includes('35K') || 
+                        job.salary.includes('40K') || job.salary.includes('45K') ||
+                        job.salary.includes('47K') || job.salary.includes('54K')) {
                         matchScore += 15; // Bonus for high salary offers
+                    }
+                    
+                    // 8. Bonus for remote jobs
+                    if (job.locationType === 'remote') {
+                        matchScore += 10;
                     }
                     
                     // Set match indicators on job object
@@ -1708,6 +2414,9 @@
                 if (job.matchScore >= 85) matchLevel = 'match-high';
                 else if (job.matchScore >= 65) matchLevel = 'match-medium';
                 
+                // Get language flag
+                const languageFlag = languageFlags[job.targetLanguage] || '🌐';
+                
                 // Add badges for special offers
                 let badges = '';
                 if (job.isNearbyLocation) {
@@ -1716,15 +2425,24 @@
                 if (job.isCloseLanguage) {
                     badges += '<div class="badge badge-language-match">Close Language Match</div>';
                 }
-                if (job.salary.includes('23,000') || job.salary.includes('25,000')) {
+                if (job.locationType === 'remote') {
+                    badges += '<div class="badge badge-remote">Remote Work</div>';
+                }
+                if (job.salary.includes('23,000') || job.salary.includes('25,000') || 
+                    job.salary.includes('30K') || job.salary.includes('35K') || 
+                    job.salary.includes('40K') || job.salary.includes('45K') ||
+                    job.salary.includes('47K') || job.salary.includes('54K')) {
                     badges += '<div class="badge badge-high-salary">High Salary</div>';
+                }
+                if (job.targetLanguage !== 'english') {
+                    badges += '<div class="badge badge-language-special">' + job.targetLanguage.toUpperCase() + '</div>';
                 }
                 
                 jobCard.innerHTML = `
                     ${badges}
                     <div class="job-status status-${job.status.toLowerCase()}">${job.status}</div>
                     <h3 class="job-company">${job.company}</h3>
-                    <p class="job-account">${job.account} ${job.targetLanguage === 'spanish' ? '🇪🇸' : job.targetLanguage === 'arabic' ? '🇪🇬' : job.targetLanguage === 'french' ? '🇫🇷' : '🇺🇸'}</p>
+                    <p class="job-account">${job.account} ${languageFlag}</p>
                     <div class="job-details">
                         <div class="detail-item">
                             <i class="fas fa-clock"></i>
@@ -1746,8 +2464,7 @@
                     <div class="match-indicators">
                         ${job.isNearbyLocation ? '<div class="match-indicator match-location"><i class="fas fa-map-marker-alt"></i> Nearby</div>' : ''}
                         ${job.isCloseLanguage ? '<div class="match-indicator match-language"><i class="fas fa-language"></i> Close Language</div>' : ''}
-                        ${job.targetLanguage === 'spanish' ? '<div class="match-indicator" style="background-color: rgba(241, 196, 15, 0.1); color: var(--voranix-yellow); border: 1px solid rgba(241, 196, 15, 0.3);"><i class="fas fa-star"></i> Spanish</div>' : ''}
-                        ${job.targetLanguage === 'arabic' ? '<div class="match-indicator" style="background-color: rgba(46, 204, 113, 0.1); color: var(--voranix-green); border: 1px solid rgba(46, 204, 113, 0.3);"><i class="fas fa-star"></i> Arabic</div>' : ''}
+                        ${job.locationType === 'remote' ? '<div class="match-indicator" style="background-color: rgba(52, 152, 219, 0.1); color: var(--voranix-blue); border: 1px solid rgba(52, 152, 219, 0.3);"><i class="fas fa-home"></i> Remote</div>' : ''}
                     </div>
                     <div class="filter-tags">
                         <span class="filter-tag">${job.nationality}</span>
@@ -1773,10 +2490,13 @@
             
             if (!job) return;
             
+            // Get language flag
+            const languageFlag = languageFlags[job.targetLanguage] || '🌐';
+            
             modalContent.innerHTML = `
                 <div class="modal-job-header">
                     <div class="job-status status-${job.status.toLowerCase()}">${job.status}</div>
-                    <h2>${job.company} ${job.targetLanguage === 'spanish' ? '🇪🇸' : job.targetLanguage === 'arabic' ? '🇪🇬' : job.targetLanguage === 'french' ? '🇫🇷' : '🇺🇸'}</h2>
+                    <h2>${job.company} ${languageFlag}</h2>
                     <p class="job-account">${job.account}</p>
                 </div>
                 
@@ -1802,7 +2522,8 @@
                         <h4><i class="fas fa-map-marker-alt"></i> Location</h4>
                         <p>${job.location}</p>
                         <p><strong>Salary:</strong> ${job.salary}</p>
-                        ${job.targetLanguage === 'spanish' ? '<p><strong style="color: var(--voranix-yellow);">High Salary Opportunity!</strong></p>' : ''}
+                        ${job.targetLanguage !== 'english' ? '<p><strong style="color: var(--voranix-yellow);">Special Language Opportunity!</strong></p>' : ''}
+                        ${job.locationType === 'remote' ? '<p><strong style="color: var(--voranix-blue);">Remote Work Available!</strong></p>' : ''}
                     </div>
                 </div>
                 
@@ -1817,7 +2538,8 @@
                             <i class="fas fa-info-circle"></i> This job matches ${job.matchScore || '100'}% of your profile
                             ${job.isNearbyLocation ? '<br><i class="fas fa-map-marker-alt"></i> This job is in a nearby location' : ''}
                             ${job.isCloseLanguage ? '<br><i class="fas fa-language"></i> Language requirement is close to your level' : ''}
-                            ${job.targetLanguage === 'spanish' ? '<br><i class="fas fa-star"></i> High salary Spanish opportunity' : ''}
+                            ${job.targetLanguage !== 'english' ? '<br><i class="fas fa-star"></i> Special language opportunity' : ''}
+                            ${job.locationType === 'remote' ? '<br><i class="fas fa-home"></i> Remote work available' : ''}
                         </p>
                     </div>
                 </div>
