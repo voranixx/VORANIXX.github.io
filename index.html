@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -63,38 +63,6 @@
             font-weight: 900;
             color: #ffffff;
             letter-spacing: 8px;
-        }
-
-        .header-controls {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-
-        .theme-toggle, .sound-toggle {
-            background: rgba(224, 31, 122, 0.1);
-            border: 1px solid rgba(224, 31, 122, 0.3);
-            border-radius: 50%;
-            width: 45px;
-            height: 45px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            transition: all 0.3s;
-            color: #e01f7a;
-        }
-
-        .theme-toggle:hover, .sound-toggle:hover {
-            transform: scale(1.1);
-            background: rgba(224, 31, 122, 0.2);
-            box-shadow: 0 0 20px rgba(224, 31, 122, 0.4);
-        }
-
-        .sound-toggle.muted {
-            background: rgba(255, 255, 255, 0.1);
-            color: #999999;
         }
 
         .hero {
@@ -218,6 +186,16 @@
         .services-section {
             padding: 80px 0;
             background: #000000;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+            display: none;
+        }
+
+        .services-section.show {
+            opacity: 1;
+            transform: translateY(0);
+            display: block;
         }
 
         .section-title {
@@ -320,6 +298,207 @@
             font-size: 0.95rem;
         }
 
+        /* Mini Music Player - Updated */
+        .mini-player {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 70px;
+            height: 70px;
+            background: rgba(0, 0, 0, 0.9);
+            border-radius: 50%;
+            border: 2px solid rgba(224, 31, 122, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(224, 31, 122, 0.3);
+            opacity: 0;
+            transform: scale(0.8);
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+        }
+
+        .mini-player.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .mini-player:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 30px rgba(224, 31, 122, 0.5);
+        }
+
+        .mini-player-cover {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            position: absolute;
+            opacity: 0.7;
+        }
+
+        .mini-player-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(2px);
+        }
+
+        .mini-player i {
+            font-size: 1.5rem;
+            color: #e01f7a;
+            z-index: 2;
+        }
+
+        /* Mini Player Expanded - Updated */
+        .mini-player-expanded {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 280px;
+            background: rgba(10, 10, 10, 0.95);
+            border-radius: 20px;
+            border: 2px solid rgba(224, 31, 122, 0.3);
+            box-shadow: 0 10px 40px rgba(224, 31, 122, 0.4);
+            backdrop-filter: blur(20px);
+            overflow: hidden;
+            z-index: 1001;
+            display: none;
+            animation: slideUp 0.3s ease;
+        }
+
+        .mini-player-expanded.active {
+            display: block;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .mini-player-header {
+            background: linear-gradient(135deg, rgba(224, 31, 122, 0.2), rgba(224, 31, 122, 0.1));
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(224, 31, 122, 0.2);
+        }
+
+        .mini-player-title {
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .mini-player-close {
+            background: rgba(224, 31, 122, 0.2);
+            border: 1px solid rgba(224, 31, 122, 0.3);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            color: #e01f7a;
+            transition: all 0.3s;
+        }
+
+        .mini-player-close:hover {
+            transform: rotate(90deg);
+            background: rgba(224, 31, 122, 0.3);
+        }
+
+        .mini-player-content {
+            padding: 20px;
+        }
+
+        .mini-player-cover-large {
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(224, 31, 122, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .mini-player-info {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .mini-player-song {
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .mini-player-artist {
+            color: #e01f7a;
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        .mini-player-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .mini-player-btn {
+            background: rgba(224, 31, 122, 0.1);
+            border: 1px solid rgba(224, 31, 122, 0.3);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            color: #e01f7a;
+            transition: all 0.3s;
+        }
+
+        .mini-player-btn:hover {
+            background: rgba(224, 31, 122, 0.3);
+            transform: scale(1.1);
+        }
+
+        .mini-player-btn.play {
+            width: 50px;
+            height: 50px;
+            font-size: 1.2rem;
+        }
+
         /* ============ MOBILE-FRIENDLY ASSISTANT DESIGN ============ */
         .assistant-modal {
             display: none;
@@ -348,11 +527,6 @@
             box-shadow: 0 20px 60px rgba(224, 31, 122, 0.3);
             overflow: hidden;
             animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
         }
 
         .assistant-header {
@@ -804,11 +978,6 @@
                 letter-spacing: 5px;
             }
             
-            .header-controls {
-                justify-content: center;
-                width: 100%;
-            }
-            
             .hero {
                 padding: 60px 0 40px;
             }
@@ -846,6 +1015,25 @@
             
             .card-title {
                 font-size: 1.3rem;
+            }
+            
+            /* Mini player adjustments for mobile */
+            .mini-player {
+                bottom: 15px;
+                right: 15px;
+                width: 60px;
+                height: 60px;
+            }
+            
+            .mini-player-expanded {
+                bottom: 15px;
+                right: 15px;
+                left: 15px;
+                width: auto;
+            }
+            
+            .mini-player-cover-large {
+                height: 180px;
             }
         }
 
@@ -895,9 +1083,40 @@
             .card-image {
                 height: 180px;
             }
+            
+            .mini-player {
+                width: 55px;
+                height: 55px;
+                bottom: 10px;
+                right: 10px;
+            }
+            
+            .mini-player i {
+                font-size: 1.3rem;
+            }
+            
+            .mini-player-cover-large {
+                height: 160px;
+            }
+            
+            .mini-player-controls {
+                gap: 15px;
+            }
+            
+            .mini-player-btn {
+                width: 35px;
+                height: 35px;
+                font-size: 0.9rem;
+            }
+            
+            .mini-player-btn.play {
+                width: 45px;
+                height: 45px;
+                font-size: 1.1rem;
+            }
         }
 
-        /* Posts Modal (Keep existing but add to this file) */
+        /* Posts Modal */
         .posts-modal {
             display: none;
             position: fixed;
@@ -1319,6 +1538,16 @@
             padding: 40px 0;
             text-align: center;
             border-top: 1px solid rgba(224, 31, 122, 0.2);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+            display: none;
+        }
+
+        footer.show {
+            opacity: 1;
+            transform: translateY(0);
+            display: block;
         }
 
         footer p {
@@ -1338,24 +1567,12 @@
     </style>
 </head>
 <body>
-    <audio id="exploreSound" preload="auto">
-        <source src="https://github.com/voranixx/VORANIXX.github.io/raw/refs/heads/main/song.mp3" type="audio/mpeg">
-    </audio>
-
     <header>
         <div class="container">
             <div class="header-content">
                 <div class="logo">
                     <span class="logo-v">V</span>
                     <span class="logo-text">ORANIX</span>
-                </div>
-                <div class="header-controls">
-                    <button class="sound-toggle" id="soundToggle" onclick="toggleSound()">
-                        <i class="fas fa-volume-up"></i>
-                    </button>
-                    <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle">
-                        <i class="fas fa-bolt"></i>
-                    </button>
                 </div>
             </div>
         </div>
@@ -1366,7 +1583,7 @@
             <div class="container">
                 <h1>VORANIX</h1>
                 <p class="tagline">Where Power Hires Power.</p>
-                <button class="super-button" onclick="openAssistantModal()">
+                <button class="super-button" id="exploreButton">
                   <span>Explore Our Services</span>
                   <svg fill="none" viewBox="0 0 24 24" class="arrow">
                     <path
@@ -1453,7 +1670,43 @@
         </div>
     </section>
 
-    <!-- ============ NEW MOBILE-FRIENDLY ASSISTANT ============ -->
+    <!-- Mini Music Player -->
+    <div class="mini-player" id="miniPlayer">
+        <div class="mini-player-cover" id="miniPlayerCover"></div>
+        <div class="mini-player-overlay">
+            <i class="fas fa-play" id="miniPlayerIcon"></i>
+        </div>
+    </div>
+
+    <div class="mini-player-expanded" id="miniPlayerExpanded">
+        <div class="mini-player-header">
+            <div class="mini-player-title">
+                <i class="fas fa-music"></i>
+                Now Playing
+            </div>
+            <button class="mini-player-close" onclick="closeMiniPlayer()">×</button>
+        </div>
+        <div class="mini-player-content">
+            <div class="mini-player-cover-large" id="miniPlayerCoverLarge"></div>
+            <div class="mini-player-info">
+                <div class="mini-player-song" id="miniPlayerSong">Sunsetz</div>
+                <div class="mini-player-artist" id="miniPlayerArtist">Cigarettes After Sex</div>
+            </div>
+            <div class="mini-player-controls">
+                <button class="mini-player-btn" onclick="playPrev()">
+                    <i class="fas fa-step-backward"></i>
+                </button>
+                <button class="mini-player-btn play" onclick="togglePlayPause()">
+                    <i class="fas fa-play" id="miniPlayIcon"></i>
+                </button>
+                <button class="mini-player-btn" onclick="playNext()">
+                    <i class="fas fa-step-forward"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ ASSISTANT MODAL ============ -->
     <div class="assistant-modal" id="assistantModal">
         <div class="assistant-container">
             <div class="assistant-header">
@@ -1582,7 +1835,7 @@ We're happy to have you on board and excited to see how you continue to develop 
 
 Congratulations and all the best 🎉</div>
                         <div class="template-actions">
-                            <button class="copy-btn" onclick="copyText('Hello [Candidate Name], hope you\'re doing great!\n\nI just wanted to say how much I appreciated your voice note — it\'s clear that you\'ve put in great effort, and it truly shows.\n\nYour dedication and commitment are really impressive, and while there\'s always room to grow (as with all of us), you\'re definitely on the right track.\n\nWe\'re happy to have you on board and excited to see how you continue to develop your skills!\n\nCongratulations and all the best 🎉', this)">
+                            <button class="copy-btn" onclick="copyText('Hello [Candidate Name], hope you\'re doing great!\n\nI just wanted to say how much I appreciated your voice note — it\'s clear that you\'ve put in great effort, and it truly shows.\n\nYour dedication and commitment are really impressive, and while there\'s always room to grow (as with all of us), you\'re definitely on the right track.\n\nWe\'re happy to have you on board and exciting to see how you continue to develop your skills!\n\nCongratulations and all the best 🎉', this)">
                                 <i class="far fa-copy"></i> Copy Acceptance Message
                             </button>
                         </div>
@@ -1742,7 +1995,7 @@ These companies offer excellent opportunities for career growth and development 
         </div>
     </div>
 
-    <!-- Existing Posts Modal (unchanged) -->
+    <!-- Posts Modal -->
     <div class="posts-modal" id="postsModal">
         <div class="posts-container">
             <button class="close-modal" onclick="closePostsModal()">×</button>
@@ -1775,7 +2028,7 @@ These companies offer excellent opportunities for career growth and development 
         </div>
     </div>
 
-    <!-- Existing Add Post Modal (unchanged) -->
+    <!-- Add Post Modal -->
     <div class="add-post-modal" id="addPostModal">
         <div class="add-post-container">
             <button class="close-modal" onclick="closeAddPostModal()">×</button>
@@ -1792,46 +2045,191 @@ These companies offer excellent opportunities for career growth and development 
     </div>
 
     <script>
-        // ============ Sound & Theme Controls ============
-        let isMuted = false;
-        
-        function toggleTheme() {
-            const themeToggle = document.getElementById('themeToggle');
-            if (themeToggle.innerHTML.includes('bolt')) {
-                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-            } else {
-                themeToggle.innerHTML = '<i class="fas fa-bolt"></i>';
-            }
+        // ============ INITIAL STATE ============
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hide content initially
+            document.getElementById('services').style.display = 'none';
+            document.getElementById('footer').style.display = 'none';
+            
+            // Initialize music player
+            initMusicPlayer();
+            
+            // Set up explore button
+            document.getElementById('exploreButton').addEventListener('click', exploreSite);
+        });
+
+        // ============ EXPLORE FUNCTION ============
+        function exploreSite() {
+            // Show services section
+            const servicesSection = document.getElementById('services');
+            servicesSection.style.display = 'block';
+            setTimeout(() => {
+                servicesSection.classList.add('show');
+            }, 50);
+            
+            // Show footer
+            const footer = document.getElementById('footer');
+            footer.style.display = 'block';
+            setTimeout(() => {
+                footer.classList.add('show');
+            }, 300);
+            
+            // Show mini player
+            const miniPlayer = document.getElementById('miniPlayer');
+            setTimeout(() => {
+                miniPlayer.classList.add('show');
+            }, 600);
+            
+            // Start playing music
+            setTimeout(() => {
+                if (!isPlaying) {
+                    togglePlayPause();
+                }
+            }, 800);
         }
 
-        function toggleSound() {
-            const soundToggle = document.getElementById('soundToggle');
-            const exploreSound = document.getElementById('exploreSound');
-            
-            isMuted = !isMuted;
-            
-            if (isMuted) {
-                soundToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
-                soundToggle.classList.add('muted');
-                if (exploreSound) exploreSound.volume = 0;
-            } else {
-                soundToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
-                soundToggle.classList.remove('muted');
-                if (exploreSound) exploreSound.volume = 0.15;
+        // ============ MUSIC PLAYER FUNCTIONS ============
+        const playlist = [
+            {
+                title: "Sunsetz",
+                artist: "Cigarettes After Sex",
+                src: "https://github.com/voranixx/VORANIXX.github.io/raw/refs/heads/main/Sunsetz%20-%20Cigarettes%20After%20Sex.mp3",
+                cover: "https://i.ibb.co/zV9Mygn0/image.png"
+            },
+            {
+                title: "Chamber Of Reflection",
+                artist: "Mac DeMarco",
+                src: "https://github.com/voranixx/VORANIXX.github.io/raw/refs/heads/main/Chamber_Of_Reflection_LOW.webm",
+                cover: "https://i.ibb.co/gZcSqMrS/image.png"
+            },
+            {
+                title: "No Surprises",
+                artist: "Radiohead",
+                src: "https://github.com/voranixx/VORANIXX.github.io/raw/refs/heads/main/No_Surprises_Remastered_LOW.webm",
+                cover: "https://i.ibb.co/gFcw3m0v/image.png"
+            },
+            {
+                title: "Indigo Night",
+                artist: "Tamino",
+                src: "https://github.com/voranixx/VORANIXX.github.io/raw/refs/heads/main/Indigo%20Night%20-%20Tamino.mp3",
+                cover: "https://i.ibb.co/7xPSZXxT/image.png"
+            },
+            {
+                title: "Music To Watch Boys To",
+                artist: "Lana Del Rey",
+                src: "https://github.com/voranixx/VORANIXX.github.io/raw/refs/heads/main/Music%20To%20Watch%20Boys%20To%20(Demo)%20-%20dreamsoda.mp3",
+                cover: "https://i.ibb.co/k2DLby2k/image.png"
+            },
+            {
+                title: "Daylight",
+                artist: "David Kushner",
+                src: "https://github.com/voranixx/VORANIXX.github.io/raw/refs/heads/main/Daylight%20-%20David%20Kushner.mp3",
+                cover: "https://i.ibb.co/CK2254sM/image.png"
+            },
+            {
+                title: "Fade Into You",
+                artist: "Mazzy Star",
+                src: "https://github.com/voranixx/VORANIXX.github.io/raw/refs/heads/main/Fade%20Into%20You%20-%20Mazzy%20Star.mp3",
+                cover: "https://i.ibb.co/Z65123TZ/image.png"
+            },
+            {
+                title: "The Night We Met",
+                artist: "holyshua",
+                src: "https://github.com/voranixx/VORANIXX.github.io/raw/refs/heads/main/The%20Nigth%20We%20Met%20-%20holyshua.mp3",
+                cover: "https://i.ibb.co/VYbTPg5R/image.png"
             }
+        ];
+
+        let currentTrackIndex = 0;
+        let isPlaying = false;
+        let musicPlayer = new Audio();
+
+        function initMusicPlayer() {
+            musicPlayer.src = playlist[currentTrackIndex].src;
+            musicPlayer.volume = 0.25; // 25% volume
+            
+            updatePlayerInfo();
+            
+            musicPlayer.addEventListener('ended', playNext);
+            
+            // Set up mini player toggle
+            document.getElementById('miniPlayer').addEventListener('click', openMiniPlayer);
         }
 
+        function updatePlayerInfo() {
+            const track = playlist[currentTrackIndex];
+            document.getElementById('miniPlayerSong').textContent = track.title;
+            document.getElementById('miniPlayerArtist').textContent = track.artist;
+            
+            // Update cover images
+            document.getElementById('miniPlayerCover').style.backgroundImage = `url('${track.cover}')`;
+            document.getElementById('miniPlayerCoverLarge').style.backgroundImage = `url('${track.cover}')`;
+        }
+
+        function togglePlayPause() {
+            const playIcon = document.getElementById('miniPlayIcon');
+            const miniPlayerIcon = document.getElementById('miniPlayerIcon');
+            
+            if (isPlaying) {
+                musicPlayer.pause();
+                playIcon.classList.remove('fa-pause');
+                playIcon.classList.add('fa-play');
+                miniPlayerIcon.classList.remove('fa-pause');
+                miniPlayerIcon.classList.add('fa-play');
+            } else {
+                musicPlayer.play();
+                playIcon.classList.remove('fa-play');
+                playIcon.classList.add('fa-pause');
+                miniPlayerIcon.classList.remove('fa-play');
+                miniPlayerIcon.classList.add('fa-pause');
+            }
+            
+            isPlaying = !isPlaying;
+        }
+
+        function playNext() {
+            currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+            
+            musicPlayer.src = playlist[currentTrackIndex].src;
+            musicPlayer.volume = 0.25; // Maintain 25% volume
+            
+            if (isPlaying) {
+                musicPlayer.play();
+            }
+            
+            updatePlayerInfo();
+        }
+
+        function playPrev() {
+            currentTrackIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length;
+            
+            musicPlayer.src = playlist[currentTrackIndex].src;
+            musicPlayer.volume = 0.25; // Maintain 25% volume
+            
+            if (isPlaying) {
+                musicPlayer.play();
+            }
+            
+            updatePlayerInfo();
+        }
+
+        function openMiniPlayer() {
+            document.getElementById('miniPlayerExpanded').classList.add('active');
+        }
+
+        function closeMiniPlayer() {
+            document.getElementById('miniPlayerExpanded').classList.remove('active');
+        }
+
+        // ============ ASSISTANT FUNCTIONS ============
         function handleCardClick(url, type) {
             window.open(url, '_blank');
         }
 
-        // ============ Assistant Functions ============
         function openAssistantModal() {
             const modal = document.getElementById('assistantModal');
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
-            
-            // Initialize company grid
             initCompanyGrid();
         }
 
@@ -1842,53 +2240,42 @@ These companies offer excellent opportunities for career growth and development 
         }
 
         function showSection(sectionId) {
-            // Hide all sections
             const sections = document.querySelectorAll('.template-section');
             sections.forEach(section => {
                 section.classList.remove('active');
             });
             
-            // Remove active class from all nav items
             const navItems = document.querySelectorAll('.nav-item');
             navItems.forEach(item => {
                 item.classList.remove('active');
             });
             
-            // Show selected section
             const targetSection = document.getElementById(sectionId + 'Section');
             if (targetSection) {
                 targetSection.classList.add('active');
             }
             
-            // Add active class to clicked nav item
             event.currentTarget.classList.add('active');
         }
 
         function copyText(text, button) {
             navigator.clipboard.writeText(text).then(() => {
-                // Show copied state
                 const originalText = button.innerHTML;
                 button.innerHTML = '<i class="fas fa-check"></i> Copied!';
                 button.classList.add('copied');
-                
-                // Show notification
                 showCopyNotification();
                 
-                // Reset button after 2 seconds
                 setTimeout(() => {
                     button.innerHTML = originalText;
                     button.classList.remove('copied');
                 }, 2000);
             }).catch(err => {
-                console.error('Failed to copy text: ', err);
-                // Fallback method
                 const textArea = document.createElement('textarea');
                 textArea.value = text;
                 document.body.appendChild(textArea);
                 textArea.select();
                 document.execCommand('copy');
                 document.body.removeChild(textArea);
-                
                 showCopyNotification();
             });
         }
@@ -1915,7 +2302,6 @@ These companies offer excellent opportunities for career growth and development 
             }, 2000);
         }
 
-        // Company List
         const companies = [
             "Leadbull", "Dyninno", "Realogy", "Insource", "OUTSOURCING SKILL", "NAOS",
             "Telephonic", "Vitrin Clinic", "LTS", "Phoenix", "IntouchCX", "TTC",
@@ -1941,7 +2327,6 @@ These companies offer excellent opportunities for career growth and development 
             });
         }
 
-        // AI Function
         async function askAI() {
             const question = document.getElementById('aiQuestion').value.trim();
             if (!question) {
@@ -1952,12 +2337,10 @@ These companies offer excellent opportunities for career growth and development 
             const responseBox = document.getElementById('aiResponse');
             const responseContent = document.getElementById('aiResponseContent');
             
-            // Show loading state
             responseContent.textContent = 'Thinking...';
             responseBox.classList.add('active');
             
             try {
-                // Simple AI response simulation (you can replace with actual API call)
                 const responses = [
                     "For call center interviews, focus on clear communication skills and customer service attitude. Practice common questions like 'Tell me about yourself' and 'Why do you want this job?'",
                     "A good voice note should be 1-2 minutes, clear, and professional. Mention your experience, language skills, and why you're interested in the role.",
@@ -1966,7 +2349,6 @@ These companies offer excellent opportunities for career growth and development 
                     "When sending a voice note, speak slowly and clearly. Mention your qualifications, language level, and availability."
                 ];
                 
-                // Simple keyword matching for demo purposes
                 let response = "I recommend practicing common interview questions, speaking clearly in your voice note, and showing enthusiasm for customer service roles.";
                 
                 if (question.toLowerCase().includes('interview')) {
@@ -1981,7 +2363,6 @@ These companies offer excellent opportunities for career growth and development 
                     response = responses[4];
                 }
                 
-                // Simulate typing effect
                 responseContent.textContent = '';
                 let i = 0;
                 const typingInterval = setInterval(() => {
@@ -2003,7 +2384,7 @@ These companies offer excellent opportunities for career growth and development 
             copyText(responseContent.textContent, event.currentTarget);
         }
 
-        // ============ Posts Functions ============
+        // ============ POSTS FUNCTIONS ============
         const recruitmentPosts = [
             "غيرك بياخد مكانك في الشغل وانت لسه بتدور،طب ليه طيب🤔\nابعتلي و استلم شغلك❤️\nEnglish b1\nGrads only",
             "شغل call center يناسب جميع المؤهلات❤️\nاطلب النصاب، احنا واخدين بالنا منك✅\nأبعت استفسارك دلوقتي",
@@ -2088,7 +2469,6 @@ These companies offer excellent opportunities for career growth and development 
                 postsTrack.appendChild(postItem);
             });
             
-            // Set up carousel navigation
             const leftBtn = document.getElementById('leftBtn');
             const rightBtn = document.getElementById('rightBtn');
             
@@ -2194,8 +2574,11 @@ These companies offer excellent opportunities for career growth and development 
                 }
             });
             
-            // Initialize on page load
-            initCompanyGrid();
+            document.getElementById('miniPlayerExpanded')?.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeMiniPlayer();
+                }
+            });
         });
     </script>
 </body>
