@@ -7,12 +7,27 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* إضافة خاصية منع اختيار النصوص في كل الصفحة */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-user-select: none; /* Safari */
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* IE10+/Edge */
+            user-select: none; /* Standard */
         }
 
+        /* استثناء فقط النصوص داخل المودالات والمناطق المخصصة للنسخ */
+        .template-text, .post-text, .ai-response-content, 
+        .post-textarea, #aiQuestion, textarea, input {
+            -webkit-user-select: text !important;
+            -moz-user-select: text !important;
+            -ms-user-select: text !important;
+            user-select: text !important;
+        }
+
+        /* باقي الـ CSS كما هو بدون تغيير */
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background: #000000;
@@ -1637,7 +1652,7 @@
                     </div>
                 </div>
 
-                <div class="service-card" onclick="window.open('offersform.html', '_blank')">
+                <div class="service-card" onclick="handleCardClick('offersform.html', 'form')">
                     <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=800&q=80');"></div>
                     <div class="card-content">
                         <span class="card-badge"><i class="fas fa-file-alt"></i> 8M+ Submissions</span>
@@ -2225,7 +2240,14 @@ These companies offer excellent opportunities for career growth and development 
 
         // ============ ASSISTANT FUNCTIONS ============
         function handleCardClick(url, type) {
-            window.open(url, '_blank');
+            // إلغاء فتح تبويب جديد لصفحتي Offers Form و Smart Job Matching
+            if (type === 'form' || type === 'matching') {
+                // فتح في نفس الصفحة
+                window.location.href = url;
+            } else {
+                // فتح باقي الروابط في تبويب جديد
+                window.open(url, '_blank');
+            }
         }
 
         function openAssistantModal() {
@@ -2261,6 +2283,7 @@ These companies offer excellent opportunities for career growth and development 
         }
 
         function copyText(text, button) {
+            // إرجاع دالة النسخ الأصلية للعمل
             navigator.clipboard.writeText(text).then(() => {
                 const originalText = button.innerHTML;
                 button.innerHTML = '<i class="fas fa-check"></i> Copied!';
