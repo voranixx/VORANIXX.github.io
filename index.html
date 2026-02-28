@@ -514,6 +514,37 @@
             font-size: 1.2rem;
         }
 
+        /* Music trigger message (appears after 5 sec) */
+        .music-trigger {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            background: #1e2b3c;
+            color: #f9c74f;
+            padding: 12px 24px;
+            border-radius: 60px;
+            font-weight: bold;
+            display: none; /* hidden initially */
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 10px 18px #f9c74f40;
+            border: 1px solid #f9c74f;
+            cursor: pointer;
+            transition: 0.2s;
+            z-index: 1002;
+            backdrop-filter: blur(8px);
+            animation: pulse 1.5s infinite;
+        }
+
+        .music-trigger.show {
+            display: flex;
+        }
+
+        .music-trigger i {
+            font-size: 28px;
+            color: #f9c74f;
+        }
+
         /* ============ MOBILE-FRIENDLY ASSISTANT DESIGN ============ */
         .assistant-modal {
             display: none;
@@ -1693,6 +1724,11 @@
         </div>
     </div>
 
+    <!-- Music trigger message (appears after 5 sec) -->
+    <div class="music-trigger" id="musicTrigger">
+        <i class="fas fa-play-circle"></i>
+    </div>
+
     <div class="mini-player-expanded" id="miniPlayerExpanded">
         <div class="mini-player-header">
             <div class="mini-player-title">
@@ -2075,6 +2111,10 @@ These companies offer excellent opportunities for career growth and development 
             document.getElementById('exploreButton').addEventListener('click', exploreSite);
         });
 
+        // ============ MUSIC PLAYER GLOBALS ============
+        let musicStarted = false;          // flag to know if music has ever been played
+        let triggerTimeout;                // timeout for showing the trigger message
+
         // ============ EXPLORE FUNCTION ============
         function exploreSite() {
             // Show services section
@@ -2097,12 +2137,12 @@ These companies offer excellent opportunities for career growth and development 
                 miniPlayer.classList.add('show');
             }, 600);
             
-            // Start playing music
-            setTimeout(() => {
-                if (!isPlaying) {
-                    togglePlayPause();
+            // Start timer to show music trigger message after 5 seconds (if music not started yet)
+            triggerTimeout = setTimeout(() => {
+                if (!musicStarted) {
+                    document.getElementById('musicTrigger').classList.add('show');
                 }
-            }, 800);
+            }, 5000);
         }
 
         // ============ MUSIC PLAYER FUNCTIONS ============
@@ -2171,6 +2211,20 @@ These companies offer excellent opportunities for career growth and development 
             
             // Set up mini player toggle
             document.getElementById('miniPlayer').addEventListener('click', openMiniPlayer);
+            
+            // Music trigger click
+            document.getElementById('musicTrigger').addEventListener('click', function() {
+                // Start music and hide trigger
+                if (!musicStarted) {
+                    musicStarted = true;
+                    if (triggerTimeout) clearTimeout(triggerTimeout);
+                    document.getElementById('musicTrigger').classList.remove('show');
+                    // Start playback (if not already playing)
+                    if (!isPlaying) {
+                        togglePlayPause();
+                    }
+                }
+            });
         }
 
         function updatePlayerInfo() {
@@ -2202,6 +2256,13 @@ These companies offer excellent opportunities for career growth and development 
             }
             
             isPlaying = !isPlaying;
+            
+            // If this is the first play, mark music as started and hide trigger
+            if (!musicStarted && isPlaying) {
+                musicStarted = true;
+                if (triggerTimeout) clearTimeout(triggerTimeout);
+                document.getElementById('musicTrigger').classList.remove('show');
+            }
         }
 
         function playNext() {
@@ -2410,57 +2471,136 @@ These companies offer excellent opportunities for career growth and development 
         }
 
         // ============ POSTS FUNCTIONS ============
+        // NEW POSTS ARRAY (15 posts as requested)
         const recruitmentPosts = [
-            "غيرك بياخد مكانك في الشغل وانت لسه بتدور،طب ليه طيب🤔\nابعتلي و استلم شغلك❤️\nEnglish b1\nGrads only",
-            "شغل call center يناسب جميع المؤهلات❤️\nاطلب النصاب، احنا واخدين بالنا منك✅\nأبعت استفسارك دلوقتي",
-            "مافيش حاجه اسمها مش لاقي شغل، في حاجه اسمها مش عارف تقدم فين❤️\nابعتلي و هنوصلك",
-            "فرص call center بدون خبرة🔥\nرواتب مجزية + حوافز + بيئة عمل محترمة\nسجل بياناتك دلوقتي",
-            "لو انت خريج جديد وتدور على بداية قوية في حياتك المهنية❤️\nده الوقت الصح تماما",
-            "الشغل مش عيب، العيب انك تقعد بدون شغل❤️\nابعتلنا ونتواصل معاك",
-            "بسبب التوسعات.. شركتنا محتاجة شبايك دلوقتي❤️\nلو مستعد تطور من نفسك ابعت",
-            "شغل call center مضمون وراتب ثابت🔥\nبدون اي مصاريف مقدمة\nكل المطلوب English B1",
-            "محتاجين موظفين للعمل في call center❤️\nساعات عمل مرنة + عمولات مجزية\nسجل معانا",
-            "فرص عمل مميزة للشباب الخريجين🔥\nتطور مهني + رواتب تنافسية\nتواصل معانا دلوقتي",
-            "مش عارف تبدأ منين؟ احنا هنبدأ معاك خطوة بخطوة❤️\nشغل call center بكل احترافية",
-            "لا تقلق من المستقبل، احنا موجودين علشان نضمنلك مستقبل افضل❤️\nقدم دلوقتي",
-            "خبرة في الانجلش؟ احنا هنوظفك احسن توظيف❤️\nشغل منظم ومضمون 100%",
-            "مافيش حاجه اسمها مش هتعرف، احنا هنعلمك من الصفر❤️\ncall center career",
-            "بداية شهر جديدة.. فرص جديدة❤️\nسجل بياناتك واحنا بنتواصل معاك",
-            "كل يوم وانتا مبتروحش شغل بتكون ضيعت فرصة ذهبية❤️\nماتضيعش الفرصة",
-            "النجاح مش صدفة، النجاح خطة.. ودي خطتك دلوقتي❤️\nابدأ معانا",
-            "خريج وتدور على فرصة حقيقية؟ وصلت للمكان الصح❤️\nاطلب التفاصيل",
-            "حياتك المهنية هتتغير من اول يوم شغل❤️\ncall center opportunities",
-            "محتاجين موظفين متفوقين في الانجلش❤️\nرواتب تبدأ من 6000 جنيه + عمولات",
-            "لو عندك طموح وتحدي، احنا المكان المناسب لك❤️\nقدم طلبك دلوقتي",
-            "لا تنتظر الفرصة، اخلق فرصتك معانا❤️\nشغل call center بكل مميزاته",
-            "خريجين 2022, 2023, 2024 فرصتكم قدامكم❤️\nسجل بياناتك",
-            "مش محتاج خبرة، محتاج رغبة حقيقية في النجاح❤️\nاحنا بنعلمك الباقي",
-            "شغل يناسب الطلبة والخريجين❤️\nساعات عمل مرنة تناسب ظروفك",
-            "لو انت مجتهد وعايز تشتغل بجد، احنا بنبحث عنك❤️\nابعتلنا",
-            "مفيش حاجه اسمها صعب، في حاجه اسمها متعرفش ازاي❤️\nاحنا هنوريك الطريق",
-            "فرصة لن تتكرر للشباب الطموح❤️\nتقدم الان واستلم وظيفتك",
-            "معانا هتكون في افضل شركات call center في مصر❤️\nلا تفوت الفرصة",
-            "لو انت مؤهل وتقدر تتكلم انجلش، احنا بننتظرك❤️\nقدم بياناتك",
-            "مافيش احسن من انك تبدأ يومك وانت متأكد من شغلك❤️\nاستقرار وظيفي مضمون",
-            "خبرة في خدمة العملاء؟ احنا المكان المناسب لك❤️\nرواتب مجزية جدا",
-            "محتاجين شباب وشابات للعمل في مجال call center❤️\nبدون اي متطلبات معقدة",
-            "لو بتدور على شغل محترم ومضمون، وصلت للمكان الصح❤️\nسجل معانا",
-            "فرص عمل في افضل الشركات❤️\nتأمينات اجتماعية + مزايا متنوعة",
-            "لا تقارن نفسك بحد، ابدأ خطوتك الاولى معانا❤️\ncall center jobs",
-            "محتاجين موظفين لشركة عالمية❤️\nاجواء عمل ممتازة + فريق شاب",
-            "خريج وتفكيرك يشتغل، احنا الفرصة اللي بتدور عليها❤️\nقدم دلوقتي",
-            "الشغل اللي هيضمنلك مستقبل افضل❤️\nتقدم الان",
-            "مافيش مستحيل مع الاصرار❤️\nابدأ رحلتك المهنية معانا",
-            "فرصة للشباب اللي عايزين يتقدموا في حياتهم❤️\nلا تتردد",
-            "احنا بنوفرلك البيئة المناسبة للتطور❤️\nتدريب + تأهيل + توظيف",
-            "لو عندك هدف وعايز تحققه، احنا هنكون معاك❤️\nقدم طلبك",
-            "محتاجين موظفين للعمل فورا❤️\nرواتب اسبوعية + حوافز",
-            "لا تيأس، الفرص كتير بس محتاجه حد يدلك عليها❤️\nاحنا هندلك",
-            "شغل call center للبنات والشباب❤️\nظروف عمل مناسبة للجميع",
-            "مفيش حاجه اسمها عمر كبير، في حاجه اسمها رغبة حقيقية❤️\nقدم بثقة",
-            "فرصتك لتبدأ حياة مهنية ناجحة❤️\nسجل بياناتك دلوقتي",
-            "معانا هتكون في افضل اماكن❤️\nتواصل معانا عشان نبدأ",
-            "اخر فرصة للتقديم هذا الاسبوع❤️\nماتفوتش الفرصة"
+            `اتخرجت ؟ لسه !!
+مش مهم 🤝
+Grads&Undergrads 😇
+عندي ليك اوفرز كتير وهتبقي Accepted كده كده 🔥🔥
+وبأعلي salaries في الماركت 🥰
+سيب كومنت وهبعتلك التفاصيل والخطوات اللي تساعدك تعدي الانترفيو🥰🤝`,
+
+            `Debt Settlement	
+🕑4:00Pm till 1:00Am
+6:00Pm till 3:00Am
+📍Nasr city
+💸17.5k net
+📌 English B2+`,
+
+            `📌 Appointment Setting  
+📍 5th Settlement 
+🕑 4pm to 1am
+💸 10k net+3k kpis+2k bouns
+📌 English B1+/B2`,
+
+            `Back office Lovers😍
+🕓 7pm to 4am
+💸12K Net +Transportation Allowance+bouns and commissions
+📍El Sheikh Zayed
+👨🏻‍🎓Grads only
+📌 English B2`,
+
+            `📞 Customer service 
+💸Salary up to 21k
+🚌Transportation provided 
+👨🏻‍🎓Grads without experience 
+📍 El maadi
+📌 English B2`,
+
+            `Telesales US account
+💸 Salary up to 17k
+🚎 Transportation allowance or provided
+🕑 3:30 to 11:30
+📍 El maadi
+📌 English B1+ بس🫣`,
+
+            `Telesales – USA Account 🇺🇸
+
+B2+ English مقبول 👌 (فرصتك كبيرة)
+💰 10K Basic + Commission لحد 20K
+🕒 3PM–11PM | Mon–Fri
+🎓 Paid Training
+
+الشغل خفيف ومناسب تبدأ بيه كارير قوي 🔥`,
+
+            `بدور ع ناس عندها انجليزي B1 
+يكون عندهم نية للشغل
+مش شرط خبرة بس لو عندك مرتبك هيوصل ل ٢٥٠٠٠
+وفي مواصلات للبنات لحد باب البيت 
+ولو راجل هتاخد بدل مواصلات 
+والاتش ار سوي نفسيا والناس هناك فرفوشة 
+مش عارف مستنيين ايه عشان تقدموا؟`,
+
+            `🎩Grads 
+🗣️🗣️English B2
+🔥No experience needed 
+Salary 🙈 
+Txt me ✉️📩`,
+
+            `مش بتقدموا معايا ليه
+
+بنقبل من +b1
+
+و سالاري up to 35k حسب اللغة🫣
+
+و فيها كذا اكونت لو متقبلتش في واحد تتقبل في الثاني و معايا كمان ماتريال الانترفيو🙏🏻`,
+
+            `We’re hiring English speakers🇺🇸
+✅Grads,undergrads
+💰Salary up to 19K
+✅Maddi, New Cairo, October, Nasr city, sheraton 
+✅Transportation provided
+ 
+     ✅الانترڤيو سهل وهبعتلك الماتريال         
+✅عايز ناس جاهزة تبدأ training الاسبوع ده`,
+
+            `يا تلحق يا متلحقش!!!! 🔥🔥
+
+معايا فرص شغل Call Center في شركات Multinational & International + بنوك داخل القاهرة.🔥
+
+متاح لغات مختلفة، وكل شركة ليها مميزات مختلفة.🔥
+
+• Salary up to 35,000 EGP (حسب اللغة)✅
+
+✅• Graduates & Undergraduates
+
+✅• Paid training
+
+✅• Transportation provided
+
+✅• Language level B2
+
+أنا معاك من أول Interview لحد آخر يوم Training.✅
+
+كلمنيي حالااا🔥🔥`,
+
+            `📢  English Customer Service Account
+
+🇬🇧 English B2+
+💰 Salary: 21,000 EGP Gross
+
+✅ Online interview
+✔ CS experience preferred (6 months+)
+⏰ Rotational shifts & days off
+🚐 Transportation provided
+🚗 Door to door after 9 PM (for girls)
+🛡 Insurance
+
+📍 Location: Maadi
+📩 Ready to start – Apply now!`,
+
+            `لو معاك English B2
+حتى لو طالب أو خريج 👌
+🎧 شغل كول سنتر
+💼 أكتر من Account
+🚀 فرصة بداية شغل محترمة أو نقلة في الكارير`,
+
+            `لغتك الانجلش B1 ومش لاقي شركة تعينك؟؟!!
+متقلقش خالص تعالي هناا
+Salary up to 22k🔥
+Location:  Cairo/Alex
+ومش اكونت واحد بس دول  اكونتات كتير يعني فرصتك انك تتقبل ف واحد منهم كبيره جدا😍
+مستني ايه ابعتلي حالا🫣`
         ];
 
         function openPostsModal() {
@@ -2486,7 +2626,7 @@ These companies offer excellent opportunities for career growth and development 
                 const postItem = document.createElement('div');
                 postItem.className = 'post-item';
                 postItem.innerHTML = `
-                    <div class="post-text">${post}</div>
+                    <div class="post-text">${post.replace(/\n/g, '<br>')}</div>
                     <button class="posts-copy-btn" onclick="copyPost(this, ${index})">
                         <i class="far fa-copy"></i> Copy Post
                     </button>
