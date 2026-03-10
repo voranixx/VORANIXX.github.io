@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" id="html-root">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VORANIX · Contract</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Tajawal:wght@300;400;500;700;900&family=Almarai:wght@300;400;700&family=Cinzel:wght@400;600;900&family=DM+Serif+Display:ital@0;1&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+:root {
+  --pink:#e8175d; --pink-l:#ff4d85; --pink-g:#e8175d55; --pink-f:#e8175d16;
+  --blk:#060406; --s1:#0d080b; --s2:#160d11; --s3:#1e1016;
+  --bd:#2e1520; --bd2:#5a1e32;
+  --txt:#f5e8ec; --tm:#8a6070; --td:#c49aab;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--blk);font-family:'Tajawal','Almarai',sans-serif;color:var(--txt);min-height:100vh;overflow-x:hidden;}
+
+/* ── LOADING SCREEN ── */
+#loadingScreen{
+  position:fixed;inset:0;z-index:9999;
+  background:var(--blk);
+  display:none;flex-direction:column;align-items:center;justify-content:center;gap:2rem;
+  backdrop-filter:blur(20px);
+}
+#loadingScreen.active{display:flex;}
+#loadingScreen .load-title{
+  font-family:'Cinzel',serif;font-size:.75rem;letter-spacing:5px;text-transform:uppercase;
+  color:var(--pink-l);animation:pulse-txt 1.5s ease infinite;
+}
+#loadingScreen .load-sub{
+  font-family:'DM Serif Display',serif;font-size:1.2rem;
+  color:var(--td);font-style:italic;
+}
+@keyframes pulse-txt{0%,100%{opacity:.5}50%{opacity:1}}
+
+/* Typewriter */
+.typewriter{--blue:#e8175d;--blue-dark:#9c0e3c;--key:#fff;--paper:#fde8ef;--text:#c97fa0;--tool:#ff9dc0;--duration:3s;position:relative;animation:bounce05 var(--duration) linear infinite;}
+.typewriter .slide{width:92px;height:20px;border-radius:3px;margin-left:14px;transform:translateX(14px);background:linear-gradient(var(--blue),var(--blue-dark));animation:slide05 var(--duration) ease infinite;}
+.typewriter .slide:before,.typewriter .slide:after,.typewriter .slide i:before{content:"";position:absolute;background:var(--tool);}
+.typewriter .slide:before{width:2px;height:8px;top:6px;left:100%;}
+.typewriter .slide:after{left:94px;top:3px;height:14px;width:6px;border-radius:3px;}
+.typewriter .slide i{display:block;position:absolute;right:100%;width:6px;height:4px;top:4px;background:var(--tool);}
+.typewriter .slide i:before{right:100%;top:-2px;width:4px;border-radius:2px;height:14px;}
+.typewriter .paper{position:absolute;left:24px;top:-26px;width:40px;height:46px;border-radius:5px;background:var(--paper);transform:translateY(46px);animation:paper05 var(--duration) linear infinite;}
+.typewriter .paper:before{content:"";position:absolute;left:6px;right:6px;top:7px;border-radius:2px;height:4px;transform:scaleY(.8);background:var(--text);box-shadow:0 12px 0 var(--text),0 24px 0 var(--text),0 36px 0 var(--text);}
+.typewriter .keyboard{width:120px;height:56px;margin-top:-10px;z-index:1;position:relative;}
+.typewriter .keyboard:before,.typewriter .keyboard:after{content:"";position:absolute;}
+.typewriter .keyboard:before{top:0;left:0;right:0;bottom:0;border-radius:7px;background:linear-gradient(135deg,var(--blue),var(--blue-dark));transform:perspective(10px) rotateX(2deg);transform-origin:50% 100%;}
+.typewriter .keyboard:after{left:2px;top:25px;width:11px;height:4px;border-radius:2px;box-shadow:15px 0 0 var(--key),30px 0 0 var(--key),45px 0 0 var(--key),60px 0 0 var(--key),75px 0 0 var(--key),90px 0 0 var(--key),22px 10px 0 var(--key),37px 10px 0 var(--key),52px 10px 0 var(--key),60px 10px 0 var(--key),68px 10px 0 var(--key),83px 10px 0 var(--key);animation:keyboard05 var(--duration) linear infinite;}
+@keyframes bounce05{85%,92%,100%{transform:translateY(0)}89%{transform:translateY(-4px)}95%{transform:translateY(2px)}}
+@keyframes slide05{5%{transform:translateX(14px)}15%,30%{transform:translateX(6px)}40%,55%{transform:translateX(0)}65%,70%{transform:translateX(-4px)}80%,89%{transform:translateX(-12px)}100%{transform:translateX(14px)}}
+@keyframes paper05{5%{transform:translateY(46px)}20%,30%{transform:translateY(34px)}40%,55%{transform:translateY(22px)}65%,70%{transform:translateY(10px)}80%,85%{transform:translateY(0)}92%,100%{transform:translateY(46px)}}
+@keyframes keyboard05{5%,12%,21%,30%,39%,48%,57%,66%,75%,84%{box-shadow:15px 0 0 var(--key),30px 0 0 var(--key),45px 0 0 var(--key),60px 0 0 var(--key),75px 0 0 var(--key),90px 0 0 var(--key),22px 10px 0 var(--key),37px 10px 0 var(--key),52px 10px 0 var(--key),60px 10px 0 var(--key),68px 10px 0 var(--key),83px 10px 0 var(--key)}9%{box-shadow:15px 2px 0 var(--key),30px 0 0 var(--key),45px 0 0 var(--key),60px 0 0 var(--key),75px 0 0 var(--key),90px 0 0 var(--key),22px 10px 0 var(--key),37px 10px 0 var(--key),52px 10px 0 var(--key),60px 10px 0 var(--key),68px 10px 0 var(--key),83px 10px 0 var(--key)}18%{box-shadow:15px 0 0 var(--key),30px 0 0 var(--key),45px 0 0 var(--key),60px 2px 0 var(--key),75px 0 0 var(--key),90px 0 0 var(--key),22px 10px 0 var(--key),37px 10px 0 var(--key),52px 10px 0 var(--key),60px 10px 0 var(--key),68px 10px 0 var(--key),83px 10px 0 var(--key)}27%{box-shadow:15px 0 0 var(--key),30px 0 0 var(--key),45px 0 0 var(--key),60px 0 0 var(--key),75px 0 0 var(--key),90px 0 0 var(--key),22px 12px 0 var(--key),37px 10px 0 var(--key),52px 10px 0 var(--key),60px 10px 0 var(--key),68px 10px 0 var(--key),83px 10px 0 var(--key)}36%{box-shadow:15px 0 0 var(--key),30px 0 0 var(--key),45px 0 0 var(--key),60px 0 0 var(--key),75px 0 0 var(--key),90px 0 0 var(--key),22px 10px 0 var(--key),37px 10px 0 var(--key),52px 12px 0 var(--key),60px 12px 0 var(--key),68px 12px 0 var(--key),83px 10px 0 var(--key)}45%{box-shadow:15px 0 0 var(--key),30px 0 0 var(--key),45px 0 0 var(--key),60px 0 0 var(--key),75px 0 0 var(--key),90px 2px 0 var(--key),22px 10px 0 var(--key),37px 10px 0 var(--key),52px 10px 0 var(--key),60px 10px 0 var(--key),68px 10px 0 var(--key),83px 10px 0 var(--key)}54%{box-shadow:15px 0 0 var(--key),30px 2px 0 var(--key),45px 0 0 var(--key),60px 0 0 var(--key),75px 0 0 var(--key),90px 0 0 var(--key),22px 10px 0 var(--key),37px 10px 0 var(--key),52px 10px 0 var(--key),60px 10px 0 var(--key),68px 10px 0 var(--key),83px 10px 0 var(--key)}63%{box-shadow:15px 0 0 var(--key),30px 0 0 var(--key),45px 0 0 var(--key),60px 0 0 var(--key),75px 0 0 var(--key),90px 0 0 var(--key),22px 10px 0 var(--key),37px 10px 0 var(--key),52px 10px 0 var(--key),60px 10px 0 var(--key),68px 10px 0 var(--key),83px 12px 0 var(--key)}72%{box-shadow:15px 0 0 var(--key),30px 0 0 var(--key),45px 2px 0 var(--key),60px 0 0 var(--key),75px 0 0 var(--key),90px 0 0 var(--key),22px 10px 0 var(--key),37px 10px 0 var(--key),52px 10px 0 var(--key),60px 10px 0 var(--key),68px 10px 0 var(--key),83px 10px 0 var(--key)}81%{box-shadow:15px 0 0 var(--key),30px 0 0 var(--key),45px 0 0 var(--key),60px 0 0 var(--key),75px 0 0 var(--key),90px 0 0 var(--key),22px 10px 0 var(--key),37px 12px 0 var(--key),52px 10px 0 var(--key),60px 10px 0 var(--key),68px 10px 0 var(--key),83px 10px 0 var(--key)}}
+
+/* ── HAND-DRAWN BUTTON ── */
+.button{
+  text-align:center;transition:.3s ease-in-out;cursor:pointer;
+  background-color:#e8175d;
+  filter:url(#handDrawnNoise);
+  display:inline-flex;align-items:center;gap:.6rem;
+  user-select:none;
+  font-family:'Cinzel',serif;
+  font-size:1rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;
+  color:#fff;
+  padding:.85em 2.5em;
+  border:none;border-radius:2rem;
+  box-shadow:#9c0e3c88 4px 4px 0 1px, 0 0 30px var(--pink-g);
+  animation:idleBtn 1s infinite ease-in-out;
+  position:relative;
+}
+.button .highlight{
+  position:absolute;top:0;left:0;width:100%;height:100%;
+  fill:rgba(255,180,200,.25);stroke:rgba(255,150,180,.45);
+  stroke-width:10;stroke-linecap:round;pointer-events:none;
+  stroke-dasharray:1000;stroke-dashoffset:1000;
+  transition:stroke-dashoffset .5s ease-in-out;
+}
+.button-cosm{fill:#fff4;transition:.3s ease-out;scale:.45;position:absolute;translate:calc(-100% + 20px) 1.4rem;}
+.button:hover{rotate:-2.5deg;animation:hoverBtn 2.5s infinite ease-in-out;}
+.button:hover .highlight{stroke-dashoffset:0;}
+.button:hover .button-cosm{rotate:-15deg;translate:calc(-100% + 18px) 1.8rem;}
+.button:active .highlight{stroke-dashoffset:1000;animation:highlight 5s infinite,col .5s forwards;}
+.button:active{box-shadow:inset #9c0e3ccc 4px 4px 0 1px;rotate:-2.5deg;animation:activeBtn 1s infinite ease-in-out;}
+.button:active .button-cosm{fill:#fffb;rotate:-135deg;translate:calc(-100% + 50px) 1.5rem;animation:none;}
+.button:disabled{opacity:.4;cursor:not-allowed;animation:none;filter:none;}
+@keyframes idleBtn{0%{filter:url(#handDrawnNoise)}50%{rotate:1.5deg;filter:url(#handDrawnNoise2)}100%{filter:url(#handDrawnNoise)}}
+@keyframes hoverBtn{0%{rotate:0deg;filter:url(#handDrawnNoise);translate:0 0px}25%{rotate:-1deg;filter:url(#handDrawnNoise2);translate:0 -2px}50%{rotate:0deg;filter:url(#handDrawnNoise);translate:0 2px}75%{rotate:-1deg;filter:url(#handDrawnNoise2);translate:0 -2px}100%{rotate:0deg;filter:url(#handDrawnNoise);translate:0 0px}}
+@keyframes activeBtn{0%{filter:url(#handDrawnNoiset);translate:0 -1px}25%{rotate:-3deg}50%{filter:url(#handDrawnNoiset2);translate:0 1px}66%{rotate:1.5deg}100%{filter:url(#handDrawnNoiset);translate:0 -1px}}
+@keyframes col{0%{stroke:rgba(255,150,180,.45)}100%{stroke:#ff4d8566}}
+@keyframes highlight{0%{stroke-dashoffset:0}25%{stroke-dashoffset:1000}50%{stroke-dashoffset:1000}100%{stroke-dashoffset:0}}
+
+/* ── BACKGROUND ── */
+.bg-amb{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse 80% 60% at 15% 10%,#2d0518 0%,transparent 55%),
+             radial-gradient(ellipse 60% 80% at 85% 90%,#1a040e 0%,transparent 50%),
+             radial-gradient(ellipse 40% 40% at 50% 50%,#1a0610 0%,transparent 70%);}
+.bg-grid{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.018;
+  background-image:linear-gradient(var(--pink) 1px,transparent 1px),linear-gradient(90deg,var(--pink) 1px,transparent 1px);
+  background-size:60px 60px;}
+.bg-noise{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.025;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:200px 200px;}
+
+/* ── LANG BAR ── */
+.lang-bar{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:flex-end;
+  padding:.7rem 2rem;background:linear-gradient(180deg,#060406f5 0%,transparent 100%);
+  backdrop-filter:blur(12px);border-bottom:1px solid #1a080e;}
+.lang-toggle{display:flex;background:var(--s2);border:1px solid var(--bd2);border-radius:100px;overflow:hidden;box-shadow:0 0 20px var(--pink-f);}
+.lang-btn{background:transparent;border:none;padding:.38rem 1.2rem;font-size:.75rem;font-weight:700;letter-spacing:2.5px;color:var(--tm);cursor:pointer;transition:all .2s;font-family:'Syne',sans-serif;}
+.lang-btn.active{background:var(--pink);color:#fff;box-shadow:0 0 14px var(--pink-g);}
+
+/* ── WRAPPER ── */
+.wrap{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:5.5rem 1.5rem 4rem;}
+
+/* ── LOGO ── */
+.logo-block{text-align:center;margin-bottom:2.5rem;animation:fu .8s ease both;}
+.logo{display:inline-flex;align-items:baseline;gap:0;line-height:1;direction:ltr;unicode-bidi:isolate;}
+.logo-v{font-family:'Cinzel',serif;font-weight:900;font-size:5rem;color:var(--pink);letter-spacing:-1px;
+  text-shadow:0 0 40px var(--pink),0 0 80px var(--pink-g),0 2px 0 #6a001e;position:relative;}
+.logo-v::after{content:'';position:absolute;bottom:8px;left:50%;transform:translateX(-50%);
+  width:65%;height:2px;background:var(--pink);box-shadow:0 0 10px var(--pink);border-radius:2px;}
+.logo-rest{font-family:'Cinzel',serif;font-weight:600;font-size:4rem;color:#fff;letter-spacing:8px;
+  text-shadow:0 0 40px #ffffff10;background:linear-gradient(135deg,#fff 0%,#c49aab 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.logo-sub{margin-top:.8rem;font-family:'DM Serif Display',serif;font-style:italic;font-size:1rem;
+  letter-spacing:3px;color:var(--pink-l);opacity:.7;text-transform:uppercase;}
+.logo-line{margin:.9rem auto 0;width:120px;height:1px;background:linear-gradient(90deg,transparent,var(--pink),transparent);box-shadow:0 0 14px var(--pink-g);}
+
+/* ── SECTION TITLE ── */
+.sec-title{text-align:center;margin-bottom:2rem;animation:fu .8s .1s ease both;}
+.sec-title h2{font-size:.9rem;letter-spacing:6px;text-transform:uppercase;color:var(--tm);font-family:'Syne',sans-serif;font-weight:700;}
+.sec-title .sub{font-size:1.4rem;color:var(--td);margin-top:.4rem;font-family:'DM Serif Display',serif;font-style:italic;opacity:.85;}
+
+/* ── CARD ── */
+.card{background:var(--s1);border:1px solid var(--bd2);border-radius:24px;overflow:hidden;
+  box-shadow:0 0 80px #e8175d0a,0 50px 100px #00000060,inset 0 1px 0 #3d1525;animation:fu .8s .2s ease both;}
+.card-bar{height:2px;background:linear-gradient(90deg,transparent,var(--pink) 30%,var(--pink-l) 60%,transparent);box-shadow:0 0 20px var(--pink-g);}
+.card-body{padding:2.4rem 3rem;}
+@media(max-width:600px){.card-body{padding:1.4rem 1.2rem;}}
+
+/* ── DATE ── */
+.date-row{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;font-family:'DM Serif Display',serif;
+  font-size:1.05rem;font-style:italic;color:var(--td);margin-bottom:1.8rem;padding-bottom:1.5rem;border-bottom:1px solid var(--bd);}
+
+/* ── FIELD ── */
+.fi{background:var(--s3);border:1px solid var(--bd);border-radius:10px;padding:.65rem .95rem;
+  color:var(--txt);font-family:'Almarai',sans-serif;font-size:.92rem;outline:none;transition:all .22s;width:100%;}
+.fi:focus{border-color:var(--pink);background:#1e0a12;box-shadow:0 0 0 3px var(--pink-f);}
+.fi::placeholder{color:var(--tm);opacity:.5;}
+select.fi{appearance:none;cursor:pointer;}
+.fi-sm{width:60px;text-align:center;padding:.38rem .4rem;}
+.fi-md{width:130px;text-align:center;}
+.fl{font-size:.6rem;letter-spacing:3px;text-transform:uppercase;color:var(--tm);margin-bottom:.38rem;font-family:'Syne',sans-serif;font-weight:700;}
+
+/* ── PARTIES ── */
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem;}
+@media(max-width:580px){.pgrid{grid-template-columns:1fr;}}
+.pblock{background:var(--s2);border:1px solid var(--bd);border-radius:16px;padding:1.3rem 1.5rem;transition:border-color .3s;}
+.pblock:hover{border-color:var(--bd2);}
+.pblock:focus-within{border-color:var(--pink);box-shadow:0 0 22px var(--pink-f);}
+.plabel{font-size:.6rem;letter-spacing:3.5px;text-transform:uppercase;color:var(--pink);font-family:'Syne',sans-serif;font-weight:700;
+  margin-bottom:.8rem;display:flex;align-items:center;gap:.5rem;}
+.plabel::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--bd2),transparent);}
+[dir=rtl] .plabel::after{background:linear-gradient(270deg,var(--bd2),transparent);}
+.pinfo{font-size:.9rem;color:var(--td);line-height:1.9;}
+.pinfo strong{color:var(--txt);font-family:'DM Serif Display',serif;font-size:1rem;}
+
+/* ── 2-col row ── */
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:1rem;}
+@media(max-width:500px){.frow{grid-template-columns:1fr;}}
+
+/* ── TERMS ── */
+.tbox{background:var(--s2);border:1px solid var(--bd);border-radius:16px;overflow:hidden;margin:1.5rem 0;}
+.tbox-hdr{padding:.85rem 1.5rem;background:var(--s3);border-bottom:1px solid var(--bd);
+  font-size:.6rem;letter-spacing:3.5px;text-transform:uppercase;color:var(--pink);font-family:'Syne',sans-serif;font-weight:700;}
+.tbox-body{padding:1.4rem 1.5rem;max-height:280px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--bd2) transparent;}
+.tbox-body::-webkit-scrollbar{width:3px;}
+.tbox-body::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:3px;}
+.term{margin-bottom:.95rem;padding-bottom:.95rem;border-bottom:1px solid var(--bd);font-size:.87rem;color:var(--td);line-height:1.9;}
+.term:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.term-ttl{font-size:.6rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--pink-l);font-family:'Syne',sans-serif;font-weight:700;margin-bottom:.4rem;}
+
+/* ── CLAUSES ── */
+.cbox{background:var(--s2);border:1px solid var(--bd);border-radius:16px;overflow:hidden;margin-bottom:1.5rem;}
+.cbox-hdr{padding:.85rem 1.5rem;background:var(--s3);border-bottom:1px solid var(--bd);
+  font-size:.6rem;letter-spacing:3.5px;text-transform:uppercase;color:var(--pink);font-family:'Syne',sans-serif;font-weight:700;}
+.ci{display:flex;align-items:flex-start;gap:.9rem;padding:.95rem 1.5rem;border-bottom:1px solid var(--bd);cursor:pointer;transition:background .2s;}
+.ci:last-child{border-bottom:none;}
+.ci:hover{background:var(--s3);}
+.cck{width:19px;height:19px;flex-shrink:0;appearance:none;border:1.5px solid var(--bd2);border-radius:5px;
+  cursor:pointer;margin-top:2px;position:relative;transition:all .2s;background:var(--s1);}
+.cck:checked{background:var(--pink);border-color:var(--pink);box-shadow:0 0 12px var(--pink-g);}
+.cck:checked::after{content:'✓';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-size:11px;color:#fff;font-weight:700;line-height:19px;text-align:center;}
+.ct{font-size:.87rem;color:var(--td);line-height:1.8;flex:1;font-family:'Almarai',sans-serif;}
+
+/* ── SIGNATURES ── */
+.sigs{margin-top:2rem;padding-top:1.8rem;border-top:1px solid var(--bd);}
+.sigs-lbl{font-size:.6rem;letter-spacing:3.5px;text-transform:uppercase;color:var(--tm);font-family:'Syne',sans-serif;font-weight:700;text-align:center;margin-bottom:1.5rem;}
+.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;align-items:start;}
+@media(max-width:660px){.sgrid{grid-template-columns:1fr;}}
+.sblock{display:flex;flex-direction:column;align-items:center;gap:.7rem;}
+.srole{font-size:.6rem;letter-spacing:3px;text-transform:uppercase;color:var(--tm);font-family:'Syne',sans-serif;font-weight:700;text-align:center;}
+.scwrap{width:100%;max-width:210px;height:85px;background:var(--s2);border:1px solid var(--bd);
+  border-radius:14px;overflow:hidden;display:flex;align-items:center;justify-content:center;
+  position:relative;transition:border-color .4s,box-shadow .4s;}
+.scwrap.signed{border-color:var(--pink);box-shadow:0 0 24px var(--pink-f),inset 0 0 12px #2a0010;}
+.sph{color:var(--tm);font-size:.58rem;letter-spacing:2px;font-family:'Syne',sans-serif;font-weight:700;text-align:center;padding:.3rem;}
+.snm{font-size:.7rem;color:var(--tm);text-align:center;font-family:'DM Serif Display',serif;font-style:italic;}
+.si{background:var(--s2);border:1px solid var(--bd);border-radius:10px;padding:.58rem .95rem;
+  color:var(--txt);font-family:'Almarai',sans-serif;font-size:.9rem;text-align:center;
+  width:100%;max-width:210px;outline:none;transition:all .22s;}
+.si:focus{border-color:var(--pink);box-shadow:0 0 0 3px var(--pink-f);}
+
+/* ── ACTION ── */
+.action{padding:2rem 3rem;border-top:1px solid var(--bd);display:flex;flex-direction:column;align-items:center;gap:1rem;background:var(--s2);}
+.stline{min-height:24px;display:flex;align-items:center;gap:.4rem;font-family:'Syne',sans-serif;
+  font-size:.7rem;letter-spacing:2px;color:var(--pink-l);}
+.sucmsg{display:none;text-align:center;}
+.sucicon{font-size:2rem;color:var(--pink);margin-bottom:.5rem;}
+.suctxt{font-family:'DM Serif Display',serif;font-style:italic;font-size:.95rem;color:var(--td);}
+.dbtn{background:transparent;border:1px solid var(--bd2);border-radius:100px;padding:.65rem 2.2rem;
+  font-size:.75rem;letter-spacing:2px;text-transform:uppercase;color:var(--td);cursor:pointer;
+  font-family:'Syne',sans-serif;font-weight:600;transition:all .22s;display:none;}
+.dbtn:hover{border-color:var(--pink);color:var(--pink-l);box-shadow:0 0 18px var(--pink-f);}
+
+/* ── FOOTER ── */
+.foot{text-align:center;padding:1.3rem;font-size:.65rem;letter-spacing:2px;color:var(--tm);font-family:'Syne',sans-serif;font-weight:600;}
+
+@keyframes fu{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+
+/* ── DIVIDER ── */
+.sect-div{display:flex;align-items:center;gap:.8rem;margin:1.5rem 0;opacity:.35;}
+.sect-div::before,.sect-div::after{content:'';flex:1;height:1px;background:var(--bd2);}
+.sect-div-icon{color:var(--pink);font-size:.6rem;}
+
+/* ── ACCORDION TERMS (mobile) ── */
+@media(max-width:640px){
+  .wrap{padding:4.5rem .75rem 3rem;}
+  .card-body{padding:1.2rem 1rem;}
+  .action{padding:1.4rem 1rem;}
+
+  /* accordion header */
+  .term{
+    margin-bottom:0;padding-bottom:0;border-bottom:none;
+    border-radius:12px;overflow:hidden;
+    border:1px solid var(--bd);background:var(--s2);
+    margin-top:.5rem;
+  }
+  .term-ttl{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:.8rem 1rem;margin-bottom:0;
+    cursor:pointer;user-select:none;
+    font-size:.65rem;letter-spacing:2px;
+  }
+  .term-ttl::after{
+    content:'＋';font-size:.9rem;color:var(--pink);
+    transition:transform .3s ease;display:inline-block;flex-shrink:0;margin-right:.4rem;
+  }
+  [dir=ltr] .term-ttl::after{margin-right:0;margin-left:.4rem;}
+  .term-ttl.open::after{transform:rotate(45deg);}
+  .term-body{
+    max-height:0;overflow:hidden;
+    transition:max-height .35s ease, padding .25s ease;
+    padding:0 1rem;font-size:.83rem;color:var(--td);line-height:1.85;
+  }
+  .term-body.open{max-height:400px;padding:.2rem 1rem .9rem;}
+  .tbox-body{max-height:none;overflow:visible;padding:.3rem .4rem .6rem;}
+
+  /* compact clauses */
+  .ci{padding:.8rem 1rem;gap:.75rem;}
+  .ct{font-size:.83rem;}
+
+  /* signatures stack nicer */
+  .sgrid{grid-template-columns:1fr!important;gap:1.4rem;}
+  .sblock{flex-direction:row;align-items:center;justify-content:flex-start;gap:1rem;background:var(--s2);border:1px solid var(--bd);border-radius:14px;padding:.8rem 1rem;}
+  .scwrap{flex-shrink:0;width:130px;height:60px;}
+  .srole{font-size:.55rem;letter-spacing:2px;}
+  .snm{font-size:.65rem;text-align:right;}
+  [dir=ltr] .snm{text-align:left;}
+  .sblock > div:not(.scwrap){flex:1;}
+  .si{max-width:100%;}
+
+  /* pgrid */
+  .pgrid{grid-template-columns:1fr;}
+  .frow{grid-template-columns:1fr;}
+
+  /* logo smaller */
+  .logo-v{font-size:3.5rem;}
+  .logo-rest{font-size:2.8rem;}
+
+  /* date row */
+  .date-row{font-size:.9rem;gap:.3rem;}
+  .fi-sm{width:48px;}
+  .fi-md{width:100px;}
+}
+</style>
+</head>
+<body>
+
+<!-- Loading Screen -->
+<div id="loadingScreen">
+  <div class="typewriter">
+    <div class="slide"><i></i></div>
+    <div class="paper"></div>
+    <div class="keyboard"></div>
+  </div>
+  <div class="load-title" id="loadTitle">جارٍ توقيع العقد</div>
+  <div class="load-sub" id="loadSub">Signing Contract…</div>
+</div>
+
+<!-- SVG Filters -->
+<svg height="0" width="0" style="position:absolute">
+  <filter id="handDrawnNoise"><feTurbulence result="noise" numOctaves="8" baseFrequency="0.1" type="fractalNoise"></feTurbulence><feDisplacementMap yChannelSelector="G" xChannelSelector="R" scale="3" in2="noise" in="SourceGraphic"></feDisplacementMap></filter>
+  <filter id="handDrawnNoise2"><feTurbulence result="noise" numOctaves="8" baseFrequency="0.1" seed="1010" type="fractalNoise"></feTurbulence><feDisplacementMap yChannelSelector="G" xChannelSelector="R" scale="3" in2="noise" in="SourceGraphic"></feDisplacementMap></filter>
+  <filter id="handDrawnNoiset"><feTurbulence result="noise" numOctaves="8" baseFrequency="0.1" type="fractalNoise"></feTurbulence><feDisplacementMap yChannelSelector="G" xChannelSelector="R" scale="6" in2="noise" in="SourceGraphic"></feDisplacementMap></filter>
+  <filter id="handDrawnNoiset2"><feTurbulence result="noise" numOctaves="8" baseFrequency="0.1" seed="1010" type="fractalNoise"></feTurbulence><feDisplacementMap yChannelSelector="G" xChannelSelector="R" scale="6" in2="noise" in="SourceGraphic"></feDisplacementMap></filter>
+</svg>
+
+<div class="bg-amb"></div>
+<div class="bg-grid"></div>
+<div class="bg-noise"></div>
+
+<!-- Lang Bar -->
+<div class="lang-bar">
+  <div class="lang-toggle">
+    <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+    <button class="lang-btn active" id="btn-ar" onclick="setLang('ar')">AR</button>
+  </div>
+</div>
+
+<div class="wrap">
+  <!-- Logo -->
+  <div class="logo-block">
+    <div class="logo"><span class="logo-v">V</span><span class="logo-rest">ORANIX</span></div>
+    <div class="logo-sub" id="lsub">عقد تعاون عن بعد</div>
+    <div class="logo-line"></div>
+  </div>
+
+  <!-- Section Title -->
+  <div class="sec-title">
+    <h2 id="stitle">عقد تعاون</h2>
+    <div class="sub" id="ssub">Remote · Freelance Recruiter Agreement</div>
+  </div>
+
+  <!-- Card -->
+  <div class="card" id="contractCard">
+    <div class="card-bar"></div>
+    <div class="card-body">
+
+      <!-- Date -->
+      <div class="date-row">
+        <span id="dl">تاريخ العقد:</span>&nbsp;
+        <input class="fi fi-sm" id="dayNum" value="">
+        <span>/</span>
+        <input class="fi fi-md" id="monthName" value="">
+        <span>/</span>
+        <input class="fi fi-sm" id="yearNum" value="2025" style="width:75px">
+      </div>
+
+      <!-- Parties -->
+      <div class="pgrid">
+        <div class="pblock">
+          <div class="plabel" id="p1l">الطرف الأول · First Party</div>
+          <div class="pinfo"><strong>VORANIX</strong><br><span id="p1d">شركة مسؤولية محدودة · عمل عن بعد<br>يمثلها: أدهم علاء & فرح شريف</span></div>
+        </div>
+        <div class="pblock">
+          <div class="plabel" id="p2l">الطرف الثاني · Second Party</div>
+          <div class="pinfo"><span id="p2r">المتعاون · Recruiter</span></div>
+          <div style="margin-top:.8rem">
+            <input class="fi" id="recruiterName" placeholder="الاسم ثلاثي · Full Name">
+          </div>
+        </div>
+      </div>
+
+      <!-- Details -->
+      <div class="frow">
+        <div><div class="fl" id="natl">الجنسية · Nationality</div><input class="fi" id="nationality" value="مصري" placeholder="Egyptian"></div>
+        <div><div class="fl" id="idl">الرقم القومي · National ID</div><input class="fi" id="nationalId" placeholder="14 digits"></div>
+      </div>
+      <div class="frow">
+        <div><div class="fl" id="payml">وسيلة الدفع · Payment</div>
+          <select class="fi" id="paymentMethod">
+            <option>Vodafone Cash · فودافون كاش</option>
+            <option>Bank Transfer · تحويل بنكي</option>
+            <option>InstaPay · إنستاباي</option>
+          </select>
+        </div>
+        <div><div class="fl" id="accl">رقم الحساب · Account</div><input class="fi" id="paymentDetail" placeholder="IBAN / رقم المحفظة"></div>
+      </div>
+
+      <div class="sect-div"><span class="sect-div-icon">◆</span></div>
+
+      <!-- Terms -->
+      <div class="tbox">
+        <div class="tbox-hdr" id="th">شروط وأحكام العقد · Terms &amp; Conditions</div>
+        <div class="tbox-body">
+          <div class="term"><div class="term-ttl" id="tt1" onclick="toggleTerm(this)">ضمان العمولة · Commission Guarantee</div><div class="term-body"><span id="tc1">يحق للطرف الثاني الحصول على عمولة عن كل مرشح يتم تعيينه عبر جهوده، وفقاً لسياسة الشركة المعتمدة، وتُصرف في المواعيد المتفق عليها.</span></div></div>
+          <div class="term"><div class="term-ttl" id="tt2" onclick="toggleTerm(this)">شرط التوقف · Inactivity Clause</div><div class="term-body"><span id="tc2">يُعتبر هذا العقد ملغياً تلقائياً دون إنذار إذا توقف الطرف الثاني عن النشاط لمدة <strong>٧ أيام متتالية</strong> دون موافقة كتابية من Team Leader أو CEO. تسقط جميع الحقوق باستثناء العمولات المستحقة.</span></div></div>
+          <div class="term"><div class="term-ttl" id="tt3" onclick="toggleTerm(this)">النزاعات · Disputes</div><div class="term-body"><span id="tc3">في حالة النزاع وثبوت أدلة (لقطة شاشة / محادثة)، يعتبر العقد ملغياً فور ثبوت الإخلال. تُحل النزاعات أمام محاكم القاهرة.</span></div></div>
+          <div class="term"><div class="term-ttl" id="tt4" onclick="toggleTerm(this)">مدة العقد · Duration</div><div class="term-body"><span id="tc4">العقد سارٍ لحين إبطاله أو بالاتفاق الكتابي بين الطرفين.</span></div></div>
+          <div class="term"><div class="term-ttl" id="tt5" onclick="toggleTerm(this)">الالتزامات · Obligations</div><div class="term-body"><span id="tc5">يلتزم الطرف الثاني بتقديم مرشحين والتنسيق مع فريق التوظيف والمشاركة في الاجتماعات. يلتزم الطرف الأول بتوفير الدعم وصرف العمولات.</span></div></div>
+          <div class="term"><div class="term-ttl" id="tt6" onclick="toggleTerm(this)">⚠ تنبيه · Warning</div><div class="term-body"><span id="tc6">في حالة الاختلاف أو المشاجرات بين الطرف المتعاون ومسؤولي الشركة يتم اعتبار العقد ملغياً حين ثبوت أدلة مثل لقطة شاشة أو محادثة بين طرفي النزاع.</span></div></div>
+        </div>
+      </div>
+
+      <!-- Clauses -->
+      <div class="cbox">
+        <div class="cbox-hdr" id="ch">الموافقة على البنود · Agreement to Terms</div>
+        <label class="ci"><input type="checkbox" class="cck" id="c1"><span class="ct" id="ct1">أقر بقراءتي وفهمي لجميع بنود العقد، بما فيها ضمان العمولة وشرط التوقف.</span></label>
+        <label class="ci"><input type="checkbox" class="cck" id="c2"><span class="ct" id="ct2">أوافق على وسيلة الدفع المحددة لصرف العمولات.</span></label>
+        <label class="ci"><input type="checkbox" class="cck" id="c3"><span class="ct" id="ct3">أُقر بأن التوقف ٧ أيام عن العمل بدون إذن كتابي يُبطل العقد تلقائياً.</span></label>
+      </div>
+
+      <!-- Signatures -->
+      <div class="sigs">
+        <div class="sigs-lbl" id="sigl">التوقيعات المعتمدة · Authorized Signatures</div>
+        <div class="sgrid">
+          <div class="sblock">
+            <div class="srole" id="sr1">CEO · أدهم علاء</div>
+            <div class="scwrap" id="adhamW">
+              <span class="sph" id="adhamPh">AWAITING</span>
+              <canvas id="adhamC" width="210" height="85" style="display:none;position:absolute;"></canvas>
+            </div>
+            <div class="snm" id="sn1">أدهم علاء · Adham Alaa</div>
+          </div>
+          <div class="sblock">
+            <div class="srole" id="sr2">المتعاون · Recruiter</div>
+            <div class="scwrap" id="recW">
+              <span class="sph" id="recPh">TYPE NAME BELOW</span>
+              <canvas id="recC" width="210" height="85" style="display:none;position:absolute;"></canvas>
+            </div>
+            <input class="si" id="recruiterSignature" placeholder="اكتب اسمك · Your Name">
+          </div>
+          <div class="sblock">
+            <div class="srole" id="sr3">CEO · فرح شريف</div>
+            <div class="scwrap" id="farahW">
+              <span class="sph" id="farahPh">AWAITING</span>
+              <canvas id="farahC" width="210" height="85" style="display:none;position:absolute;"></canvas>
+            </div>
+            <div class="snm" id="sn3">فرح شريف · Farah Sherif</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action -->
+    <div class="action">
+      <div class="stline" id="stl"></div>
+
+      <!-- Hand-Drawn Button -->
+      <button class="button" id="confirmBtn" onclick="doConfirm()">
+        <svg class="button-cosm" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" width="128" height="128" viewBox="0 0 256 256" id="Flat" xmlns="http://www.w3.org/2000/svg"><path d="M243.07324,157.43945c-1.2334-1.47949-23.18847-27.34619-60.46972-41.05859-1.67579-17.97412-8.25293-34.36328-18.93653-46.87158C149.41309,52.8208,128.78027,44,104,44,54.51074,44,22.10059,88.57715,20.74512,90.4751a3.99987,3.99987,0,0,0,6.50781,4.65234C27.5625,94.6958,58.68359,52,104,52c22.36816,0,40.89648,7.85107,53.584,22.70508,8.915,10.437,14.65625,23.9541,16.65528,38.894A133.54185,133.54185,0,0,0,136,108c-25.10742,0-46.09473,6.48486-60.69434,18.75391-12.65234,10.63379-19.91015,25.39355-19.91015,40.49463a43.61545,43.61545,0,0,0,12.69336,31.21923C76.98438,207.3208,89.40234,212,104,212c23.98047,0,44.37305-9.4668,58.97461-27.37744,12.74512-15.6333,20.05566-37.145,20.05566-59.01953,0-.1128-.001-.22559-.001-.33838,33.62988,13.48486,53.62207,36.96631,53.89746,37.2959a4.00015,4.00015,0,0,0,6.14648-5.1211ZM104,204c-27.89746,0-40.60449-19.05078-40.60449-36.75146C63.39551,142.56592,86.11621,116,136,116a124.37834,124.37834,0,0,1,38.97266,6.32617q.05712,1.63038.05761,3.27686C175.03027,177.07129,139.29785,204,104,204Z"></path></svg>
+        <svg class="highlight" viewBox="0 0 144.75738 77.18431" preserveAspectRatio="none"><g transform="translate(-171.52826,-126.11624)"><g fill="none" stroke-width="17" stroke-linecap="round" stroke-miterlimit="10"><path d="M180.02826,169.45123c0,0 12.65228,-25.55115 24.2441,-25.66863c6.39271,-0.06479 -5.89143,46.12943 4.90937,50.63857c10.22345,4.2681 24.14292,-52.38336 37.86455,-59.80493c3.31715,-1.79413 -5.35094,45.88889 -0.78872,58.34589c5.19371,14.18125 33.36934,-58.38221 36.43049,-56.91633c4.67078,2.23667 -0.06338,44.42744 5.22574,47.53647c6.04041,3.55065 19.87185,-20.77286 19.87185,-20.77286"></path></g></g></svg>
+        <span id="cbtnTxt">تأكيد العقد والتوقيع</span>
+      </button>
+
+      <div class="sucmsg" id="sucMsg">
+        <div class="sucicon"><i class="fas fa-circle-check"></i></div>
+        <div class="suctxt" id="sucTxt">تم توقيع العقد بنجاح · Contract Signed Successfully</div>
+      </div>
+      <button class="dbtn" id="downloadBtn" onclick="doDownload()">
+        <i class="fas fa-arrow-down"></i>&nbsp;<span id="dbtntxt">تحميل العقد · Download</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="foot" id="foot">VORANIX · جميع الحقول إلزامية · All fields required</div>
+</div>
+
+<script>
+const T = {
+  ar:{dir:'rtl',
+    lsub:'عقد تعاون عن بعد', stitle:'عقد تعاون', ssub:'Remote · Freelance Recruiter Agreement',
+    dl:'تاريخ العقد:', p1l:'الطرف الأول', p1d:'شركة مسؤولية محدودة · عمل عن بعد<br>يمثلها: أدهم علاء & فرح شريف',
+    p2l:'الطرف الثاني', p2r:'المتعاون · Recruiter',
+    natl:'الجنسية', idl:'الرقم القومي', payml:'وسيلة الدفع', accl:'رقم الحساب',
+    th:'شروط وأحكام العقد', ch:'الموافقة على البنود',
+    tt1:'ضمان العمولة',tc1:'يحق للطرف الثاني الحصول على عمولة عن كل مرشح يتم تعيينه عبر جهوده، وفقاً لسياسة الشركة المعتمدة.',
+    tt2:'شرط التوقف',tc2:'يُعتبر هذا العقد ملغياً تلقائياً إذا توقف الطرف الثاني عن النشاط لمدة <strong>٧ أيام متتالية</strong> دون موافقة كتابية من Team Leader أو CEO.',
+    tt3:'النزاعات',tc3:'في حالة النزاع وثبوت أدلة، يعتبر العقد ملغياً فور ثبوت الإخلال. تُحل النزاعات أمام محاكم القاهرة.',
+    tt4:'مدة العقد',tc4:'العقد سارٍ لحين إبطاله وفق الشروط أعلاه أو بالاتفاق الكتابي بين الطرفين.',
+    tt5:'الالتزامات',tc5:'يلتزم الطرف الثاني بتقديم مرشحين والتنسيق مع فريق التوظيف. يلتزم الطرف الأول بتوفير الدعم وصرف العمولات.',
+    tt6:'⚠ تنبيه',tc6:'في حالة الاختلاف أو المشاجرات بين الطرف المتعاون ومسؤولي الشركة يتم اعتبار العقد ملغياً حين ثبوت أدلة.',
+    ct1:'أقر بقراءتي وفهمي لجميع بنود العقد، بما فيها ضمان العمولة وشرط التوقف.',
+    ct2:'أوافق على وسيلة الدفع المحددة لصرف العمولات.',
+    ct3:'أُقر بأن التوقف ٧ أيام عن العمل بدون إذن كتابي يُبطل العقد تلقائياً.',
+    sigl:'التوقيعات المعتمدة', sr1:'CEO · أدهم علاء', sr2:'المتعاون', sr3:'CEO · فرح شريف',
+    sn1:'أدهم علاء', sn3:'فرح شريف',
+    cbtnTxt:'تأكيد العقد والتوقيع', sucTxt:'تم توقيع العقد بنجاح · Contract Signed',
+    dbtntxt:'تحميل العقد', foot:'VORANIX · جميع الحقول إلزامية',
+    rNamePh:'الاسم ثلاثي · Full Name', rSigPh:'اكتب اسمك · Your Name',
+    err1:'⚠ يرجى تعبئة جميع الحقول', err2:'⚠ يرجى كتابة اسمك في خانة التوقيع',
+    err3:'⚠ يرجى الموافقة على جميع البنود',
+    adhamPh:'في انتظار التوقيع', farahPh:'في انتظار التوقيع', recPh:'اكتب اسمك أدناه',
+    loadTitle:'جارٍ توقيع العقد', loadSub:'Signing Contract…'
+  },
+  en:{dir:'ltr',
+    lsub:'Remote Recruitment Contract', stitle:'Contract of Cooperation', ssub:'Remote · Freelance Recruiter Agreement',
+    dl:'Contract Date:', p1l:'First Party',
+    p1d:'Limited Liability Company · Remote Operations<br>Represented by: Adham Alaa & Farah Sherif',
+    p2l:'Second Party', p2r:'Recruiter · Cooperator',
+    natl:'Nationality', idl:'National ID', payml:'Payment Method', accl:'Account Number',
+    th:'Terms & Conditions', ch:'Agreement to Terms',
+    tt1:'Commission Guarantee',tc1:"The Second Party is entitled to commission for every candidate placed through their efforts, per the Company's approved policy.",
+    tt2:'Inactivity Clause',tc2:'This contract is automatically void if the Second Party ceases activity for <strong>7 consecutive days</strong> without written approval from the Team Leader or CEO.',
+    tt3:'Dispute Resolution',tc3:'In the event of dispute with evidence, the contract is immediately void. Disputes are resolved before Cairo courts.',
+    tt4:'Duration',tc4:'This contract remains valid unless voided per the above conditions or terminated in writing by either party.',
+    tt5:'Obligations',tc5:'The Second Party shall submit candidates and coordinate with the recruitment team. The First Party shall provide support and disburse commissions.',
+    tt6:'⚠ Warning',tc6:'In the event of dispute between the Recruiter and Company officials, the contract is void upon proof of evidence such as screenshots or conversation logs.',
+    ct1:'I confirm I have read and understood all contract terms, including the commission guarantee and inactivity clause.',
+    ct2:'I agree to the specified payment method for commission disbursement.',
+    ct3:'I acknowledge that 7 days of inactivity without written approval voids this contract automatically.',
+    sigl:'Authorized Signatures', sr1:'CEO · Adham Alaa', sr2:'Recruiter', sr3:'COO · Farah Sherif',
+    sn1:'Adham Alaa', sn3:'Farah Sherif',
+    cbtnTxt:'CONFIRM & SIGN CONTRACT', sucTxt:'Contract Signed Successfully',
+    dbtntxt:'Download Contract', foot:'VORANIX · All fields required',
+    rNamePh:'Full Name · الاسم ثلاثي', rSigPh:'Your Name · اكتب اسمك',
+    err1:'⚠ Please fill all required fields', err2:'⚠ Please type your name in the signature field',
+    err3:'⚠ Please agree to all terms',
+    adhamPh:'AWAITING SIGNATURE', farahPh:'AWAITING SIGNATURE', recPh:'TYPE NAME BELOW',
+    loadTitle:'Signing Contract', loadSub:'جارٍ توقيع العقد…'
+  }
+};
+let lang='ar';
+const $=id=>document.getElementById(id);
+
+function setLang(l){
+  lang=l;const t=T[l];
+  $('html-root').setAttribute('lang',l);$('html-root').setAttribute('dir',t.dir);
+  $('btn-ar').classList.toggle('active',l==='ar');$('btn-en').classList.toggle('active',l==='en');
+  const htmlF=['p1d','tc1','tc2','tc3','tc4','tc5','tc6'];
+  ['lsub','stitle','ssub','dl','p1l','p1d','p2l','p2r','natl','idl','payml','accl','th','ch',
+   'tt1','tc1','tt2','tc2','tt3','tc3','tt4','tc4','tt5','tc5','tt6','tc6',
+   'ct1','ct2','ct3','sigl','sr1','sr2','sr3','sn1','sn3','cbtnTxt','sucTxt','dbtntxt','foot',
+   'adhamPh','farahPh','recPh'
+  ].forEach(id=>{const el=$(id);if(!el)return;htmlF.includes(id)?el.innerHTML=t[id]:el.textContent=t[id];});
+  $('recruiterName').placeholder=t.rNamePh;$('recruiterSignature').placeholder=t.rSigPh;
+}
+
+// Date
+(()=>{
+  const d=new Date();
+  const mar=['يناير','فبراير','مارس','إبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+  $('dayNum').value=d.getDate();$('monthName').value=mar[d.getMonth()];$('yearNum').value=d.getFullYear();
+})();
+
+// Signature engine
+function pts2segs(pts){const segs=[];let cur=[];for(const p of pts){if(p===null){if(cur.length)segs.push([...cur]);cur=[];}else cur.push(p);}if(cur.length)segs.push(cur);return segs;}
+function animateSig(canvasId,wrapId,phId,pts,dur,delay=0){
+  setTimeout(()=>{
+    const w=$(wrapId),cv=$(canvasId),ph=$(phId);
+    ph.style.display='none';cv.style.display='block';cv.style.position='relative';w.classList.add('signed');
+    const W=cv.width,H=cv.height,ctx=cv.getContext('2d');ctx.clearRect(0,0,W,H);
+    const segs=pts2segs(pts);const flat=[];segs.forEach((s,si)=>s.forEach(p=>flat.push({p,si})));
+    const tot=flat.length;if(!tot)return;let start=null;
+    function step(ts){if(!start)start=ts;const prog=Math.min((ts-start)/dur,1);const upto=Math.floor(prog*tot);
+      ctx.clearRect(0,0,W,H);ctx.strokeStyle='#ff4d85';ctx.lineWidth=1.8;ctx.lineCap='round';ctx.lineJoin='round';
+      ctx.shadowColor='#e8175d';ctx.shadowBlur=12;let prevSi=-1;ctx.beginPath();
+      for(let i=0;i<upto;i++){const{p,si}=flat[i];if(si!==prevSi){if(prevSi>=0)ctx.stroke();ctx.beginPath();ctx.moveTo(p[0],p[1]);prevSi=si;}else ctx.lineTo(p[0],p[1]);}
+      ctx.stroke();if(prog<1)requestAnimationFrame(step);
+      else{const lp=flat[tot-1].p;ctx.beginPath();ctx.arc(lp[0],lp[1],2.5,0,Math.PI*2);ctx.fillStyle='#ff4d85';ctx.shadowBlur=18;ctx.fill();}
+    }requestAnimationFrame(step);},delay);}
+
+function mkAdham(W,H){const cx=W/2,cy=H/2,pts=[];
+  for(let t=0;t<=1;t+=0.008)pts.push([cx-68+136*t+18*Math.sin(t*Math.PI*4),cy+12*Math.sin(t*Math.PI*5)-14*Math.cos(t*Math.PI*2)]);
+  pts.push(null);for(let t=0;t<=1;t+=0.01)pts.push([cx-40+80*t,cy-10+8*Math.sin(t*Math.PI*3+1.2)]);
+  pts.push(null);for(let t=0;t<=1;t+=0.015)pts.push([cx-72+144*t,cy+25+4*Math.sin(t*Math.PI)]);
+  for(let t=0;t<=1;t+=0.03){const a=t*Math.PI*1.6;pts.push([cx+72+14*Math.cos(a),cy+25-12*Math.sin(a)]);}
+  return pts;}
+
+function mkFarah(W,H){const cx=W/2,cy=H/2,pts=[];
+  for(let t=0;t<=1;t+=0.008)pts.push([cx-55+110*t,cy-8+16*Math.sin(t*Math.PI*4)+6*Math.sin(t*Math.PI*1.5)]);
+  pts.push(null);for(let t=0;t<=1;t+=0.06){const a=t*Math.PI*2;pts.push([cx-20+5*Math.cos(a),cy-28+5*Math.sin(a)]);}
+  pts.push(null);for(let t=0;t<=1;t+=0.06){const a=t*Math.PI*2;pts.push([cx+15+5*Math.cos(a),cy-24+5*Math.sin(a)]);}
+  pts.push(null);for(let t=0;t<=1;t+=0.015)pts.push([cx-65+130*t,cy+24+3*Math.sin(t*Math.PI)]);
+  for(let t=0;t<=1;t+=0.04){const a=t*Math.PI;pts.push([cx+65+10*Math.cos(a),cy+24-10*Math.sin(a)]);}
+  return pts;}
+
+function mkRecruiter(W,H,name){const pts=[];if(!name)return pts;const cx=W/2,cy=H/2;
+  const n=name.trim();const totalW=Math.min(n.length*10,140);const sx=cx-totalW/2;
+  for(let i=0;i<n.length;i++){const tx=sx+i*(totalW/Math.max(n.length-1,1));const ch=n.charCodeAt(i);const phase=(ch%6)*1.05;const amp=5+((ch%4)*2);
+    for(let s=0;s<=1;s+=0.04)pts.push([tx+9*s+3*Math.sin(s*Math.PI*3+phase),cy+amp*Math.sin(s*Math.PI*2+phase)]);if(i<n.length-1)pts.push(null);}
+  pts.push(null);for(let t=0;t<=1;t+=0.018)pts.push([cx-totalW/2+totalW*t,cy+26+3*Math.sin(t*Math.PI)]);
+  return pts;}
+
+function showLoading(show){
+  const scr=$('loadingScreen');
+  if(show){scr.classList.add('active');}else{scr.classList.remove('active');}
+}
+
+function doConfirm(){
+  const name=$('recruiterName').value.trim();
+  const natId=$('nationalId').value.trim();
+  const payment=$('paymentDetail').value.trim();
+  const sig=$('recruiterSignature').value.trim();
+  const t=T[lang];
+  if(!name||!natId||!payment){$('stl').textContent=t.err1;return;}
+  if(!sig){$('stl').textContent=t.err2;return;}
+  if(![...$('contractCard').querySelectorAll('.cck')].every(c=>c.checked)){$('stl').textContent=t.err3;return;}
+  $('stl').textContent='';
+  $('confirmBtn').disabled=true;
+
+  // Update loading text
+  $('loadTitle').textContent=t.loadTitle;
+  $('loadSub').textContent=t.loadSub;
+
+  // Show loading screen
+  showLoading(true);
+
+  // Run signatures
+  animateSig('adhamC','adhamW','adhamPh',mkAdham(210,85),1400,0);
+  animateSig('recC','recW','recPh',mkRecruiter(210,85,sig),1200,700);
+  animateSig('farahC','farahW','farahPh',mkFarah(210,85),1400,1500);
+
+  setTimeout(()=>{
+    showLoading(false);
+    $('sucMsg').style.display='block';
+    $('downloadBtn').style.display='inline-block';
+    $('confirmBtn').disabled=false;
+  },3400);
+}
+
+function doDownload(){
+  html2canvas($('contractCard'),{scale:2,backgroundColor:'#0d080b',useCORS:true,logging:false})
+  .then(c=>{const a=document.createElement('a');a.download=`VORANIX_${Date.now()}.png`;a.href=c.toDataURL('image/png');a.click();});
+}
+
+// Accordion for terms
+function toggleTerm(ttl){
+  const isMobile=window.innerWidth<=640;
+  if(!isMobile)return;
+  const body=ttl.nextElementSibling;
+  const isOpen=body.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.term-body.open').forEach(b=>{b.classList.remove('open');b.previousElementSibling.classList.remove('open');});
+  if(!isOpen){body.classList.add('open');ttl.classList.add('open');}
+}
+
+setLang('ar');
+</script>
+</body>
+</html>
