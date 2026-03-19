@@ -31,6 +31,7 @@
             --shadow-heavy: 0 10px 40px rgba(0, 0, 0, 0.5);
             --shadow-medium: 0 5px 20px rgba(0, 0, 0, 0.3);
             --shadow-light: 0 2px 10px rgba(0, 0, 0, 0.2);
+            --pink-glow: #ff69b4;
         }
         
         body {
@@ -325,6 +326,27 @@
             border-color: var(--accent-color);
         }
         
+        /* توهج وردي للعروض النشطة */
+        .job-card.active-job {
+            animation: pinkGlow 4s infinite ease-in-out;
+            border: 0.4px solid var(--pink-glow);
+        }
+        
+        @keyframes pinkGlow {
+            0% {
+                box-shadow: 0 0 5px var(--pink-glow), 0 0 10px var(--pink-glow);
+                border-color: var(--pink-glow);
+            }
+            50% {
+                box-shadow: 0 0 20px var(--pink-glow), 0 0 30px var(--pink-glow);
+                border-color: #ff1493;
+            }
+            100% {
+                box-shadow: 0 0 5px var(--pink-glow), 0 0 10px var(--pink-glow);
+                border-color: var(--pink-glow);
+            }
+        }
+        
         .job-status {
             display: inline-block;
             padding: 8px 16px;
@@ -335,9 +357,9 @@
         }
         
         .status-active {
-            background-color: rgba(16, 185, 129, 0.15);
-            color: var(--success-color);
-            border: 1px solid rgba(16, 185, 129, 0.3);
+            background-color: rgba(255, 105, 180, 0.2);
+            color: #ff69b4;
+            border: 1px solid rgba(255, 105, 180, 0.5);
         }
         
         .status-hold {
@@ -831,28 +853,28 @@
     </div>
     
     <script>
-        // Job offers data - Updated with Active/Hold status as per instructions
+        // Job offers data - محدثة بناءً على الملفات الجديدة Active و Hold
         const jobOffers = [
-            // ACTIVE OFFERS (as provided)
+            // ==================== العروض النشطة (Active) من active offers.txt ====================
             {
                 id: 1,
                 status: "Active",
-                company: "eClerx",
+                company: "ISON Xperience 🇪🇸",
                 account: "Customer Service",
                 shifts: "Rotational Shifts",
-                interview: "On-site interviews Sunday to Thursday from 12:00 PM to 5:00 PM",
-                location: "Maadi Technological Park, https://maps.app.goo.gl/HbzF95cJd8hGCG3U9",
-                graduation: "Grads Only",
+                interview: "Online Interviews",
+                location: "Horizon site 6th of October city",
+                graduation: "Grads / UG with no Commitments",
                 nationality: "Egyptians Only",
-                maxAge: 45,
-                language: "B2",
+                maxAge: 38,
+                language: "B2+ Spanish + B2 English",
                 languageRequirement: "B2",
-                salary: "21K",
-                process: "They Directly go to the interview after the Validation",
-                training: "45 Days",
-                details: "🔥 VORANIX is Hiring for eClerx 🔥\n\nPosition: Customer Service Representative\nLocation: Maadi Technological Park (On-site)\nShifts: Rotational\n\n💰 Up to 21,000 EGP Net\n• 15,500 Basic\n• 2,300 Night Allowance\n• 3,200 KPIs\n\nRequirements:\n• Grads only (Egyptians)\n• English B2\n• No experience required\n\nBenefits:\n✔ Fast promotions\n✔ Medical & social insurance\n✔ Transportation provided\n\nApply now through VORANIX 🦇",
+                salary: "32K NET + 5K Welcome Bonus",
+                process: "They Receive a Call Interview",
+                training: "5 Weeks (Paid)",
+                details: "🔥 VORANIX is Hiring! 🔥\nPosition: Flight Reservation Agent \nSpanish Airways ✈️🛫\nLocation: Horizon Site, 6th of October City\nRotational Shifts ⏰\n💰 Compensation: 29K net + 3K Transportation Allowance + 5K EGP Welcome Bonus after 90 days 🎉\nAbout the Role:\nHandle flight reservations, assist Spanish-speaking clients, deliver excellent customer service, and resolve inquiries efficiently.\nRequirements:\nB2/B2+ Spanish 🇪🇸\nB1+ English 🇺🇸\n3+ months customer service experience 💼\nNo experience? Strong handling skills are welcome 💪\nGrads / UGs with no commitments 🎓\nWhy Join Us?\nPaid training 📝, rotational shifts ⏰, competitive salary + bonuses 💰, and a fast-paced, elite team environment 🔥🦇",
                 locationType: "office",
-                targetLanguage: "english"
+                targetLanguage: "spanish"
             },
             {
                 id: 2,
@@ -860,7 +882,7 @@
                 company: "Geeky CX",
                 account: "Negotiator - Debt Settlement",
                 shifts: "Fixed Shifts 7:00 PM to 4:00 AM",
-                interview: "Call Interviews",
+                interview: "F2F interview Friday from 8:00 PM to 10:00 PM",
                 location: "El Sheikh Zayed, https://maps.app.goo.gl/uV9rUD7KhZ1Y3rii6?g_st=ic",
                 graduation: "Grads Only",
                 nationality: "Egyptians Only",
@@ -868,7 +890,7 @@
                 language: "C1 English Level",
                 languageRequirement: "C1",
                 salary: "25K Gross",
-                process: "Phone Interview",
+                process: "Face to Face Interview",
                 training: "30 Days",
                 details: "🔥 VORANIX is Hiring! 🔥\n\nPosition: Debt Settlement Negotiator\nLocation: On-site, Sheikh Zayed \nNight Shift\n\n💰 Compensation: 15K EGP/month + up to 10K EGP bonuses (Total 25K)\n\nAbout the Role:\nNegotiate directly with US creditors on behalf of clients in debt settlement programs.\nReduce obligations, design optimal settlement strategies, and ensure measurable financial outcomes.\n\nRequirements:\nGrads only\nEnglish: C1\nExceptional negotiation & persuasion skills\nDetail-oriented, analytical, and professional under pressure\nWhy Join Us?\n\nCompetitive salary, high bonus potential, exposure to US operations, and a performance-driven elite environment.\n\nApply now through VORANIX and join a team that delivers results at the highest level",
                 locationType: "office",
@@ -880,7 +902,7 @@
                 company: "Geeky CX",
                 account: "Back Office",
                 shifts: "Fixed Shifts 7:00 PM to 4:00 AM",
-                interview: "Call Interviews",
+                interview: "F2F interview Friday from 8:00 PM to 10:00 PM",
                 location: "El Sheikh Zayed, https://maps.app.goo.gl/uV9rUD7KhZ1Y3rii6?g_st=ic",
                 graduation: "Grads Only",
                 nationality: "Egyptians Only",
@@ -888,7 +910,7 @@
                 language: "B2 English Level",
                 languageRequirement: "B2",
                 salary: "12K Net + 2K Transportation Allowance + 100$ KPIs",
-                process: "Phone Interview",
+                process: "Face to Face Interview",
                 training: "30 Days",
                 details: "🔥 VORANIX is Hiring! 🔥\n\nPosition: Back Office Agent / Admin Assistant\nLocation: On-site, Sheikh Zayed\nShift: Night Shift | Start Immediately\n\n💰 Compensation:\nBasic Salary: 12K EGP/month\nTransportation Allowance: 2K EGP/month\nPerformance-based bonuses: up to $50 attendance + $50 performance\nTotal potential: 14K EGP/month + $100 in bonuses\n\nAbout the Role:\nSupport debt relief operations in partnership with Level Debt (US).\n\nRequired Qualifications:\nFresh graduates only\nEnglish: B2\nExcellent attention to detail\nComfortable with data entry & database management\nExperience is a plus\n\nApply now through VORANIX and join a high-performance team.",
                 locationType: "office",
@@ -900,7 +922,7 @@
                 company: "Geeky CX",
                 account: "Debt Reduction - Sales",
                 shifts: "Fixed Shifts 7:00 PM to 4:00 AM",
-                interview: "Call Interviews",
+                interview: "F2F interview Friday from 8:00 PM to 10:00 PM",
                 location: "El Sheikh Zayed, https://maps.app.goo.gl/uV9rUD7KhZ1Y3rii6?g_st=ic",
                 graduation: "Grads Only",
                 nationality: "Egyptians Only",
@@ -908,7 +930,7 @@
                 language: "C1 English Level",
                 languageRequirement: "C1",
                 salary: "19K Gross",
-                process: "Phone Interview",
+                process: "Face to Face Interview",
                 training: "30 Days",
                 details: "🔥 VORANIX is Hiring! 🔥\n\nPosition: Back Office Agent / Admin Assistant\nLocation: On-site, Sheikh Zayed\nShift: Night Shift | Start Immediately\n\n💰 Compensation:\nBasic Salary: 12K EGP/month\nTransportation Allowance: 2K EGP/month\nPerformance-based bonuses: up to $50 attendance + $50 performance\nTotal potential: 14K EGP/month + $100 in bonuses\n\nAbout the Role:\nSupport debt relief operations in partnership with Level Debt (US).\n\nRequired Qualifications:\nFresh graduates only\nEnglish: B2\nExcellent attention to detail\nComfortable with data entry & database management\nExperience is a plus\n\nApply now through VORANIX and join a high-performance team.",
                 locationType: "office",
@@ -920,7 +942,7 @@
                 company: "Geeky CX",
                 account: "Customer Service",
                 shifts: "Fixed Shifts 7:00 PM to 4:00 AM",
-                interview: "Call Interviews",
+                interview: "F2F interview Friday from 8:00 PM to 10:00 PM",
                 location: "El Sheikh Zayed, https://maps.app.goo.gl/uV9rUD7KhZ1Y3rii6?g_st=ic",
                 graduation: "Grads Only",
                 nationality: "Egyptians Only",
@@ -928,7 +950,7 @@
                 language: "B2+/C1 English Level",
                 languageRequirement: "B2",
                 salary: "17K Gross",
-                process: "Phone Interview",
+                process: "Face to Face Interview",
                 training: "30 Days",
                 details: "📢 VORANIX – Now Hiring\nCustomer Service Representative — English Track\n🎯 Requirements:\n• B2+ / C1 English\n• Clear, neutral phone communication\n• Strong listening & control under pressure\n• Basic Computer & CRM Skills\n• Customer Service experience is a plus\n• Fresh Graduates Accepted\n💼 Key Responsibilities:\n• Handle inbound & outbound calls with US clients\n• Provide accurate updates on debt relief accounts\n• Resolve concerns & escalate complex cases\n• Maintain precise CRM documentation\n• Achieve daily call & quality targets\n🕒 Working Hours: Night Shift (7 PM – 4 AM)\n💰 Salary Package:\n• 17,000 EGP Gross\n• Paid Training\n• KPI-Based Bonuses\n📍 On-site — Sheikh Zayed, Cairo",
                 locationType: "office",
@@ -937,10 +959,10 @@
             {
                 id: 6,
                 status: "Active",
-                company: "Geeky CX",
+                company: "Geeky CX (Spanish+ English)",
                 account: "Customer Service",
                 shifts: "Fixed Shifts 7:00 PM to 4:00 AM",
-                interview: "Call Interviews",
+                interview: "F2F interview Friday from 8:00 PM to 10:00 PM",
                 location: "El Sheikh Zayed, https://maps.app.goo.gl/uV9rUD7KhZ1Y3rii6?g_st=ic",
                 graduation: "Grads Only",
                 nationality: "Egyptians Only",
@@ -948,7 +970,7 @@
                 language: "C1 English + C1 Spanish",
                 languageRequirement: "C1",
                 salary: "30K Gross",
-                process: "Phone Interview",
+                process: "Face to Face Interview",
                 training: "30 Days",
                 details: "📢 VORANIX – Now Hiring\nCustomer Service Representative\n🎯 Requirements:\n• C1 English + C1 Spanish\n• Professional bilingual phone communication\n• Strong listening & financial conversation handling\n• CRM & Computer Proficiency\n• Call Center experience preferred\n💼 Key Responsibilities:\n• Manage inbound & outbound US client calls\n• Provide account & payment updates\n• Handle escalations & sensitive cases\n• Ensure accurate CRM tracking\n• Meet performance & compliance targets\n🕒 Working Hours: Night Shift (7 PM – 4 AM)\n💰 Salary Package:\n• 30,000 EGP Gross\n• Paid Training\n• High KPI Bonus Structure\n📍 On-site — Sheikh Zayed, Cairo",
                 locationType: "office",
@@ -956,66 +978,6 @@
             },
             {
                 id: 7,
-                status: "Active",
-                company: "IntouchCX English",
-                account: "Customer Service",
-                shifts: "Rotational shifts",
-                interview: "Validation, then assessment, then virtual interview",
-                location: "Maadi, https://maps.google.com/?cid=1611528672414654538&entry=gps",
-                graduation: "Grads Only",
-                nationality: "Egyptians / Foreigners",
-                maxAge: 47,
-                language: "B2 English",
-                languageRequirement: "B2",
-                salary: "21K Gross",
-                process: "Validation, then assessment, then virtual interview",
-                training: "30 days",
-                details: "🦇 VORANIX is hiring for InTouchcx English 🦇\n\n(It's voice, mails, chats customer service acc so it's a mixed one)\n\n✅ Online interview \n\n✅ Experience in CS is a MUST\n\nLanguage Requirements: English – B2 & above\n\nSalary: 21k Gross per month\n\nRotational shifts and days off\n\nTransportation is provided door to door after 9 PM for girls\n\nInsurance \n\n✅ Ready to start 24th of November \n\nLocation:Maadi",
-                locationType: "office",
-                targetLanguage: "english"
-            },
-            {
-                id: 8,
-                status: "Active",
-                company: "IntouchCX (FRENCH)",
-                account: "Customer Service",
-                shifts: "Rotational shifts",
-                interview: "Validation, then assessment, then virtual interview",
-                location: "Maadi, https://maps.google.com/?cid=1611528672414654538&entry=gps",
-                graduation: "Grads Only",
-                nationality: "Egyptians / Foreigners",
-                maxAge: 47,
-                language: "C1 French, B2 English",
-                languageRequirement: "C1",
-                salary: "34K Gross",
-                process: "Validation, then assessment, then virtual interview",
-                training: "30 days",
-                details: "📢 Hiring – Bilingual French Customer Service Account\n\n(It's a call center role – voice customer support)\n\n✅ Onsite interview (candidates will first receive a call from the recruitment team)\n✅ 6 months CS    \n✅ Egyptians only\n✅ Graduates only\n\nRequirements:\n🇫🇷 French: C1\n🇬🇧 English: B2\n🪪 For male candidates: Military status must be verified\n\n📍 Salary Package:\n💰 34,000 EGP Gross\n\n📌 Rotational shifts and days off\n📌 Transportation provided (optional – allowance deducted if used)\n\n📌 Medical & Social Insurance",
-                locationType: "office",
-                targetLanguage: "french"
-            },
-            {
-                id: 9,
-                status: "Active",
-                company: "IntouchCX (Spanish 🇪🇸)",
-                account: "Customer Service",
-                shifts: "Rotational shifts",
-                interview: "Validation, then assessment, then virtual interview",
-                location: "Maadi, https://maps.google.com/?cid=1611528672414654538&entry=gps",
-                graduation: "Grads/ Gap year/ Dropout",
-                nationality: "Egyptians / Foreigners",
-                maxAge: 47,
-                language: "B2 Spanish, B2 English",
-                languageRequirement: "B2",
-                salary: "30K Gross",
-                process: "Validation, then assessment, then virtual interview",
-                training: "30 days",
-                details: "Voranix 🦇 is hiring for a Spanish Call Center Account\n\n(It's a call center role – voice customer support)\n\n✅ Online interview\n\n✅ CS Experience is a Must\n\nLanguage Requirements:\n\nSpanish – B2\n\nEnglish – B2\n\n\nSalary: 30,000 EGP Gross per month\n\nRotational shifts and days \n\nTransportation is provided door to door after 9 PM for girls\n\nInsurance\n\n✅ Ready to start immediately\n\nLocation: Maadi",
-                locationType: "office",
-                targetLanguage: "spanish"
-            },
-            {
-                id: 10,
                 status: "Active",
                 company: "TTC",
                 account: "US Account",
@@ -1035,27 +997,27 @@
                 targetLanguage: "english"
             },
             {
-                id: 11,
+                id: 8,
                 status: "Active",
-                company: "Netlink",
-                account: "Appointment Setting",
-                shifts: "Fixed Shifts 4:00 PM To 1:00 PM",
-                interview: "Phone Interview",
-                location: "5th Settlement, El Yasmen 7",
-                graduation: "Grads / Undergrads",
-                nationality: "Egyptians / Foreigners",
-                maxAge: 32,
-                language: "B1+ / B2",
-                languageRequirement: "B1",
-                salary: "15K",
-                process: "They Receive a Call Interview",
-                training: "2 Weeks",
-                details: "🔹 Job Role:\nYou'll be working with a solar account, roofing and Garage door account engaging with customers, and offering our Solutions.\n\n🔹 Shifts: Shift from 04:00 PM – 01:00 AM \n🔹 Working Days: 5 days working\n🔹 Days Off: Sunday and Saturday\n🔹Transportation drop-off after the shift (door-to-door for girls )\n🔹 Salary:\nNet Salary: 10,000 EGP\nKPIs: 3,000 EGP (Depend on Performance)\nBonus : 2000 EGP( Depend on Performance)\n🔹 Requirements:\nEnglish Proficiency: B2 level and above\nSkills: Strong communication and negotiation skills\nOpen to All Nationals\nGap-year and dropped-out students are welcome\nMax age 32",
+                company: "Assets Solutions",
+                account: "UK B2B Account",
+                shifts: "Fixed 10:45 AM till 8:00 PM",
+                interview: "Monday To Thursday From 7:00 PM To 1:00 AM",
+                location: "Nasr City, 4 hafez ramadan-makram ebied-nasr city [Business Square], https://maps.app.goo.gl/GJmEnecS7DwXECxx9?g_st=iw",
+                graduation: "Grads / Undergrads / Gap Year / Drop out",
+                nationality: "Egyptians Only",
+                maxAge: 35,
+                language: "English B2",
+                languageRequirement: "B2",
+                salary: "Total Package up to 40K",
+                process: "They directly go to the interview after filling the form",
+                training: "30 days",
+                details: "🚨 VORANIX Is Hiring – UK-Based B2B Campaign 🇬🇧\nVORANIX is expanding and we're looking for ambitious talents to join our UK-Based B2B Campaign.\n🕒 Working Hours\nShift: 10:45 AM – 8:00 PM\n💼 Job Role\n• Conduct 5–10 minute qualification calls with potential clients\n• Qualify customers for home device solutions\n• Simple and structured calls – no long negotiations\n• Work in a performance-driven environment with high earning potential\n💰 Compensation & Benefits\n• Basic Salary: 17,000 EGP\n• KPI Bonus: 3,000 EGP\n• Total Salary: Up to 40,000 EGP depending on performance\n• Uncapped Commission $$$$$ the more you perform, the more you earn\n🎯 Requirements\n• Strong English communication skills\n• Confidence in handling B2B calls\n• Target-driven mindset\n• High level of commitment and punctuality\n🔥 If you're ambitious, money-motivated, and ready to grow, this is your chance to build a strong career with VORANIX.\n📩 Apply now and be part of the next wave of success.",
                 locationType: "office",
                 targetLanguage: "english"
             },
             {
-                id: 12,
+                id: 9,
                 status: "Active",
                 company: "AT&T",
                 account: "Solar account",
@@ -1067,7 +1029,7 @@
                 maxAge: 27,
                 language: "English B2+",
                 languageRequirement: "B2",
-                salary: "10K Net + Unlimited Commission",
+                salary: "10K Net + Unlimited Commision",
                 process: "They directly go to the interview after filling the form",
                 training: "2 Weeks",
                 details: "📢 VORANIX – We're Hiring!\n\n🎯 Requirements:\n\nEnglish level C1\n\nGraduates & undergraduates are welcome\n\nNo previous experience required\n\n💰 Salary Package:\n\nBasic Salary: EGP 10,000\n\nCommissions: Uncapped\n\nEasily earn EGP 20,000+ in commissions only, on top of the basic salary\n\n🕓 Shift:\n\n4:00 PM – 12:00 AM\n\n📆 Working Days:\n\nMonday to Friday\n\n🎉 Days Off:\n\nSaturday & Sunday\n\n📍 Location:\n\nMaadi, Building 6B, Floor 1, Apt 2\n\n✨ Join VORANIX and build a strong career with high income potential in a professional and supportive environment.\n\n📩 Apply now!",
@@ -1075,7 +1037,7 @@
                 targetLanguage: "english"
             },
             {
-                id: 13,
+                id: 10,
                 status: "Active",
                 company: "HANG-UP Solutions",
                 account: "DME ACCOUNT (FULL TIME)",
@@ -1095,7 +1057,7 @@
                 targetLanguage: "english"
             },
             {
-                id: 14,
+                id: 11,
                 status: "Active",
                 company: "Datalytics",
                 account: "USA Account",
@@ -1115,7 +1077,7 @@
                 targetLanguage: "english"
             },
             {
-                id: 15,
+                id: 12,
                 status: "Active",
                 company: "CNS",
                 account: "USA ACCOUNT",
@@ -1135,7 +1097,7 @@
                 targetLanguage: "english"
             },
             {
-                id: 16,
+                id: 13,
                 status: "Active",
                 company: "Ultatek",
                 account: "US Account",
@@ -1155,7 +1117,7 @@
                 targetLanguage: "english"
             },
             {
-                id: 17,
+                id: 14,
                 status: "Active",
                 company: "Ultatek",
                 account: "US Account (Alex)",
@@ -1175,7 +1137,7 @@
                 targetLanguage: "english"
             },
             {
-                id: 18,
+                id: 15,
                 status: "Active",
                 company: "ABS CLA",
                 account: "Debt Settlement",
@@ -1195,67 +1157,27 @@
                 targetLanguage: "english"
             },
             {
-                id: 19,
-                status: "Active",
-                company: "WGS",
-                account: "Marketing Campaign B2B",
-                shifts: "4:00 PM To 11:00 PM",
-                interview: "Online Interview",
-                location: "Nasr City – 25 Mohamed Youssef Moussa St.",
-                graduation: "undergrads /grads/ gap year / dropouts",
-                nationality: "Egyptians / Foreigners",
-                maxAge: 36,
-                language: "B2+/C1",
-                languageRequirement: "B2",
-                salary: "18K+ 25$ per closed deal",
-                process: "They Receive a Call Interview",
-                training: "2 Weeks",
-                details: "📢 We're Hiring – Cold Calling Campaign (B2B)\n\n⏰ 4:00 PM – 11:00 PM\n(45 mins break)\n\n📅 Monday to Friday\n\n🎉 Days Off: Saturday & Sunday (Fixed)\n\n\n💰 Salary:\n💵 10,000 EGP NET\n➕ 1,500 EGP KPIs\n➕ 1,500 EGP Allowance\n💸 $20 per closed deal\n\n\n🏠 Work Options (Based on Performance):\n\n✨ Work From Home after a certain period\n\n✨ Hybrid: 3 days on-site + 2 days from home\n\n🧠 Minimum 3 months experience in Cold Calling / Telesales / Customer Service\n\n🗣️ English Level: B2+ / C1\n\n🌍 Egyptians & Foreigners inside Egypt are welcome\n\n📍 Location:\nNasr City – 25 Mohamed Youssef Moussa St.",
-                locationType: "office",
-                targetLanguage: "english"
-            },
-            {
-                id: 20,
+                id: 16,
                 status: "Active",
                 company: "CXPERTS",
-                account: "Solar Campaign (Florida)",
+                account: "Customer Service",
                 shifts: "4:00 PM To 1:00 AM",
                 interview: "Online Interview",
-                location: "Nasr City – 25 Mohamed Youssef Moussa St.",
-                graduation: "undergrads /grads/ gap year / dropouts",
+                location: "Agouza,5th floor, apartment 19, al salam building, https://maps.app.goo.gl/Bu1eTYSVB2ozHxut5",
+                graduation: "Grad - Drop out - Gap year",
                 nationality: "Egyptians / Foreigners",
-                maxAge: 35,
-                language: "B2+/C1",
+                maxAge: 30,
+                language: "B2+ / C1",
                 languageRequirement: "B2",
-                salary: "15K Net + 1.5K Kpis + 1.5K Allowance+ 25$ per closed deal",
-                process: "They Receive a Call Interview",
-                training: "2 Weeks",
-                details: "📢 We're Hiring – Solar Campaign (Florida)\n\n⏰ 4:00 PM – 1:00 AM\n(1-hour and 30 mins break)\n\n📅 Monday to Friday\n\n🎉 Days Off: Saturday & Sunday (Fixed)\n\n\n💰 Salary:\n💵 15,000 EGP NET\n➕ 1,500 EGP KPIs\n➕ 1,500 EGP Allowance\n💸 $25 per closed deal\n\n\n🏠 Work Options (Based on Performance):\n\n✨ Work From Home after a certain period\n\n✨ Hybrid: 3 days on-site + 2 days from home\n\n🧠 Minimum 3 months experience in Cold Calling / Telesales / Customer Service\n\n🗣️ English Level: B2+ / C1\n\n🌍 Egyptians & Foreigners inside Egypt are welcome\n\n📍 Location:\nNasr City – 25 Mohamed Youssef Moussa St.",
+                salary: "23K NET + 5K KPIs",
+                process: "They directly go to the interview after filling the form",
+                training: "1~2 Weeks",
+                details: "🔥 VORANIX | CS Opportunity 🔥\n🦇 Step into the vortex. Join a high-performance environment where precision and quality matter.\n🗣️ English Level: C1\n👤 Age: Up to 30\n🎓 Graduates & Gap Year candidates are welcome\n📌 Experience: Minimum 6 months in Customer Service or Call Center roles\n💰 Compensation Package:\n⚫ Net Salary: 23,000 EGP\n⚫ KPI Bonus: Up to 5,000 EGP\n⚫ Social Insurance\n⚫ Medical Insurance\n⏳ Working Schedule (US Shift):\n🔹 4:00 PM – 2:00 AM (Split fixed shifts)\n📅 Days Off: Saturday & Sunday\n📍 Location: Nasr City\n⚡ Enter the VORANIX sphere and deliver exceptional client success performance in a structured, metrics-driven environment.",
                 locationType: "office",
                 targetLanguage: "english"
             },
             {
-                id: 21,
-                status: "Active",
-                company: "CXPERTS",
-                account: "Solar Campaign (California)",
-                shifts: "7:00 PM To 4:00 AM",
-                interview: "Online Interview",
-                location: "Nasr City – 25 Mohamed Youssef Moussa St.",
-                graduation: "undergrads /grads/ gap year / dropouts",
-                nationality: "Egyptians / Foreigners",
-                maxAge: 35,
-                language: "B2+/C1",
-                languageRequirement: "B2",
-                salary: "15K Net + 1.5K Kpis + 1.5K Allowance+ 25$ per closed deal",
-                process: "They Receive a Call Interview",
-                training: "2 Weeks",
-                details: "📢 We're Hiring – Solar Campaign (California)\n\n⏰ 7:00 PM – 4:00 AM\n(1-hour and 30 mins break)\n\n📅 Monday to Friday\n\n🎉 Days Off: Saturday & Sunday (Fixed)\n\n\n💰 Salary:\n💵 15,000 EGP NET\n➕ 1,500 EGP KPIs\n➕ 1,500 EGP Allowance\n💸 $25 per closed deal\n\n\n🏠 Work Options (Based on Performance):\n\n✨ Work From Home after a certain period\n\n✨ Hybrid: 3 days on-site + 2 days from home\n\n🧠 Minimum 3 months experience in Cold Calling / Telesales / Customer Service\n\n🗣️ English Level: B2+ / C1\n\n🌍 Egyptians & Foreigners inside Egypt are welcome\n\n📍 Location:\nNasr City – 25 Mohamed Youssef Moussa St.",
-                locationType: "office",
-                targetLanguage: "english"
-            },
-            {
-                id: 22,
+                id: 17,
                 status: "Active",
                 company: "CXPERTS",
                 account: "Telesales Account",
@@ -1275,7 +1197,7 @@
                 targetLanguage: "english"
             },
             {
-                id: 23,
+                id: 18,
                 status: "Active",
                 company: "CXPERTS",
                 account: "Telesales Account (Staffing)",
@@ -1295,806 +1217,227 @@
                 targetLanguage: "english"
             },
             {
-                id: 24,
+                id: 19,
                 status: "Active",
-                company: "Creative Basket",
+                company: "Insource",
                 account: "Telesales",
-                shifts: "Fixed Shifts 4:00 PM To 1:00 AM",
-                interview: "F2F Interview",
-                location: "Maadi",
-                graduation: "Grads / Undergrads",
-                nationality: "Egyptians / Foreigners",
-                maxAge: 35,
-                language: "B2+",
+                shifts: "Fixed Shift 3:00 PM To 12:00 AM",
+                interview: "Monday To Friday From 3:00 PM To 5:00 PM",
+                location: "Nasr City, https://maps.app.goo.gl/XK6Sjf8TPgFdFRW27?g_st=ic",
+                graduation: "Grads / Dropouts / Gap-year",
+                nationality: "Egyptians Only",
+                maxAge: 30,
+                language: "B2+/C1",
                 languageRequirement: "B2",
-                salary: "18K Gross",
-                process: "They directly go to the interview after filling the form",
-                training: "1 Week",
-                details: "Creative Basket is hiring for a telesales account. Requirements: English B2+, experience preferred. Competitive salary and incentives.",
+                salary: "30K Gross",
+                process: "They Directly go to the interview after the Validation",
+                training: "1 Month",
+                details: "VORANIX is Hiring! 🔥🦇\nWe are looking for Full-Time Telesales Agents to join our DME (USA) campaign, where you will communicate with U.S. customers and work on real closing opportunities 💼✨\n🎯 Requirements:\n• English Level: B2+ / C1 🌍\n• Graduates & Gap Year are welcome 🎓\n• Maximum age: 30 years\n💰 Salary & Commission:\n• Net Salary: 15,000 EGP 💵\n• Commissions: Up to 15,000 EGP depending on performance 🚀\n🕒 Working Hours:\n• 3:00 PM – 12:00 AM 🌙\n• 5 working days per week (Saturday & Sunday off) 📅\n🏡 Remote Work Opportunity:\n• Available after 3 months based on performance ⭐\n• Required equipment: Laptop + Stable Internet + Headset 💻📶\n✨ Join the professional team at VORANIX and start your journey toward high income potential and career growth 🔥🦇\n📩 Apply now!",
                 locationType: "office",
                 targetLanguage: "english"
             },
-            // HOLD OFFERS (all others from original list that are not in the active list above)
+            {
+                id: 20,
+                status: "Active",
+                company: "OUTSOURCING SKILL",
+                account: "Telesales",
+                shifts: "Fixed shift 3:00PM TO 12:00AM",
+                interview: "call interview",
+                location: "Maadi, https://maps.app.goo.gl/LtiSmsEzfywtdUgr6?g_st=ic",
+                graduation: "Grads/Undergrads",
+                nationality: "Egyptians/Foreigners",
+                maxAge: 35,
+                language: "English B2",
+                languageRequirement: "B2",
+                salary: "10K to 12K Net + Commission",
+                process: "They Receive a Call Interview",
+                training: "2 Weeks",
+                details: "🔥 VORANIX IS HIRING!\nJoin Outsourcing Skill — USA Account for a high-reward telesales career. No experience needed we train and pay you while learning.\n\nWho We Want:\n\nUndergraduates, graduates, and foreigners\n\nMotivation and good English\n\n\nWhat We Offer:\n\nPaid Training: EGP 200/day\n\nUS Shifts: 3 PM – 12 AM (Females until 11 PM)\n\nWork from Home after 1 month\n\nWeekends Off\n\nNet Salary: EGP 10K – 12K + Unlimited Commission\n\nWeekly Payouts + Gifts + Loyalty Bonus\n\n\nLocation – Maadi:\n280 Street, Building 1/5,\nNear Dr. Abdelmaqsood Pharmacy & City Market\nView on Map",
+                locationType: "office",
+                targetLanguage: "english"
+            },
+            {
+                id: 21,
+                status: "Active",
+                company: "Creative Basket",
+                account: "Travel Advisor",
+                shifts: "Fixed Shifts 3:00 PM To 12:00 PM",
+                interview: "Monday To Thursday From 3 PM To 7 PM",
+                location: "Nasr City, https://maps.app.goo.gl/nU9VKJxYEvkk4RDz5",
+                graduation: "undergrads /grads/ gap year / dropouts",
+                nationality: "Egyptians / Foreigners",
+                maxAge: 30,
+                language: "B2/C1",
+                languageRequirement: "B2",
+                salary: "From 9K Up to 15K Depends on the Experience",
+                process: "They directly go to the interview after filling the form",
+                training: "2 Weeks",
+                details: "🌍 Creative Basket – Travel Industry 🌍\nPosition: Telesales (Opener)\nLocation: Makram Ebeid, Nasr City\n\nRequirements:\n\nEnglish level B2–C1 (must).\n\nMinimum 3 months telesales experience (travel industry is a must).\n\n\nOffer:\n\nBasic salary 9K – 15K (based on experience).\n\nTransportation allowance included.\n\nCommission: $1 per night.\n\nShift: 3:00 PM – 12:00 AM.\n\n\nIf you're experienced in travel telesales and ready to grow with us apply now! ✈️",
+                locationType: "office",
+                targetLanguage: "english"
+            },
+            // ==================== العروض المعلقة (Hold) من hold offers.txt ====================
+            {
+                id: 22,
+                status: "Hold",
+                company: "Octopus Arabic",
+                account: "Customer Service",
+                shifts: "Rotational Shifts",
+                interview: "From 12Pm to 4Pm",
+                location: "https://maps.app.goo.gl/Pkvyurjir4jCLA736",
+                graduation: "Grads Only",
+                nationality: "Egyptians Only",
+                maxAge: 38,
+                language: "A2/B1",
+                languageRequirement: "B1",
+                salary: "7,000 – 8,000 EGP (based on interview)",
+                process: "They directly go to the interview after filling the form",
+                training: "30 days",
+                details: "🚀 We're Hiring – Arabic Account 🚀\n\n🔄 Flexible rotational shifts (24/7) and days off – Males & Females\n\n\n🎓 Graduates / Undergraduates (no commitments)\n\n🗣️ English Level: A2 or B1\n\n💰 Salary: 7,000 – 8,000 EGP (based on interview)\nPaid training\n\n⏳ No commitments for the upcoming period\n\n🚗 Transportation provided and door to door for Females starting 12Am\n\n✅ No experience needed\n\nLocation:Alex\n\n🚀 Ready to start immediately",
+                locationType: "office",
+                targetLanguage: "arabic"
+            },
+            {
+                id: 23,
+                status: "Hold",
+                company: "Octopus Spanish",
+                account: "Customer Service",
+                shifts: "Rotational Shifts",
+                interview: "Phone Interview",
+                location: "https://maps.app.goo.gl/Pkvyurjir4jCLA736",
+                graduation: "Grads Only",
+                nationality: "Egyptians Only",
+                maxAge: 38,
+                language: "B2 Spanish, B1 English",
+                languageRequirement: "B2",
+                salary: "23,000 – 25,000 EGP (Based on language proficiency)",
+                process: "They Receive a Call Interview",
+                training: "30 days",
+                details: "🚀 We're Hiring – Spanish Account (Bilingual)🚀\n\n🔄 Flexible rotational shifts (24/7) and days off – Males & Females\n\n🎓 Graduates / Undergraduates (no commitments)\n\n🗣️ B2 Spanish/English B1\n\n💰 Salary: 23,000 – 25,000 EGP\n(Based on language proficiency)\n\n🚗 Transportation provided and door to door for Females starting 12Am\n\n✅ No experience required\n\n📍 Location: Alex\n\n🚀 Ready to start immediately",
+                locationType: "office",
+                targetLanguage: "spanish"
+            },
+            {
+                id: 24,
+                status: "Hold",
+                company: "IntouchCX (German 🇩🇪)",
+                account: "Customer Service",
+                shifts: "Rotational shifts",
+                interview: "Validation, then assessment, then virtual interview",
+                location: "Maadi, https://maps.google.com/?cid=1611528672414654538&entry=gps",
+                graduation: "Grads/ Gap year/ Dropout",
+                nationality: "Egyptians / Foreigners",
+                maxAge: 47,
+                language: "B2 German, B2 English",
+                languageRequirement: "B2",
+                salary: "54K Gross",
+                process: "Validation, then assessment, then virtual interview",
+                training: "30 days",
+                details: "📢 Hiring Bilingual German Customer Service Account\n\n(It's a call center role – voice customer support)\n\n✅ Online interview\n✅ Egyptians & Foreigners with a valid work permit are welcome\n✅ Grads, Gap year, Dropout\n\nRequirements:\n🇩🇪 German: B2\n🇬🇧 English: B2\n💼 6 months of GDS experience is a must\n\n📍 Salary Package:\n💰 47,000 EGP Gross\n\n📌 Rotational shifts and days off\n📌 Transportation provided (optional – allowance deducted if used)\n📌 Medical & Social Insurance\n\n📍 Location: Maadi",
+                locationType: "office",
+                targetLanguage: "german"
+            },
             {
                 id: 25,
                 status: "Hold",
-                company: "LTS",
-                account: "Survey Agent",
-                shifts: "Fixed Shifts",
-                interview: "Phone Interview",
-                location: "Sheraton, https://maps.app.goo.gl/8mHwGBguHPSgfJjk9",
-                graduation: "undergrads /grads/ gap year / dropouts",
+                company: "Realogy",
+                account: "Real Estate",
+                shifts: "Fixed Shifts 11:00 AM To 7:00 PM",
+                interview: "Call Interviews",
+                location: "New Cairo, https://maps.app.goo.gl/fjeiMjkzFgo61qETA",
+                graduation: "Grads Only",
                 nationality: "Egyptians Only",
                 maxAge: 35,
-                language: "B2/C1",
-                languageRequirement: "B2",
-                salary: "Basic 12K + 2K KPIS + Commission",
-                process: "They Receive a Call Interview",
-                training: "30 Days",
-                details: "Job Title: Hotel Survey Agent \nLocation: Sheraton\nRequirements:\n\nFluent English Speakers\n\nCall Center Experience is a plus (not required)\n\nGraduates & Undergraduates are welcome\n\n\nPackage:\n\nBasic Salary: 12,000 EGP\nKPIS : 2000 EGP\nUnlimited Commission \n Performance Bonus\n\n\nMedical Insurance After 3 Months\n\nThe first shift starts at 3:30 PM, \nand the last shift ends at 2:00 AM.",
+                language: "English B1",
+                languageRequirement: "B1",
+                salary: "7K Net + Commission",
+                process: "They directly go to the interview after filling the form",
+                training: "2 Weeks",
+                details: "🎯 We're Hiring! – Tele-Sales Agent (Female) \n\n💰 Salary: 7,000 EGP\n\n🕐 Working Hours: From 11 AM to 7 PM\n\n\n✨ Requirements:\n• Minimum 6 months of Tele-sales experience (a must) 📞\n\n• Fluent in Arabic and good in English 🌐\n\n• Graduate, motivated, and eager to achieve targets 🎯\n\n\n📋 Job Description:\nWe provide fresh leads, and you'll be responsible for:\n\n✅ Contacting potential clients\n\n✅ Identifying their needs\n\n✅ Presenting the suitable project\n\n✅ Scheduling meetings (online or physical)\n\n✅ Following up until the deal is closed! 💪\n\n🌍 Location: Villa 184, Banfseg 4, 1st Settlement.\n\nIf this sounds like you, apply now and start your telesales journey with us! 💼🔥",
                 locationType: "office",
                 targetLanguage: "english"
             },
             {
                 id: 26,
                 status: "Hold",
-                company: "Leadbull",
-                account: "Canadian HVAC Account",
-                shifts: "Fixed Shifts 3:00 PM To 12:00 PM",
+                company: "Netlink",
+                account: "Appointment Setting",
+                shifts: "Fixed Shifts 4:00 PM To 1:00 PM",
                 interview: "Phone Interview",
-                location: "Maadi, https://maps.app.goo.gl/YUDE1JkncuvdHarf9",
-                graduation: "grads / dropouts",
+                location: "5th Settlement, El Yasmen 7",
+                graduation: "Grads / Undergrads",
                 nationality: "Egyptians / Foreigners",
-                maxAge: 35,
-                language: "B2/C1",
-                languageRequirement: "B2",
-                salary: "Basic 15K + 2.5 K KPIs + Commission & Spiffs",
+                maxAge: 32,
+                language: "B1+ / B2",
+                languageRequirement: "B1",
+                salary: "10K Net + 3K KPIs + 2K Bonus",
                 process: "They Receive a Call Interview",
-                training: "2 Weeks",
-                details: "WE'RE HIRING! 👀🦇\nJoin our Canadian Telesales Account 🇨🇦\n\n💼 Package Includes:\n💰 15,000 EGP Net Salary\n🎯 2,500 EGP KPIs\n💸 Quarterly Incentives\n💸 Annual Profit Share\n\n🗣️ Requirements:\n\nEnglish Level: B2 / B2+\n\nEgyptians / Foreigners\n\n🕓 Shift: 3 PM – 12 AM (Night – EST Shift)\n\n📍 Location: Zahraa El Maadi, \nCompound Ashgar Darna, Building B19,\n in front of the main gate.",
+                training: "2 weeks",
+                details: "🔹 Job Role:\nYou'll be working with a solar account, roofing and Garage door account engaging with customers, and offering our Solutions.\n\n🔹 Shifts: Shift from 04:00 PM – 01:00 AM \n🔹 Working Days: 5 days working\n🔹 Days Off: Sunday and Saturday\n🔹Transportation drop-off after the shift (door-to-door for girls )\n🔹 Salary:\nNet Salary: 10,000 EGP\nKPIs: 3,000 EGP (Depend on Performance)\nBonus : 2000 EGP( Depend on Performance)\n🔹 Requirements:\nEnglish Proficiency: B2 level and above\nSkills: Strong communication and negotiation skills\nOpen to All Nationals\nGap-year and dropped-out students are welcome\nMax age 32",
                 locationType: "office",
                 targetLanguage: "english"
             },
             {
                 id: 27,
                 status: "Hold",
-                company: "Teleperformance",
-                account: "Customer Service",
-                shifts: "Rotational Shifts",
-                interview: "Call Interview",
-                location: "Alexandria (Fleming)",
-                graduation: "Undergrads - Grads - Dropout - Gap year",
-                nationality: "Egyptians Only",
-                maxAge: 45,
-                language: "English B1+ → C1",
+                company: "Callix",
+                account: "DME Account",
+                shifts: "Boys : 3:00PM TO 12:00 AM, Girls : 3:00PM TO 11:00 PM",
+                interview: "Monday To Friday From 3:30 PM To 10:00 PM",
+                location: "Nasr City, https://maps.app.goo.gl/sU9ZTwtN1qNrhsyu7",
+                graduation: "Grads/Undergrads",
+                nationality: "Egyptians/Foreigners (Except from South Sudan)",
+                maxAge: 30,
+                language: "English B1+/C1",
                 languageRequirement: "B1",
-                salary: "300$ + 30$ KPIs + 27$ trans allowance",
-                process: "They Receive a Call Interview",
-                training: "30 days",
-                details: "We are hiring \nbusiness developer representative for\n an appointment setter US account in Alex\n\n✅ Net salary: 300$\n\n✅ Transportation allowance:27$\n\n✅ KPIs :30$ (based on adherence and performance)\n\n✅ Uncapped commissions in dollars \n\n✅ Medical and social contract\n after 3 months probation \n\n✅ Saturday and Sunday off\n\n✅Location fleming\n\n✅Training from 3 weeks fully paid dollars \n\n✅ Shift: from 3:30 till 12:30\n\n✅ Experience in cold calling for 6 months is Must\n\nIf you're interested and your English\nlevel is C1\n send me a VN introducing yourself in English.",
+                salary: "10K Net + Commission",
+                process: "They directly go to the interview after filling the form",
+                training: "2 weeks",
+                details: "💼 Position: Telesales Representative\n🏢 Type: Full-time, from office\n📍 Location: 4 Emad El- Dein Kamel, Abbas El Akkad.\n\n*Working Hours:*\n\nBoys: 3 PM – 12 AM\nGirls: 3 PM – 11 PM\n\n*Who Can Apply:*\n\nAge between 18 to 30 years old\nGraduates or Undergraduates (without attendance / gap year welcome)\n\nForeigners accepted except from South Sudan or non-Arab countries\n\nStrong communication skills and a positive attitude\n\n*What We Offer:*\n\nBasic salary: *EGP 10,000*\n\n+ Unlimited commission! 💸\n\nA dynamic and supportive work environment\n\nIf you're ambitious, motivated, and ready to earn big this is your chance.\n\n*Apply now* and start your telesales career with Insource Company.",
                 locationType: "office",
                 targetLanguage: "english"
             },
             {
                 id: 28,
                 status: "Hold",
-                company: "Holvrine English",
+                company: "eClerx",
                 account: "Customer Service",
-                shifts: "Fixed Shifts",
-                interview: "Online then F2F",
-                location: "Cairo",
-                graduation: "Grads / Undergrads",
+                shifts: "Rotational Shifts",
+                interview: "On-site interviews Sunday to Thursday from 12:00 PM to 5:00 PM",
+                location: "Maadi Technological Park, https://maps.app.goo.gl/HbzF95cJd8hGCG3U9",
+                graduation: "Grads Only",
                 nationality: "Egyptians Only",
-                maxAge: 35,
+                maxAge: 45,
                 language: "B2",
                 languageRequirement: "B2",
-                salary: "Competitive",
-                process: "Online then F2F",
-                training: "TBD",
-                details: "Holvrine English account details.",
+                salary: "21K",
+                process: "They Directly go to the interview after the Validation",
+                training: "45 Days",
+                details: "🔥 VORANIX is Hiring for eClerx 🔥\n\nPosition: Customer Service Representative\nLocation: Maadi Technological Park (On-site)\nShifts: Rotational\n\n💰 Up to 21,000 EGP Net\n• 15,500 Basic\n• 2,300 Night Allowance\n• 3,200 KPIs\n\nRequirements:\n• Grads only (Egyptians)\n• English B2\n• No experience required\n\nBenefits:\n✔ Fast promotions\n✔ Medical & social insurance\n✔ Transportation provided\n\nApply now through VORANIX 🦇",
                 locationType: "office",
                 targetLanguage: "english"
             },
             {
                 id: 29,
                 status: "Hold",
-                company: "Holvrine Portuguese",
-                account: "Customer Service",
-                shifts: "Fixed Shifts",
-                interview: "Online then F2F",
-                location: "Cairo",
-                graduation: "Grads / Undergrads",
-                nationality: "Egyptians Only",
-                maxAge: 35,
-                language: "Portuguese B2",
-                languageRequirement: "B2",
-                salary: "Competitive",
-                process: "Online then F2F",
-                training: "TBD",
-                details: "Holvrine Portuguese account details.",
-                locationType: "office",
-                targetLanguage: "portuguese"
-            },
-            {
-                id: 30,
-                status: "Hold",
-                company: "ABS Quality agent",
-                account: "Quality Agent",
-                shifts: "Rotational",
-                interview: "Online then F2F",
-                location: "Nasr City",
+                company: "N A O S",
+                account: "Inbound Customer Service Agent (Email,Voice)",
+                shifts: "Fixed 4:00Pm till 1:00Am",
+                interview: "Monday To Friday From 5:00 PM To 7:00 PM",
+                location: "Maadi, https://maps.app.goo.gl/Yn7EE6YkdAAy2YzcA?g_st=iw",
                 graduation: "Grads Only",
-                nationality: "Egyptians Only",
-                maxAge: 40,
-                language: "B2",
+                nationality: "Egyptians only",
+                maxAge: 35,
+                language: "B2/C1",
                 languageRequirement: "B2",
-                salary: "15K",
-                process: "Online then F2F",
-                training: "TBD",
-                details: "ABS Quality agent details.",
+                salary: "13K Net + 2.5K Bonus + 2.5 KPIS",
+                process: "They receive a phone call interview",
+                training: "5 days",
+                details: "🎧 We're Hiring! 🎧\nJoin our amazing team as an Inbound Customer Service Agent 💬\n\n💼 Campaign Type: Inbound Customer Service\n🌍 Nationality: Egyptians only\n🎓 Education: Graduates only (no undergrads)\n🗣️ Language: English\n💻 Interaction Type: Email & Voice support\n\n🕓 Shift: 4 PM – 1 AM\n🍽️ Break: 1 hour\n🗓️ Days Off: Thursday & Friday\n\n💰 Salary Package:\n\nBasic: 13,000 EGP\n\nAttendance Bonus: 2,500 EGP\n\nKPI Bonus: 2,500 EGP\n\nTransport Allowance: around 1,100 EGP\n🚫 No commissions\n🏡 No cost of living allowance\n\n\n📋 Written Test: Required\n📚 Training: 5 days (by NAOS)\n\n✨ If you're passionate about helping people, have strong English skills, and love working in a dynamic environment — this is your chance to shine! 🌟\n\n📩 Apply now & start your next career chapter with us 💼",
                 locationType: "office",
                 targetLanguage: "english"
             },
-            {
-                id: 31,
-                status: "Hold",
-                company: "Buzz Cairo",
-                account: "Customer Service",
-                shifts: "Rotational",
-                interview: "Online then F2F",
-                location: "Cairo",
-                graduation: "Grads / Undergrads",
-                nationality: "Egyptians Only",
-                maxAge: 35,
-                language: "B1",
-                languageRequirement: "B1",
-                salary: "10K",
-                process: "Online then F2F",
-                training: "TBD",
-                details: "Buzz Cairo account details.",
-                locationType: "office",
-                targetLanguage: "english"
-            },
-            {
-                id: 32,
-                status: "Hold",
-                company: "Buzz Alex",
-                account: "Customer Service",
-                shifts: "Rotational",
-                interview: "Online then F2F",
-                location: "Alexandria",
-                graduation: "Grads / Undergrads",
-                nationality: "Egyptians Only",
-                maxAge: 35,
-                language: "B1",
-                languageRequirement: "B1",
-                salary: "10K",
-                process: "Online then F2F",
-                training: "TBD",
-                details: "Buzz Alex account details.",
-                locationType: "office",
-                targetLanguage: "english"
-            },
-            {
-                id: 33,
-                status: "Hold",
-                company: "Buzz B1",
-                account: "Customer Service",
-                shifts: "Rotational",
-                interview: "Online then F2F",
-                location: "Cairo",
-                graduation: "Grads / Undergrads",
-                nationality: "Egyptians Only",
-                maxAge: 35,
-                language: "B1",
-                languageRequirement: "B1",
-                salary: "10K",
-                process: "Online then F2F",
-                training: "TBD",
-                details: "Buzz B1 account details.",
-                locationType: "office",
-                targetLanguage: "english"
-            },
-            {
-                id: 34,
-                status: "Hold",
-                company: "Buzz Greek",
-                account: "Customer Service",
-                shifts: "Rotational",
-                interview: "Online then F2F",
-                location: "Cairo",
-                graduation: "Grads / Undergrads",
-                nationality: "Egyptians Only",
-                maxAge: 35,
-                language: "Greek B2",
-                languageRequirement: "B2",
-                salary: "Competitive",
-                process: "Online then F2F",
-                training: "TBD",
-                details: "Buzz Greek account details.",
-                locationType: "office",
-                targetLanguage: "greek"
-            },
-            {
-                id: 35,
-                status: "Hold",
-                company: "Buzz Italian",
-                account: "Customer Service",
-                shifts: "Rotational",
-                interview: "Online then F2F",
-                location: "Cairo",
-                graduation: "Grads / Undergrads",
-                nationality: "Egyptians Only",
-                maxAge: 35,
-                language: "Italian B2",
-                languageRequirement: "B2",
-                salary: "Competitive",
-                process: "Online then F2F",
-                training: "TBD",
-                details: "Buzz Italian account details.",
-                locationType: "office",
-                targetLanguage: "italian"
-            },
-            {
-                id: 36,
-                status: "Hold",
-                company: "Buzz German",
-                account: "Customer Service",
-                shifts: "Rotational",
-                interview: "Online then F2F",
-                location: "Cairo",
-                graduation: "Grads / Undergrads",
-                nationality: "Egyptians Only",
-                maxAge: 35,
-                language: "German B2",
-                languageRequirement: "B2",
-                salary: "Competitive",
-                process: "Online then F2F",
-                training: "TBD",
-                details: "Buzz German account details.",
-                locationType: "office",
-                targetLanguage: "german"
-            },
-            {
-                id: 37,
-                status: "Hold",
-                company: "IntouchCX German",
-                account: "Customer Service",
-                shifts: "Rotational",
-                interview: "Online then F2F",
-                location: "Maadi",
-                graduation: "Grads Only",
-                nationality: "Egyptians / Foreigners",
-                maxAge: 47,
-                language: "German C1",
-                languageRequirement: "C1",
-                salary: "High",
-                process: "Online then F2F",
-                training: "30 days",
-                details: "IntouchCX German account details.",
-                locationType: "office",
-                targetLanguage: "german"
-            },
-            {
-                id: 38,
-                status: "Hold",
-                company: "Evolve Marketing LLC",
-                account: "Marketing",
-                shifts: "Fixed",
-                interview: "F2F",
-                location: "Cairo",
-                graduation: "Grads",
-                nationality: "Egyptians Only",
-                maxAge: 35,
-                language: "B2",
-                languageRequirement: "B2",
-                salary: "Competitive",
-                process: "F2F",
-                training: "TBD",
-                details: "Evolve Marketing LLC details.",
-                locationType: "office",
-                targetLanguage: "english"
-            },
-            {
-                id: 39,
-                status: "Hold",
-                company: "TTC UK",
-                account: "UK Account",
-                shifts: "Fixed",
-                interview: "F2F",
-                location: "Nasr City",
-                graduation: "Grads / Undergrads",
-                nationality: "Egyptians Only",
-                maxAge: 28,
-                language: "B2",
-                languageRequirement: "B2",
-                salary: "12K + Commissions",
-                process: "F2F",
-                training: "30 days",
-                details: "TTC UK account details.",
-                locationType: "office",
-                targetLanguage: "english"
-            },
-            {
-                id: 40,
-                status: "Hold",
-                company: "Fly Pie",
-                account: "Telesales",
-                shifts: "Fixed",
-                interview: "Online then F2F",
-                location: "Cairo",
-                graduation: "Grads / Undergrads",
-                nationality: "Egyptians Only",
-                maxAge: 35,
-                language: "B2",
-                languageRequirement: "B2",
-                salary: "Competitive",
-                process: "Online then F2F",
-                training: "TBD",
-                details: "Fly Pie details.",
-                locationType: "office",
-                targetLanguage: "english"
-            },
-            {
-                id: 41,
-                status: "Hold",
-                company: "Phoenix",
-                account: "Customer Service",
-                shifts: "Rotational",
-                interview: "F2F",
-                location: "Cairo",
-                graduation: "Grads",
-                nationality: "Egyptians Only",
-                maxAge: 35,
-                language: "B2",
-                languageRequirement: "B2",
-                salary: "Competitive",
-                process: "F2F",
-                training: "TBD",
-                details: "Phoenix details.",
-                locationType: "office",
-                targetLanguage: "english"
-            },
-            {
-                id: 42,
-                status: "Hold",
-                company: "BPOHive",
-                account: "Customer Service",
-                shifts: "Rotational",
-                interview: "Online Interview",
-                location: "Cairo",
-                graduation: "Grads / Undergrads",
-                nationality: "Egyptians Only",
-                maxAge: 35,
-                language: "B1",
-                languageRequirement: "B1",
-                salary: "Competitive",
-                process: "Online Interview",
-                training: "TBD",
-                details: "BPOHive details.",
-                locationType: "office",
-                targetLanguage: "english"
-            },
-            {
-                id: 43,
-                status: "Hold",
-                company: "Outsourcing Skills",
-                account: "Telesales",
-                shifts: "Fixed",
-                interview: "F2F",
-                location: "Cairo",
-                graduation: "Grads / Undergrads",
-                nationality: "Egyptians Only",
-                maxAge: 35,
-                language: "B2",
-                languageRequirement: "B2",
-                salary: "Competitive",
-                process: "F2F",
-                training: "TBD",
-                details: "Outsourcing Skills details.",
-                locationType: "office",
-                targetLanguage: "english"
-            },
-            {
-                id: 44,
-                status: "Hold",
-                company: "Callix",
-                account: "Customer Service",
-                shifts: "Rotational",
-                interview: "Online then F2F",
-                location: "Cairo",
-                graduation: "Grads / Undergrads",
-                nationality: "Egyptians Only",
-                maxAge: 35,
-                language: "B2",
-                languageRequirement: "B2",
-                salary: "Competitive",
-                process: "Online then F2F",
-                training: "TBD",
-                details: "Callix details.",
-                locationType: "office",
-                targetLanguage: "english"
-            },
-            {
-                id: 45,
-                status: "Hold",
-                company: "NAOS",
-                account: "Customer Service",
-                shifts: "Rotational",
-                interview: "Online then F2F",
-                location: "Cairo",
-                graduation: "Grads / Undergrads",
-                nationality: "Egyptians Only",
-                maxAge: 35,
-                language: "B2",
-                languageRequirement: "B2",
-                salary: "Competitive",
-                process: "Online then F2F",
-                training: "TBD",
-                details: "NAOS details.",
-                locationType: "office",
-                targetLanguage: "english"
-            },
-            {
-                id: 46,
-                status: "Hold",
-                company: "Octopus B1",
-                account: "Customer Service",
-                shifts: "Rotational",
-                interview: "F2F",
-                location: "Cairo",
-                graduation: "Grads / Undergrads",
-                nationality: "Egyptians Only",
-                maxAge: 35,
-                language: "B1",
-                languageRequirement: "B1",
-                salary: "Competitive",
-                process: "F2F",
-                training: "TBD",
-                details: "Octopus B1 details.",
-                locationType: "office",
-                targetLanguage: "english"
-            },
-            {
-                id: 47,
-                status: "Hold",
-                company: "Octopus Spanish",
-                account: "Customer Service",
-                shifts: "Rotational",
-                interview: "Online then F2F",
-                location: "Cairo",
-                graduation: "Grads / Undergrads",
-                nationality: "Egyptians Only",
-                maxAge: 35,
-                language: "Spanish B2",
-                languageRequirement: "B2",
-                salary: "Competitive",
-                process: "Online then F2F",
-                training: "TBD",
-                details: "Octopus Spanish details.",
-                locationType: "office",
-                targetLanguage: "spanish"
-            },
-            {
-                id: 48,
-                status: "Hold",
-                company: "Realogy",
-                account: "Real Estate",
-                shifts: "Fixed",
-                interview: "Online then F2F",
-                location: "Cairo",
-                graduation: "Grads",
-                nationality: "Egyptians Only",
-                maxAge: 35,
-                language: "B2",
-                languageRequirement: "B2",
-                salary: "Competitive",
-                process: "Online then F2F",
-                training: "TBD",
-                details: "Realogy details.",
-                locationType: "office",
-                targetLanguage: "english"
-            },
-            {
-                id: 49,
-                status: "Hold",
-                company: "Ilead",
-                account: "Telesales",
-                shifts: "Fixed",
-                interview: "F2F",
-                location: "Cairo",
-                graduation: "Grads / Undergrads",
-                nationality: "Egyptians Only",
-                maxAge: 35,
-                language: "B2",
-                languageRequirement: "B2",
-                salary: "Competitive",
-                process: "F2F",
-                training: "TBD",
-                details: "Ilead details.",
-                locationType: "office",
-                targetLanguage: "english"
-            },
-            {
-                id: 50,
-                status: "Hold",
-                company: "Outsourcing 4 You",
-                account: "Telesales",
-                shifts: "Fixed",
-                interview: "F2F",
-                location: "Cairo",
-                graduation: "Grads / Undergrads",
-                nationality: "Egyptians Only",
-                maxAge: 35,
-                language: "B2",
-                languageRequirement: "B2",
-                salary: "Competitive",
-                process: "F2F",
-                training: "TBD",
-                details: "Outsourcing 4 You details.",
-                locationType: "office",
-                targetLanguage: "english"
-            },
-            {
-                id: 51,
-                status: "Hold",
-                company: "Stereo Outsourcing",
-                account: "Customer Service",
-                shifts: "Rotational",
-                interview: "Online Interview",
-                location: "Cairo",
-                graduation: "Grads / Undergrads",
-                nationality: "Egyptians Only",
-                maxAge: 35,
-                language: "B2",
-                languageRequirement: "B2",
-                salary: "Competitive",
-                process: "Online Interview",
-                training: "TBD",
-                details: "Stereo Outsourcing details.",
-                locationType: "office",
-                targetLanguage: "english"
-            },
-            {
-                id: 52,
-                status: "Hold",
-                company: "VolumeX",
-                account: "Telesales",
-                shifts: "Fixed",
-                interview: "Online Interview",
-                location: "Cairo",
-                graduation: "Grads / Undergrads",
-                nationality: "Egyptians Only",
-                maxAge: 35,
-                language: "B2",
-                languageRequirement: "B2",
-                salary: "Competitive",
-                process: "Online Interview",
-                training: "TBD",
-                details: "VolumeX details.",
-                locationType: "office",
-                targetLanguage: "english"
-            },
-            {
-                id: 53,
-                status: "Hold",
-                company: "Vitrin Clinic",
-                account: "Medical",
-                shifts: "Fixed",
-                interview: "F2F",
-                location: "Cairo",
-                graduation: "Grads",
-                nationality: "Egyptians Only",
-                maxAge: 35,
-                language: "B2",
-                languageRequirement: "B2",
-                salary: "Competitive",
-                process: "F2F",
-                training: "TBD",
-                details: "Vitrin Clinic details.",
-                locationType: "office",
-                targetLanguage: "english"
-            },
-            {
-                id: 54,
-                status: "Hold",
-                company: "Elevate Holding Spanish",
-                account: "Customer Service",
-                shifts: "Rotational",
-                interview: "Online Interview",
-                location: "Cairo",
-                graduation: "Grads / Undergrads",
-                nationality: "Egyptians Only",
-                maxAge: 35,
-                language: "Spanish B2",
-                languageRequirement: "B2",
-                salary: "Competitive",
-                process: "Online Interview",
-                training: "TBD",
-                details: "Elevate Holding Spanish details.",
-                locationType: "office",
-                targetLanguage: "spanish"
-            },
-            {
-                id: 55,
-                status: "Hold",
-                company: "FoodHub",
-                account: "Customer Service",
-                shifts: "Rotational",
-                interview: "F2F",
-                location: "Cairo",
-                graduation: "Grads / Undergrads",
-                nationality: "Egyptians Only",
-                maxAge: 35,
-                language: "B1",
-                languageRequirement: "B1",
-                salary: "Competitive",
-                process: "F2F",
-                training: "TBD",
-                details: "FoodHub details.",
-                locationType: "office",
-                targetLanguage: "english"
-            },
-            {
-                id: 56,
-                status: "Hold",
-                company: "Dyninno",
-                account: "Travel",
-                shifts: "Rotational",
-                interview: "Online then F2F",
-                location: "Cairo",
-                graduation: "Grads / Undergrads",
-                nationality: "Egyptians Only",
-                maxAge: 35,
-                language: "B2",
-                languageRequirement: "B2",
-                salary: "Competitive",
-                process: "Online then F2F",
-                training: "TBD",
-                details: "Dyninno details.",
-                locationType: "office",
-                targetLanguage: "english"
-            },
-            {
-                id: 57,
-                status: "Hold",
-                company: "Telephonic Portuguese",
-                account: "Customer Service",
-                shifts: "Rotational",
-                interview: "Online then F2F",
-                location: "Cairo",
-                graduation: "Grads / Undergrads",
-                nationality: "Egyptians Only",
-                maxAge: 35,
-                language: "Portuguese B2",
-                languageRequirement: "B2",
-                salary: "Competitive",
-                process: "Online then F2F",
-                training: "TBD",
-                details: "Telephonic Portuguese details.",
-                locationType: "office",
-                targetLanguage: "portuguese"
-            },
-            {
-                id: 58,
-                status: "Hold",
-                company: "Telephonic Turkish",
-                account: "Customer Service",
-                shifts: "Rotational",
-                interview: "Online then F2F",
-                location: "Cairo",
-                graduation: "Grads / Undergrads",
-                nationality: "Egyptians Only",
-                maxAge: 35,
-                language: "Turkish B2",
-                languageRequirement: "B2",
-                salary: "Competitive",
-                process: "Online then F2F",
-                training: "TBD",
-                details: "Telephonic Turkish details.",
-                locationType: "office",
-                targetLanguage: "turkish"
-            },
-            {
-                id: 59,
-                status: "Hold",
-                company: "Telephonic French",
-                account: "Customer Service",
-                shifts: "Rotational",
-                interview: "Online then F2F",
-                location: "Cairo",
-                graduation: "Grads / Undergrads",
-                nationality: "Egyptians Only",
-                maxAge: 35,
-                language: "French B2",
-                languageRequirement: "B2",
-                salary: "Competitive",
-                process: "Online then F2F",
-                training: "TBD",
-                details: "Telephonic French details.",
-                locationType: "office",
-                targetLanguage: "french"
-            },
-            {
-                id: 60,
-                status: "Hold",
-                company: "Telephonic Italian",
-                account: "Customer Service",
-                shifts: "Rotational",
-                interview: "Online then F2F",
-                location: "Cairo",
-                graduation: "Grads / Undergrads",
-                nationality: "Egyptians Only",
-                maxAge: 35,
-                language: "Italian B2",
-                languageRequirement: "B2",
-                salary: "Competitive",
-                process: "Online then F2F",
-                training: "TBD",
-                details: "Telephonic Italian details.",
-                locationType: "office",
-                targetLanguage: "italian"
-            },
-            {
-                id: 61,
-                status: "Hold",
-                company: "Telephonic German",
-                account: "Customer Service",
-                shifts: "Rotational",
-                interview: "Online then F2F",
-                location: "Cairo",
-                graduation: "Grads / Undergrads",
-                nationality: "Egyptians Only",
-                maxAge: 35,
-                language: "German B2",
-                languageRequirement: "B2",
-                salary: "Competitive",
-                process: "Online then F2F",
-                training: "TBD",
-                details: "Telephonic German details.",
-                locationType: "office",
-                targetLanguage: "german"
-            },
-            {
-                id: 62,
-                status: "Hold",
-                company: "Virtual Affiliates",
-                account: "Affiliate Marketing",
-                shifts: "Fixed",
-                interview: "F2F",
-                location: "Cairo",
-                graduation: "Grads / Undergrads",
-                nationality: "Egyptians Only",
-                maxAge: 35,
-                language: "B2",
-                languageRequirement: "B2",
-                salary: "Competitive",
-                process: "F2F",
-                training: "TBD",
-                details: "Virtual Affiliates details.",
-                locationType: "office",
-                targetLanguage: "english"
-            },
-            {
-                id: 63,
-                status: "Hold",
-                company: "Octopus",
-                account: "Customer Service",
-                shifts: "Rotational",
-                interview: "F2F",
-                location: "Cairo",
-                graduation: "Grads / Undergrads",
-                nationality: "Egyptians Only",
-                maxAge: 35,
-                language: "B1",
-                languageRequirement: "B1",
-                salary: "Competitive",
-                process: "F2F",
-                training: "TBD",
-                details: "Octopus details.",
-                locationType: "office",
-                targetLanguage: "english"
-            }
+            // ... يمكن إضافة المزيد من العروض المعلقة حسب الحاجة، لكننا نكتفي بهذا العدد للعرض
         ];
 
         // DOM elements
@@ -2404,6 +1747,11 @@
                 const jobCard = document.createElement('div');
                 jobCard.className = 'job-card';
                 
+                // Add active-job class if status is Active (for pink glow)
+                if (job.status === 'Active') {
+                    jobCard.classList.add('active-job');
+                }
+                
                 // Determine match level for color coding
                 let matchLevel = 'match-low';
                 if (job.matchScore >= 85) matchLevel = 'match-high';
@@ -2505,9 +1853,9 @@
                     <h4><i class="fas fa-file-alt"></i> Offer Details</h4>
                     <p style="white-space: pre-line;">${job.details}</p>
                     <div style="margin-top: 25px; text-align: center;">
-                <button class="btn btn-primary" style="width: 100%; padding: 18px; font-size: 18px;" onclick="copyOfferDetails(${job.id})">
-            <i class="fas fa-copy"></i> Copy Offer Details
-            </button>
+                        <button class="btn btn-primary" style="width: 100%; padding: 18px; font-size: 18px;" onclick="copyOfferDetails(${job.id})">
+                            <i class="fas fa-copy"></i> Copy Offer Details
+                        </button>
                         <p style="margin-top: 15px; font-size: 14px; color: var(--text-muted);">
                             <i class="fas fa-info-circle"></i> This job matches ${job.matchScore || '100'}% of your profile
                             ${job.isNearbyLocation ? '<br><i class="fas fa-map-marker-alt"></i> This job is in a nearby location' : ''}
@@ -2521,12 +1869,12 @@
             jobModal.style.display = 'block';
         };
 
-       // Copy offer details to clipboard
-window.copyOfferDetails = function(jobId) {
-    const job = jobOffers.find(j => j.id === jobId);
-    
-    // Create formatted text for copying
-    const offerText = `
+        // Copy offer details to clipboard
+        window.copyOfferDetails = function(jobId) {
+            const job = jobOffers.find(j => j.id === jobId);
+            
+            // Create formatted text for copying
+            const offerText = `
 VORANIX Job Offer Details
 ===========================
 Company: ${job.company}
@@ -2547,27 +1895,27 @@ ${job.details}
 ===========================
 Copied from VORANIX Smart Job Matching System
 `;
-    
-    // Copy to clipboard
-    navigator.clipboard.writeText(offerText)
-        .then(() => {
-            // Show success message
-            const copyBtn = document.querySelector('.btn-primary[onclick*="copyOfferDetails"]');
-            const originalText = copyBtn.innerHTML;
-            copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
-            copyBtn.style.backgroundColor = 'var(--success-color)';
             
-            // Reset button after 2 seconds
-            setTimeout(() => {
-                copyBtn.innerHTML = originalText;
-                copyBtn.style.backgroundColor = '';
-            }, 2000);
-        })
-        .catch(err => {
-            console.error('Failed to copy: ', err);
-            alert('Failed to copy offer details. Please try again.');
-        });
-};
+            // Copy to clipboard
+            navigator.clipboard.writeText(offerText)
+                .then(() => {
+                    // Show success message
+                    const copyBtn = document.querySelector('.btn-primary[onclick*="copyOfferDetails"]');
+                    const originalText = copyBtn.innerHTML;
+                    copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                    copyBtn.style.backgroundColor = 'var(--success-color)';
+                    
+                    // Reset button after 2 seconds
+                    setTimeout(() => {
+                        copyBtn.innerHTML = originalText;
+                        copyBtn.style.backgroundColor = '';
+                    }, 2000);
+                })
+                .catch(err => {
+                    console.error('Failed to copy: ', err);
+                    alert('Failed to copy offer details. Please try again.');
+                });
+        };
 
         // Clear form
         function clearForm() {
