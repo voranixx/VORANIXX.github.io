@@ -22,10 +22,6 @@
             --bg:          #080608;
             --text:        #ffe8f0;
             --text-muted:  #c88aaa;
-            --error-bg:    #3a0a1c;
-            --error-border: #ff2d78;
-            --success-bg:  #0e2a1a;
-            --success-border: #2a9d6e;
         }
 
         body {
@@ -83,7 +79,6 @@
             transition: all 0.3s;
         }
 
-        /* language toggle button with animation */
         .lang-toggle {
             background: rgba(0,0,0,0.5);
             backdrop-filter: blur(8px);
@@ -189,7 +184,6 @@
             to { opacity: 1; transform: translateX(-50%) translateY(0); }
         }
 
-        /* contract card glass */
         .contract-card {
             background: rgba(17, 10, 13, 0.92);
             backdrop-filter: blur(12px);
@@ -227,7 +221,6 @@
             max-height: 520px;
             overflow-y: auto;
             scrollbar-width: thin;
-            transition: opacity 0.2s;
         }
 
         .contract-text strong {
@@ -235,7 +228,6 @@
             font-weight: 800;
         }
 
-        /* inputs style */
         .inline-input {
             background: #21101a;
             border: 1px solid #812a4c;
@@ -255,7 +247,6 @@
             box-shadow: 0 0 15px var(--pink-glow);
         }
 
-        /* checkboxes */
         .clause-check-group {
             margin: 2rem 0 1.5rem;
             display: flex;
@@ -278,7 +269,6 @@
             accent-color: var(--pink);
         }
 
-        /* signature zone */
         .signature-area {
             display: flex;
             flex-wrap: wrap;
@@ -395,9 +385,7 @@
     </div>
 
     <div id="contractPreview" class="contract-card">
-        <div class="contract-text" id="contractText">
-            <!-- Arabic content will be injected via JS -->
-        </div>
+        <div class="contract-text" id="contractText"></div>
 
         <div class="clause-check-group">
             <div class="clause-item"><input type="checkbox" id="clauseTerms" checked> <label id="labelTerms" for="clauseTerms">أقر باطلاعي وفهمي لجميع بنود العقد، بما فيها ضمان العمولة وشرط الإبطال (inactivity).</label></div>
@@ -430,7 +418,7 @@
 
 <script>
     (function() {
-        // ---------- MULTILINGUAL CONTRACT DATA with VORANIX ----------
+        // ---------- MULTILINGUAL CONTRACT DATA ----------
         const arabicContract = `
             <p><strong>تم تحرير هذا العقد في اليوم</strong> <input type="text" class="inline-input" id="dayNum" style="width:70px;"> من شهر <input type="text" class="inline-input" id="monthName" style="width:110px;"> سنة <input type="text" class="inline-input" id="yearNum" style="width:80px;"> الموافق <input type="date" class="inline-input" id="contractDate"></p>
             <p><strong>بين كل من:</strong></p>
@@ -467,7 +455,6 @@
             <p><strong>General Provisions:</strong> This agreement constitutes the entire understanding and may not be amended except in writing by both parties. Any dispute shall be settled before Cairo courts.</p>
         `;
 
-        // UI labels translations
         const translations = {
             ar: {
                 leaderTitle: "توقيع قائد الفريق",
@@ -500,13 +487,10 @@
         const langToggle = document.getElementById("langToggle");
         const recruiterSignatureInput = document.getElementById("recruiterSignature");
 
-        // ---------- NOTIFICATION SYSTEM (Inline, no alerts) ----------
+        // ---------- NOTIFICATION SYSTEM ----------
         let activeToast = null;
         function showMessage(message, type = "error", duration = 4000) {
-            if (activeToast) {
-                activeToast.remove();
-                activeToast = null;
-            }
+            if (activeToast) activeToast.remove();
             const toast = document.createElement("div");
             toast.className = `notification-toast ${type}`;
             toast.style.animation = "slideDown 0.3s ease-out";
@@ -518,19 +502,11 @@
             `;
             document.body.appendChild(toast);
             activeToast = toast;
-            const closeBtn = toast.querySelector(".close-toast");
-            closeBtn.addEventListener("click", () => {
+            toast.querySelector(".close-toast").addEventListener("click", () => {
                 toast.remove();
-                activeToast = null;
+                if (activeToast === toast) activeToast = null;
             });
-            if (duration > 0) {
-                setTimeout(() => {
-                    if (toast && toast.parentNode) {
-                        toast.remove();
-                        if (activeToast === toast) activeToast = null;
-                    }
-                }, duration);
-            }
+            if (duration > 0) setTimeout(() => { if (toast && toast.parentNode) toast.remove(); }, duration);
         }
 
         function setLanguage(lang) {
@@ -567,18 +543,12 @@
                     const monthNamesAr = ["يناير","فبراير","مارس","إبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"];
                     const monthNamesEn = ["January","February","March","April","May","June","July","August","September","October","November","December"];
                     const monthField = document.getElementById('monthName');
-                    if(monthField) {
-                        monthField.value = currentLang === "ar" ? monthNamesAr[dateObj.getMonth()] : monthNamesEn[dateObj.getMonth()];
-                    }
+                    if(monthField) monthField.value = currentLang === "ar" ? monthNamesAr[dateObj.getMonth()] : monthNamesEn[dateObj.getMonth()];
                 }
             }
         }
 
-        langToggle.addEventListener("click", () => {
-            const newLang = currentLang === "ar" ? "en" : "ar";
-            setLanguage(newLang);
-        });
-
+        langToggle.addEventListener("click", () => setLanguage(currentLang === "ar" ? "en" : "ar"));
         setLanguage("ar");
         setTodayDate();
 
@@ -599,11 +569,10 @@
             if(yearField) yearField.value = year;
         }
 
-        // Formspree & screenshot
+        // ---------- FORMPREE SUBMISSION WITH DETAILED ERROR HANDLING ----------
         const confirmBtn = document.getElementById('confirmBtn');
         const downloadBtn = document.getElementById('downloadBtn');
         const statusIconSpan = document.getElementById('statusIcon');
-        const contractCard = document.getElementById('contractPreview');
 
         function setStatus(type, msg = '') {
             if(type === 'loading') statusIconSpan.innerHTML = '<i class="fas fa-circle-notch fa-spin fa-2x"></i>';
@@ -657,13 +626,31 @@
         }
 
         async function submitToFormspree(data) {
+            const formEndpoint = "https://formspree.io/f/maqpgyov";
             const formBody = new URLSearchParams();
-            for (const [k,v] of Object.entries(data)) formBody.append(k, v);
-            formBody.append("message", `New VORANIX contract submission: ${data.recruiter_name}, ID: ${data.national_id}, email: ${data.email}, payment: ${data.payment_method} - ${data.payment_detail}, signature: ${data.recruiter_signature}, language: ${data.language}`);
+            for (const [k, v] of Object.entries(data)) formBody.append(k, v);
+            // Add a comprehensive message
+            formBody.append("message", `New VORANIX contract submission:\nRecruiter: ${data.recruiter_name}\nID: ${data.national_id}\nEmail: ${data.email}\nPayment: ${data.payment_method} - ${data.payment_detail}\nSignature: ${data.recruiter_signature}\nLanguage: ${data.language}\nDate: ${data.contract_date_full}`);
+            
             try {
-                const res = await fetch("https://formspree.io/f/maqpgyov", { method: "POST", headers: { 'Accept': 'application/json' }, body: formBody });
-                return res.ok;
-            } catch(e) { return false; }
+                const response = await fetch(formEndpoint, {
+                    method: "POST",
+                    headers: { 'Accept': 'application/json' },
+                    body: formBody
+                });
+                if (response.ok) {
+                    return { success: true };
+                } else {
+                    let errorDetail = await response.text();
+                    try {
+                        const jsonErr = JSON.parse(errorDetail);
+                        errorDetail = jsonErr.error || jsonErr.message || errorDetail;
+                    } catch(e) {}
+                    return { success: false, error: `HTTP ${response.status}: ${errorDetail.substring(0, 150)}` };
+                }
+            } catch (err) {
+                return { success: false, error: err.message || "Network error" };
+            }
         }
 
         async function downloadImage() {
@@ -671,7 +658,7 @@
             const originalMax = textDiv.style.maxHeight;
             textDiv.style.maxHeight = 'none';
             try {
-                const canvas = await html2canvas(contractCard, { scale: 2.8, backgroundColor: '#080608', logging: false });
+                const canvas = await html2canvas(document.getElementById('contractPreview'), { scale: 2.8, backgroundColor: '#080608', logging: false });
                 const link = document.createElement('a');
                 link.download = `VORANIX_Contract_${Date.now()}.png`;
                 link.href = canvas.toDataURL('image/png');
@@ -686,16 +673,17 @@
             if(!validateContract()) return;
             confirmBtn.disabled = true;
             setStatus('loading', currentLang === "ar" ? "جاري إرسال البيانات..." : "Submitting...");
-            const success = await submitToFormspree(gatherFormData());
-            if(success) {
+            const result = await submitToFormspree(gatherFormData());
+            if(result.success) {
                 setStatus('success', currentLang === "ar" ? "✅ تم تأكيد العقد وإرسال البيانات بنجاح إلى VORANIX." : "✅ Contract confirmed and data sent successfully to VORANIX.");
                 downloadBtn.style.display = 'inline-flex';
             } else {
-                setStatus('error', currentLang === "ar" ? "❌ فشل الإرسال، تأكد من الاتصال بالإنترنت وحاول مجدداً." : "❌ Submission failed, please check your internet connection.");
+                let errMsg = currentLang === "ar" ? `❌ فشل الإرسال: ${result.error}` : `❌ Submission failed: ${result.error}`;
+                setStatus('error', errMsg);
                 confirmBtn.disabled = false;
             }
         });
-        downloadBtn.addEventListener('click', async () => { await downloadImage(); });
+        downloadBtn.addEventListener('click', downloadImage);
     })();
 </script>
 </body>
