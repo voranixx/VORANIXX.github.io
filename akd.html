@@ -2,587 +2,700 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VORANIX</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>VORANIX | عقد تعاون احترافي</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=Almarai:wght@400;700;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=Almarai:wght@400;700;800&family=Amiri:wght@400;700&family=Dancing+Script:wght@400;600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         :root {
             --pink:        #ff2d78;
             --pink-light:  #ff6fa3;
-            --pink-glow:   #ff2d7899;
-            --pink-faint:  #ff2d7822;
-            --pink-deep:   #c4005a;
+            --pink-glow:   rgba(255, 45, 120, 0.5);
+            --pink-faint:  rgba(255, 45, 120, 0.2);
             --bg:          #080608;
-            --bg2:         #110a0d;
-            --bg3:         #1a0c12;
             --text:        #ffe8f0;
             --text-muted:  #c88aaa;
+            --error-bg:    #3a0a1c;
+            --error-border: #ff2d78;
+            --success-bg:  #0e2a1a;
+            --success-border: #2a9d6e;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
         body {
-            background-color: var(--bg);
-            background-image:
-                radial-gradient(ellipse at 20% 30%, #2a0618 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 70%, #1a0412 0%, transparent 50%);
-            font-family: 'Tajawal', 'Almarai', sans-serif;
+            background: radial-gradient(circle at 10% 20%, #1e0812, #030103);
+            font-family: 'Tajawal', 'Almarai', 'Inter', sans-serif;
             color: var(--text);
-            line-height: 1.7;
             padding: 2rem 1rem;
             display: flex;
             flex-direction: column;
             align-items: center;
+            position: relative;
         }
 
-        /* ===== Grain overlay for depth ===== */
         body::before {
             content: '';
             position: fixed;
             inset: 0;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
             pointer-events: none;
             z-index: 0;
-            opacity: 0.4;
         }
 
         .main-container {
-            max-width: 1100px;
+            max-width: 1200px;
             width: 100%;
             position: relative;
-            z-index: 1;
+            z-index: 2;
         }
 
-        /* ===== HEADER ===== */
+        /* header with logo + language toggle */
         .contract-header {
-            text-align: center;
-            margin-bottom: 2.5rem;
-        }
-
-        /* Logo matching uploaded image */
-        .logo-wrap {
-            display: inline-flex;
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 0.15rem;
-            margin-bottom: 1rem;
-        }
-
-        .logo-v {
-            font-size: 3.8rem;
-            font-weight: 900;
-            color: var(--pink);
-            text-shadow: 0 0 20px var(--pink), 0 0 50px var(--pink-glow);
-            line-height: 1;
-            font-family: 'Tajawal', sans-serif;
-            letter-spacing: -2px;
-        }
-
-        .logo-oranix {
-            font-size: 3rem;
-            font-weight: 700;
-            color: #ffffff;
-            letter-spacing: 6px;
-            text-transform: uppercase;
-            line-height: 1;
-            font-family: 'Tajawal', sans-serif;
-        }
-
-        .title-arabic {
-            font-size: 1.5rem;
-            color: var(--pink-light);
-            text-shadow: 0 0 8px var(--pink-glow);
-            border-bottom: 1.5px solid var(--pink);
-            display: inline-block;
-            padding-bottom: 0.4rem;
-            margin-bottom: 0.8rem;
-        }
-
-        .power-tagline {
-            font-family: 'Tajawal', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 500;
-            letter-spacing: 4px;
-            color: var(--text-muted);
-            background: linear-gradient(145deg, var(--bg3), var(--bg));
-            display: inline-block;
-            padding: 0.4rem 2.2rem;
-            border-radius: 60px;
-            border: 1px solid var(--pink);
-            box-shadow: 0 0 18px var(--pink-faint);
-            text-transform: uppercase;
-        }
-
-        .power-tagline i { color: var(--pink); margin: 0 0.3rem; }
-
-        /* ===== CARD ===== */
-        .contract-card {
-            background: #110a0df5;
-            backdrop-filter: blur(6px);
-            border: 1.5px solid var(--pink);
-            border-radius: 36px;
-            padding: 2.2rem 2.2rem 1.8rem;
-            margin: 1.5rem 0;
-            box-shadow: 0 0 60px var(--pink-glow), inset 0 0 20px #2a021299;
-        }
-
-        /* ===== CONTRACT TEXT ===== */
-        .contract-text {
-            font-family: 'Almarai', 'Tajawal', sans-serif;
-            font-size: 1rem;
-            color: #f5dce6;
-            background: #0e060a;
-            padding: 1.8rem 2rem;
-            border-radius: 26px;
-            border: 1px solid #4a1030;
-            box-shadow: inset 0 0 25px #1a0412;
-            max-height: 560px;
-            overflow-y: auto;
-            scrollbar-width: thin;
-            scrollbar-color: var(--pink) #2a0618;
-        }
-
-        .contract-text::-webkit-scrollbar { width: 7px; }
-        .contract-text::-webkit-scrollbar-track { background: #2a0618; border-radius: 10px; }
-        .contract-text::-webkit-scrollbar-thumb { background: var(--pink); border-radius: 10px; }
-
-        .contract-text p { margin-bottom: 0.9rem; }
-        .contract-text strong { color: var(--pink-light); }
-
-        /* ===== INLINE INPUTS ===== */
-        .inline-input {
-            background: #1e0a14;
-            border: none;
-            border-bottom: 2px dotted var(--pink-light);
-            color: #ffffff;
-            font-family: 'Almarai', monospace;
-            font-size: 1rem;
-            padding: 0.1rem 0.4rem;
-            min-width: 130px;
-            max-width: 220px;
-            text-align: center;
-            font-weight: 600;
-            outline: none;
-            transition: 0.2s;
-            border-radius: 10px;
-            margin: 0 2px;
-        }
-
-        .inline-input:focus {
-            border-bottom: 2px solid #ffffff;
-            background: #3d0a1f;
-            box-shadow: 0 0 10px var(--pink-glow);
-        }
-
-        .inline-input[type="date"] {
-            color-scheme: dark;
-            background: #1e0a14;
-            border-radius: 20px;
-            padding: 0.2rem 0.8rem;
-            border: 1px solid var(--pink);
-        }
-
-        select.inline-input {
-            background: #1e0a14;
-            color: white;
-            border: 1px solid var(--pink);
-            border-radius: 30px;
-            padding: 0.3rem 1rem;
-        }
-
-        /* ===== CHECKBOXES ===== */
-        .clause-check-group {
-            margin: 2rem 0 1rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.9rem;
-        }
-
-        .clause-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            background: #1a0810;
-            padding: 0.7rem 1.5rem;
-            border-radius: 40px;
-            border: 1px solid #5a1535;
-            font-size: 1rem;
-            font-weight: 500;
-            color: #f0d0dc;
-            transition: border-color 0.2s;
-        }
-
-        .clause-item:hover { border-color: var(--pink); }
-
-        .clause-item input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            accent-color: var(--pink);
-            cursor: pointer;
-        }
-
-        .clause-item label { cursor: pointer; flex: 1; }
-
-        /* ===== SIGNATURE ===== */
-        .signature-area {
-            margin: 2rem 0 1.5rem;
-            display: flex;
             flex-wrap: wrap;
-            align-items: center;
-            justify-content: center;
-            gap: 2rem;
-            background: #0e0609;
-            border-radius: 60px;
-            padding: 1.5rem 2rem;
+            margin-bottom: 2rem;
+            gap: 1rem;
+        }
+
+        .logo-wrapper {
+            display: flex;
+            align-items: baseline;
+        }
+
+        .logo-voranix {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ffffff, #ffb7ce, #ff6fa3);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 15px rgba(255,45,120,0.5);
+            letter-spacing: 4px;
+            font-family: 'Tajawal', sans-serif;
+            transition: all 0.3s;
+        }
+
+        /* language toggle button with animation */
+        .lang-toggle {
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(8px);
             border: 1.5px solid var(--pink);
-            box-shadow: 0 0 30px var(--pink-faint);
-        }
-
-        .signature-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 1.2rem;
-            min-width: 180px;
-        }
-
-        .signature-item .label {
-            font-weight: 400;
-            color: var(--text-muted);
-            letter-spacing: 1px;
-            font-size: 0.9rem;
-        }
-
-        .signature-image {
-            font-family: 'Amiri', serif;
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: #ffd0e0;
-            text-shadow: 0 0 10px var(--pink), 0 0 20px var(--pink-glow);
-            background: #1e0812;
-            border-radius: 30px;
-            padding: 0.2rem 2rem;
-            border: 2px solid var(--pink);
-            box-shadow: 0 0 15px var(--pink-glow);
-            transform: rotate(-1deg);
-            white-space: nowrap;
-        }
-
-        .signature-animation {
-            background: #1e0812;
-            border-radius: 30px;
-            border: 2px solid var(--pink);
-            box-shadow: 0 0 15px var(--pink-glow);
-            padding: 0.3rem 0.8rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .signature-name {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            border-top: 1px dashed var(--pink);
-            padding-top: 0.3rem;
-        }
-
-        .recruiter-signature {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .signature-input {
-            background: #1e0812;
-            border: 2px solid var(--pink);
-            border-radius: 50px;
-            padding: 0.6rem 1.8rem;
-            font-family: 'Almarai', cursive;
-            font-size: 1.3rem;
-            color: #fff;
-            text-align: center;
-            min-width: 250px;
-            outline: none;
-            box-shadow: 0 0 12px var(--pink-glow);
-        }
-
-        .signature-input:focus { background: #3d0a1f; }
-
-        /* ===== STATUS ===== */
-        .status-area {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 50px;
-            margin: 0.5rem 0;
-            font-size: 2rem;
-        }
-
-        .fa-check-circle { color: #ff5e9e; filter: drop-shadow(0 0 8px var(--pink)); }
-        .fa-spinner { color: var(--pink-light); filter: drop-shadow(0 0 6px var(--pink)); }
-
-        /* ===== BUTTONS ===== */
-        .action-btn {
-            background: var(--pink);
-            border: none;
             border-radius: 60px;
-            padding: 0.9rem 3rem;
-            font-weight: 700;
-            font-size: 1.3rem;
-            color: #ffffff;
+            padding: 0.5rem 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
             cursor: pointer;
-            box-shadow: 0 0 30px var(--pink-glow), 0 4px 20px #00000066;
-            transition: 0.2s;
-            border: 1px solid var(--pink-light);
-            font-family: 'Tajawal', sans-serif;
-            margin: 0.5rem auto 1rem;
-            display: inline-block;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            box-shadow: 0 0 12px var(--pink-faint);
         }
-
-        .action-btn:hover {
-            background: var(--pink-light);
-            transform: scale(1.03);
-            box-shadow: 0 0 45px var(--pink);
+        .lang-toggle:hover {
+            transform: scale(1.02);
+            border-color: var(--pink-light);
+            box-shadow: 0 0 20px var(--pink-glow);
         }
-
-        .action-btn:disabled { opacity: 0.3; pointer-events: none; }
-
-        #downloadBtn {
-            background: transparent;
-            border: 2px solid var(--pink);
-            border-radius: 60px;
-            padding: 0.8rem 2.5rem;
+        .lang-text {
             font-weight: 600;
-            color: var(--pink-light);
-            cursor: pointer;
-            font-size: 1.2rem;
-            margin: 1rem auto;
-            display: none;
-            box-shadow: 0 0 15px var(--pink-faint);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+        .lang-switch {
+            width: 50px;
+            height: 26px;
+            background: #2a0a18;
+            border-radius: 30px;
+            position: relative;
             transition: 0.2s;
-            font-family: 'Tajawal', sans-serif;
+            border: 1px solid var(--pink);
+        }
+        .lang-switch::after {
+            content: "";
+            width: 22px;
+            height: 22px;
+            background: var(--pink-light);
+            border-radius: 50%;
+            position: absolute;
+            top: 1px;
+            right: 3px;
+            transition: transform 0.3s ease;
+            box-shadow: 0 0 6px var(--pink);
+        }
+        .lang-toggle[data-lang="en"] .lang-switch::after {
+            transform: translateX(-24px);
+        }
+        .lang-toggle[data-lang="ar"] .lang-switch::after {
+            transform: translateX(0);
         }
 
-        #downloadBtn:hover { background: var(--pink); color: #fff; }
-
-        .footer-note { text-align: center; color: var(--text-muted); font-size: 0.8rem; margin-top: 1rem; }
-        .small-input { min-width: 90px; }
-
-        /* ===== SVG SIGNATURE ANIMATION - pink stroke ===== */
-        .sign { width: 140px; height: auto; display: block; }
-        .sign > *:nth-child(1) {
-            fill: transparent;
-            stroke-width: 0.4;
-            stroke: var(--pink-light);
-            stroke-dasharray: 765;
-            stroke-dashoffset: 765;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            animation: fillit 2s linear 2s forwards;
+        /* notification toast */
+        .notification-toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            min-width: 280px;
+            max-width: 500px;
+            background: #1e0a14e6;
+            backdrop-filter: blur(12px);
+            border-radius: 60px;
+            padding: 0.8rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            border: 1px solid;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3), 0 0 15px var(--pink-glow);
+            transition: all 0.3s ease;
+            font-weight: 500;
+            direction: rtl;
         }
-        .sign > *:nth-child(2) {
-            fill: transparent;
-            stroke-width: 0.4;
-            stroke: var(--pink-light);
-            stroke-dasharray: 154;
-            stroke-dashoffset: 154;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            animation: fillit1 2s linear forwards;
+        .notification-toast.error {
+            border-color: var(--pink);
+            background: #2d0c1ad9;
+        }
+        .notification-toast.success {
+            border-color: #2a9d6e;
+            background: #0e2a1ad9;
+        }
+        .notification-toast.info {
+            border-color: var(--pink-light);
+        }
+        .notification-toast .message {
+            flex: 1;
+            font-size: 0.95rem;
+        }
+        .notification-toast .close-toast {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .notification-toast .close-toast:hover {
+            color: var(--pink);
+        }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateX(-50%) translateY(-30px); }
+            to { opacity: 1; transform: translateX(-50%) translateY(0); }
         }
 
-        @keyframes fillit {
-            0%   { stroke-dashoffset: 765; }
-            90%  { fill: transparent; }
-            100% { stroke-dashoffset: 0; fill: var(--pink-light); }
-        }
-        @keyframes fillit1 {
-            0%   { stroke-dashoffset: 154; }
-            90%  { fill: transparent; }
-            100% { stroke-dashoffset: 0; fill: var(--pink-light); }
-        }
-
-        @font-face {
-            font-family: 'Freestyle Script';
-            src: local('Freestyle Script'), local('FreestyleScript-Regular'), local('FreestyleScript');
+        /* contract card glass */
+        .contract-card {
+            background: rgba(17, 10, 13, 0.92);
+            backdrop-filter: blur(12px);
+            border-radius: 48px;
+            border: 1.5px solid rgba(255, 45, 120, 0.7);
+            box-shadow: 0 0 55px rgba(255, 45, 120, 0.3), inset 0 1px 0 rgba(255,255,255,0.05);
+            padding: 2rem 2.2rem 2rem;
+            transition: all 0.2s;
+            position: relative;
         }
 
-        /* Decorative corner lines */
         .contract-card::before {
             content: '';
             position: absolute;
-            top: -1px; right: -1px;
-            width: 60px; height: 60px;
-            border-top: 3px solid var(--pink);
-            border-right: 3px solid var(--pink);
-            border-radius: 0 36px 0 0;
+            inset: -1px;
+            border-radius: 48px;
+            padding: 1px;
+            background: linear-gradient(135deg, var(--pink), transparent 70%);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
             pointer-events: none;
         }
-        .contract-card { position: relative; }
+
+        .contract-text {
+            font-family: 'Almarai', 'Tajawal', 'Inter', sans-serif;
+            font-size: 1rem;
+            line-height: 1.75;
+            color: #f7e6ef;
+            background: #0c0509cc;
+            padding: 1.5rem 1.8rem;
+            border-radius: 32px;
+            border: 1px solid #4f1a33;
+            box-shadow: inset 0 0 15px #00000033;
+            max-height: 520px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            transition: opacity 0.2s;
+        }
+
+        .contract-text strong {
+            color: var(--pink-light);
+            font-weight: 800;
+        }
+
+        /* inputs style */
+        .inline-input {
+            background: #21101a;
+            border: 1px solid #812a4c;
+            border-radius: 30px;
+            color: #fff;
+            font-family: 'Almarai', monospace;
+            font-size: 0.9rem;
+            padding: 0.3rem 1rem;
+            text-align: center;
+            font-weight: 500;
+            outline: none;
+            transition: all 0.2s;
+            margin: 0 3px;
+        }
+        .inline-input:focus {
+            border-color: var(--pink);
+            box-shadow: 0 0 15px var(--pink-glow);
+        }
+
+        /* checkboxes */
+        .clause-check-group {
+            margin: 2rem 0 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .clause-item {
+            background: rgba(30, 12, 20, 0.7);
+            backdrop-filter: blur(4px);
+            border-radius: 60px;
+            padding: 0.8rem 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border: 1px solid #982a55;
+        }
+        .clause-item input {
+            width: 22px;
+            height: 22px;
+            accent-color: var(--pink);
+        }
+
+        /* signature zone */
+        .signature-area {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2.5rem;
+            background: linear-gradient(145deg, #0d060b, #050103);
+            border-radius: 48px;
+            padding: 1.8rem;
+            margin: 1.8rem 0 1rem;
+            border: 1px solid var(--pink);
+        }
+        .signature-card {
+            flex: 1;
+            min-width: 220px;
+            text-align: center;
+            background: rgba(0,0,0,0.35);
+            border-radius: 36px;
+            padding: 1rem;
+        }
+        .signature-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--text-muted);
+            margin-bottom: 0.8rem;
+        }
+        .team-leader-signature {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: #ffb7d0;
+            text-shadow: 0 0 12px var(--pink);
+            background: #1e0a14c9;
+            border-radius: 60px;
+            padding: 0.5rem 1.2rem;
+            display: inline-block;
+            border: 1.5px solid var(--pink);
+        }
+        .signature-input {
+            background: #1e0a14;
+            border: 2px solid var(--pink);
+            border-radius: 50px;
+            padding: 0.7rem 1.2rem;
+            font-size: 1.2rem;
+            font-family: 'Almarai', cursive;
+            color: #fff;
+            text-align: center;
+            width: 100%;
+            max-width: 280px;
+            outline: none;
+        }
+        .signature-name {
+            margin-top: 0.6rem;
+            font-size: 0.8rem;
+            color: #e4a9c2;
+            border-top: 1px dashed var(--pink);
+            display: inline-block;
+            padding-top: 0.4rem;
+        }
+        .action-btn {
+            background: linear-gradient(95deg, var(--pink), #b3004b);
+            border: none;
+            border-radius: 60px;
+            padding: 0.9rem 2.8rem;
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4), 0 0 18px var(--pink-glow);
+            transition: all 0.2s;
+            font-family: 'Tajawal', sans-serif;
+            margin: 0.2rem 0.5rem;
+        }
+        .action-btn:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(95deg, #ff5090, #e60062);
+        }
+        #downloadBtn {
+            background: transparent;
+            border: 2px solid var(--pink);
+            backdrop-filter: blur(10px);
+            color: var(--pink-light);
+        }
+        #downloadBtn:hover {
+            background: var(--pink);
+            color: white;
+        }
+        .footer-note {
+            text-align: center;
+            color: #b87f9a;
+            font-size: 0.75rem;
+            margin-top: 1rem;
+        }
+        .status-area {
+            text-align: center;
+            margin: 0.8rem 0;
+        }
+        button:disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
     </style>
 </head>
-<body>
+<body dir="rtl">
 <div class="main-container">
-
-    <!-- HEADER: matches uploaded logo -->
     <div class="contract-header">
-        <div class="logo-wrap">
-            <span class="logo-v">V</span>
-            <span class="logo-oranix">ORANIX</span>
+        <div class="logo-wrapper">
+            <span class="logo-voranix">VORANIX</span>
         </div>
-        <br>
-        <div class="title-arabic">عقد تعاون عن بعد &nbsp;·&nbsp; Remote Recruitment</div>
-        <br>
-        <div class="power-tagline"><i class="fas fa-crown"></i> Where Power Hires Power <i class="fas fa-crown"></i></div>
+        <div class="lang-toggle" id="langToggle" data-lang="ar">
+            <span class="lang-text">عربي</span>
+            <div class="lang-switch"></div>
+            <span class="lang-text">English</span>
+        </div>
     </div>
 
-    <!-- contract card -->
     <div id="contractPreview" class="contract-card">
         <div class="contract-text" id="contractText">
-
-            <p><strong>تم تحرير هذا العقد في اليوم</strong> <input type="text" class="inline-input small-input" id="dayNum" value="....." style="width:60px;"> <span>من شهر</span> <input type="text" class="inline-input" id="monthName" value="......."> <span>سنة</span> <input type="text" class="inline-input small-input" id="yearNum" value="2025"> الموافق <input type="date" class="inline-input" id="contractDate"></p>
-
-            <p><strong>بين كل من:</strong></p>
-
-            <p>❶ <strong>الطرف الأول (الشركة):</strong> شركة VORANIX (شركة مسؤولية محدودة)، تعمل عن بعد (work from home)، ويمثلها في هذا العقد كل من السيد/ أدهم علاء والسيدة/ فرح شريف – بصفتهما مديري الشركة. (ويشار إليهما فيما بعد بـ"الشركة").</p>
-
-            <p>❷ <strong>الطرف الثاني (المتعاون/الـ Recruiter):</strong> السيد/ <input type="text" class="inline-input" id="recruiterName" placeholder="الاسم ثلاثي"></p>
-            <p>الجنسية: <input type="text" class="inline-input" id="nationality" value="مصري" style="width:80px;"> الرقم القومي: <input type="text" class="inline-input" id="nationalId" placeholder="رقم البطاقة"></p>
-
-            <p><strong>بيانات الدفع (اختياري – سيتم اعتماده لاحقاً):</strong></p>
-            <p>▪ وسيلة الدفع المفضلة:
-                <select id="paymentMethod" class="inline-input">
-                    <option value="vodafone">فودافون كاش</option>
-                    <option value="bank">حساب بنكي</option>
-                    <option value="instapay">إنستاباي</option>
-                </select>
-            </p>
-            <p>▪ رقم الحساب/المحفظة: <input type="text" class="inline-input" id="paymentDetail" placeholder="رقم فودافون كاش / IBAN"></p>
-
-            <p><strong>ضمان العمولة:</strong> يحق للطرف الثاني الحصول على عمولة عن كل مرشح يتم تعيينه عبر جهوده، وفقاً لسياسة الشركة المعتمدة، وتُصرف في المواعيد المتفق عليها.</p>
-
-            <p><strong>شرط الإبطال (Inactivity):</strong> يُعتبر هذا العقد ملغياً وباطلاً تلقائياً دون حاجة إلى إنذار في حال توقف الطرف الثاني عن العمل أو النشاط (بما في ذلك عدم تقديم مرشحين أو عدم الاستجابة لتواصل الشركة) لمدة <strong>أسبوع كامل (٧ أيام متتالية)</strong> دون موافقة كتابية مسبقة من قائد الفريق (Team Leader) أو أحد المديرين (Ceo). وفي هذه الحالة تسقط جميع الحقوق المترتبة على العقد باستثناء العمولات المستحقة عن مرشحين تم تعيينهم فعلياً قبل فترة التوقف.</p>
-
-            <p><strong>تنبيه:</strong> في حالة الاختلاف أو المشاجرات بين الطرف المتعاون (Recruiter) والطرف الثاني مسؤولي الشركة (Team Leader أو Ceo) يتم اعتبار العقد ملغي حين ثبوت أدلة مثل لقطة شاشة أو محادثة بين طرفي النزاع.</p>
-
-            <p><strong>مدة العقد:</strong> هذا العقد سارٍ ما لم يبطل وفق شرط الإبطال أعلاه، أو يتم الاتفاق على إنهائه كتابياً من قبل أي من الطرفين.</p>
-
-            <p><strong>التزامات الطرف الثاني:</strong> تقديم مرشحين مناسبين للوظائف المطلوبة، والتنسيق مع فريق التوظيف، والمشاركة في الاجتماعات الدورية عبر جروبات تطبيق الواتساب، والالتزام بسياسات الشركة.</p>
-
-            <p><strong>التزامات الطرف الأول:</strong> توفير قنوات التواصل وقاعدة بيانات الوظائف، ودعم عملية التوظيف، وسداد العمولات المستحقة.</p>
-
-            <p><strong>بنود عامة:</strong> يعتبر هذا العقد بكامل ملحقاته اتفاقاً كاملاً، ولا يجوز تعديله إلا كتابةً بموافقة الطرفين. أي نزاع يُحل أمام محاكم القاهرة.</p>
-
+            <!-- Arabic content will be injected via JS -->
         </div>
 
         <div class="clause-check-group">
-            <div class="clause-item">
-                <input type="checkbox" id="clauseTerms" checked>
-                <label for="clauseTerms">أقر باطلاعي وفهمي لجميع بنود العقد، بما فيها ضمان العمولة وشرط الإبطال (inactivity).</label>
-            </div>
-            <div class="clause-item">
-                <input type="checkbox" id="clausePayment" checked>
-                <label for="clausePayment">أوافق على أن وسيلة الدفع المذكورة أعلاه هي التي ستعتمد لصرف العمولات.</label>
-            </div>
-            <div class="clause-item">
-                <input type="checkbox" id="clauseInactivity" checked>
-                <label for="clauseInactivity">أقر بأن التوقف لمدة أسبوع بدون موافقة كتابية من المديرين يبطل العقد.</label>
-            </div>
+            <div class="clause-item"><input type="checkbox" id="clauseTerms" checked> <label id="labelTerms" for="clauseTerms">أقر باطلاعي وفهمي لجميع بنود العقد، بما فيها ضمان العمولة وشرط الإبطال (inactivity).</label></div>
+            <div class="clause-item"><input type="checkbox" id="clausePayment" checked> <label id="labelPayment" for="clausePayment">أوافق على أن وسيلة الدفع المذكورة أعلاه هي التي ستعتمد لصرف العمولات.</label></div>
+            <div class="clause-item"><input type="checkbox" id="clauseInactivity" checked> <label id="labelInactivity" for="clauseInactivity">أقر بأن التوقف لمدة أسبوع بدون موافقة كتابية من قائد الفريق يبطل العقد.</label></div>
         </div>
 
         <div class="signature-area">
-            <!-- Adham animated signature -->
-            <div class="signature-item">
-                <span class="label">توقيع المدير</span>
-                <div class="signature-animation">
-                    <svg class="sign" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129.41 91.26">
-                        <path d="M78.48,90.69a343.68,343.68,0,0,0,2-69.95q-.74-9.94-2-19.83c-.09-.63-1.06-1.15-1.4-.38a221.66,221.66,0,0,1-22.46,39q-3.87,5.37-8,10.52c-.35.43-.19,1.37.53,1.28l32.05-4c10.51-1.32,21-2.89,31.57-3.85a67.34,67.34,0,0,1,17.77.37V42.41A401.49,401.49,0,0,1,82.07,50.9C66.5,52.82,50.84,54,35.21,55.36L21.93,56.5a17.24,17.24,0,0,0-3.06.26c-.72.2-1.36,1-1.93,1.49l-5.28,4.48,1.18.91c1.26-2-1.43-3-3-3a4.51,4.51,0,0,0-3,1.25c-1.13,1-2.39,2.59-4.06,2.32l.55.72A24.46,24.46,0,0,0,1.51,54.8c-.37-.88-1.82-.49-1.45.4a23.4,23.4,0,0,1,1.78,9.74.75.75,0,0,0,.55.72c2.1.35,3.55-.9,5-2.23a3.61,3.61,0,0,1,2.42-1.28c.38,0,2.12.1,1.73.73s.55,1.43,1.17.91L17.24,60a11,11,0,0,1,1.89-1.6,10.25,10.25,0,0,1,3.29-.4l11.8-1c7.73-.66,15.46-1.31,23.18-2,15.47-1.37,30.92-3,46.22-5.76q12.7-2.25,25.26-5.33c.68-.17.74-1.31,0-1.44-10.38-1.85-20.9-.19-31.25,1.1l-32.3,4.05L47.09,49.84l.53,1.28A226.28,226.28,0,0,0,72.76,12.91q3-5.72,5.6-11.62L77,.91a344.41,344.41,0,0,1,2,70q-.73,9.94-2,19.83c-.12,1,1.38.94,1.5,0Z" transform="translate(0 -0.15)"/>
-                        <text transform="translate(34.77 58.23) scale(0.97 1)" font-size="42" font-family="Freestyle Script, FreestyleScript-Regular, cursive">Adam</text>
-                    </svg>
-                </div>
-                <span class="signature-name">أدهم</span>
+            <div class="signature-card">
+                <div class="signature-label"><i class="fas fa-users"></i> <span id="leaderTitle">توقيع قائد الفريق</span></div>
+                <div class="team-leader-signature">Seif Yasser</div>
+                <div class="signature-name"><span id="leaderName">سيف ياسر - Team Leader</span></div>
             </div>
-            <!-- Farah static signature -->
-            <div class="signature-item">
-                <span class="label">توقيع المديرة</span>
-                <div class="signature-image">فرح</div>
-                <span class="signature-name">فرح</span>
-            </div>
-            <!-- Recruiter input -->
-            <div class="recruiter-signature">
-                <span class="label">توقيع المتعاون (الاسم ثلاثي)</span>
-                <input type="text" class="signature-input" id="recruiterSignature" placeholder="اكتب اسمك كاملاً">
+            <div class="recruiter-signature-area signature-card">
+                <div class="signature-label"><i class="fas fa-user-check"></i> <span id="recruiterTitle">توقيع المتعاون</span></div>
+                <input type="text" class="signature-input" id="recruiterSignature" placeholder="اكتب اسمك ثلاثي (توقيع)">
+                <div class="signature-name"><span id="recruiterDesc">بالتوقيع يقر المتعاون بجميع الشروط</span></div>
             </div>
         </div>
 
-        <div class="status-area" id="statusArea">
-            <span id="statusIcon"></span>
-        </div>
+        <div class="status-area" id="statusArea"><span id="statusIcon"></span></div>
     </div>
 
-    <div style="display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;margin:1rem 0;">
-        <button class="action-btn" id="confirmBtn"><i class="fas fa-check-circle"></i> تأكيد العقد والتوقيع</button>
-        <button id="downloadBtn"><i class="fas fa-download"></i> تحميل العقد كصورة</button>
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1.2rem; margin: 1.5rem 0 0.5rem;">
+        <button class="action-btn" id="confirmBtn"><i class="fas fa-check-double"></i> <span id="confirmText">تأكيد العقد وإرسال البيانات</span></button>
+        <button class="action-btn" id="downloadBtn" style="display: none;"><i class="fas fa-camera"></i> <span id="downloadText">تحميل العقد كصورة</span></button>
     </div>
-
-    <div class="footer-note">* يرجى تعبئة جميع الحقول والموافقة على البنود قبل التأكيد</div>
+    <div class="footer-note"><span id="footerNote">* يرجى تعبئة جميع الحقول والموافقة على البنود قبل التأكيد</span></div>
 </div>
 
 <script>
     (function() {
+        // ---------- MULTILINGUAL CONTRACT DATA with VORANIX ----------
+        const arabicContract = `
+            <p><strong>تم تحرير هذا العقد في اليوم</strong> <input type="text" class="inline-input" id="dayNum" style="width:70px;"> من شهر <input type="text" class="inline-input" id="monthName" style="width:110px;"> سنة <input type="text" class="inline-input" id="yearNum" style="width:80px;"> الموافق <input type="date" class="inline-input" id="contractDate"></p>
+            <p><strong>بين كل من:</strong></p>
+            <p>❶ <strong>الطرف الأول (الشركة):</strong> شركة VORANIX (شركة مسؤولية محدودة)، تعمل عن بعد (work from home)، ويشار إليها فيما بعد بـ "الشركة".</p>
+            <p>❷ <strong>الطرف الثاني (المتعاون / Recruiter):</strong> السيد/ <input type="text" class="inline-input" id="recruiterName" placeholder="الاسم الثلاثي" style="min-width:160px;"></p>
+            <p>الجنسية: <input type="text" class="inline-input" id="nationality" value="مصري" style="width:100px;"> الرقم القومي: <input type="text" class="inline-input" id="nationalId" placeholder="رقم البطاقة"> البريد الإلكتروني: <input type="email" class="inline-input" id="recruiterEmail" placeholder="example@mail.com" style="min-width:180px;"></p>
+            <p><strong>بيانات الدفع (معتمدة للعمولات):</strong></p>
+            <p>▪ وسيلة الدفع المفضلة: <select id="paymentMethod" class="inline-input"><option value="vodafone">فودافون كاش</option><option value="bank">حساب بنكي</option><option value="instapay">إنستاباي</option></select></p>
+            <p>▪ رقم الحساب/المحفظة: <input type="text" class="inline-input" id="paymentDetail" placeholder="رقم فودافون كاش / IBAN" style="min-width:200px;"></p>
+            <p><strong>ضمان العمولة:</strong> يحق للطرف الثاني الحصول على عمولة عن كل مرشح يتم تعيينه عبر جهوده، وفقاً لسياسة الشركة المعتمدة، وتُصرف في المواعيد المتفق عليها.</p>
+            <p><strong>شرط الإبطال (Inactivity):</strong> يُعتبر هذا العقد ملغياً وباطلاً تلقائياً دون حاجة إلى إنذار في حال توقف الطرف الثاني عن العمل أو النشاط (بما في ذلك عدم تقديم مرشحين أو عدم الاستجابة لتواصل الشركة) لمدة <strong>أسبوع كامل (٧ أيام متتالية)</strong> دون موافقة كتابية مسبقة من <strong>قائد الفريق (Team Leader) – السيد/ سيف ياسر</strong>. وفي هذه الحالة تسقط جميع الحقوق المترتبة على العقد باستثناء العمولات المستحقة عن مرشحين تم تعيينهم فعلياً قبل فترة التوقف.</p>
+            <p><strong>تنبيه:</strong> في حالة الاختلاف أو المشاجرات بين الطرف المتعاون (Recruiter) وقائد الفريق (Team Leader) يتم اعتبار العقد ملغياً حين ثبوت أدلة مثل لقطة شاشة أو محادثة بين طرفي النزاع.</p>
+            <p><strong>مدة العقد:</strong> هذا العقد سارٍ ما لم يبطل وفق شرط الإبطال أعلاه، أو يتم الاتفاق على إنهائه كتابياً من قبل أي من الطرفين.</p>
+            <p><strong>التزامات الطرف الثاني:</strong> تقديم مرشحين مناسبين للوظائف المطلوبة، والتنسيق مع فريق التوظيف، والمشاركة في الاجتماعات الدورية عبر مجموعات العمل، والالتزام بسياسات الشركة.</p>
+            <p><strong>التزامات الطرف الأول:</strong> توفير قنوات التواصل وقاعدة بيانات الوظائف، ودعم عملية التوظيف، وسداد العمولات المستحقة.</p>
+            <p><strong>بنود عامة:</strong> يعتبر هذا العقد بكامل ملحقاته اتفاقاً كاملاً، ولا يجوز تعديله إلا كتابةً بموافقة الطرفين. أي نزاع يُحل أمام محاكم القاهرة.</p>
+        `;
+
+        const englishContract = `
+            <p><strong>This agreement is executed on day</strong> <input type="text" class="inline-input" id="dayNum" style="width:70px;"> of <input type="text" class="inline-input" id="monthName" style="width:110px;"> year <input type="text" class="inline-input" id="yearNum" style="width:80px;"> corresponding to <input type="date" class="inline-input" id="contractDate"></p>
+            <p><strong>Between:</strong></p>
+            <p>❶ <strong>First Party (Company):</strong> VORANIX LLC (remote work company), hereinafter referred to as "Company".</p>
+            <p>❷ <strong>Second Party (Recruiter):</strong> Mr./Ms. <input type="text" class="inline-input" id="recruiterName" placeholder="Full name" style="min-width:160px;"></p>
+            <p>Nationality: <input type="text" class="inline-input" id="nationality" value="Egyptian" style="width:100px;"> National ID: <input type="text" class="inline-input" id="nationalId" placeholder="ID Number"> Email: <input type="email" class="inline-input" id="recruiterEmail" placeholder="example@mail.com" style="min-width:180px;"></p>
+            <p><strong>Payment Details (for commissions):</strong></p>
+            <p>▪ Preferred payment method: <select id="paymentMethod" class="inline-input"><option value="vodafone">Vodafone Cash</option><option value="bank">Bank Account</option><option value="instapay">Instapay</option></select></p>
+            <p>▪ Account/Wallet number: <input type="text" class="inline-input" id="paymentDetail" placeholder="Vodafone Cash / IBAN" style="min-width:200px;"></p>
+            <p><strong>Commission Guarantee:</strong> The Second Party is entitled to receive a commission for each candidate hired through their efforts, according to Company policy, paid on agreed dates.</p>
+            <p><strong>Inactivity Clause:</strong> This agreement shall be automatically null and void without notice if the Second Party ceases work or activity (including failure to provide candidates or respond to Company communication) for <strong>one full week (7 consecutive days)</strong> without prior written consent from the <strong>Team Leader – Mr. Seif Yasser</strong>. In such case, all rights arising from this agreement shall lapse except for commissions already earned for candidates hired before the inactivity period.</p>
+            <p><strong>Notice:</strong> In case of disputes between the Recruiter and the Team Leader, the agreement shall be considered void upon evidence such as screenshots or conversations proving the conflict.</p>
+            <p><strong>Duration:</strong> This agreement remains valid unless terminated according to the inactivity clause or by mutual written agreement by either party.</p>
+            <p><strong>Second Party Obligations:</strong> Provide suitable candidates for required positions, coordinate with recruitment team, attend periodic meetings via work groups, and adhere to Company policies.</p>
+            <p><strong>First Party Obligations:</strong> Provide communication channels and job database, support recruitment process, and pay due commissions.</p>
+            <p><strong>General Provisions:</strong> This agreement constitutes the entire understanding and may not be amended except in writing by both parties. Any dispute shall be settled before Cairo courts.</p>
+        `;
+
+        // UI labels translations
+        const translations = {
+            ar: {
+                leaderTitle: "توقيع قائد الفريق",
+                recruiterTitle: "توقيع المتعاون",
+                leaderName: "سيف ياسر - Team Leader",
+                recruiterDesc: "بالتوقيع يقر المتعاون بجميع الشروط",
+                confirmBtn: "تأكيد العقد وإرسال البيانات",
+                downloadBtn: "تحميل العقد كصورة",
+                footerNote: "* يرجى تعبئة جميع الحقول والموافقة على البنود قبل التأكيد",
+                clauseTerms: "أقر باطلاعي وفهمي لجميع بنود العقد، بما فيها ضمان العمولة وشرط الإبطال (inactivity).",
+                clausePayment: "أوافق على أن وسيلة الدفع المذكورة أعلاه هي التي ستعتمد لصرف العمولات.",
+                clauseInactivity: "أقر بأن التوقف لمدة أسبوع بدون موافقة كتابية من قائد الفريق يبطل العقد."
+            },
+            en: {
+                leaderTitle: "Team Leader Signature",
+                recruiterTitle: "Recruiter Signature",
+                leaderName: "Seif Yasser - Team Leader",
+                recruiterDesc: "By signing, the Recruiter acknowledges all terms.",
+                confirmBtn: "Confirm Contract & Submit",
+                downloadBtn: "Download Contract as Image",
+                footerNote: "* Please fill all fields and accept terms before confirmation.",
+                clauseTerms: "I confirm that I have read and understood all contract terms, including commission guarantee and inactivity clause.",
+                clausePayment: "I agree that the payment method above will be used for commission payouts.",
+                clauseInactivity: "I acknowledge that a one-week inactivity without written consent from Team Leader voids the contract."
+            }
+        };
+
+        let currentLang = "ar";
+        const contractDiv = document.getElementById("contractText");
+        const langToggle = document.getElementById("langToggle");
+        const recruiterSignatureInput = document.getElementById("recruiterSignature");
+
+        // ---------- NOTIFICATION SYSTEM (Inline, no alerts) ----------
+        let activeToast = null;
+        function showMessage(message, type = "error", duration = 4000) {
+            if (activeToast) {
+                activeToast.remove();
+                activeToast = null;
+            }
+            const toast = document.createElement("div");
+            toast.className = `notification-toast ${type}`;
+            toast.style.animation = "slideDown 0.3s ease-out";
+            const icon = type === "error" ? '<i class="fas fa-exclamation-circle" style="margin-left: 10px; color:#ff6fa3;"></i>' :
+                         (type === "success" ? '<i class="fas fa-check-circle" style="margin-left: 10px; color:#2a9d6e;"></i>' : '<i class="fas fa-info-circle"></i>');
+            toast.innerHTML = `
+                <div class="message">${icon} ${message}</div>
+                <button class="close-toast"><i class="fas fa-times"></i></button>
+            `;
+            document.body.appendChild(toast);
+            activeToast = toast;
+            const closeBtn = toast.querySelector(".close-toast");
+            closeBtn.addEventListener("click", () => {
+                toast.remove();
+                activeToast = null;
+            });
+            if (duration > 0) {
+                setTimeout(() => {
+                    if (toast && toast.parentNode) {
+                        toast.remove();
+                        if (activeToast === toast) activeToast = null;
+                    }
+                }, duration);
+            }
+        }
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            const backup = {};
+            const inputs = document.querySelectorAll('#contractText input, #contractText select');
+            inputs.forEach(inp => { if(inp.id) backup[inp.id] = inp.value; });
+            contractDiv.innerHTML = lang === "ar" ? arabicContract : englishContract;
+            Object.keys(backup).forEach(id => {
+                const el = document.getElementById(id);
+                if(el) el.value = backup[id];
+            });
+            document.getElementById("leaderTitle").innerText = translations[lang].leaderTitle;
+            document.getElementById("recruiterTitle").innerText = translations[lang].recruiterTitle;
+            document.getElementById("leaderName").innerText = translations[lang].leaderName;
+            document.getElementById("recruiterDesc").innerText = translations[lang].recruiterDesc;
+            document.getElementById("confirmText").innerText = translations[lang].confirmBtn;
+            document.getElementById("downloadText").innerText = translations[lang].downloadBtn;
+            document.getElementById("footerNote").innerText = translations[lang].footerNote;
+            document.getElementById("labelTerms").innerText = translations[lang].clauseTerms;
+            document.getElementById("labelPayment").innerText = translations[lang].clausePayment;
+            document.getElementById("labelInactivity").innerText = translations[lang].clauseInactivity;
+            langToggle.setAttribute("data-lang", lang);
+            document.body.dir = lang === "ar" ? "rtl" : "ltr";
+            updateMonthNameBasedOnLang();
+        }
+
+        function updateMonthNameBasedOnLang() {
+            const contractDate = document.getElementById('contractDate');
+            if(contractDate && contractDate.value) {
+                const parts = contractDate.value.split('-');
+                if(parts.length === 3) {
+                    const dateObj = new Date(parts[0], parts[1]-1, parts[2]);
+                    const monthNamesAr = ["يناير","فبراير","مارس","إبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"];
+                    const monthNamesEn = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+                    const monthField = document.getElementById('monthName');
+                    if(monthField) {
+                        monthField.value = currentLang === "ar" ? monthNamesAr[dateObj.getMonth()] : monthNamesEn[dateObj.getMonth()];
+                    }
+                }
+            }
+        }
+
+        langToggle.addEventListener("click", () => {
+            const newLang = currentLang === "ar" ? "en" : "ar";
+            setLanguage(newLang);
+        });
+
+        setLanguage("ar");
+        setTodayDate();
+
         function setTodayDate() {
             const today = new Date();
             const year = today.getFullYear();
             const month = String(today.getMonth() + 1).padStart(2, '0');
             const day = String(today.getDate()).padStart(2, '0');
-            document.getElementById('contractDate').value = `${year}-${month}-${day}`;
-            document.getElementById('dayNum').value = day;
-            const monthNames = ["يناير","فبراير","مارس","إبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"];
-            document.getElementById('monthName').value = monthNames[today.getMonth()];
-            document.getElementById('yearNum').value = year;
+            const dateInput = document.getElementById('contractDate');
+            if(dateInput) dateInput.value = `${year}-${month}-${day}`;
+            const dayNum = document.getElementById('dayNum');
+            if(dayNum) dayNum.value = parseInt(day,10);
+            const monthNamesAr = ["يناير","فبراير","مارس","إبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"];
+            const monthNamesEn = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+            const monthField = document.getElementById('monthName');
+            if(monthField) monthField.value = currentLang === "ar" ? monthNamesAr[today.getMonth()] : monthNamesEn[today.getMonth()];
+            const yearField = document.getElementById('yearNum');
+            if(yearField) yearField.value = year;
         }
-        setTodayDate();
 
+        // Formspree & screenshot
         const confirmBtn = document.getElementById('confirmBtn');
         const downloadBtn = document.getElementById('downloadBtn');
-        const statusIcon = document.getElementById('statusIcon');
-        const recruiterSignature = document.getElementById('recruiterSignature');
-        const clauseCheckboxes = document.querySelectorAll('.clause-item input[type="checkbox"]');
+        const statusIconSpan = document.getElementById('statusIcon');
         const contractCard = document.getElementById('contractPreview');
 
-        function setStatus(type) {
-            if (type === 'spinner') statusIcon.innerHTML = '<i class="fas fa-spinner fa-spin fa-2x"></i>';
-            else if (type === 'check') statusIcon.innerHTML = '<i class="fas fa-check-circle fa-2x"></i>';
-            else statusIcon.innerHTML = '';
+        function setStatus(type, msg = '') {
+            if(type === 'loading') statusIconSpan.innerHTML = '<i class="fas fa-circle-notch fa-spin fa-2x"></i>';
+            else if(type === 'success') statusIconSpan.innerHTML = '<i class="fas fa-check-circle fa-2x" style="color:#ff6fa3;"></i>';
+            else if(type === 'error') statusIconSpan.innerHTML = '<i class="fas fa-exclamation-triangle fa-2x"></i>';
+            else statusIconSpan.innerHTML = '';
+            if(msg) showMessage(msg, type === 'success' ? 'success' : 'error');
         }
 
-        confirmBtn.addEventListener('click', function() {
-            if (!recruiterSignature.value.trim()) { alert('يرجى كتابة اسمك ثلاثي في خانة التوقيع.'); return; }
-            let allChecked = true;
-            clauseCheckboxes.forEach(cb => { if (!cb.checked) allChecked = false; });
-            if (!allChecked) { alert('يرجى الموافقة على جميع البنود قبل تأكيد العقد.'); return; }
-            const recruiterName = document.getElementById('recruiterName').value.trim();
-            const nationalId = document.getElementById('nationalId').value.trim();
-            const paymentDetail = document.getElementById('paymentDetail').value.trim();
-            if (!recruiterName || !nationalId || !paymentDetail) { alert('يرجى تعبئة الاسم الثلاثي، الرقم القومي، وبيانات الدفع.'); return; }
-            confirmBtn.disabled = true;
-            downloadBtn.style.display = 'none';
-            setStatus('spinner');
-            setTimeout(() => { setStatus('check'); confirmBtn.disabled = false; downloadBtn.style.display = 'inline-block'; }, 1300);
-        });
+        function gatherFormData() {
+            return {
+                recruiter_name: document.getElementById('recruiterName')?.value.trim() || '',
+                nationality: document.getElementById('nationality')?.value.trim() || '',
+                national_id: document.getElementById('nationalId')?.value.trim() || '',
+                email: document.getElementById('recruiterEmail')?.value.trim() || '',
+                payment_method: document.getElementById('paymentMethod')?.value || '',
+                payment_detail: document.getElementById('paymentDetail')?.value.trim() || '',
+                recruiter_signature: recruiterSignatureInput.value.trim(),
+                contract_date_full: document.getElementById('contractDate')?.value || '',
+                language: currentLang,
+                company: "VORANIX",
+                _subject: `VORANIX Contract - ${document.getElementById('recruiterName')?.value.trim() || 'Recruiter'}`
+            };
+        }
 
-        downloadBtn.addEventListener('click', function() {
-            html2canvas(contractCard, { scale: 1.8, backgroundColor: '#080608', allowTaint: false, useCORS: true, logging: false })
-            .then(canvas => {
+        function validateContract() {
+            const errors = [];
+            const recruiterName = document.getElementById('recruiterName')?.value.trim();
+            const nationalId = document.getElementById('nationalId')?.value.trim();
+            const paymentDetail = document.getElementById('paymentDetail')?.value.trim();
+            const recruiterEmail = document.getElementById('recruiterEmail')?.value.trim();
+            const recruiterSign = recruiterSignatureInput.value.trim();
+            
+            if(!recruiterName) errors.push(currentLang === "ar" ? "يرجى إدخال الاسم الثلاثي (الطرف الثاني)." : "Please enter the full name (Second Party).");
+            if(!nationalId) errors.push(currentLang === "ar" ? "الرقم القومي مطلوب." : "National ID is required.");
+            if(!recruiterEmail) errors.push(currentLang === "ar" ? "البريد الإلكتروني مطلوب." : "Email is required.");
+            else if(!recruiterEmail.includes('@')) errors.push(currentLang === "ar" ? "البريد الإلكتروني غير صحيح." : "Invalid email address.");
+            if(!paymentDetail) errors.push(currentLang === "ar" ? "بيانات الدفع (رقم الحساب/المحفظة) مطلوبة." : "Payment details are required.");
+            if(!recruiterSign) errors.push(currentLang === "ar" ? "يرجى كتابة اسمك ثلاثي في خانة التوقيع." : "Please write your full name in the signature field.");
+            
+            const checkboxes = document.querySelectorAll('.clause-item input[type="checkbox"]');
+            let allChecked = true;
+            checkboxes.forEach(cb => { if(!cb.checked) allChecked = false; });
+            if(!allChecked) errors.push(currentLang === "ar" ? "يجب الموافقة على جميع البنود الثلاثة." : "You must agree to all three clauses.");
+            
+            if(errors.length) {
+                showMessage(errors.join(" • "), "error", 6000);
+                return false;
+            }
+            return true;
+        }
+
+        async function submitToFormspree(data) {
+            const formBody = new URLSearchParams();
+            for (const [k,v] of Object.entries(data)) formBody.append(k, v);
+            formBody.append("message", `New VORANIX contract submission: ${data.recruiter_name}, ID: ${data.national_id}, email: ${data.email}, payment: ${data.payment_method} - ${data.payment_detail}, signature: ${data.recruiter_signature}, language: ${data.language}`);
+            try {
+                const res = await fetch("https://formspree.io/f/maqpgyov", { method: "POST", headers: { 'Accept': 'application/json' }, body: formBody });
+                return res.ok;
+            } catch(e) { return false; }
+        }
+
+        async function downloadImage() {
+            const textDiv = document.getElementById('contractText');
+            const originalMax = textDiv.style.maxHeight;
+            textDiv.style.maxHeight = 'none';
+            try {
+                const canvas = await html2canvas(contractCard, { scale: 2.8, backgroundColor: '#080608', logging: false });
                 const link = document.createElement('a');
                 link.download = `VORANIX_Contract_${Date.now()}.png`;
                 link.href = canvas.toDataURL('image/png');
                 link.click();
-            }).catch(err => { alert('تعذر تحميل الصورة، حاول مرة أخرى.'); });
+                showMessage(currentLang === "ar" ? "✅ تم تحميل العقد كصورة بنجاح." : "✅ Contract image downloaded successfully.", "success", 3000);
+            } catch(e) { 
+                showMessage(currentLang === "ar" ? "حدث خطأ أثناء إنشاء الصورة، حاول مرة أخرى." : "Error generating image, please try again.", "error", 4000);
+            } finally { textDiv.style.maxHeight = originalMax || '520px'; }
+        }
+
+        confirmBtn.addEventListener('click', async () => {
+            if(!validateContract()) return;
+            confirmBtn.disabled = true;
+            setStatus('loading', currentLang === "ar" ? "جاري إرسال البيانات..." : "Submitting...");
+            const success = await submitToFormspree(gatherFormData());
+            if(success) {
+                setStatus('success', currentLang === "ar" ? "✅ تم تأكيد العقد وإرسال البيانات بنجاح إلى VORANIX." : "✅ Contract confirmed and data sent successfully to VORANIX.");
+                downloadBtn.style.display = 'inline-flex';
+            } else {
+                setStatus('error', currentLang === "ar" ? "❌ فشل الإرسال، تأكد من الاتصال بالإنترنت وحاول مجدداً." : "❌ Submission failed, please check your internet connection.");
+                confirmBtn.disabled = false;
+            }
         });
+        downloadBtn.addEventListener('click', async () => { await downloadImage(); });
     })();
 </script>
 </body>
