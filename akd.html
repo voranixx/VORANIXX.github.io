@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>VORANIX | Contract</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=Almarai:wght@400;700;800&family=Amiri:wght@400;700&family=Dancing+Script:wght@400;600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         * {
@@ -51,7 +51,6 @@
             z-index: 2;
         }
 
-        /* header with logo + language toggle */
         .contract-header {
             display: flex;
             justify-content: space-between;
@@ -130,7 +129,6 @@
             transform: translateX(0);
         }
 
-        /* notification toast */
         .notification-toast {
             position: fixed;
             top: 20px;
@@ -369,6 +367,103 @@
             opacity: 0.5;
             pointer-events: none;
         }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(12px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0.2s, opacity 0.2s;
+        }
+        .modal-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+        .modal-container {
+            background: #150a10;
+            border-radius: 48px;
+            max-width: 450px;
+            width: 90%;
+            border: 2px solid var(--pink);
+            box-shadow: 0 0 60px var(--pink-glow);
+            padding: 2rem 1.8rem;
+            text-align: center;
+            position: relative;
+            transform: scale(0.95);
+            transition: transform 0.2s;
+        }
+        .modal-overlay.active .modal-container {
+            transform: scale(1);
+        }
+        .modal-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--pink-light);
+        }
+        .modal-input {
+            background: #21101a;
+            border: 2px solid #812a4c;
+            border-radius: 60px;
+            padding: 0.8rem 1.2rem;
+            width: 100%;
+            font-size: 1.5rem;
+            text-align: center;
+            letter-spacing: 4px;
+            color: #fff;
+            font-family: monospace;
+            margin: 1.5rem 0;
+            outline: none;
+        }
+        .modal-input:focus {
+            border-color: var(--pink);
+            box-shadow: 0 0 15px var(--pink-glow);
+        }
+        .modal-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+        .modal-btn {
+            background: transparent;
+            border: 1.5px solid var(--pink);
+            padding: 0.6rem 1.5rem;
+            border-radius: 60px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            color: var(--text);
+        }
+        .modal-btn.confirm {
+            background: var(--pink);
+            border: none;
+            color: white;
+        }
+        .modal-btn.confirm:hover {
+            background: #e60062;
+            transform: scale(1.02);
+        }
+        .modal-btn.cancel:hover {
+            background: rgba(255,45,120,0.2);
+        }
+        .error-msg {
+            color: #ff6fa3;
+            font-size: 0.8rem;
+            margin-top: -0.5rem;
+            margin-bottom: 0.5rem;
+            min-height: 2rem;
+        }
     </style>
 </head>
 <body dir="rtl">
@@ -416,20 +511,34 @@
     <div class="footer-note"><span id="footerNote">* يرجى تعبئة جميع الحقول والموافقة على البنود قبل التأكيد</span></div>
 </div>
 
+<!-- Modal for secret code -->
+<div id="secretModal" class="modal-overlay">
+    <div class="modal-container">
+        <div class="modal-title"><i class="fas fa-lock"></i> <span id="modalTitle">الرقم السري</span></div>
+        <p id="modalDesc" style="color: #c88aaa;">أدخل الرقم السري لتأكيد العقد</p>
+        <input type="password" id="secretInput" class="modal-input" placeholder="•••• ••••" autocomplete="off" maxlength="9">
+        <div id="modalError" class="error-msg"></div>
+        <div class="modal-buttons">
+            <button class="modal-btn cancel" id="modalCancelBtn"><span id="cancelText">إلغاء</span></button>
+            <button class="modal-btn confirm" id="modalConfirmBtn"><span id="confirmSecretText">تأكيد</span></button>
+        </div>
+    </div>
+</div>
+
 <script>
     (function() {
-        // ---------- MULTILINGUAL CONTRACT DATA ----------
+        // ---------- MULTILINGUAL CONTRACT DATA (without emojis) ----------
         const arabicContract = `
             <p><strong>تم تحرير هذا العقد في اليوم</strong> <input type="text" class="inline-input" id="dayNum" style="width:70px;"> من شهر <input type="text" class="inline-input" id="monthName" style="width:110px;"> سنة <input type="text" class="inline-input" id="yearNum" style="width:80px;"> الموافق <input type="date" class="inline-input" id="contractDate"></p>
             <p><strong>بين كل من:</strong></p>
-            <p>❶ <strong>الطرف الأول (الشركة):</strong> شركة VORANIX (شركة مسؤولية محدودة)، تعمل عن بعد (work from home)، ويشار إليها فيما بعد بـ "الشركة".</p>
-            <p>❷ <strong>الطرف الثاني (المتعاون / Recruiter):</strong> السيد/ <input type="text" class="inline-input" id="recruiterName" placeholder="الاسم الثلاثي" style="min-width:160px;"></p>
-            <p>الجنسية: <input type="text" class="inline-input" id="nationality" value="مصري" style="width:100px;"> الرقم القومي: <input type="text" class="inline-input" id="nationalId" placeholder="رقم البطاقة"> البريد الإلكتروني: <input type="email" class="inline-input" id="recruiterEmail" placeholder="example@mail.com" style="min-width:180px;"></p>
+            <p><strong>الطرف الأول (الشركة):</strong> شركة VORANIX (شركة مسؤولية محدودة)، تعمل عن بعد (work from home)، ويشار إليها فيما بعد بـ "الشركة".</p>
+            <p><strong>الطرف الثاني (المتعاون / Recruiter):</strong> السيد/ <input type="text" class="inline-input" id="recruiterName" placeholder="الاسم الثلاثي" style="min-width:160px;"></p>
+            <p>الجنسية: <input type="text" class="inline-input" id="nationality" value="مصري" style="width:100px;"> البريد الإلكتروني: <input type="email" class="inline-input" id="recruiterEmail" placeholder="example@mail.com" style="min-width:180px;"></p>
             <p><strong>بيانات الدفع (معتمدة للعمولات):</strong></p>
-            <p>▪ وسيلة الدفع المفضلة: <select id="paymentMethod" class="inline-input"><option value="vodafone">فودافون كاش</option><option value="bank">حساب بنكي</option><option value="instapay">إنستاباي</option></select></p>
-            <p>▪ رقم الحساب/المحفظة: <input type="text" class="inline-input" id="paymentDetail" placeholder="رقم فودافون كاش / IBAN" style="min-width:200px;"></p>
+            <p>وسيلة الدفع المفضلة: <select id="paymentMethod" class="inline-input"><option value="vodafone">فودافون كاش</option><option value="bank">حساب بنكي</option><option value="instapay">إنستاباي</option></select></p>
+            <p>رقم الحساب/المحفظة: <input type="text" class="inline-input" id="paymentDetail" placeholder="رقم فودافون كاش / IBAN" style="min-width:200px;"></p>
             <p><strong>ضمان العمولة:</strong> يحق للطرف الثاني الحصول على عمولة عن كل مرشح يتم تعيينه عبر جهوده، وفقاً لسياسة الشركة المعتمدة، وتُصرف في المواعيد المتفق عليها.</p>
-            <p><strong>شرط الإبطال (Inactivity):</strong> يُعتبر هذا العقد ملغياً وباطلاً تلقائياً دون حاجة إلى إنذار في حال توقف الطرف الثاني عن العمل أو النشاط (بما في ذلك عدم تقديم مرشحين أو عدم الاستجابة لتواصل الشركة) لمدة <strong>أسبوع كامل (٧ أيام متتالية)</strong> دون موافقة كتابية مسبقة من <strong>قائد الفريق (Team Leader) – السيد/ سيف ياسر</strong>. وفي هذه الحالة تسقط جميع الحقوق المترتبة على العقد باستثناء العمولات المستحقة عن مرشحين تم تعيينهم فعلياً قبل فترة التوقف.</p>
+            <p><strong>شرط الإبطال (Inactivity):</strong> يُعتبر هذا العقد ملغياً وباطلاً تلقائياً دون حاجة إلى إنذار في حال توقف الطرف الثاني عن العمل أو النشاط (بما في ذلك عدم تقديم مرشحين أو عدم الاستجابة لتواصل الشركة) لمدة <strong>أسبوع كامل (7 أيام متتالية)</strong> دون موافقة كتابية مسبقة من <strong>قائد الفريق (Team Leader) – السيد/ سيف ياسر</strong>. وفي هذه الحالة تسقط جميع الحقوق المترتبة على العقد باستثناء العمولات المستحقة عن مرشحين تم تعيينهم فعلياً قبل فترة التوقف.</p>
             <p><strong>تنبيه:</strong> في حالة الاختلاف أو المشاجرات بين الطرف المتعاون (Recruiter) وقائد الفريق (Team Leader) يتم اعتبار العقد ملغياً حين ثبوت أدلة مثل لقطة شاشة أو محادثة بين طرفي النزاع.</p>
             <p><strong>مدة العقد:</strong> هذا العقد سارٍ ما لم يبطل وفق شرط الإبطال أعلاه، أو يتم الاتفاق على إنهائه كتابياً من قبل أي من الطرفين.</p>
             <p><strong>التزامات الطرف الثاني:</strong> تقديم مرشحين مناسبين للوظائف المطلوبة، والتنسيق مع فريق التوظيف، والمشاركة في الاجتماعات الدورية عبر مجموعات العمل، والالتزام بسياسات الشركة.</p>
@@ -440,12 +549,12 @@
         const englishContract = `
             <p><strong>This agreement is executed on day</strong> <input type="text" class="inline-input" id="dayNum" style="width:70px;"> of <input type="text" class="inline-input" id="monthName" style="width:110px;"> year <input type="text" class="inline-input" id="yearNum" style="width:80px;"> corresponding to <input type="date" class="inline-input" id="contractDate"></p>
             <p><strong>Between:</strong></p>
-            <p>❶ <strong>First Party (Company):</strong> VORANIX LLC (remote work company), hereinafter referred to as "Company".</p>
-            <p>❷ <strong>Second Party (Recruiter):</strong> Mr./Ms. <input type="text" class="inline-input" id="recruiterName" placeholder="Full name" style="min-width:160px;"></p>
-            <p>Nationality: <input type="text" class="inline-input" id="nationality" value="Egyptian" style="width:100px;"> National ID: <input type="text" class="inline-input" id="nationalId" placeholder="ID Number"> Email: <input type="email" class="inline-input" id="recruiterEmail" placeholder="example@mail.com" style="min-width:180px;"></p>
+            <p><strong>First Party (Company):</strong> VORANIX LLC (remote work company), hereinafter referred to as "Company".</p>
+            <p><strong>Second Party (Recruiter):</strong> Mr./Ms. <input type="text" class="inline-input" id="recruiterName" placeholder="Full name" style="min-width:160px;"></p>
+            <p>Nationality: <input type="text" class="inline-input" id="nationality" value="Egyptian" style="width:100px;"> Email: <input type="email" class="inline-input" id="recruiterEmail" placeholder="example@mail.com" style="min-width:180px;"></p>
             <p><strong>Payment Details (for commissions):</strong></p>
-            <p>▪ Preferred payment method: <select id="paymentMethod" class="inline-input"><option value="vodafone">Vodafone Cash</option><option value="bank">Bank Account</option><option value="instapay">Instapay</option></select></p>
-            <p>▪ Account/Wallet number: <input type="text" class="inline-input" id="paymentDetail" placeholder="Vodafone Cash / IBAN" style="min-width:200px;"></p>
+            <p>Preferred payment method: <select id="paymentMethod" class="inline-input"><option value="vodafone">Vodafone Cash</option><option value="bank">Bank Account</option><option value="instapay">Instapay</option></select></p>
+            <p>Account/Wallet number: <input type="text" class="inline-input" id="paymentDetail" placeholder="Vodafone Cash / IBAN" style="min-width:200px;"></p>
             <p><strong>Commission Guarantee:</strong> The Second Party is entitled to receive a commission for each candidate hired through their efforts, according to Company policy, paid on agreed dates.</p>
             <p><strong>Inactivity Clause:</strong> This agreement shall be automatically null and void without notice if the Second Party ceases work or activity (including failure to provide candidates or respond to Company communication) for <strong>one full week (7 consecutive days)</strong> without prior written consent from the <strong>Team Leader – Mr. Seif Yasser</strong>. In such case, all rights arising from this agreement shall lapse except for commissions already earned for candidates hired before the inactivity period.</p>
             <p><strong>Notice:</strong> In case of disputes between the Recruiter and the Team Leader, the agreement shall be considered void upon evidence such as screenshots or conversations proving the conflict.</p>
@@ -466,7 +575,12 @@
                 footerNote: "* يرجى تعبئة جميع الحقول والموافقة على البنود قبل التأكيد",
                 clauseTerms: "أقر باطلاعي وفهمي لجميع بنود العقد، بما فيها ضمان العمولة وشرط الإبطال (inactivity).",
                 clausePayment: "أوافق على أن وسيلة الدفع المذكورة أعلاه هي التي ستعتمد لصرف العمولات.",
-                clauseInactivity: "أقر بأن التوقف لمدة أسبوع بدون موافقة كتابية من قائد الفريق يبطل العقد."
+                clauseInactivity: "أقر بأن التوقف لمدة أسبوع بدون موافقة كتابية من قائد الفريق يبطل العقد.",
+                modalTitle: "الرقم السري",
+                modalDesc: "أدخل الرقم السري لتأكيد العقد",
+                cancelText: "إلغاء",
+                confirmSecretText: "تأكيد",
+                wrongSecret: "الرقم السري غير صحيح! يرجى المحاولة مرة أخرى."
             },
             en: {
                 leaderTitle: "Team Leader Signature",
@@ -478,7 +592,12 @@
                 footerNote: "* Please fill all fields and accept terms before confirmation.",
                 clauseTerms: "I confirm that I have read and understood all contract terms, including commission guarantee and inactivity clause.",
                 clausePayment: "I agree that the payment method above will be used for commission payouts.",
-                clauseInactivity: "I acknowledge that a one-week inactivity without written consent from Team Leader voids the contract."
+                clauseInactivity: "I acknowledge that a one-week inactivity without written consent from Team Leader voids the contract.",
+                modalTitle: "Secret Code",
+                modalDesc: "Enter the secret code to confirm the contract",
+                cancelText: "Cancel",
+                confirmSecretText: "Confirm",
+                wrongSecret: "Incorrect secret code! Please try again."
             }
         };
 
@@ -487,7 +606,13 @@
         const langToggle = document.getElementById("langToggle");
         const recruiterSignatureInput = document.getElementById("recruiterSignature");
 
-        // ---------- NOTIFICATION SYSTEM ----------
+        // Modal elements
+        const modalOverlay = document.getElementById("secretModal");
+        const secretInput = document.getElementById("secretInput");
+        const modalError = document.getElementById("modalError");
+        const modalCancelBtn = document.getElementById("modalCancelBtn");
+        const modalConfirmBtn = document.getElementById("modalConfirmBtn");
+
         let activeToast = null;
         function showMessage(message, type = "error", duration = 4000) {
             if (activeToast) activeToast.remove();
@@ -529,6 +654,10 @@
             document.getElementById("labelTerms").innerText = translations[lang].clauseTerms;
             document.getElementById("labelPayment").innerText = translations[lang].clausePayment;
             document.getElementById("labelInactivity").innerText = translations[lang].clauseInactivity;
+            document.getElementById("modalTitle").innerText = translations[lang].modalTitle;
+            document.getElementById("modalDesc").innerText = translations[lang].modalDesc;
+            document.getElementById("cancelText").innerText = translations[lang].cancelText;
+            document.getElementById("confirmSecretText").innerText = translations[lang].confirmSecretText;
             langToggle.setAttribute("data-lang", lang);
             document.body.dir = lang === "ar" ? "rtl" : "ltr";
             updateMonthNameBasedOnLang();
@@ -569,7 +698,6 @@
             if(yearField) yearField.value = year;
         }
 
-        // ---------- FORMPREE SUBMISSION WITH DETAILED ERROR HANDLING ----------
         const confirmBtn = document.getElementById('confirmBtn');
         const downloadBtn = document.getElementById('downloadBtn');
         const statusIconSpan = document.getElementById('statusIcon');
@@ -586,7 +714,6 @@
             return {
                 recruiter_name: document.getElementById('recruiterName')?.value.trim() || '',
                 nationality: document.getElementById('nationality')?.value.trim() || '',
-                national_id: document.getElementById('nationalId')?.value.trim() || '',
                 email: document.getElementById('recruiterEmail')?.value.trim() || '',
                 payment_method: document.getElementById('paymentMethod')?.value || '',
                 payment_detail: document.getElementById('paymentDetail')?.value.trim() || '',
@@ -601,13 +728,11 @@
         function validateContract() {
             const errors = [];
             const recruiterName = document.getElementById('recruiterName')?.value.trim();
-            const nationalId = document.getElementById('nationalId')?.value.trim();
             const paymentDetail = document.getElementById('paymentDetail')?.value.trim();
             const recruiterEmail = document.getElementById('recruiterEmail')?.value.trim();
             const recruiterSign = recruiterSignatureInput.value.trim();
             
             if(!recruiterName) errors.push(currentLang === "ar" ? "يرجى إدخال الاسم الثلاثي (الطرف الثاني)." : "Please enter the full name (Second Party).");
-            if(!nationalId) errors.push(currentLang === "ar" ? "الرقم القومي مطلوب." : "National ID is required.");
             if(!recruiterEmail) errors.push(currentLang === "ar" ? "البريد الإلكتروني مطلوب." : "Email is required.");
             else if(!recruiterEmail.includes('@')) errors.push(currentLang === "ar" ? "البريد الإلكتروني غير صحيح." : "Invalid email address.");
             if(!paymentDetail) errors.push(currentLang === "ar" ? "بيانات الدفع (رقم الحساب/المحفظة) مطلوبة." : "Payment details are required.");
@@ -629,8 +754,7 @@
             const formEndpoint = "https://formspree.io/f/maqpgyov";
             const formBody = new URLSearchParams();
             for (const [k, v] of Object.entries(data)) formBody.append(k, v);
-            // Add a comprehensive message
-            formBody.append("message", `New VORANIX contract submission:\nRecruiter: ${data.recruiter_name}\nID: ${data.national_id}\nEmail: ${data.email}\nPayment: ${data.payment_method} - ${data.payment_detail}\nSignature: ${data.recruiter_signature}\nLanguage: ${data.language}\nDate: ${data.contract_date_full}`);
+            formBody.append("message", `New VORANIX contract submission:\nRecruiter: ${data.recruiter_name}\nEmail: ${data.email}\nPayment: ${data.payment_method} - ${data.payment_detail}\nSignature: ${data.recruiter_signature}\nLanguage: ${data.language}\nDate: ${data.contract_date_full}`);
             
             try {
                 const response = await fetch(formEndpoint, {
@@ -669,8 +793,37 @@
             } finally { textDiv.style.maxHeight = originalMax || '520px'; }
         }
 
-        confirmBtn.addEventListener('click', async () => {
-            if(!validateContract()) return;
+        const CORRECT_SECRET = "19072030";
+        let pendingSubmitData = null;
+
+        function openSecretModal() {
+            secretInput.value = "";
+            modalError.innerText = "";
+            modalOverlay.classList.add("active");
+            secretInput.focus();
+        }
+
+        function closeSecretModal() {
+            modalOverlay.classList.remove("active");
+            pendingSubmitData = null;
+        }
+
+        function verifySecretAndSubmit() {
+            let entered = secretInput.value.trim();
+            const normalized = entered.replace(/\s/g, "");
+            if (normalized === CORRECT_SECRET) {
+                closeSecretModal();
+                performFinalSubmit();
+            } else {
+                modalError.innerText = translations[currentLang].wrongSecret;
+                secretInput.classList.add("error-shake");
+                setTimeout(() => secretInput.classList.remove("error-shake"), 500);
+                secretInput.value = "";
+                secretInput.focus();
+            }
+        }
+
+        async function performFinalSubmit() {
             confirmBtn.disabled = true;
             setStatus('loading', currentLang === "ar" ? "جاري إرسال البيانات..." : "Submitting...");
             const result = await submitToFormspree(gatherFormData());
@@ -682,7 +835,22 @@
                 setStatus('error', errMsg);
                 confirmBtn.disabled = false;
             }
+        }
+
+        confirmBtn.addEventListener('click', () => {
+            if(!validateContract()) return;
+            openSecretModal();
         });
+
+        modalConfirmBtn.addEventListener('click', verifySecretAndSubmit);
+        modalCancelBtn.addEventListener('click', closeSecretModal);
+        secretInput.addEventListener('keypress', (e) => {
+            if(e.key === 'Enter') verifySecretAndSubmit();
+        });
+        modalOverlay.addEventListener('click', (e) => {
+            if(e.target === modalOverlay) closeSecretModal();
+        });
+
         downloadBtn.addEventListener('click', downloadImage);
     })();
 </script>
