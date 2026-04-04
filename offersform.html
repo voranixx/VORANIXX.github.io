@@ -315,7 +315,7 @@
             gap: 20px;
         }
 
-        /* زر Submit الجديد */
+        /* زر Submit الجديد - Uiverse style */
         .submit-container {
             width: 100%;
             display: flex;
@@ -324,81 +324,74 @@
             margin-top: 40px;
         }
 
-        .custom-button-group {
-            position: relative;
-        }
-
-        .custom-button {
-            position: relative;
-            display: inline-block;
-            padding: 1px;
-            font-weight: 600;
-            line-height: 1.5;
-            color: white;
-            background-color: #111827;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9);
-            border-radius: 0.75rem;
+        .button {
+            --clr: #e01f7a;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0;
+            border: none;
+            background: transparent;
             cursor: pointer;
-            transition: transform 0.3s ease-in-out;
-            transform-origin: center;
+            position: relative;
+            font-family: 'Inter', sans-serif;
         }
 
-        .custom-button:hover {
-            transform: scale(1.05);
+        .button-decor {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--clr) 0%, #ff1744 100%);
+            border-radius: 50px;
+            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            z-index: 0;
+            box-shadow: 0 0 20px rgba(224, 31, 122, 0.5), 0 0 40px rgba(224, 31, 122, 0.3);
         }
 
-        .custom-button:active {
+        .button:hover .button-decor {
+            transform: scale(1.07);
+        }
+
+        .button:active .button-decor {
             transform: scale(0.95);
         }
 
-        .custom-button::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 0.75rem;
-            background: linear-gradient(135deg, #e01f7a 0%, #ff1744 100%);
-            opacity: 0;
-            transition: opacity 0.5s;
-            z-index: 0;
-        }
-
-        .custom-button:hover::before {
-            opacity: 1;
-        }
-
-        .custom-button-content {
+        .button-content {
             position: relative;
-            z-index: 10;
-            display: block;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.75rem;
-            background-color: rgba(0, 0, 0, 0.95);
-        }
-
-        .button-inner {
-            position: relative;
-            z: 10;
+            z-index: 1;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 12px;
+            padding: 14px 28px;
+            border-radius: 50px;
+            overflow: hidden;
         }
 
-        .button-text {
-            transition: transform 0.5s;
+        .button__icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            flex-shrink: 0;
+            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
-        .custom-button:hover .button-text {
-            transform: translateX(4px);
+        .button:hover .button__icon {
+            transform: rotate(20deg) scale(1.1);
         }
 
-        .button-icon {
-            width: 1.5rem;
-            height: 1.5rem;
-            transition: transform 0.5s;
+        .button__text {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 1px;
+            transition: letter-spacing 0.3s ease;
         }
 
-        .custom-button:hover .button-icon {
-            transform: translateX(4px);
+        .button:hover .button__text {
+            letter-spacing: 2px;
         }
 
         /* أنيميشن الإرسال */
@@ -763,31 +756,47 @@
                     <label for="companyName" class="required">Company Name</label>
                     <select id="companyName" name="companyName" required onchange="showVoiceNoteField(this)">
                         <option value="">Select company</option>
-                        <option value="Leadbull">Leadbull</option>
-                        <option value="Dyninno">Dyninno</option>
+                        <option value="VORANIX">VORANIX</option>
+                        <option value="Fly Pie">Fly Pie</option>
+                        <option value="eClerx">eClerx</option>
                         <option value="Realogy">Realogy</option>
-                        <option value="Insource">Insource</option>
-                        <option value="OUTSOURCING SKILL">OUTSOURCING SKILL</option>
-                        <option value="NAOS">N A O S</option>
-                        <option value="Telephonic">Telephonic</option>
-                        <option value="Vitrin Clinic">Vitrin Clinic</option>
-                        <option value="LTS">LTS</option>
-                        <option value="Phoenix">Phoenix</option>
-                        <option value="IntouchCX">IntouchCX</option>
-                        <option value="TTC">TTC</option>
-                        <option value="HANG-UP Solutions">HANG-UP Solutions</option>
-                        <option value="CXPERTS">CXPERTS</option>
-                        <option value="Ultatek">Ultatek</option>
-                        <option value="CNS">CNS</option>
-                        <option value="FOODHUB">FOODHUB</option>
-                        <option value="Creative Basket">Creative Basket</option>
-                        <option value="VolumeX">VolumeX</option>
-                        <option value="Buzz">Buzz</option>
-                        <option value="Teleperformance">Teleperformance</option>
-                        <option value="BPO HIVE (WFH)">BPO HIVE (WFH)</option>
-                        <option value="WGS (B2B Campaign)">WGS (B2B Campaign)</option>
-                        <option value="WGS (Solar Campaign)">WGS (Solar Campaign)</option>
+                        <option value="BPO HIVE">BPO HIVE</option>
+                        <option value="ABS">ABS</option>
+                        <option value="ISON Xperience ES">ISON Xperience ES</option>
+                        <option value="AT&T">AT&amp;T</option>
+                        <option value="WGS">WGS</option>
+                        <option value="Outsourcing Skill">Outsourcing Skill</option>
+                        <option value="Leadbull">Leadbull</option>
+                        <option value="Octopus">Octopus</option>
                         <option value="Callix">Callix</option>
+                        <option value="Insource">Insource</option>
+                        <option value="NAOS">NAOS</option>
+                        <option value="LTS">LTS</option>
+                        <option value="Intouch">Intouch</option>
+                        <option value="Elevate">Elevate</option>
+                        <option value="VolumeX">VolumeX</option>
+                        <option value="TTC">TTC</option>
+                        <option value="Geeky CX">Geeky CX</option>
+                        <option value="Dyninno">Dyninno</option>
+                        <option value="NetLink">NetLink</option>
+                        <option value="Foodhub">Foodhub</option>
+                        <option value="Ultatek">Ultatek</option>
+                        <option value="Phoenix">Phoenix</option>
+                        <option value="Hangup">Hangup</option>
+                        <option value="Virtual Affiliates">Virtual Affiliates</option>
+                        <option value="Teleperformance BuzzCx">Teleperformance BuzzCx</option>
+                        <option value="Evolve">Evolve</option>
+                        <option value="Holvrine alex">Holvrine alex</option>
+                        <option value="Assets Solutions">Assets Solutions</option>
+                        <option value="CNS">CNS</option>
+                        <option value="Datalystic">Datalystic</option>
+                        <option value="Cxperts Telesales">Cxperts Telesales</option>
+                        <option value="Outsourcing 4 You">Outsourcing 4 You</option>
+                        <option value="Telephonic">Telephonic</option>
+                        <option value="Creative Basket">Creative Basket</option>
+                        <option value="ILEADS">ILEADS</option>
+                        <option value="Cxperts">Cxperts</option>
+                        <option value="Stereo outsourcing">Stereo outsourcing</option>
                         <option value="other">Other</option>
                     </select>
                 </div>
@@ -799,9 +808,20 @@
                            placeholder="Please specify company name">
                 </div>
 
-                <!-- Voice Note Link for BPO HIVE -->
+                <!-- Voice Note Link (for specific companies) -->
                 <div class="form-group" id="voiceNoteGroup" style="display: none;">
-                    <label for="voiceNoteLink">If BPO HIVE (WFH) put the Voicenote link here</label>
+                    <label for="voiceNoteLink" style="display:flex;align-items:center;gap:8px;">
+                        <span id="voiceNoteLabel">Voice Note Link</span>
+                        <span class="vocaroo-hint-icon" title="كيفية استخدام الرابط" onclick="toggleVocarooHint()" style="cursor:pointer;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:rgba(224,31,122,0.2);border:1px solid rgba(224,31,122,0.5);color:#e01f7a;font-size:12px;font-weight:700;flex-shrink:0;">?</span>
+                    </label>
+                    <div id="vocarooHintBox" style="display:none;margin-bottom:10px;padding:12px 16px;background:rgba(224,31,122,0.08);border:1px solid rgba(224,31,122,0.3);border-radius:10px;color:rgba(255,255,255,0.85);font-size:0.88rem;line-height:1.7;">
+                        🎙️ <strong>طريقة إضافة Voice Note Link:</strong><br>
+                        1. اذهب إلى موقع <a href="https://vocaroo.com" target="_blank" style="color:#e01f7a;text-decoration:underline;">Vocaroo.com</a><br>
+                        2. اضغط على زر التسجيل وسجّل صوتك<br>
+                        3. بعد الانتهاء اضغط "Stop" ثم انسخ الرابط الظاهر<br>
+                        4. الصق الرابط في الخانة أدناه<br>
+                        <span style="color:rgba(255,255,255,0.5);font-size:0.82rem;">مثال: https://voca.ro/19251414520</span>
+                    </div>
                     <input type="url" id="voiceNoteLink" name="voiceNoteLink" 
                            placeholder="https://voca.ro/19251414520">
                     <span class="form-hint">Example: https://voca.ro/19251414520</span>
@@ -835,18 +855,18 @@
 
                 <!-- Submit Button -->
                 <div class="submit-container">
-                    <div class="custom-button-group">
-                        <button type="submit" class="custom-button">
-                            <span class="custom-button-content">
-                                <span class="button-inner">
-                                    <span class="button-text">Submit Registration</span>
-                                    <svg class="button-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                        <path clip-rule="evenodd" d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z" fill-rule="evenodd"></path>
-                                    </svg>
-                                </span>
-                            </span>
-                        </button>
-                    </div>
+                    <button type="submit" class="button" style="--clr: #e01f7a;">
+                        <span class="button-decor"></span>
+                        <div class="button-content">
+                            <div class="button__icon">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="20">
+                                    <path d="M22 2L11 13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <span class="button__text">Submit Registration</span>
+                        </div>
+                    </button>
                 </div>
             </form>
 
@@ -885,17 +905,27 @@
             }
         }
 
-        // Show/hide other company field
+        // Show/hide voice note field based on selected company
         function showVoiceNoteField(select) {
             const companyValue = select.value;
             const voiceNoteGroup = document.getElementById('voiceNoteGroup');
+            const voiceNoteLabel = document.getElementById('voiceNoteLabel');
             const otherCompanyGroup = document.getElementById('otherCompanyGroup');
             
-            // Show voice note field for BPO HIVE
-            if (companyValue === 'BPO HIVE (WFH)') {
+            // Companies that require a voice note link
+            const voiceNoteCompanies = {
+                'BPO HIVE': 'If BPO HIVE - put the Voice Note link here',
+                'ABS': 'If ABS - put the Voice Note link here',
+                'Outsourcing Skill': 'If Outsourcing Skill - put the Voice Note link here',
+                'Holvrine alex': 'If Holvrine alex - put the Voice Note link here'
+            };
+            
+            if (voiceNoteCompanies[companyValue]) {
                 voiceNoteGroup.style.display = 'block';
+                voiceNoteLabel.textContent = voiceNoteCompanies[companyValue];
             } else {
                 voiceNoteGroup.style.display = 'none';
+                document.getElementById('vocarooHintBox').style.display = 'none';
             }
             
             // Show other company field
@@ -904,6 +934,11 @@
             } else {
                 otherCompanyGroup.style.display = 'none';
             }
+        }
+
+        function toggleVocarooHint() {
+            const box = document.getElementById('vocarooHintBox');
+            box.style.display = box.style.display === 'none' ? 'block' : 'none';
         }
 
         // Form validation
@@ -948,15 +983,16 @@
             }
             
             // Show loading state
-            const submitBtn = form.querySelector('.custom-button');
+            const submitBtn = form.querySelector('.button');
             const originalContent = submitBtn.innerHTML;
             submitBtn.innerHTML = `
-                <span class="custom-button-content">
-                    <span class="button-inner">
-                        <span class="button-text">Submitting...</span>
-                        <i class="fas fa-spinner fa-spin button-icon"></i>
-                    </span>
-                </span>
+                <span class="button-decor"></span>
+                <div class="button-content">
+                    <div class="button__icon">
+                        <i class="fas fa-spinner fa-spin" style="color:white;font-size:16px;"></i>
+                    </div>
+                    <span class="button__text">Submitting...</span>
+                </div>
             `;
             submitBtn.style.cursor = 'wait';
             submitBtn.disabled = true;
