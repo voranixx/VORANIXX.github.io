@@ -617,15 +617,48 @@
             box-shadow: 0 0 20px rgba(224, 31, 122, 0.4);
         }
 
+        .assistant-nav-wrapper {
+            position: relative;
+            background: rgba(20, 20, 20, 0.95);
+            border-bottom: 1px solid rgba(224, 31, 122, 0.2);
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-scroll-btn {
+            flex-shrink: 0;
+            width: 36px;
+            height: 100%;
+            min-height: 54px;
+            background: linear-gradient(90deg, rgba(20,20,20,1) 60%, transparent);
+            border: none;
+            cursor: pointer;
+            color: #e01f7a;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            z-index: 2;
+            padding: 0;
+        }
+
+        .nav-scroll-btn.right {
+            background: linear-gradient(270deg, rgba(20,20,20,1) 60%, transparent);
+        }
+
+        .nav-scroll-btn:hover {
+            color: #ff1744;
+        }
+
         .assistant-nav {
             display: flex;
             overflow-x: auto;
-            background: rgba(20, 20, 20, 0.95);
-            padding: 15px;
+            padding: 15px 5px;
             gap: 10px;
-            border-bottom: 1px solid rgba(224, 31, 122, 0.2);
             scrollbar-width: none;
             -ms-overflow-style: none;
+            flex: 1;
         }
 
         .assistant-nav::-webkit-scrollbar { display: none; }
@@ -1443,16 +1476,20 @@
                 <button class="assistant-close" onclick="closeAssistantModal()">×</button>
             </div>
 
-            <div class="assistant-nav">
-                <button class="nav-item active" onclick="showSection('welcome')"><i class="fas fa-home"></i> Welcome</button>
-                <button class="nav-item" onclick="showSection('voice')"><i class="fas fa-microphone"></i> Voice Note</button>
-                <button class="nav-item" onclick="showSection('accepted')"><i class="fas fa-check-circle"></i> If Accepted</button>
-                <button class="nav-item" onclick="showSection('rejected')"><i class="fas fa-times-circle"></i> If Rejected</button>
-                <button class="nav-item" onclick="showSection('confirmation')"><i class="fas fa-calendar-check"></i> Confirmation</button>
-                <button class="nav-item" onclick="showSection('form')"><i class="fas fa-file-alt"></i> Form</button>
-                <button class="nav-item" onclick="showSection('interview')"><i class="fas fa-question-circle"></i> Interview Q&A</button>
-                <button class="nav-item" onclick="showSection('companies')"><i class="fas fa-building"></i> Companies</button>
-                <button class="nav-item" onclick="showSection('ai')"><i class="fas fa-brain"></i> Ask AI</button>
+            <div class="assistant-nav-wrapper">
+                <button class="nav-scroll-btn left" onclick="scrollAssistantNav(-200)">&#8249;</button>
+                <div class="assistant-nav" id="assistantNav">
+                    <button class="nav-item active" onclick="showSection('welcome')"><i class="fas fa-home"></i> Welcome</button>
+                    <button class="nav-item" onclick="showSection('voice')"><i class="fas fa-microphone"></i> Voice Note</button>
+                    <button class="nav-item" onclick="showSection('accepted')"><i class="fas fa-check-circle"></i> If Accepted</button>
+                    <button class="nav-item" onclick="showSection('rejected')"><i class="fas fa-times-circle"></i> If Rejected</button>
+                    <button class="nav-item" onclick="showSection('confirmation')"><i class="fas fa-calendar-check"></i> Confirmation</button>
+                    <button class="nav-item" onclick="showSection('form')"><i class="fas fa-file-alt"></i> Form</button>
+                    <button class="nav-item" onclick="showSection('interview')"><i class="fas fa-question-circle"></i> Interview Q&A</button>
+                    <button class="nav-item" onclick="showSection('companies')"><i class="fas fa-building"></i> Companies</button>
+                    <button class="nav-item" onclick="showSection('ai')"><i class="fas fa-brain"></i> Ask AI</button>
+                </div>
+                <button class="nav-scroll-btn right" onclick="scrollAssistantNav(200)">&#8250;</button>
             </div>
 
             <div class="assistant-content">
@@ -1753,24 +1790,16 @@ These companies offer excellent opportunities for career growth and development 
         const audio = new Audio();
         audio.volume = 0.25;
 
-        const playPauseBtn = document.getElementById('playPauseBtn');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        const trackTitle = document.getElementById('playerTrackTitle');
-        const artistName = document.getElementById('playerArtistName');
-        const albumArt = document.getElementById('playerAlbumArt');
-        const currentTimeSpan = document.getElementById('currentTime');
-        const remainingTimeSpan = document.getElementById('remainingTime');
-        const progressFill = document.getElementById('progressFill');
-        const progressHandle = document.getElementById('progressHandle');
-        const progressBar = document.getElementById('progressBarContainer');
-        const volumeBars = document.getElementById('volumeBars');
+        // Defer DOM queries until after page loads
+        let playPauseBtn, prevBtn, nextBtn, trackTitle, artistName, albumArt,
+            currentTimeSpan, remainingTimeSpan, progressFill, progressHandle,
+            progressBar, volumeBars;
 
         function updateTrackUI() {
             const t = playlist[currentTrackIdx];
-            trackTitle.innerText = t.title;
-            artistName.innerText = t.artist;
-            albumArt.style.backgroundImage = `url('${t.cover}')`;
+            if (trackTitle) trackTitle.innerText = t.title;
+            if (artistName) artistName.innerText = t.artist;
+            if (albumArt) albumArt.style.backgroundImage = `url('${t.cover}')`;
         }
 
         function loadTrack(index) {
@@ -1781,24 +1810,26 @@ These companies offer excellent opportunities for career growth and development 
         }
 
         function togglePlay() {
+            if (!playPauseBtn) return;
             if (isPlaying) {
                 audio.pause();
                 playPauseBtn.querySelector('.icon-play').style.display = 'block';
                 playPauseBtn.querySelector('.icon-pause').style.display = 'none';
-                volumeBars.classList.remove('playing');
+                if (volumeBars) volumeBars.classList.remove('playing');
             } else {
                 audio.play();
                 playPauseBtn.querySelector('.icon-play').style.display = 'none';
                 playPauseBtn.querySelector('.icon-pause').style.display = 'block';
-                volumeBars.classList.add('playing');
+                if (volumeBars) volumeBars.classList.add('playing');
             }
             isPlaying = !isPlaying;
         }
 
         function setUIpaused() {
+            if (!playPauseBtn) return;
             playPauseBtn.querySelector('.icon-play').style.display = 'block';
             playPauseBtn.querySelector('.icon-pause').style.display = 'none';
-            volumeBars.classList.remove('playing');
+            if (volumeBars) volumeBars.classList.remove('playing');
         }
 
         function playNext() {
@@ -1817,7 +1848,7 @@ These companies offer excellent opportunities for career growth and development 
         }
 
         function updateProgress() {
-            if (audio.duration) {
+            if (audio.duration && progressFill && progressHandle && currentTimeSpan && remainingTimeSpan) {
                 let percent = (audio.currentTime / audio.duration) * 100;
                 progressFill.style.width = `${percent}%`;
                 progressHandle.style.left = `${percent}%`;
@@ -1827,6 +1858,7 @@ These companies offer excellent opportunities for career growth and development 
         }
 
         function seek(e) {
+            if (!progressBar) return;
             let rect = progressBar.getBoundingClientRect();
             let x = e.clientX - rect.left;
             let percent = Math.min(1, Math.max(0, x / rect.width));
@@ -1836,13 +1868,51 @@ These companies offer excellent opportunities for career growth and development 
 
         audio.addEventListener('timeupdate', updateProgress);
         audio.addEventListener('ended', playNext);
-        playPauseBtn.addEventListener('click', togglePlay);
-        prevBtn.addEventListener('click', playPrev);
-        nextBtn.addEventListener('click', playNext);
-        progressBar.addEventListener('click', seek);
 
-        loadTrack(0);
-        setUIpaused();
+        // Initialize player after DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            playPauseBtn   = document.getElementById('playPauseBtn');
+            prevBtn        = document.getElementById('prevBtn');
+            nextBtn        = document.getElementById('nextBtn');
+            trackTitle     = document.getElementById('playerTrackTitle');
+            artistName     = document.getElementById('playerArtistName');
+            albumArt       = document.getElementById('playerAlbumArt');
+            currentTimeSpan  = document.getElementById('currentTime');
+            remainingTimeSpan = document.getElementById('remainingTime');
+            progressFill   = document.getElementById('progressFill');
+            progressHandle = document.getElementById('progressHandle');
+            progressBar    = document.getElementById('progressBarContainer');
+            volumeBars     = document.getElementById('volumeBars');
+
+            if (playPauseBtn) playPauseBtn.addEventListener('click', togglePlay);
+            if (prevBtn) prevBtn.addEventListener('click', playPrev);
+            if (nextBtn) nextBtn.addEventListener('click', playNext);
+            if (progressBar) progressBar.addEventListener('click', seek);
+
+            const closeMusicBtn = document.getElementById('closeMusicBtn');
+            if (closeMusicBtn) closeMusicBtn.addEventListener('click', function() {
+                document.getElementById('newMusicPlayer').classList.remove('show');
+            });
+
+            const radarBtn = document.getElementById('radarBtn');
+            if (radarBtn) radarBtn.addEventListener('click', function() {
+                alert('🎵 VORANIX audio radar — stay tuned!');
+            });
+
+            loadTrack(0);
+            setUIpaused();
+
+            // Modal outside-click handlers
+            document.getElementById('assistantModal')?.addEventListener('click', function(e) {
+                if (e.target === this) closeAssistantModal();
+            });
+            document.getElementById('postsModal')?.addEventListener('click', function(e) {
+                if (e.target === this) closePostsModal();
+            });
+            document.getElementById('addPostModal')?.addEventListener('click', function(e) {
+                if (e.target === this) closeAddPostModal();
+            });
+        });
 
         // ===== EXPLORE BUTTON =====
         document.getElementById('exploreButton').addEventListener('click', function() {
@@ -1850,22 +1920,19 @@ These companies offer excellent opportunities for career growth and development 
             servicesSection.style.display = 'block';
             setTimeout(() => servicesSection.classList.add('show'), 50);
 
+            // footer is optional - only show if it exists in the page
             const footer = document.getElementById('footer');
-            footer.style.display = 'block';
-            setTimeout(() => footer.classList.add('show'), 300);
+            if (footer) {
+                footer.style.display = 'block';
+                setTimeout(() => footer.classList.add('show'), 300);
+            }
 
             setTimeout(() => {
                 document.getElementById('newMusicPlayer').classList.add('show');
             }, 600);
         });
 
-        document.getElementById('closeMusicBtn').addEventListener('click', function() {
-            document.getElementById('newMusicPlayer').classList.remove('show');
-        });
-
-        document.getElementById('radarBtn').addEventListener('click', function() {
-            alert('🎵 VORANIX audio radar — stay tuned!');
-        });
+        // closeMusicBtn and radarBtn are initialized inside DOMContentLoaded above
 
         // ===== CARD HANDLER =====
         function handleCardClick(url, type) {
@@ -1983,6 +2050,11 @@ These companies offer excellent opportunities for career growth and development 
                 if (i < response.length) { responseContent.textContent += response.charAt(i); i++; }
                 else clearInterval(typing);
             }, 30);
+        }
+
+        function scrollAssistantNav(amount) {
+            const nav = document.getElementById('assistantNav');
+            if (nav) nav.scrollBy({ left: amount, behavior: 'smooth' });
         }
 
         function copyAIResponse() {
@@ -2233,18 +2305,7 @@ Location:  Cairo/Alex
             }
         }
 
-        // Close modals on outside click
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('assistantModal')?.addEventListener('click', function(e) {
-                if (e.target === this) closeAssistantModal();
-            });
-            document.getElementById('postsModal')?.addEventListener('click', function(e) {
-                if (e.target === this) closePostsModal();
-            });
-            document.getElementById('addPostModal')?.addEventListener('click', function(e) {
-                if (e.target === this) closeAddPostModal();
-            });
-        });
+        // Modal outside-click handlers are now inside the main DOMContentLoaded block above
     </script>
 </body>
 </html>
