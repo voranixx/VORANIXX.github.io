@@ -293,6 +293,97 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .filter-controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .toggle-buttons {
+            display: flex;
+            background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+            border-radius: 15px;
+            padding: 6px;
+            gap: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        .toggle-btn {
+            padding: 14px 28px;
+            border: none;
+            background-color: transparent;
+            color: var(--text-muted);
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .toggle-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .toggle-btn:hover::before {
+            left: 100%;
+        }
+        
+        .toggle-btn.active {
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+            color: white;
+            box-shadow: 0 4px 20px rgba(255, 105, 180, 0.4),
+                       inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .toggle-btn:hover:not(.active) {
+            background-color: rgba(255, 255, 255, 0.08);
+            color: var(--text-white);
+            transform: translateY(-1px);
+        }
+        
+        .language-filter {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background-color: var(--medium-gray);
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .language-filter select {
+            background-color: var(--light-gray);
+            border: 1px solid var(--border-color);
+            color: var(--text-white);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            min-width: 120px;
+        }
+        
+        .language-filter label {
+            color: var(--text-light);
+            font-weight: 500;
+            font-size: 14px;
         }
         
         .match-count {
@@ -307,164 +398,325 @@
         /* Job Cards Grid */
         .results-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 25px;
+            max-width: 100%;
+            overflow: hidden;
+        }
+        
+        .section-divider {
+            margin: 40px 0;
+            padding: 20px 0;
+            border-top: 2px solid var(--border-color);
+            position: relative;
+            grid-column: 1 / -1;
+        }
+        
+        .section-divider h3 {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--dark-gray);
+            padding: 0 20px;
+            color: var(--text-light);
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-divider.active-section h3 {
+            color: var(--pink-glow);
+        }
+        
+        .section-divider.hold-section h3 {
+            color: var(--warning-color);
         }
         
         .job-card {
-            background-color: var(--medium-gray);
-            border-radius: 12px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
             padding: 30px;
-            transition: all 0.3s ease;
-            border: 1px solid var(--border-color);
             position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(20px);
+        }
+        
+        .job-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--pink-glow), #ff1493, #ff69b4);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .job-card.active-job::before {
+            opacity: 1;
         }
         
         .job-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-heavy);
-            border-color: var(--accent-color);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 60px rgba(255, 105, 180, 0.15),
+                        0 10px 30px rgba(0, 0, 0, 0.4),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 105, 180, 0.3);
         }
         
-        /* توهج وردي للعروض النشطة */
         .job-card.active-job {
-            animation: pinkGlow 4s infinite ease-in-out;
-            border: 0.4px solid var(--pink-glow);
+            box-shadow: 0 0 30px rgba(255, 105, 180, 0.2),
+                        0 10px 40px rgba(0, 0, 0, 0.3),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 105, 180, 0.4);
         }
         
-        @keyframes pinkGlow {
-            0% {
-                box-shadow: 0 0 5px var(--pink-glow), 0 0 10px var(--pink-glow);
-                border-color: var(--pink-glow);
-            }
-            50% {
-                box-shadow: 0 0 20px var(--pink-glow), 0 0 30px var(--pink-glow);
-                border-color: #ff1493;
-            }
-            100% {
-                box-shadow: 0 0 5px var(--pink-glow), 0 0 10px var(--pink-glow);
-                border-color: var(--pink-glow);
-            }
+        .job-card.active-job:hover {
+            box-shadow: 0 0 40px rgba(255, 105, 180, 0.3),
+                        0 20px 60px rgba(0, 0, 0, 0.4),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            margin-right: 8px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .badge-nearby {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+        
+        .badge-language-match {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+        }
+        
+        .badge-high-salary {
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            color: white;
+            border: 2px solid rgba(255, 107, 53, 0.3);
+            font-weight: 800;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            font-size: 10px;
+            padding: 5px 10px;
+            z-index: 10;
         }
         
         .job-status {
-            display: inline-block;
+            position: absolute;
+            top: 25px;
+            right: 25px;
             padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 13px;
+            border-radius: 25px;
+            font-size: 12px;
             font-weight: 700;
-            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
         }
         
         .status-active {
-            background-color: rgba(255, 105, 180, 0.2);
-            color: #ff69b4;
-            border: 1px solid rgba(255, 105, 180, 0.5);
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+            color: white;
+            box-shadow: 0 4px 20px rgba(255, 105, 180, 0.3);
         }
         
         .status-hold {
-            background-color: rgba(245, 158, 11, 0.15);
-            color: var(--warning-color);
-            border: 1px solid rgba(245, 158, 11, 0.3);
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+            box-shadow: 0 4px 20px rgba(245, 158, 11, 0.3);
         }
         
         .job-company {
             font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 10px;
+            font-weight: 800;
             color: var(--text-white);
+            margin-bottom: 8px;
+            line-height: 1.2;
+            background: linear-gradient(135deg, #ffffff, #e0e0e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
         }
         
         .job-account {
-            font-size: 18px;
+            font-size: 16px;
             color: var(--text-light);
             margin-bottom: 25px;
             font-weight: 500;
+            opacity: 0.9;
         }
         
         .job-details {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
             margin-bottom: 25px;
         }
         
         .detail-item {
             display: flex;
             align-items: center;
-            gap: 12px;
-            color: var(--text-muted);
-            font-size: 15px;
+            margin-bottom: 15px;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .detail-item:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.1);
+            transform: translateX(4px);
         }
         
         .detail-item i {
-            color: var(--accent-color);
-            width: 20px;
+            color: var(--pink-glow);
+            margin-right: 12px;
             font-size: 16px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .detail-item span {
+            color: var(--text-light);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .filter-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+        
+        .filter-tag {
+            padding: 8px 14px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            font-size: 12px;
+            color: var(--text-light);
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+        
+        .filter-tag:hover {
+            background: rgba(255, 105, 180, 0.1);
+            border-color: rgba(255, 105, 180, 0.3);
+            color: var(--text-white);
+            transform: translateY(-2px);
         }
         
         .job-match {
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            margin-top: 25px;
-            padding-top: 25px;
-            border-top: 1px solid var(--border-color);
+            align-items: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .match-percentage {
-            font-weight: 700;
-            font-size: 22px;
+            font-size: 18px;
+            font-weight: 800;
+            padding: 10px 20px;
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
         }
         
         .match-high {
-            color: var(--success-color);
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
         }
         
         .match-medium {
-            color: var(--warning-color);
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
         }
         
         .match-low {
-            color: var(--danger-color);
+            background: linear-gradient(135deg, #6b7280, #4b5563);
+            color: white;
+            box-shadow: 0 4px 20px rgba(107, 114, 128, 0.3);
         }
         
         .btn-view {
-            background-color: transparent;
-            color: var(--accent-color);
-            border: 1px solid var(--accent-color);
             padding: 12px 24px;
-            border-radius: 8px;
-            font-size: 15px;
-            font-weight: 600;
+            background: linear-gradient(135deg, var(--pink-glow), #ff1493);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            box-shadow: 0 4px 20px rgba(255, 105, 180, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         
         .btn-view:hover {
-            background-color: var(--accent-color);
-            color: var(--primary-black);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(255, 105, 180, 0.4);
+            background: linear-gradient(135deg, #ff1493, #ff69b4);
         }
         
         /* Filter Tags */
         .filter-tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 20px;
+            gap: 8px;
+            margin-top: 15px;
         }
         
         .filter-tag {
             background-color: rgba(255, 255, 255, 0.08);
             color: var(--text-light);
-            padding: 8px 16px;
+            padding: 6px 12px;
             border-radius: 6px;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 500;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            white-space: nowrap;
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         
         /* Badges */
@@ -524,27 +776,47 @@
         
         .close-modal {
             position: absolute;
-            top: 25px;
-            right: 30px;
-            font-size: 32px;
-            color: var(--text-muted);
+            top: 15px;
+            right: 15px;
+            font-size: 36px;
+            color: #ff69b4;
             cursor: pointer;
-            transition: color 0.3s ease;
-            width: 40px;
-            height: 40px;
+            transition: all 0.3s ease;
+            width: 50px;
+            height: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 105, 180, 0.3);
+            font-weight: bold;
+            z-index: 1001;
         }
         
         .close-modal:hover {
-            color: var(--text-white);
-            background-color: rgba(255, 255, 255, 0.05);
+            color: white;
+            background-color: rgba(255, 105, 180, 0.3);
+            transform: scale(1.1);
+            border-color: rgba(255, 105, 180, 0.5);
         }
         
         .modal-job-header {
             margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+        
+        .modal-header-left {
+            display: flex;
+            align-items: center;
+        }
+        
+        .modal-header-center {
+            flex: 1;
+            text-align: center;
         }
         
         .modal-job-details {
@@ -614,24 +886,41 @@
             display: none;
             text-align: center;
             padding: 60px;
+            justify-content: center;
+            align-items: center;
         }
         
-        .spinner i {
-            font-size: 50px;
-            color: var(--accent-color);
-            animation: spin 1.5s linear infinite;
-            margin-bottom: 20px;
+        .spinner-new {
+            background-image: linear-gradient(rgb(186, 66, 255) 35%, rgb(0, 225, 255));
+            width: 100px;
+            height: 100px;
+            animation: spinning82341 1.7s linear infinite;
+            text-align: center;
+            border-radius: 50px;
+            filter: blur(1px);
+            box-shadow: 0px -5px 20px 0px rgb(186, 66, 255), 0px 5px 20px 0px rgb(0, 225, 255);
+            margin: 0 auto;
         }
         
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .spinner-inner {
+            background-color: rgb(36, 36, 36);
+            width: 100px;
+            height: 100px;
+            border-radius: 50px;
+            filter: blur(10px);
+        }
+        
+        @keyframes spinning82341 {
+            to {
+                transform: rotate(360deg);
+            }
         }
         
         /* Responsive Design */
         @media (max-width: 1100px) {
             .results-grid {
-                grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+                gap: 20px;
             }
         }
         
@@ -642,6 +931,7 @@
             
             .results-grid {
                 grid-template-columns: 1fr;
+                gap: 15px;
             }
             
             .results-header {
@@ -650,21 +940,47 @@
                 gap: 20px;
             }
             
+            .filter-controls {
+                width: 100%;
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .toggle-buttons {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .toggle-btn {
+                flex: 1;
+                justify-content: center;
+                font-size: 13px;
+                padding: 10px 16px;
+            }
+            
+            .language-filter {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
             .modal-content {
                 width: 95%;
-                padding: 30px 20px;
+                padding: 25px 15px;
+                max-height: 90vh;
+                overflow-y: auto;
             }
             
             .modal-job-details {
                 grid-template-columns: 1fr;
+                gap: 20px;
             }
             
             .logo-main {
-                font-size: 36px;
+                font-size: 32px;
             }
             
             .page-title h1 {
-                font-size: 36px;
+                font-size: 32px;
             }
             
             .form-buttons {
@@ -674,6 +990,18 @@
             .btn {
                 width: 100%;
                 justify-content: center;
+            }
+            
+            .job-card {
+                padding: 20px;
+            }
+            
+            .job-company {
+                font-size: 18px;
+            }
+            
+            .job-account {
+                font-size: 15px;
             }
         }
         
@@ -717,9 +1045,6 @@
         <div class="container">
             <div class="page-title">
                 <h1>Smart Job Matching</h1>
-                <p>Tell us about yourself and we'll find the most suitable job offers from VORANIX's extensive network of opportunities.</p>
-            </div>
-            
             <!-- Profile Form -->
             <section class="profile-form-section">
                 <h2 class="section-title"><i class="fas fa-user-cog"></i> Your Profile</h2>
@@ -822,11 +1147,26 @@
             <section class="results-section">
                 <div class="results-header">
                     <h2 class="section-title"><i class="fas fa-briefcase"></i> Matching Job Offers</h2>
-                    <div class="match-count" id="matchCount">0 matches</div>
+                    <div class="filter-controls">
+                        <div class="toggle-buttons">
+                            <button class="toggle-btn active" id="showAllBtn" onclick="filterByStatus('all')">
+                                <i class="fas fa-globe"></i> All Offers
+                            </button>
+                            <button class="toggle-btn" id="showActiveBtn" onclick="filterByStatus('active')">
+                                <i class="fas fa-fire" style="color: #ff69b4;"></i> Active
+                            </button>
+                            <button class="toggle-btn" id="showHoldBtn" onclick="filterByStatus('hold')">
+                                <i class="fas fa-pause-circle" style="color: #f59e0b;"></i> Hold
+                            </button>
+                        </div>
+                        <div class="match-count" id="matchCount">0 matches</div>
+                    </div>
                 </div>
                 
                 <div class="spinner" id="loadingSpinner">
-                    <i class="fas fa-spinner"></i>
+                    <div class="spinner-new">
+                        <div class="spinner-inner"></div>
+                    </div>
                     <p>Finding your perfect matches...</p>
                 </div>
                 
@@ -1012,7 +1352,7 @@
                 salary: "Total Package up to 40K",
                 process: "They directly go to the interview after filling the form",
                 training: "30 days",
-                details: "🚨 VORANIX Is Hiring – UK-Based B2B Campaign 🇬🇧\nVORANIX is expanding and we're looking for ambitious talents to join our UK-Based B2B Campaign.\n🕒 Working Hours\nShift: 10:45 AM – 8:00 PM\n💼 Job Role\n• Conduct 5–10 minute qualification calls with potential clients\n• Qualify customers for home device solutions\n• Simple and structured calls – no long negotiations\n• Work in a performance-driven environment with high earning potential\n💰 Compensation & Benefits\n• Basic Salary: 17,000 EGP\n• KPI Bonus: 3,000 EGP\n• Total Salary: Up to 40,000 EGP depending on performance\n• Uncapped Commission $$$$$ the more you perform, the more you earn\n🎯 Requirements\n• Strong English communication skills\n• Confidence in handling B2B calls\n• Target-driven mindset\n• High level of commitment and punctuality\n🔥 If you're ambitious, money-motivated, and ready to grow, this is your chance to build a strong career with VORANIX.\n📩 Apply now and be part of the next wave of success.",
+                details: "🚨 VORANIX Is Hiring – UK-Based B2B Campaign 🇬🇧\nVORANIX is expanding and we're looking for ambitious talents to join our UK-Based B2B Campaign.\n🕒 Working Hours\nShift: 10:45 AM – 8:00 PM\n💼 Job Role\n• Conduct 5–10 minute qualification calls with potential clients\n• Qualify customers for home device solutions\n• Simple and structured calls – no long negotiations\n• Work in a performance-driven environment with high earning potential\n💰 Compensation & Benefits\n• Basic Salary: 17,000 EGP\n• KPI Bonus: 3,000 EGP\n• Total Salary: Up to 40,000 EGP depending on performance\n• Uncapped Commission $$$$$ the more you perform, the more you earn\n📩 Apply now and be part of the next wave of success.",
                 locationType: "office",
                 targetLanguage: "english"
             },
@@ -1458,6 +1798,8 @@
 
         // Current filtered jobs
         let filteredJobs = [];
+        let currentStatusFilter = 'all';
+        let currentLanguageFilter = 'all';
 
         // Location proximity mapping
         const locationProximity = {
@@ -1505,6 +1847,17 @@
             flexibleLanguage.checked = true;
             flexibleLocation.checked = true;
             flexibleAge.checked = true;
+            
+            // Initialize filteredJobs with all jobs so filters work immediately
+            filteredJobs = [...jobOffers];
+            filteredJobs.forEach(job => {
+                job.matchScore = 85;
+                job.isNearbyLocation = false;
+                job.isCloseLanguage = false;
+            });
+            
+            // Display all jobs initially
+            displayResults();
             
             // Add event listeners
             profileForm.addEventListener('submit', findMatchingJobs);
@@ -1728,99 +2081,174 @@
                 
                 // Hide loading spinner
                 loadingSpinner.style.display = 'none';
-            }, 800);
+                
+                // Smooth scroll to results section
+                const resultsSection = document.querySelector('.results-section');
+                if (resultsSection) {
+                    resultsSection.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'start' 
+                    });
+                }
+            }, 2000); // Changed to 2 seconds as requested
         }
 
+        // Filter by status
+        function filterByStatus(status) {
+            currentStatusFilter = status;
+            
+            // Update button states
+            document.querySelectorAll('.toggle-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Add active class to the clicked button
+            if (status === 'all') {
+                document.getElementById('showAllBtn').classList.add('active');
+            } else if (status === 'active') {
+                document.getElementById('showActiveBtn').classList.add('active');
+            } else if (status === 'hold') {
+                document.getElementById('showHoldBtn').classList.add('active');
+            }
+            
+            displayResults();
+        }
+        
         // Display filtered job results
         function displayResults() {
             resultsGrid.innerHTML = '';
             
-            if (filteredJobs.length === 0) {
+            // Apply filters
+            let jobsToDisplay = [...filteredJobs];
+            
+            // Filter by status
+            if (currentStatusFilter === 'active') {
+                jobsToDisplay = jobsToDisplay.filter(job => job.status === 'Active');
+            } else if (currentStatusFilter === 'hold') {
+                jobsToDisplay = jobsToDisplay.filter(job => job.status === 'Hold');
+            }
+            
+            // Filter by language
+            if (currentLanguageFilter !== 'all') {
+                jobsToDisplay = jobsToDisplay.filter(job => job.targetLanguage === currentLanguageFilter);
+            }
+            
+            if (jobsToDisplay.length === 0) {
                 noResults.style.display = 'block';
                 matchCount.textContent = '0 matches';
                 return;
             }
             
-            matchCount.textContent = `${filteredJobs.length} ${filteredJobs.length === 1 ? 'match' : 'matches'}`;
+            matchCount.textContent = `${jobsToDisplay.length} ${jobsToDisplay.length === 1 ? 'match' : 'matches'}`;
             
-            filteredJobs.forEach(job => {
-                const jobCard = document.createElement('div');
-                jobCard.className = 'job-card';
-                
-                // Add active-job class if status is Active (for pink glow)
-                if (job.status === 'Active') {
-                    jobCard.classList.add('active-job');
+            // Group by status for display
+            const activeJobs = jobsToDisplay.filter(job => job.status === 'Active');
+            const holdJobs = jobsToDisplay.filter(job => job.status === 'Hold');
+            
+            // Display Active Jobs section
+            if (activeJobs.length > 0 && (currentStatusFilter === 'all' || currentStatusFilter === 'active')) {
+                if (currentStatusFilter === 'all') {
+                    const divider = document.createElement('div');
+                    divider.className = 'section-divider active-section';
+                    divider.innerHTML = '<h3><i class="fas fa-fire"></i> Active Offers</h3>';
+                    resultsGrid.appendChild(divider);
                 }
                 
-                // Determine match level for color coding
-                let matchLevel = 'match-low';
-                if (job.matchScore >= 85) matchLevel = 'match-high';
-                else if (job.matchScore >= 65) matchLevel = 'match-medium';
-                
-                // Add badges for special offers
-                let badges = '';
-                if (job.isNearbyLocation) {
-                    badges += '<div class="badge badge-nearby">Nearby Location</div>';
+                activeJobs.forEach(job => {
+                    const jobCard = createJobCard(job);
+                    resultsGrid.appendChild(jobCard);
+                });
+            }
+            
+            // Display Hold Jobs section
+            if (holdJobs.length > 0 && (currentStatusFilter === 'all' || currentStatusFilter === 'hold')) {
+                if (currentStatusFilter === 'all') {
+                    const divider = document.createElement('div');
+                    divider.className = 'section-divider hold-section';
+                    divider.innerHTML = '<h3><i class="fas fa-pause-circle"></i> Hold Offers</h3>';
+                    resultsGrid.appendChild(divider);
                 }
-                if (job.isCloseLanguage) {
-                    badges += '<div class="badge badge-language-match">Close Language Match</div>';
-                }
-                if (job.salary.includes('23,000') || job.salary.includes('25,000') || job.salary.includes('30K') || job.salary.includes('35K')) {
-                    badges += '<div class="badge badge-high-salary">High Salary</div>';
-                }
-                
-                jobCard.innerHTML = `
-                    ${badges}
-                    <div class="job-status status-${job.status.toLowerCase()}">${job.status}</div>
-                    <h3 class="job-company">${job.company}</h3>
-                    <p class="job-account">${job.account}</p>
-                    <div class="job-details">
-                        <div class="detail-item">
-                            <i class="fas fa-clock"></i>
-                            <span>${job.shifts.substring(0, 30)}${job.shifts.length > 30 ? '...' : ''}</span>
-                        </div>
-                        <div class="detail-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>${job.location.substring(0, 30)}${job.location.length > 30 ? '...' : ''}</span>
-                        </div>
-                        <div class="detail-item">
-                            <i class="fas fa-user-graduate"></i>
-                            <span>Max Age: ${job.maxAge}</span>
-                        </div>
-                        <div class="detail-item">
-                            <i class="fas fa-money-bill-wave"></i>
-                            <span>${job.salary.substring(0, 30)}${job.salary.length > 30 ? '...' : ''}</span>
-                        </div>
-                    </div>
-                    <div class="filter-tags">
-                        <span class="filter-tag">${job.nationality}</span>
-                        <span class="filter-tag">${job.graduation.split(' ')[0]}</span>
-                        <span class="filter-tag">${job.languageRequirement || 'B1'}+</span>
-                        <span class="filter-tag">${job.targetLanguage.toUpperCase()}</span>
-                    </div>
-                    <div class="job-match">
-                        <div class="match-percentage ${matchLevel}">${job.matchScore}% Match</div>
-                        <button class="btn-view" onclick="viewJobDetails(${job.id})">
-                            View Details <i class="fas fa-arrow-right"></i>
-                        </button>
-                    </div>
-                `;
-                
-                resultsGrid.appendChild(jobCard);
-            });
+                holdJobs.forEach(job => {
+                    const jobCard = createJobCard(job);
+                    resultsGrid.appendChild(jobCard);
+                });
+            }
         }
-
+        
+        // Create job card element
+        function createJobCard(job) {
+            const jobCard = document.createElement('div');
+            jobCard.className = 'job-card';
+            
+            // Add active-job class if status is Active (for pink glow)
+            if (job.status === 'Active') {
+                jobCard.classList.add('active-job');
+            }
+            
+            // Determine match level for color coding
+            let matchLevel = 'match-low';
+            if (job.matchScore >= 85) matchLevel = 'match-high';
+            else if (job.matchScore >= 65) matchLevel = 'match-medium';
+            
+            // Add badges for special offers
+            let badges = '';
+            if (job.isCloseLanguage) {
+                badges += '<div class="badge badge-language-match">Close Language Match</div>';
+            }
+            
+            jobCard.innerHTML = `
+                ${badges}
+                <div class="job-status status-${job.status.toLowerCase()}">${job.status}</div>
+                <h3 class="job-company">${job.company}</h3>
+                <p class="job-account">${job.account}</p>
+                <div class="job-details">
+                    <div class="detail-item">
+                        <i class="fas fa-clock"></i>
+                        <span>${job.shifts.length > 40 ? job.shifts.substring(0, 40) + '...' : job.shifts}</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>${job.location.length > 35 ? job.location.substring(0, 35) + '...' : job.location}</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-user-graduate"></i>
+                        <span>Max Age: ${job.maxAge}</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <span>${job.salary.length > 35 ? job.salary.substring(0, 35) + '...' : job.salary}</span>
+                    </div>
+                </div>
+                <div class="filter-tags">
+                    <span class="filter-tag" title="${job.nationality}">${job.nationality.length > 15 ? job.nationality.substring(0, 15) + '...' : job.nationality}</span>
+                    <span class="filter-tag" title="${job.graduation}">${job.graduation.split(' ')[0].length > 12 ? job.graduation.split(' ')[0].substring(0, 12) + '...' : job.graduation.split(' ')[0]}</span>
+                    <span class="filter-tag" title="Language">${(job.languageRequirement || 'B1')}+</span>
+                    <span class="filter-tag" title="Target Language">${job.targetLanguage.length > 8 ? job.targetLanguage.substring(0, 8) + '...' : job.targetLanguage.toUpperCase()}</span>
+                </div>
+                <div class="job-match">
+                    <div class="match-percentage ${matchLevel}">${job.matchScore}% Match</div>
+                    <button class="btn-view" onclick="viewJobDetails(${job.id})">
+                        View Details <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            `;
+            
+            return jobCard;
+        }
+        
         // View job details in modal
         window.viewJobDetails = function(jobId) {
             const job = jobOffers.find(j => j.id === jobId);
             
-            if (!job) return;
-            
             modalContent.innerHTML = `
                 <div class="modal-job-header">
-                    <div class="job-status status-${job.status.toLowerCase()}">${job.status}</div>
-                    <h2>${job.company}</h2>
-                    <p class="job-account">${job.account}</p>
+                    <div class="modal-header-left">
+                        <div class="job-status status-${job.status.toLowerCase()}">${job.status}</div>
+                    </div>
+                    <div class="modal-header-center">
+                        <h2>${job.company}</h2>
+                        <p class="job-account">${job.account}</p>
+                    </div>
                 </div>
                 
                 <div class="modal-job-details">
