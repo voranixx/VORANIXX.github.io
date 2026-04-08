@@ -17,7 +17,7 @@
             user-select: none;
         }
 
-        .template-text, .post-text, .ai-response-content,
+        .template-text, .post-text, .ai-response-content, .chat-message,
         .post-textarea, #aiQuestion, textarea, input {
             -webkit-user-select: text !important;
             -moz-user-select: text !important;
@@ -306,7 +306,7 @@
             font-size: 0.95rem;
         }
 
-        /* ===== NEW MUSIC PLAYER ===== */
+        /* Music Player */
         .music-player-fixed {
             position: fixed;
             bottom: 20px;
@@ -506,17 +506,7 @@
         .play-pause-button .icon-pause { display: none; }
         .play-pause-button .icon-play { display: block; }
 
-        .control-button.d svg { opacity: 0.7; width: 18px; }
-
-        @media (max-width: 500px) {
-            .main-music-card { max-width: 280px; padding: 10px 12px; gap: 6px; }
-            .album-art { width: 44px; height: 44px; }
-            .track-title { font-size: 0.9rem; }
-            .control-button { width: 34px; height: 34px; }
-            .main-control-btns { gap: 8px; }
-        }
-
-        /* ===== ASSISTANT MODAL ===== */
+        /* Assistant Modal */
         .assistant-modal {
             display: none;
             position: fixed;
@@ -733,17 +723,6 @@
             overflow-y: auto;
         }
 
-        .template-text::-webkit-scrollbar { width: 6px; }
-        .template-text::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 3px; }
-        .template-text::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #e01f7a, #ff1744); border-radius: 3px; }
-
-        .template-actions {
-            display: flex;
-            gap: 15px;
-            justify-content: flex-end;
-            flex-wrap: wrap;
-        }
-
         .copy-btn {
             background: linear-gradient(135deg, #e01f7a 0%, #ff1744 100%);
             color: white;
@@ -766,70 +745,88 @@
         .copy-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 30px rgba(224, 31, 122, 0.6); }
         .copy-btn.copied { background: linear-gradient(135deg, #48bb78 0%, #38a169 100%); }
 
-        .ai-question-box {
-            background: linear-gradient(135deg, rgba(20, 20, 30, 0.95) 0%, rgba(30, 30, 40, 0.95) 100%);
-            border-radius: 16px;
-            padding: 25px;
+        /* NEW CHAT INTERFACE */
+        .chat-container {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 20px;
+            padding: 15px;
+            margin-top: 15px;
             border: 1px solid rgba(224, 31, 122, 0.3);
-            margin-top: 30px;
         }
-
-        .ai-title {
-            color: #e01f7a;
-            font-size: 1.3rem;
-            font-weight: 700;
+        .chat-messages {
+            height: 280px;
+            overflow-y: auto;
+            padding: 10px;
+            background: #050505;
+            border-radius: 12px;
             margin-bottom: 15px;
             display: flex;
-            align-items: center;
+            flex-direction: column;
             gap: 10px;
         }
-
-        #aiQuestion {
-            width: 100%;
-            padding: 16px 20px;
-            border: 1px solid rgba(224, 31, 122, 0.3);
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.05);
-            color: #ffffff;
-            font-family: 'Inter', sans-serif;
-            font-size: 1rem;
-            margin-bottom: 15px;
-            resize: none;
-            min-height: 100px;
+        .chat-message {
+            max-width: 80%;
+            padding: 10px 14px;
+            border-radius: 18px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            word-wrap: break-word;
         }
-
-        #aiQuestion:focus {
+        .user-message {
+            align-self: flex-end;
+            background: linear-gradient(135deg, #e01f7a, #ff1744);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+        .bot-message {
+            align-self: flex-start;
+            background: #1e1e2e;
+            color: #f0f0f0;
+            border-bottom-left-radius: 4px;
+            border: 1px solid rgba(224,31,122,0.3);
+        }
+        .chat-input-area {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .chat-input {
+            flex: 1;
+            padding: 12px 15px;
+            border-radius: 30px;
+            border: 1px solid rgba(224,31,122,0.4);
+            background: #111;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+        }
+        .chat-input:focus {
             outline: none;
             border-color: #e01f7a;
-            box-shadow: 0 0 0 3px rgba(224, 31, 122, 0.2);
         }
-
-        .ai-response {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 20px;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            margin-top: 20px;
-            display: none;
-            animation: fadeIn 0.3s ease;
+        .chat-send-btn {
+            background: linear-gradient(135deg, #e01f7a, #ff1744);
+            border: none;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            cursor: pointer;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
         }
-
-        .ai-response.active { display: block; }
-
-        .ai-response-content {
-            color: #f0f0f0;
-            line-height: 1.7;
-            font-size: 1.05rem;
-            white-space: pre-wrap;
+        .chat-send-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 12px rgba(224,31,122,0.6);
         }
-
         .company-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
             gap: 15px;
             margin-top: 20px;
         }
-
         .company-item {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -841,14 +838,12 @@
             cursor: pointer;
             transition: all 0.3s;
         }
-
         .company-item:hover {
             background: rgba(224, 31, 122, 0.2);
             border-color: rgba(224, 31, 122, 0.4);
             transform: translateY(-3px);
             box-shadow: 0 4px 15px rgba(224, 31, 122, 0.3);
         }
-
         .copy-notification {
             position: fixed;
             bottom: 30px;
@@ -867,17 +862,14 @@
             opacity: 0;
             animation: slideUpCopy 0.3s ease forwards, fadeOutCopy 0.3s ease 1.7s forwards;
         }
-
         @keyframes slideUpCopy {
             from { opacity: 0; transform: translateX(-50%) translateY(20px); }
             to { opacity: 1; transform: translateX(-50%) translateY(0); }
         }
-
         @keyframes fadeOutCopy {
             from { opacity: 1; transform: translateX(-50%) translateY(0); }
             to { opacity: 0; transform: translateX(-50%) translateY(-20px); }
         }
-
         /* Posts Modal */
         .posts-modal {
             display: none;
@@ -890,9 +882,7 @@
             align-items: center;
             padding: 20px;
         }
-
         .posts-modal.active { display: flex; }
-
         .posts-container {
             background: #0a0a0a;
             border-radius: 20px;
@@ -904,9 +894,7 @@
             position: relative;
             border: 1px solid rgba(224, 31, 122, 0.3);
         }
-
         .posts-header { margin-bottom: 30px; }
-
         .posts-header h2 {
             font-size: 2rem;
             font-weight: 900;
@@ -914,10 +902,7 @@
             margin-bottom: 10px;
             letter-spacing: 2px;
         }
-
-        .posts-header p { color: #999999; font-size: 1rem; }
-
-        .random-post-btn {
+        .random-post-btn, .add-post-btn {
             background: linear-gradient(135deg, #e01f7a 0%, #ff1744 100%);
             color: white;
             border: none;
@@ -926,62 +911,31 @@
             cursor: pointer;
             font-weight: 700;
             font-size: 1rem;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 10px;
             transition: all 0.3s;
             margin-bottom: 30px;
             box-shadow: 0 4px 20px rgba(224, 31, 122, 0.4);
         }
-
-        .random-post-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 30px rgba(224, 31, 122, 0.6); }
-
         .posts-carousel { position: relative; margin: 30px 0; overflow: hidden; }
-
         .posts-track {
             display: flex;
-            transition: transform 0.5s ease;
             gap: 25px;
             padding: 10px 5px;
             overflow-x: auto;
             scroll-behavior: smooth;
         }
-
         .posts-track::-webkit-scrollbar { display: none; }
-
         .post-item {
             background: #000000;
             border-radius: 16px;
             padding: 20px;
             border: 1px solid rgba(224, 31, 122, 0.3);
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
-            transition: all 0.3s;
-            display: flex;
-            flex-direction: column;
-            min-height: 200px;
             min-width: 300px;
             max-width: 300px;
             flex-shrink: 0;
         }
-
-        .post-item:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 30px rgba(224, 31, 122, 0.4);
-            border-color: #e01f7a;
-        }
-
-        .post-item.highlight {
-            animation: highlightPulse 0.6s ease-in-out;
-            border-color: #e01f7a;
-            border-width: 2px;
-            box-shadow: 0 0 30px rgba(224, 31, 122, 0.6);
-        }
-
-        @keyframes highlightPulse {
-            0%, 100% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(-4px) scale(1.03); box-shadow: 0 12px 40px rgba(224, 31, 122, 0.6); }
-        }
-
         .post-text {
             color: #ffffff;
             line-height: 1.7;
@@ -989,19 +943,9 @@
             white-space: pre-wrap;
             margin-bottom: 15px;
             user-select: text;
-            -webkit-user-select: text;
-            -moz-user-select: text;
-            flex: 1;
-            overflow-y: auto;
             max-height: 180px;
-            padding-right: 5px;
+            overflow-y: auto;
         }
-
-        .post-text::-webkit-scrollbar { width: 6px; }
-        .post-text::-webkit-scrollbar-track { background: #0a0a0a; border-radius: 10px; }
-        .post-text::-webkit-scrollbar-thumb { background: #e01f7a; border-radius: 10px; }
-        .post-text::-webkit-scrollbar-thumb:hover { background: #ff1744; }
-
         .posts-copy-btn {
             background: linear-gradient(135deg, #e01f7a 0%, #ff1744 100%);
             color: white;
@@ -1010,26 +954,15 @@
             border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
-            font-size: 0.85rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: all 0.3s;
             width: 100%;
             justify-content: center;
-            margin-top: auto;
         }
-
-        .posts-copy-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(224, 31, 122, 0.6); }
-        .posts-copy-btn.copied { background: linear-gradient(135deg, #48bb78 0%, #38a169 100%); }
-
         .carousel-nav {
             display: flex;
             justify-content: center;
             gap: 15px;
             margin-top: 20px;
         }
-
         .carousel-btn {
             background: linear-gradient(135deg, #e01f7a 0%, #ff1744 100%);
             color: white;
@@ -1041,34 +974,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(224, 31, 122, 0.4);
-            position: relative;
-            z-index: 10;
         }
-
-        .carousel-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 25px rgba(224, 31, 122, 0.6); }
-
-        .add-post-btn {
-            background: linear-gradient(135deg, #e01f7a 0%, #ff1744 100%);
-            color: white;
-            border: none;
-            padding: 14px 30px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-weight: 700;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 20px rgba(224, 31, 122, 0.4);
-        }
-
-        .add-post-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 30px rgba(224, 31, 122, 0.6); }
-
         .add-post-modal {
             display: none;
             position: fixed;
@@ -1080,9 +986,7 @@
             align-items: center;
             padding: 20px;
         }
-
         .add-post-modal.active { display: flex; }
-
         .add-post-container {
             background: #0a0a0a;
             border-radius: 20px;
@@ -1092,79 +996,44 @@
             position: relative;
             border: 1px solid rgba(224, 31, 122, 0.3);
         }
-
-        .add-post-header { margin-bottom: 25px; }
-
-        .add-post-header h3 {
-            font-size: 1.5rem;
-            font-weight: 900;
-            color: #ffffff;
-            margin-bottom: 10px;
-            letter-spacing: 1px;
-        }
-
-        .add-post-header p { color: #999999; font-size: 0.95rem; }
-
         .post-textarea {
             width: 100%;
             min-height: 200px;
             padding: 15px;
             border: 1px solid rgba(224, 31, 122, 0.3);
             border-radius: 12px;
-            font-family: 'Inter', sans-serif;
-            font-size: 1rem;
-            resize: vertical;
-            margin-bottom: 20px;
             background: #000000;
             color: #ffffff;
+            font-family: 'Inter', sans-serif;
         }
-
-        .post-textarea:focus {
-            outline: none;
-            border-color: #e01f7a;
-            box-shadow: 0 0 0 3px rgba(224, 31, 122, 0.2);
-        }
-
         .form-actions {
             display: flex;
             gap: 15px;
             justify-content: flex-end;
+            margin-top: 20px;
         }
-
         .cancel-btn {
-            background: rgba(255, 255, 255, 0.1);
-            color: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 12px 24px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: all 0.3s;
-        }
-
-        .cancel-btn:hover { background: rgba(255, 255, 255, 0.2); }
-
-        .save-btn {
-            background: linear-gradient(135deg, #e01f7a 0%, #ff1744 100%);
+            background: rgba(255,255,255,0.1);
             color: white;
             border: none;
             padding: 12px 24px;
             border-radius: 8px;
             cursor: pointer;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: all 0.3s;
         }
-
-        .save-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(224, 31, 122, 0.6); }
-
+        .save-btn {
+            background: linear-gradient(135deg, #e01f7a, #ff1744);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
         .close-modal {
             position: absolute;
             top: 20px;
             right: 20px;
-            background: rgba(224, 31, 122, 0.1);
-            border: 1px solid rgba(224, 31, 122, 0.3);
+            background: rgba(224,31,122,0.1);
+            border: 1px solid rgba(224,31,122,0.3);
             width: 40px;
             height: 40px;
             border-radius: 50%;
@@ -1174,11 +1043,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s;
         }
-
-        .close-modal:hover { transform: rotate(90deg); background: rgba(224, 31, 122, 0.2); }
-
         footer {
             background: #000000;
             color: white;
@@ -1190,1122 +1055,223 @@
             transition: all 0.8s ease;
             display: none;
         }
-
         footer.show { opacity: 1; transform: translateY(0); display: block; }
-        footer p { opacity: 0.7; letter-spacing: 1px; }
-
-        /* Responsive */
         @media (max-width: 768px) {
-            /* Header */
-            .header-content { flex-direction: column; gap: 10px; }
-            .logo { justify-content: center; width: 100%; }
-            .logo-v { font-size: 2rem; }
-            .logo-text { font-size: 1.4rem; letter-spacing: 5px; }
-
-            /* Hero */
-            .hero { padding: 50px 0 35px; }
-            .hero h1 { font-size: 2rem; letter-spacing: 1px; }
-            .hero .tagline { font-size: 0.95rem; margin-bottom: 25px; letter-spacing: 1px; }
-            .super-button { padding: 14px 28px; font-size: 0.95rem; width: 90%; max-width: 320px; }
-
-            /* Services grid */
-            .services-section { padding: 50px 0; }
-            .section-title h2 { font-size: 1.6rem; }
-            .section-title p { font-size: 0.9rem; }
-            .services-grid { grid-template-columns: 1fr; gap: 16px; }
-            .service-card { margin-bottom: 0; }
-            .card-image { height: 190px; }
-            .card-content { padding: 18px; }
-            .card-badge { font-size: 0.8rem; padding: 6px 12px; }
-            .card-title { font-size: 1.2rem; }
-            .card-description { font-size: 0.9rem; margin-bottom: 12px; }
-
-            /* Music player */
-            .music-player-fixed { bottom: 12px; right: 12px; }
-            .main-music-card { max-width: calc(100vw - 24px); padding: 10px 12px; }
-            .album-art { width: 44px; height: 44px; border-radius: 12px; }
-            .track-title { font-size: 0.9rem; }
-            .artist-name { font-size: 0.7rem; }
-            .control-button { width: 34px; height: 34px; }
-            .main-control-btns { gap: 8px; }
-
-            /* Assistant modal */
-            .assistant-modal { padding: 0; }
-            .assistant-container { border-radius: 0; min-height: 100dvh; display: flex; flex-direction: column; }
-            .assistant-header { padding: 15px; flex-direction: row; align-items: center; flex-wrap: nowrap; position: relative; }
-            .assistant-header-content { flex-direction: row; gap: 10px; }
-            .assistant-avatar { width: 44px; height: 44px; font-size: 1.3rem; flex-shrink: 0; }
-            .assistant-title h2 { font-size: 1.1rem; }
-            .assistant-title p { font-size: 0.8rem; }
-            .assistant-close { position: absolute; top: 12px; right: 12px; width: 36px; height: 36px; font-size: 1.2rem; }
-            .assistant-nav { padding: 8px 10px; gap: 6px; }
-            .nav-item { padding: 8px 14px; font-size: 0.82rem; }
-            .assistant-content { padding: 15px; max-height: none; flex: 1; overflow-y: auto; }
-            .template-box { padding: 16px; margin-bottom: 16px; }
-            .template-text { padding: 12px; font-size: 0.92rem; max-height: 220px; }
-            .copy-btn { padding: 11px 16px; font-size: 0.9rem; min-width: unset; width: 100%; }
-            .template-actions { flex-direction: column; gap: 10px; }
-            .ai-question-box { padding: 16px; margin-top: 20px; }
-            .ai-title { font-size: 1.1rem; }
-            #aiQuestion { padding: 12px; font-size: 0.9rem; min-height: 75px; }
-            .company-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-            .company-item { padding: 11px; font-size: 0.85rem; }
-            .section-title-small { font-size: 1.2rem; }
-
-            /* Posts modal */
-            .posts-modal { padding: 0; align-items: flex-end; }
-            .posts-container { border-radius: 20px 20px 0 0; max-height: 92vh; padding: 20px 15px 30px; width: 100%; }
-            .posts-header h2 { font-size: 1.3rem; }
-            .posts-header p { font-size: 0.85rem; }
-            .random-post-btn, .add-post-btn { width: 100%; justify-content: center; font-size: 0.88rem; padding: 11px 16px; margin-bottom: 12px; }
-            .posts-carousel { margin: 15px 0; }
-            .post-item { min-width: 260px; max-width: 260px; padding: 14px; }
-            .post-text { font-size: 0.88rem; max-height: 140px; }
-            .posts-copy-btn { padding: 9px; font-size: 0.8rem; }
-            .carousel-btn { width: 40px; height: 40px; font-size: 1rem; }
-
-            /* Add post modal */
-            .add-post-modal { padding: 0; align-items: flex-end; }
-            .add-post-container { border-radius: 20px 20px 0 0; padding: 25px 18px 35px; }
-            .add-post-header h3 { font-size: 1.2rem; }
-            .post-textarea { min-height: 140px; font-size: 0.9rem; }
-
-            footer { padding: 25px 0; }
-            footer p { font-size: 0.85rem; }
-        }
-
-        @media (max-width: 480px) {
-            .logo-v { font-size: 1.8rem; }
-            .logo-text { font-size: 1.2rem; letter-spacing: 4px; }
-            .hero { padding: 40px 0 28px; }
-            .hero h1 { font-size: 1.7rem; }
-            .hero .tagline { font-size: 0.85rem; }
-            .super-button { font-size: 0.88rem; padding: 13px 22px; }
-            .card-image { height: 170px; }
-            .card-content { padding: 15px; }
-            .card-title { font-size: 1.1rem; }
-            .assistant-title h2 { font-size: 1rem; }
-            .nav-item { padding: 7px 11px; font-size: 0.78rem; }
-            .template-box { padding: 13px; }
-            .template-text { padding: 10px; font-size: 0.88rem; }
-            .company-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
-            .company-item { padding: 9px; font-size: 0.8rem; }
-            .post-item { min-width: 240px; max-width: 240px; }
-            .main-music-card { max-width: calc(100vw - 20px); }
-        }
-
-        @media (max-width: 360px) {
-            .hero h1 { font-size: 1.5rem; }
-            .logo-text { font-size: 1rem; letter-spacing: 3px; }
-            .nav-item { padding: 6px 9px; font-size: 0.74rem; }
-            .post-item { min-width: 220px; max-width: 220px; }
+            .assistant-content { padding: 15px; max-height: 55vh; }
+            .chat-messages { height: 220px; }
+            .chat-message { max-width: 90%; }
+            .post-item { min-width: 260px; }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <span class="logo-v">V</span>
-                    <span class="logo-text">ORANIX</span>
-                </div>
-            </div>
-        </div>
-    </header>
+    <header><div class="container"><div class="header-content"><div class="logo"><span class="logo-v">V</span><span class="logo-text">ORANIX</span></div></div></div></header>
+    <section class="hero"><div class="hero-content"><div class="container"><h1>VORANIX</h1><p class="tagline">Where Power Hires Power.</p><button class="super-button" id="exploreButton"><span>Explore Our Services</span><svg fill="none" viewBox="0 0 24 24" class="arrow"><path stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" d="M5 12h14M13 6l6 6-6 6"></path></svg></button></div></div></section>
 
-    <section class="hero">
-        <div class="hero-content">
-            <div class="container">
-                <h1>VORANIX</h1>
-                <p class="tagline">Where Power Hires Power.</p>
-                <button class="super-button" id="exploreButton">
-                    <span>Explore Our Services</span>
-                    <svg fill="none" viewBox="0 0 24 24" class="arrow">
-                        <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" d="M5 12h14M13 6l6 6-6 6"></path>
-                    </svg>
-                </button>
-            </div>
-        </div>
-    </section>
+    <section class="services-section" id="services"><div class="container"><div class="section-title"><h2>Professional Offers</h2><p>Everything you need to succeed in your recruitment journey</p></div>
+    <div class="services-grid">
+        <div class="service-card" onclick="window.location.href='sourcing-tools.html'"><div class="card-image" style="background-image: url('https://i.ibb.co/nsSfNr3m/image.png');"></div><div class="card-content"><span class="card-badge"><i class="fas fa-users"></i> Essential Tools</span><h3 class="card-title">Sourcing Tools</h3><p class="card-description">Start joining groups and posting to reach best candidates.</p><a href="#" class="card-link">Explore Tools -></a></div></div>
+        <div class="service-card" onclick="openPostsModal()"><div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1552664730-d307ca884978?w=800');"></div><div class="card-content"><span class="card-badge"><i class="fas fa-copy"></i> Templates</span><h3 class="card-title">Recruitment Posts</h3><p class="card-description">Ready-to-use recruitment templates for social media posts.</p><a href="#" class="card-link">View Templates -></a></div></div>
+        <div class="service-card" onclick="window.open('https://docs.google.com/spreadsheets/d/1tux2YhHqbinvSXRBurXe-rp3riRxSbfxeEjTry6yKsA/edit?gid=0#gid=0', '_blank')"><div class="card-image" style="background-image: url('https://i.ibb.co/nMjNDSdh/image.png');"></div><div class="card-content"><span class="card-badge"><i class="fas fa-globe"></i> 14.4M+ Opportunities</span><h3 class="card-title">Offers Sheet</h3><p class="card-description">Access opportunities in 7 languages.</p><a href="#" class="card-link">View Offers -></a></div></div>
+        <div class="service-card" onclick="window.location.href='offersform.html'"><div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=800');"></div><div class="card-content"><span class="card-badge"><i class="fas fa-file-alt"></i> 8M+ Submissions</span><h3 class="card-title">Offers Form</h3><p class="card-description">Fill candidate form to proceed.</p><a href="#" class="card-link">Fill Form -></a></div></div>
+        <div class="service-card" onclick="openAssistantModal()"><div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800');"></div><div class="card-content"><span class="card-badge"><i class="fas fa-robot"></i> AI Powered</span><h3 class="card-title">Recruitment Assistant</h3><p class="card-description">AI-powered assistant that provides recruitment scripts and templates.</p><a href="#" class="card-link">Get Templates -></a></div></div>
+        <div class="service-card" onclick="window.location.href='smart-job-matching.html'"><div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800');"></div><div class="card-content"><span class="card-badge"><i class="fas fa-robot"></i> AI Powered</span><h3 class="card-title">Smart Job Matching</h3><p class="card-description">Find most suitable job offers from VORANIX's network.</p><a href="#" class="card-link">Find Your Match -></a></div></div>
+    </div></div></section>
 
-    <section class="services-section" id="services">
-        <div class="container">
-            <div class="section-title">
-                <h2>Professional Offers</h2>
-                <p>Everything you need to succeed in your recruitment journey</p>
-            </div>
-            <div class="services-grid">
-                <div class="service-card" onclick="window.location.href='sourcing-tools.html'">
-                    <div class="card-image" style="background-image: url('https://i.ibb.co/nsSfNr3m/image.png');"></div>
-                    <div class="card-content">
-                        <span class="card-badge"><i class="fas fa-users"></i> Essential Tools</span>
-                        <h3 class="card-title">Sourcing Tools</h3>
-                        <p class="card-description">Start joining the groups and posting to reach the best candidates in your field.</p>
-                        <a href="#" class="card-link">Explore Tools <span class="arrow">→</span></a>
-                    </div>
-                </div>
-
-                <div class="service-card" onclick="openPostsModal()">
-                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
-                    <div class="card-content">
-                        <span class="card-badge"><i class="fas fa-copy"></i> Templates</span>
-                        <h3 class="card-title">Recruitment Posts</h3>
-                        <p class="card-description">Ready-to-use recruitment templates for social media posts and job announcements.</p>
-                        <a href="#" class="card-link">View Templates <span class="arrow">→</span></a>
-                    </div>
-                </div>
-
-                <div class="service-card" onclick="handleCardClick('https://docs.google.com/spreadsheets/d/1tux2YhHqbinvSXRBurXe-rp3riRxSbfxeEjTry6yKsA/edit?gid=0#gid=0', 'sheets')">
-                    <div class="card-image" style="background-image: url('https://i.ibb.co/nMjNDSdh/image.png');"></div>
-                    <div class="card-content">
-                        <span class="card-badge"><i class="fas fa-globe"></i> 14.4M+ Opportunities</span>
-                        <h3 class="card-title">Offers Sheet</h3>
-                        <p class="card-description">Access opportunities in 7 languages: English, Spanish, Italian, French, German, Ukrainian, Russian.</p>
-                        <a href="#" class="card-link">View Offers <span class="arrow">→</span></a>
-                    </div>
-                </div>
-
-                <div class="service-card" onclick="handleCardClick('offersform.html', 'form')">
-                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=800&q=80');"></div>
-                    <div class="card-content">
-                        <span class="card-badge"><i class="fas fa-file-alt"></i> 8M+ Submissions</span>
-                        <h3 class="card-title">Offers Form</h3>
-                        <p class="card-description">If everything looks good, start by filling the candidate form to proceed.</p>
-                        <a href="#" class="card-link">Fill Form <span class="arrow">→</span></a>
-                    </div>
-                </div>
-
-                <div class="service-card" onclick="openAssistantModal()">
-                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
-                    <div class="card-content">
-                        <span class="card-badge"><i class="fas fa-robot"></i> AI Powered</span>
-                        <h3 class="card-title">Recruitment Assistant</h3>
-                        <p class="card-description">AI-powered assistant that provides recruitment scripts and templates with one click.</p>
-                        <a href="#" class="card-link">Get Templates <span class="arrow">→</span></a>
-                    </div>
-                </div>
-
-                <div class="service-card" onclick="handleCardClick('smart-job-matching.html', 'matching')">
-                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&q=80');"></div>
-                    <div class="card-content">
-                        <span class="card-badge"><i class="fas fa-robot"></i> AI Powered</span>
-                        <h3 class="card-title">Smart Job Matching</h3>
-                        <p class="card-description">Tell us about yourself and we'll find the most suitable job offers from VORANIX's extensive network.</p>
-                        <a href="#" class="card-link">Find Your Match <span class="arrow">→</span></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- NEW MUSIC PLAYER -->
-    <div class="music-player-fixed" id="newMusicPlayer">
-        <div class="main-music-card">
-            <button class="music-close-btn" id="closeMusicBtn">×</button>
-            <div class="track-info">
-                <div class="album-art" id="playerAlbumArt"></div>
-                <div class="track-details">
-                    <div class="track-title" id="playerTrackTitle">Sunsetz</div>
-                    <div class="artist-name" id="playerArtistName">Cigarettes After Sex</div>
-                </div>
-                <div class="volume-bars" id="volumeBars">
-                    <div class="bar" style="--delay:0s"></div>
-                    <div class="bar" style="--delay:0.1s"></div>
-                    <div class="bar" style="--delay:0.2s"></div>
-                    <div class="bar" style="--delay:0.3s"></div>
-                    <div class="bar" style="--delay:0.4s"></div>
-                    <div class="bar" style="--delay:0.5s"></div>
-                    <div class="bar" style="--delay:0.6s"></div>
-                    <div class="bar" style="--delay:0.7s"></div>
-                </div>
-            </div>
-            <div class="playback-controls">
-                <div class="time-info">
-                    <span id="currentTime">0:00</span>
-                    <span id="remainingTime">0:00</span>
-                </div>
-                <div class="progress-bar" id="progressBarContainer">
-                    <div class="progress-fill" id="progressFill"></div>
-                    <div class="progress-handle" id="progressHandle"></div>
-                </div>
-                <div class="button-row">
-                    <div class="main-control-btns">
-                        <button class="control-button" id="prevBtn">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
-                                <path d="M.5 3.5A.5.5 0 0 0 0 4v8a.5.5 0 0 0 1 0V8.753l6.267 3.636c.54.313 1.233-.066 1.233-.697v-2.94l6.267 3.636c.54.314 1.233-.065 1.233-.696V4.308c0-.63-.693-1.01-1.233-.696L8.5 7.248v-2.94c0-.63-.692-1.01-1.233-.696L1 7.248V4a.5.5 0 0 0-.5-.5"/>
-                            </svg>
-                        </button>
-                        <button class="control-button play-pause-button" id="playPauseBtn">
-                            <svg class="icon-play" width="26" height="26" viewBox="0 0 16 16">
-                                <path fill="currentColor" d="M11.596 8.697l-6.363 3.692c-.54.314-1.233-.065-1.233-.696V4.308c0-.63.693-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393"/>
-                            </svg>
-                            <svg class="icon-pause" width="26" height="26" viewBox="0 0 16 16">
-                                <path fill="currentColor" d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5m5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5"/>
-                            </svg>
-                        </button>
-                        <button class="control-button" id="nextBtn">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
-                                <path d="M15.5 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V8.753l-6.267 3.636c-.54.313-1.233-.066-1.233-.697v-2.94l-6.267 3.636C.693 12.703 0 12.324 0 11.693V4.308c0-.63.693-1.01 1.233-.696L7.5 7.248v-2.94c0-.63.693-1.01 1.233-.696L15 7.248V4a.5.5 0 0 1 .5-.5"/>
-                            </svg>
-                        </button>
-                    </div>
-                    <button class="control-button d" id="radarBtn">
-                        <svg width="18" height="18" viewBox="0 0 16 16">
-                            <path fill="currentColor" d="M6.634 1.135A7 7 0 0 1 15 8a.5.5 0 0 1-1 0 6 6 0 1 0-6.5 5.98v-1.005A5 5 0 1 1 13 8a.5.5 0 0 1-1 0 4 4 0 1 0-4.5 3.969v-1.011A2.999 2.999 0 1 1 11 8a.5.5 0 0 1-1 0 2 2 0 1 0-2.5 1.936v-1.07a1 1 0 1 1 1 0V15.5a.5.5 0 0 1-1 0v-.518a7 7 0 0 1-.866-13.847"/>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- MUSIC PLAYER -->
+    <div class="music-player-fixed" id="newMusicPlayer"><div class="main-music-card"><button class="music-close-btn" id="closeMusicBtn">×</button><div class="track-info"><div class="album-art" id="playerAlbumArt"></div><div class="track-details"><div class="track-title" id="playerTrackTitle">Sunsetz</div><div class="artist-name" id="playerArtistName">Cigarettes After Sex</div></div><div class="volume-bars" id="volumeBars"><div class="bar" style="--delay:0s"></div><div class="bar" style="--delay:0.1s"></div><div class="bar" style="--delay:0.2s"></div><div class="bar" style="--delay:0.3s"></div><div class="bar" style="--delay:0.4s"></div><div class="bar" style="--delay:0.5s"></div><div class="bar" style="--delay:0.6s"></div><div class="bar" style="--delay:0.7s"></div></div></div><div class="playback-controls"><div class="time-info"><span id="currentTime">0:00</span><span id="remainingTime">0:00</span></div><div class="progress-bar" id="progressBarContainer"><div class="progress-fill" id="progressFill"></div><div class="progress-handle" id="progressHandle"></div></div><div class="button-row"><div class="main-control-btns"><button class="control-button" id="prevBtn"><svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M.5 3.5A.5.5 0 0 0 0 4v8a.5.5 0 0 0 1 0V8.753l6.267 3.636c.54.313 1.233-.066 1.233-.697v-2.94l6.267 3.636c.54.314 1.233-.065 1.233-.696V4.308c0-.63-.693-1.01-1.233-.696L8.5 7.248v-2.94c0-.63-.692-1.01-1.233-.696L1 7.248V4a.5.5 0 0 0-.5-.5"/></svg></button><button class="control-button play-pause-button" id="playPauseBtn"><svg class="icon-play" width="26" height="26" viewBox="0 0 16 16"><path fill="currentColor" d="M11.596 8.697l-6.363 3.692c-.54.314-1.233-.065-1.233-.696V4.308c0-.63.693-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393"/></svg><svg class="icon-pause" width="26" height="26" viewBox="0 0 16 16"><path fill="currentColor" d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5m5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5"/></svg></button><button class="control-button" id="nextBtn"><svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M15.5 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V8.753l-6.267 3.636c-.54.313-1.233-.066-1.233-.697v-2.94l-6.267 3.636C.693 12.703 0 12.324 0 11.693V4.308c0-.63.693-1.01 1.233-.696L7.5 7.248v-2.94c0-.63.693-1.01 1.233-.696L15 7.248V4a.5.5 0 0 1 .5-.5"/></svg></button></div><button class="control-button d" id="radarBtn"><svg width="18" height="18" viewBox="0 0 16 16"><path fill="currentColor" d="M6.634 1.135A7 7 0 0 1 15 8a.5.5 0 0 1-1 0 6 6 0 1 0-6.5 5.98v-1.005A5 5 0 1 1 13 8a.5.5 0 0 1-1 0 4 4 0 1 0-4.5 3.969v-1.011A2.999 2.999 0 1 1 11 8a.5.5 0 0 1-1 0 2 2 0 1 0-2.5 1.936v-1.07a1 1 0 1 1 1 0V15.5a.5.5 0 0 1-1 0v-.518a7 7 0 0 1-.866-13.847"/></svg></button></div></div></div></div>
 
     <!-- ASSISTANT MODAL -->
-    <div class="assistant-modal" id="assistantModal">
-        <div class="assistant-container">
-            <div class="assistant-header">
-                <div class="assistant-header-content">
-                    <div class="assistant-avatar">
-                        <i class="fas fa-robot"></i>
-                    </div>
-                    <div class="assistant-title">
-                        <h2>VORANIX Assistant</h2>
-                        <p>AI-Powered Recruitment Templates</p>
-                    </div>
+    <div class="assistant-modal" id="assistantModal"><div class="assistant-container"><div class="assistant-header"><div class="assistant-header-content"><div class="assistant-avatar"><i class="fas fa-robot"></i></div><div class="assistant-title"><h2>VORANIX Assistant</h2><p>AI-Powered Recruitment Templates</p></div></div><button class="assistant-close" onclick="closeAssistantModal()">×</button></div><div class="assistant-nav-wrapper"><button class="nav-scroll-btn left" onclick="scrollAssistantNav(-200)">-</button><div class="assistant-nav" id="assistantNav"><button class="nav-item active" onclick="showSection('welcome')">Welcome</button><button class="nav-item" onclick="showSection('voice')">Voice Note</button><button class="nav-item" onclick="showSection('accepted')">If Accepted</button><button class="nav-item" onclick="showSection('rejected')">If Rejected</button><button class="nav-item" onclick="showSection('form')">Form</button><button class="nav-item" onclick="showSection('confirmation')">Confirmation</button><button class="nav-item" onclick="showSection('ai')">Ask AI</button></div><button class="nav-scroll-btn right" onclick="scrollAssistantNav(200)">-</button></div><div class="assistant-content"><div id="welcomeSection" class="template-section active"><h3 class="section-title-small">Welcome Message</h3><div class="template-box"><div class="template-text">Hello, are you interested in working at a call center?</div><button class="copy-btn" onclick="copyText('Hello, are you interested in working at a call center?', this)">Copy</button></div><div class="template-box"><div class="template-text">Nice,\n\nPlease lemme know more details...\n1. Grad or undergrad?\n2. Military service?\n3. Age?\n4. Location?\n5. Language level</div><button class="copy-btn" onclick="copyText('Nice,\n\nPlease lemme know more details...', this)">Copy</button></div></div><div id="voiceSection" class="template-section"><h3 class="section-title-small">Voice Note</h3><div class="template-box"><div class="template-text">Send a 1-2 min voice note introducing yourself.</div><button class="copy-btn" onclick="copyText('Send a 1-2 min voice note...', this)">Copy</button></div></div><div id="acceptedSection" class="template-section"><h3 class="section-title-small">Accepted</h3><div class="template-box"><div class="template-text">Congratulations! We're happy to have you on board.</div><button class="copy-btn" onclick="copyText('Congratulations! We\'re happy to have you on board.', this)">Copy</button></div></div><div id="rejectedSection" class="template-section"><h3 class="section-title-small">Rejected</h3><div class="template-box"><div class="template-text">Thank you for applying. Keep improving your skills!</div><button class="copy-btn" onclick="copyText('Thank you for applying. Keep improving!', this)">Copy</button></div></div><div id="formSection" class="template-section"><h3 class="section-title-small">Form</h3><div class="template-box"><div class="template-text">Full Name:\nPhone:\nNational ID:\nEmail:\nGraduation Status:\nExperience:</div><button class="copy-btn" onclick="copyText('Full Name:\nPhone:\n...', this)">Copy</button></div></div><div id="confirmationSection" class="template-section"><h3 class="section-title-small">Interview Confirmation</h3><div class="template-box"><div class="template-text">Confirm your interview at [Company] tomorrow. Reply "Confirmed".</div><button class="copy-btn" onclick="copyText('Confirm your interview...', this)">Copy</button></div><div class="company-grid" id="companyGrid"></div></div>
+
+        <!-- ASK AI SECTION with FULL CHAT -->
+        <div id="aiSection" class="template-section">
+            <h3 class="section-title-small">Chat with VORANIX AI</h3>
+            <div class="chat-container">
+                <div class="chat-messages" id="chatMessages">
+                    <div class="chat-message bot-message">Hello! I'm VORANIX AI assistant. Ask me anything about recruitment, call center jobs, interviews, voice notes, or job offers!</div>
                 </div>
-                <button class="assistant-close" onclick="closeAssistantModal()">×</button>
-            </div>
-
-            <div class="assistant-nav-wrapper">
-                <button class="nav-scroll-btn left" onclick="scrollAssistantNav(-200)">&#8249;</button>
-                <div class="assistant-nav" id="assistantNav">
-                    <button class="nav-item active" onclick="showSection('welcome')"><i class="fas fa-home"></i> Welcome</button>
-                    <button class="nav-item" onclick="showSection('voice')"><i class="fas fa-microphone"></i> Voice Note</button>
-                    <button class="nav-item" onclick="showSection('accepted')"><i class="fas fa-check-circle"></i> If Accepted</button>
-                    <button class="nav-item" onclick="showSection('rejected')"><i class="fas fa-times-circle"></i> If Rejected</button>
-                    <button class="nav-item" onclick="showSection('confirmation')"><i class="fas fa-calendar-check"></i> Confirmation</button>
-                    <button class="nav-item" onclick="showSection('form')"><i class="fas fa-file-alt"></i> Form</button>
-                    <button class="nav-item" onclick="showSection('interview')"><i class="fas fa-question-circle"></i> Interview Q&A</button>
-                    <button class="nav-item" onclick="showSection('companies')"><i class="fas fa-building"></i> Companies</button>
-                    <button class="nav-item" onclick="showSection('ai')"><i class="fas fa-brain"></i> Ask AI</button>
-                </div>
-                <button class="nav-scroll-btn right" onclick="scrollAssistantNav(200)">&#8250;</button>
-            </div>
-
-            <div class="assistant-content">
-                <!-- Welcome Section -->
-                <div id="welcomeSection" class="template-section active">
-                    <h3 class="section-title-small">Welcome Message</h3>
-                    <div class="template-box">
-                        <div class="template-text">Hello, are you interested in working at a call center?</div>
-                        <div class="template-actions">
-                            <button class="copy-btn" onclick="copyText('Hello, are you interested in working at a call center?', this)">
-                                <i class="far fa-copy"></i> Copy Welcome Message
-                            </button>
-                        </div>
-                    </div>
-                    <div class="template-box">
-                        <div class="template-text">Nice,
-
-Please lemme know more details to assist you effectively and recommend a suitable offer & I'll contact u ASAP.
-
-Required Information:
-
-1. Grad or undergrad?
-2. What about military service?
-3. Age?
-4. Location?
-5. Your language/s level</div>
-                        <div class="template-actions">
-                            <button class="copy-btn" onclick="copyText('Nice,\n\nPlease lemme know more details to assist you effectively and recommend a suitable offer & I\'ll contact u ASAP.\n\nRequired Information:\n\n1. Grad or undergrad?\n2. What about military service?\n3. Age?\n4. Location?\n5. Your language/s level', this)">
-                                <i class="far fa-copy"></i> Copy Details Request
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Voice Note Section -->
-                <div id="voiceSection" class="template-section">
-                    <h3 class="section-title-small">Voice Note Instructions</h3>
-                    <div class="template-box">
-                        <div class="template-text">Please send a 1-2 minute voice note introducing yourself and sharing your experience, so we can send you the best offer.
-
-Tips for a good voice note:
-• Speak clearly and confidently
-• Mention your experience
-• State your career goals
-• Keep it professional</div>
-                        <div class="template-actions">
-                            <button class="copy-btn" onclick="copyText('Please send a 1-2 minute voice note introducing yourself and sharing your experience, so we can send you the best offer.\n\nTips for a good voice note:\n• Speak clearly and confidently\n• Mention your experience\n• State your career goals\n• Keep it professional', this)">
-                                <i class="far fa-copy"></i> Copy Voice Note Instructions
-                            </button>
-                        </div>
-                    </div>
-                    <div class="template-box">
-                        <div class="template-text">Your request was submitted successfully ✅
-
-Feedback will be provided as soon as possible inshallah for your VN Assessment.
-
-Important: Please don't apply again for the same offer/company through anyone else to avoid duplication issues.
-
-Good luck!
-
-Just to let you know, not replying doesn't mean you were rejected. You can message me again if 42 hours have passed without reply.</div>
-                        <div class="template-actions">
-                            <button class="copy-btn" onclick="copyText('Your request was submitted successfully ✅\n\nFeedback will be provided as soon as possible inshallah for your VN Assessment.\n\nImportant: Please don\'t apply again for the same offer/company through anyone else to avoid duplication issues.\n\nGood luck!\n\nJust to let you know, not replying doesn\'t mean you were rejected. You can message me again if 42 hours have passed without reply.', this)">
-                                <i class="far fa-copy"></i> Copy Submission Confirmation
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- If Accepted Section -->
-                <div id="acceptedSection" class="template-section">
-                    <h3 class="section-title-small">If Accepted ✓</h3>
-                    <div class="template-box">
-                        <div class="template-text">Hello [Candidate Name], hope you're doing great!
-
-I just wanted to say how much I appreciated your voice note — it's clear that you've put in great effort, and it truly shows.
-
-Your dedication and commitment are really impressive, and while there's always room to grow (as with all of us), you're definitely on the right track.
-
-We're happy to have you on board and excited to see how you continue to develop your skills!
-
-Congratulations and all the best 🎉</div>
-                        <div class="template-actions">
-                            <button class="copy-btn" onclick="copyText('Hello [Candidate Name], hope you\'re doing great!\n\nI just wanted to say how much I appreciated your voice note — it\'s clear that you\'ve put in great effort, and it truly shows.\n\nYour dedication and commitment are really impressive, and while there\'s always room to grow (as with all of us), you\'re definitely on the right track.\n\nWe\'re happy to have you on board and excited to see how you continue to develop your skills!\n\nCongratulations and all the best 🎉', this)">
-                                <i class="far fa-copy"></i> Copy Acceptance Message
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- If Rejected Section -->
-                <div id="rejectedSection" class="template-section">
-                    <h3 class="section-title-small">If Rejected ✗</h3>
-                    <div class="template-box">
-                        <div class="template-text">Hello [Candidate Name],
-
-Hope you're doing well! I just wanted to share some quick feedback about your voice note.
-
-At the moment, your English needs a bit more improvement to reach the level we're targeting. That said, I really appreciate the effort you put in — it shows genuine interest and commitment.
-
-Keep practicing and improving your fluency — you're definitely on your way up!
-
-We'd be happy to see you again when you feel more ready. 💪</div>
-                        <div class="template-actions">
-                            <button class="copy-btn" onclick="copyText('Hello [Candidate Name],\n\nHope you\'re doing well! I just wanted to share some quick feedback about your voice note.\n\nAt the moment, your English needs a bit more improvement to reach the level we\'re targeting. That said, I really appreciate the effort you put in — it shows genuine interest and commitment.\n\nKeep practicing and improving your fluency — you\'re definitely on your way up!\n\nWe\'d be happy to see you again when you feel more ready. 💪', this)">
-                                <i class="far fa-copy"></i> Copy Rejection Message
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Confirmation Section -->
-                <div id="confirmationSection" class="template-section">
-                    <h3 class="section-title-small">Interview Confirmation</h3>
-                    <div class="template-box">
-                        <div class="template-text">We are confirming your interview in [Company Name] tomorrow insha'allah.
-
-Details:
-• Date: [Add Date]
-• Time: [Add Time]
-• Dress Code: Smart Casual
-• Location: [Add Location]
-
-Please reply with "Confirmed" if you're coming in the stated time above for sure.
-
-Important: Don't forget to tell them that you are recruited by "Voranix"
-
-Wish you the best of Luck!</div>
-                        <div class="template-actions">
-                            <button class="copy-btn" onclick="copyText('We are confirming your interview in [Company Name] tomorrow insha\'allah.\n\nDetails:\n• Date: [Add Date]\n• Time: [Add Time]\n• Dress Code: Smart Casual\n• Location: [Add Location]\n\nPlease reply with \"Confirmed\" if you\'re coming in the stated time above for sure.\n\nImportant: Don\'t forget to tell them that you are recruited by \"Voranix\"\n\nWish you the best of Luck!', this)">
-                                <i class="far fa-copy"></i> Copy Confirmation Template
-                            </button>
-                        </div>
-                    </div>
-                    <h3 class="section-title-small" style="margin-top: 30px;">Select Company</h3>
-                    <div class="company-grid" id="companyGrid"></div>
-                </div>
-
-                <!-- Form Section -->
-                <div id="formSection" class="template-section">
-                    <h3 class="section-title-small">Candidate Form</h3>
-                    <div class="template-box">
-                        <div class="template-text">Fill in the below data, please.
-
-• Full Name:
-• Phone:
-• National Id:
-• Email address:
-• Graduation Status:
-• Experience:
-
-Please send this information to complete your application.</div>
-                        <div class="template-actions">
-                            <button class="copy-btn" onclick="copyText('Fill in the below data, please.\n\n• Full Name:\n• Phone:\n• National Id:\n• Email address:\n• Graduation Status:\n• Experience:\n\nPlease send this information to complete your application.', this)">
-                                <i class="far fa-copy"></i> Copy Form Template
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Interview Q&A Section -->
-                <div id="interviewSection" class="template-section">
-                    <h3 class="section-title-small">Interview Questions & Answers</h3>
-                    <div class="template-box">
-                        <div class="template-text">Call Center Interview Questions & Answers:
-
-Essential Questions:
-
-1. Tell me about yourself
-   Sample Answer:
-   I'm good in communication as a graduate. I like to work with people and help them solve their issues. I want a stable job and I want to learn English, practice customer service.
-
-2. Why do you want the call center job?
-   Sample Answer:
-   I personally would like to work in a call center to have the ability to improve my communication, enhance my English language acquiring skills and professionally grow where there is defined system.
-
-3. What do you know about our organization?
-   Sample Answer:
-   I understand your company to be a respected name in the customer service field, and that you offer high quality services to businesses overseas.
-
-4. How do you deal with a customer who's angry?
-   Sample Answer:
-   I keep my cool, listen tightly to the customer, say I'm sorry it didn't work and try to resolve the problem with a professional approach.
-
-5. What is customer service?
-   Sample Answer:
-   Customer service is about being of service to the customer, solving their problem and ensuring that they have a positive experience with the company.</div>
-                        <div class="template-actions">
-                            <button class="copy-btn" onclick="copyText('Call Center Interview Questions & Answers:\n\nEssential Questions:\n\n1. Tell me about yourself\n   Sample Answer:\n   I\'m good in communication as a graduate. I like to work with people and help them solve their issues. I want a stable job and I want to learn English, practice customer service.\n\n2. Why do you want the call center job?\n   Sample Answer:\n   I personally would like to work in a call center to have the ability to improve my communication, enhance my English language acquiring skills and professionally grow where there is defined system.\n\n3. What do you know about our organization?\n   Sample Answer:\n   I understand your company to be a respected name in the customer service field, and that you offer high quality services to businesses overseas.\n\n4. How do you deal with a customer who\'s angry?\n   Sample Answer:\n   I keep my cool, listen tightly to the customer, say I\'m sorry it didn\'t work and try to resolve the problem with a professional approach.\n\n5. What is customer service?\n   Sample Answer:\n   Customer service is about being of service to the customer, solving their problem and ensuring that they have a positive experience with the company.', this)">
-                                <i class="far fa-copy"></i> Copy Interview Q&A
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Companies Section -->
-                <div id="companiesSection" class="template-section">
-                    <h3 class="section-title-small">Our Partner Companies</h3>
-                    <div class="template-box">
-                        <div class="template-text">We work with 20+ top call centers and recruitment agencies including:
-
-Leadbull, Dyninno, Realogy, Insource, OUTSOURCING SKILL, NAOS,
-Telephonic, Vitrin Clinic, LTS, Phoenix, IntouchCX, TTC,
-HANG-UP Solutions, CXPERTS, Ultatek, CNS, FOODHUB, Creative Basket,
-Volumex, BPO HIVE
-
-These companies offer excellent opportunities for career growth and development in the customer service industry.</div>
-                        <div class="template-actions">
-                            <button class="copy-btn" onclick="copyText('We work with 20+ top call centers and recruitment agencies including:\n\nLeadbull, Dyninno, Realogy, Insource, OUTSOURCING SKILL, NAOS,\nTelephonic, Vitrin Clinic, LTS, Phoenix, IntouchCX, TTC,\nHANG-UP Solutions, CXPERTS, Ultatek, CNS, FOODHUB, Creative Basket,\nVolumex, BPO HIVE\n\nThese companies offer excellent opportunities for career growth and development in the customer service industry.', this)">
-                                <i class="far fa-copy"></i> Copy Company List
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- AI Section -->
-                <div id="aiSection" class="template-section">
-                    <h3 class="section-title-small">Ask AI Assistant</h3>
-                    <div class="ai-question-box">
-                        <div class="ai-title">
-                            <i class="fas fa-robot"></i>
-                            Ask me anything about recruitment
-                        </div>
-                        <textarea id="aiQuestion" placeholder="Type your question here... Example: How can I improve my interview skills?"></textarea>
-                        <button class="copy-btn" onclick="askAI()">
-                            <i class="fas fa-paper-plane"></i> Ask Question
-                        </button>
-                        <div class="ai-response" id="aiResponse">
-                            <div class="ai-response-content" id="aiResponseContent"></div>
-                            <div class="template-actions" style="margin-top: 15px;">
-                                <button class="copy-btn" onclick="copyAIResponse()">
-                                    <i class="far fa-copy"></i> Copy Answer
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                <div class="chat-input-area">
+                    <input type="text" id="chatInput" class="chat-input" placeholder="Type your message..." autocomplete="off">
+                    <button class="chat-send-btn" id="sendChatBtn"><i class="fas fa-paper-plane"></i></button>
                 </div>
             </div>
         </div>
-    </div>
+    </div></div></div>
 
-    <!-- Posts Modal -->
-    <div class="posts-modal" id="postsModal">
-        <div class="posts-container">
-            <button class="close-modal" onclick="closePostsModal()">×</button>
-            <div class="posts-header">
-                <h2>Recruitment Templates</h2>
-                <p>Select the perfect post template and click copy</p>
-            </div>
-            <button class="random-post-btn" onclick="selectRandomPost()">
-                <i class="fas fa-random"></i> Select Random Post
-            </button>
-            <button class="add-post-btn" onclick="openAddPostModal()">
-                <i class="fas fa-plus"></i> Make Custom Post
-            </button>
-            <div class="posts-carousel">
-                <div class="posts-track" id="postsTrack"></div>
-                <div class="carousel-nav">
-                    <button class="carousel-btn" id="leftBtn"><i class="fas fa-chevron-left"></i></button>
-                    <button class="carousel-btn" id="rightBtn"><i class="fas fa-chevron-right"></i></button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Add Post Modal -->
-    <div class="add-post-modal" id="addPostModal">
-        <div class="add-post-container">
-            <button class="close-modal" onclick="closeAddPostModal()">×</button>
-            <div class="add-post-header">
-                <h3>Add Custom Post</h3>
-                <p>Write your own post template to use with the others</p>
-            </div>
-            <textarea class="post-textarea" id="customPostText" placeholder="Write your custom post here..."></textarea>
-            <div class="form-actions">
-                <button class="cancel-btn" onclick="closeAddPostModal()">Cancel</button>
-                <button class="save-btn" onclick="saveCustomPost()">Save Post</button>
-            </div>
-        </div>
-    </div>
-
+    <!-- POSTS MODAL -->
+    <div class="posts-modal" id="postsModal"><div class="posts-container"><button class="close-modal" onclick="closePostsModal()">×</button><div class="posts-header"><h2>Recruitment Templates</h2><p>Select a post and copy</p></div><button class="random-post-btn" onclick="selectRandomPost()"><i class="fas fa-random"></i> Random Post</button><button class="add-post-btn" onclick="openAddPostModal()"><i class="fas fa-plus"></i> Add Custom</button><div class="posts-carousel"><div class="posts-track" id="postsTrack"></div><div class="carousel-nav"><button class="carousel-btn" id="leftBtn"><i class="fas fa-chevron-left"></i></button><button class="carousel-btn" id="rightBtn"><i class="fas fa-chevron-right"></i></button></div></div></div></div>
+    <div class="add-post-modal" id="addPostModal"><div class="add-post-container"><button class="close-modal" onclick="closeAddPostModal()">×</button><h3>Add Custom Post</h3><textarea class="post-textarea" id="customPostText" placeholder="Write your post..."></textarea><div class="form-actions"><button class="cancel-btn" onclick="closeAddPostModal()">Cancel</button><button class="save-btn" onclick="saveCustomPost()">Save</button></div></div></div>
 
     <script>
-        // ===== MUSIC PLAYER =====
+        // ---------------------- MUSIC PLAYER ----------------------
         const playlist = [
             { title: "Sunsetz", artist: "Cigarettes After Sex", src: "https://github.com/voranixx/VORANIXX.github.io/raw/refs/heads/main/Sunsetz%20-%20Cigarettes%20After%20Sex.mp3", cover: "https://i.ibb.co/zV9Mygn0/image.png" },
             { title: "Chamber Of Reflection", artist: "Mac DeMarco", src: "https://github.com/voranixx/VORANIXX.github.io/raw/refs/heads/main/Chamber_Of_Reflection_LOW.webm", cover: "https://i.ibb.co/gZcSqMrS/image.png" },
-            { title: "No Surprises", artist: "Radiohead", src: "https://github.com/voranixx/VORANIXX.github.io/raw/refs/heads/main/No_Surprises_Remastered_LOW.webm", cover: "https://i.ibb.co/gFcw3m0v/image.png" },
-            { title: "Indigo Night", artist: "Tamino", src: "https://github.com/voranixx/VORANIXX.github.io/raw/refs/heads/main/Indigo%20Night%20-%20Tamino.mp3", cover: "https://i.ibb.co/7xPSZXxT/image.png" },
-            { title: "Music To Watch Boys To", artist: "Lana Del Rey", src: "https://github.com/voranixx/VORANIXX.github.io/raw/refs/heads/main/Music%20To%20Watch%20Boys%20To%20(Demo)%20-%20dreamsoda.mp3", cover: "https://i.ibb.co/k2DLby2k/image.png" },
-            { title: "Daylight", artist: "David Kushner", src: "https://github.com/voranixx/VORANIXX.github.io/raw/refs/heads/main/Daylight%20-%20David%20Kushner.mp3", cover: "https://i.ibb.co/CK2254sM/image.png" },
-            { title: "Fade Into You", artist: "Mazzy Star", src: "https://github.com/voranixx/VORANIXX.github.io/raw/refs/heads/main/Fade%20Into%20You%20-%20Mazzy%20Star.mp3", cover: "https://i.ibb.co/Z65123TZ/image.png" },
-            { title: "The Night We Met", artist: "holyshua", src: "https://github.com/voranixx/VORANIXX.github.io/raw/refs/heads/main/The%20Nigth%20We%20Met%20-%20holyshua.mp3", cover: "https://i.ibb.co/VYbTPg5R/image.png" }
+            { title: "No Surprises", artist: "Radiohead", src: "https://github.com/voranixx/VORANIXX.github.io/raw/refs/heads/main/No_Surprises_Remastered_LOW.webm", cover: "https://i.ibb.co/gFcw3m0v/image.png" }
         ];
-
-        let currentTrackIdx = 0;
-        let isPlaying = false;
-        const audio = new Audio();
-        audio.volume = 0.25;
-
-        // Defer DOM queries until after page loads
-        let playPauseBtn, prevBtn, nextBtn, trackTitle, artistName, albumArt,
-            currentTimeSpan, remainingTimeSpan, progressFill, progressHandle,
-            progressBar, volumeBars;
-
-        function updateTrackUI() {
-            const t = playlist[currentTrackIdx];
-            if (trackTitle) trackTitle.innerText = t.title;
-            if (artistName) artistName.innerText = t.artist;
-            if (albumArt) albumArt.style.backgroundImage = `url('${t.cover}')`;
-        }
-
-        function loadTrack(index) {
-            currentTrackIdx = (index + playlist.length) % playlist.length;
-            audio.src = playlist[currentTrackIdx].src;
-            updateTrackUI();
-            if (isPlaying) audio.play();
-        }
-
-        function togglePlay() {
-            if (!playPauseBtn) return;
-            if (isPlaying) {
-                audio.pause();
-                playPauseBtn.querySelector('.icon-play').style.display = 'block';
-                playPauseBtn.querySelector('.icon-pause').style.display = 'none';
-                if (volumeBars) volumeBars.classList.remove('playing');
-            } else {
-                audio.play();
-                playPauseBtn.querySelector('.icon-play').style.display = 'none';
-                playPauseBtn.querySelector('.icon-pause').style.display = 'block';
-                if (volumeBars) volumeBars.classList.add('playing');
-            }
-            isPlaying = !isPlaying;
-        }
-
-        function setUIpaused() {
-            if (!playPauseBtn) return;
-            playPauseBtn.querySelector('.icon-play').style.display = 'block';
-            playPauseBtn.querySelector('.icon-pause').style.display = 'none';
-            if (volumeBars) volumeBars.classList.remove('playing');
-        }
-
-        function playNext() {
-            loadTrack(currentTrackIdx + 1);
-            if (isPlaying) audio.play();
-        }
-
-        function playPrev() {
-            loadTrack(currentTrackIdx - 1);
-            if (isPlaying) audio.play();
-        }
-
-        function formatTime(sec) {
-            let m = Math.floor(sec / 60), s = Math.floor(sec % 60);
-            return `${m}:${s < 10 ? '0' + s : s}`;
-        }
-
-        function updateProgress() {
-            if (audio.duration && progressFill && progressHandle && currentTimeSpan && remainingTimeSpan) {
-                let percent = (audio.currentTime / audio.duration) * 100;
-                progressFill.style.width = `${percent}%`;
-                progressHandle.style.left = `${percent}%`;
-                currentTimeSpan.innerText = formatTime(audio.currentTime);
-                remainingTimeSpan.innerText = `-${formatTime(audio.duration - audio.currentTime)}`;
-            }
-        }
-
-        function seek(e) {
-            if (!progressBar) return;
-            let rect = progressBar.getBoundingClientRect();
-            let x = e.clientX - rect.left;
-            let percent = Math.min(1, Math.max(0, x / rect.width));
-            audio.currentTime = percent * audio.duration;
-            updateProgress();
-        }
-
-        audio.addEventListener('timeupdate', updateProgress);
-        audio.addEventListener('ended', playNext);
-
-        // Initialize player after DOM is ready
+        let currentTrackIdx = 0, isPlaying = false;
+        const audio = new Audio(); audio.volume = 0.25;
+        let playPauseBtn, prevBtn, nextBtn, trackTitle, artistName, albumArt, currentTimeSpan, remainingTimeSpan, progressFill, progressHandle, progressBar, volumeBars;
+        function updateTrackUI() { const t = playlist[currentTrackIdx]; if(trackTitle) trackTitle.innerText = t.title; if(artistName) artistName.innerText = t.artist; if(albumArt) albumArt.style.backgroundImage = `url('${t.cover}')`; }
+        function loadTrack(index) { currentTrackIdx = (index + playlist.length) % playlist.length; audio.src = playlist[currentTrackIdx].src; updateTrackUI(); if(isPlaying) audio.play(); }
+        function togglePlay() { if(isPlaying) { audio.pause(); playPauseBtn.querySelector('.icon-play').style.display = 'block'; playPauseBtn.querySelector('.icon-pause').style.display = 'none'; if(volumeBars) volumeBars.classList.remove('playing'); } else { audio.play(); playPauseBtn.querySelector('.icon-play').style.display = 'none'; playPauseBtn.querySelector('.icon-pause').style.display = 'block'; if(volumeBars) volumeBars.classList.add('playing'); } isPlaying = !isPlaying; }
+        function playNext() { loadTrack(currentTrackIdx + 1); if(isPlaying) audio.play(); }
+        function playPrev() { loadTrack(currentTrackIdx - 1); if(isPlaying) audio.play(); }
+        function formatTime(sec) { let m = Math.floor(sec/60), s = Math.floor(sec%60); return `${m}:${s<10?'0'+s:s}`; }
+        function updateProgress() { if(audio.duration && progressFill && progressHandle && currentTimeSpan && remainingTimeSpan) { let percent = (audio.currentTime/audio.duration)*100; progressFill.style.width = `${percent}%`; progressHandle.style.left = `${percent}%`; currentTimeSpan.innerText = formatTime(audio.currentTime); remainingTimeSpan.innerText = `-${formatTime(audio.duration - audio.currentTime)}`; } }
+        function seek(e) { if(!progressBar) return; let rect = progressBar.getBoundingClientRect(); let percent = Math.min(1, Math.max(0, (e.clientX - rect.left)/rect.width)); audio.currentTime = percent * audio.duration; updateProgress(); }
+        audio.addEventListener('timeupdate', updateProgress); audio.addEventListener('ended', playNext);
         document.addEventListener('DOMContentLoaded', function() {
-            playPauseBtn   = document.getElementById('playPauseBtn');
-            prevBtn        = document.getElementById('prevBtn');
-            nextBtn        = document.getElementById('nextBtn');
-            trackTitle     = document.getElementById('playerTrackTitle');
-            artistName     = document.getElementById('playerArtistName');
-            albumArt       = document.getElementById('playerAlbumArt');
-            currentTimeSpan  = document.getElementById('currentTime');
-            remainingTimeSpan = document.getElementById('remainingTime');
-            progressFill   = document.getElementById('progressFill');
-            progressHandle = document.getElementById('progressHandle');
-            progressBar    = document.getElementById('progressBarContainer');
-            volumeBars     = document.getElementById('volumeBars');
+            playPauseBtn = document.getElementById('playPauseBtn'); prevBtn = document.getElementById('prevBtn'); nextBtn = document.getElementById('nextBtn');
+            trackTitle = document.getElementById('playerTrackTitle'); artistName = document.getElementById('playerArtistName'); albumArt = document.getElementById('playerAlbumArt');
+            currentTimeSpan = document.getElementById('currentTime'); remainingTimeSpan = document.getElementById('remainingTime');
+            progressFill = document.getElementById('progressFill'); progressHandle = document.getElementById('progressHandle'); progressBar = document.getElementById('progressBarContainer');
+            volumeBars = document.getElementById('volumeBars');
+            if(playPauseBtn) playPauseBtn.addEventListener('click', togglePlay);
+            if(prevBtn) prevBtn.addEventListener('click', playPrev);
+            if(nextBtn) nextBtn.addEventListener('click', playNext);
+            if(progressBar) progressBar.addEventListener('click', seek);
+            document.getElementById('closeMusicBtn')?.addEventListener('click', () => document.getElementById('newMusicPlayer').classList.remove('show'));
+            document.getElementById('radarBtn')?.addEventListener('click', () => alert('VORANIX audio radar'));
+            loadTrack(0); isPlaying=false; playPauseBtn.querySelector('.icon-play').style.display = 'block'; playPauseBtn.querySelector('.icon-pause').style.display = 'none';
+            document.getElementById('assistantModal')?.addEventListener('click', e => { if(e.target === e.currentTarget) closeAssistantModal(); });
+            document.getElementById('postsModal')?.addEventListener('click', e => { if(e.target === e.currentTarget) closePostsModal(); });
+            document.getElementById('addPostModal')?.addEventListener('click', e => { if(e.target === e.currentTarget) closeAddPostModal(); });
+        });
+        document.getElementById('exploreButton').addEventListener('click', function() { const s = document.getElementById('services'); s.style.display = 'block'; setTimeout(() => s.classList.add('show'), 50); setTimeout(() => document.getElementById('newMusicPlayer').classList.add('show'), 600); });
 
-            if (playPauseBtn) playPauseBtn.addEventListener('click', togglePlay);
-            if (prevBtn) prevBtn.addEventListener('click', playPrev);
-            if (nextBtn) nextBtn.addEventListener('click', playNext);
-            if (progressBar) progressBar.addEventListener('click', seek);
+        // ---------------------- ASSISTANT & TEMPLATES ----------------------
+        function openAssistantModal() { document.getElementById('assistantModal').classList.add('active'); document.body.style.overflow = 'hidden'; initCompanyGrid(); }
+        function closeAssistantModal() { document.getElementById('assistantModal').classList.remove('active'); document.body.style.overflow = 'auto'; }
+        function showSection(sectionId) { 
+            document.querySelectorAll('.template-section').forEach(s => s.classList.remove('active')); 
+            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active')); 
+            document.getElementById(sectionId + 'Section')?.classList.add('active');
+            
+            // Find and activate the corresponding nav item
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                if (item.getAttribute('onclick').includes(sectionId)) {
+                    item.classList.add('active');
+                }
+            });
+        }
+        function scrollAssistantNav(amount) { document.getElementById('assistantNav')?.scrollBy({ left: amount, behavior: 'smooth' }); }
+        function copyText(text, btn) { navigator.clipboard.writeText(text).then(() => { let orig = btn.innerHTML; btn.innerHTML = '<i class="fas fa-check"></i> Copied!'; btn.classList.add('copied'); showCopyNotification(); setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2000); }).catch(() => alert('Failed')); }
+        function showCopyNotification() { let n = document.createElement('div'); n.className = 'copy-notification'; n.innerHTML = '<i class="fas fa-check-circle"></i> Copied!'; document.body.appendChild(n); setTimeout(() => n.remove(), 2000); }
+        const companies = ["VORANIX","Fly Pie","eClerx","Realogy","BPO HIVE","ABS","ISON Xperience ES","AT&T","WGS","Outsourcing Skill","Leadbull","Octopus","Callix","Insource","NAOS","LTS","Intouch","Elevate","VolumeX","TTC","Geeky CX","Dyninno","NetLink","Foodhub","Ultatek","Phoenix","Hangup","Virtual Affiliates","Teleperformance","BuzzCx","Evolve","Holvrine alex","Assets Solutions","CNS","Datalystic","Cxperts Telesales","Outsourcing 4 You","Telephonic","Creative Basket","ILEADS","Cxperts","Stereo outsourcing"];
+        function initCompanyGrid() { const grid = document.getElementById('companyGrid'); if(!grid) return; grid.innerHTML = ''; companies.forEach(c => { let div = document.createElement('div'); div.className = 'company-item'; div.textContent = c; div.onclick = () => copyText(`Interview confirmation for ${c} tomorrow.`, div); grid.appendChild(div); }); }
 
-            const closeMusicBtn = document.getElementById('closeMusicBtn');
-            if (closeMusicBtn) closeMusicBtn.addEventListener('click', function() {
-                document.getElementById('newMusicPlayer').classList.remove('show');
-            });
+        // ---------------------- AI CHAT (SERVER COMMUNICATION) ----------------------
+        const chatMessagesDiv = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendChatBtn');
 
-            const radarBtn = document.getElementById('radarBtn');
-            if (radarBtn) radarBtn.addEventListener('click', function() {
-                alert('🎵 VORANIX audio radar — stay tuned!');
-            });
+        function addMessage(text, isUser) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `chat-message ${isUser ? 'user-message' : 'bot-message'}`;
+            msgDiv.innerHTML = text.replace(/\n/g, '<br>');
+            chatMessagesDiv.appendChild(msgDiv);
+            chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight;
+        }
 
-            loadTrack(0);
-            setUIpaused();
+        async function sendMessage() {
+            let text = chatInput.value.trim();
+            if (!text) return;
+            
+            addMessage(text, true);
+            chatInput.value = '';
+            sendBtn.disabled = true;
+            sendBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            
+            try {
+                const res = await fetch("http://localhost:3000/chat", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ message: text })
+                });
+                const data = await res.json();
+                addMessage(data.reply, false);
+            } catch (error) {
+                addMessage("❌ مش قادر أوصل للسيرفر. تأكد إن ai.js شغال على localhost:3000", false);
+            } finally {
+                sendBtn.disabled = false;
+                sendBtn.innerHTML = '<i class="fas fa-paper-plane"></i>';
+            }
+        }
 
-            // Modal outside-click handlers
-            document.getElementById('assistantModal')?.addEventListener('click', function(e) {
-                if (e.target === this) closeAssistantModal();
-            });
-            document.getElementById('postsModal')?.addEventListener('click', function(e) {
-                if (e.target === this) closePostsModal();
-            });
-            document.getElementById('addPostModal')?.addEventListener('click', function(e) {
-                if (e.target === this) closeAddPostModal();
-            });
+        // Initialize chat event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            if(sendBtn) sendBtn.addEventListener('click', sendMessage);
+            if(chatInput) chatInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') sendMessage(); });
         });
 
-        // ===== EXPLORE BUTTON =====
-        document.getElementById('exploreButton').addEventListener('click', function() {
-            const servicesSection = document.getElementById('services');
-            servicesSection.style.display = 'block';
-            setTimeout(() => servicesSection.classList.add('show'), 50);
+        // ---------------------- POSTS ----------------------
+        let recruitmentPosts = [
+            `Graduated or still studying? No problem! We have many offers with high salaries. Comment and I'll send details.`,
+            `Debt Settlement: 4PM-1AM, 6PM-3AM. Location: Nasr City. Salary: 17.5k net. English B2+ required.`,
+            `Telesales USA Account: B2+ English accepted. 10K Basic + Commission up to 20K. 3PM-11PM Mon-Fri.`,
+            `Hiring English speakers: Grads & undergrads. Salary up to 19K. Transportation provided. Online interviews.`,
+            `English B1 and can't find a company? Don't worry! Salary up to 22k. Multiple accounts available.`
+        ];
+        function openPostsModal() { document.getElementById('postsModal').classList.add('active'); document.body.style.overflow = 'hidden'; loadPosts(); }
+        function closePostsModal() { document.getElementById('postsModal').classList.remove('active'); document.body.style.overflow = 'auto'; }
+        function loadPosts() { const track = document.getElementById('postsTrack'); if(!track) return; track.innerHTML = ''; recruitmentPosts.forEach((post, idx) => { let item = document.createElement('div'); item.className = 'post-item'; item.innerHTML = `<div class="post-text">${post.replace(/\n/g,'<br>')}</div><button class="posts-copy-btn" onclick="copyPost(this, ${idx})">Copy Post</button>`; track.appendChild(item); }); document.getElementById('leftBtn').onclick = () => track.scrollBy({ left: -320, behavior: 'smooth' }); document.getElementById('rightBtn').onclick = () => track.scrollBy({ left: 320, behavior: 'smooth' }); }
+        function copyPost(btn, idx) { copyText(recruitmentPosts[idx], btn); }
+        function selectRandomPost() { let posts = document.querySelectorAll('.post-item'); if(!posts.length) return; let rand = Math.floor(Math.random()*posts.length); posts[rand].scrollIntoView({ behavior: 'smooth', block: 'center' }); setTimeout(() => posts[rand].querySelector('.posts-copy-btn')?.click(), 500); }
+        function openAddPostModal() { document.getElementById('addPostModal').classList.add('active'); document.body.style.overflow = 'hidden'; }
+        function closeAddPostModal() { document.getElementById('addPostModal').classList.remove('active'); document.body.style.overflow = 'auto'; }
+        function saveCustomPost() { let txt = document.getElementById('customPostText').value.trim(); if(txt) { recruitmentPosts.push(txt); loadPosts(); alert('Post added!'); closeAddPostModal(); } else alert('Write something'); }
+    </script>
 
-            // footer is optional - only show if it exists in the page
-            const footer = document.getElementById('footer');
-            if (footer) {
-                footer.style.display = 'block';
-                setTimeout(() => footer.classList.add('show'), 300);
-            }
+    <script>
+    async function askAI() {
+      const question = document.getElementById('aiQuestion').value.trim();
+      const responseBox = document.getElementById('aiResponse');
+      const responseContent = document.getElementById('aiResponseContent');
 
-            setTimeout(() => {
-                document.getElementById('newMusicPlayer').classList.add('show');
-            }, 600);
+      if (!question) {
+        alert('اكتب سؤالك الأول');
+        return;
+      }
+
+      responseContent.innerHTML = '⏳ جاري التفكير...';
+      responseBox.classList.add('active');
+
+      try {
+        const res = await fetch("http://localhost:3000/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: question })
         });
 
-        // closeMusicBtn and radarBtn are initialized inside DOMContentLoaded above
+        const data = await res.json();
+        responseContent.innerHTML = data.reply || 'مفيش رد رجع من السيرفر';
+      } catch (error) {
+        responseContent.innerHTML = '❌ مش قادر أوصل للسيرفر. تأكد إن ai.js شغال على localhost:3000';
+      }
+    }
 
-        // ===== CARD HANDLER =====
-        function handleCardClick(url, type) {
-            if (type === 'form' || type === 'matching') {
-                window.location.href = url;
-            } else {
-                window.open(url, '_blank');
-            }
-        }
+    async function sendMessage() {
+      const input = document.getElementById('userInput');
+      const text = input ? input.value.trim() : '';
 
-        // ===== ASSISTANT MODAL =====
-        function openAssistantModal() {
-            document.getElementById('assistantModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
-            initCompanyGrid();
-        }
+      if (!text) return;
 
-        function closeAssistantModal() {
-            document.getElementById('assistantModal').classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
+      try {
+        const res = await fetch("http://localhost:3000/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: text })
+        });
 
-        function showSection(sectionId) {
-            document.querySelectorAll('.template-section').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-            const target = document.getElementById(sectionId + 'Section');
-            if (target) target.classList.add('active');
-            event.currentTarget.classList.add('active');
-        }
-
-        // ===== COPY =====
-        function copyText(text, button) {
-            navigator.clipboard.writeText(text).then(() => {
-                const originalHTML = button.innerHTML;
-                button.innerHTML = '<i class="fas fa-check"></i> Copied!';
-                button.classList.add('copied');
-                showCopyNotification();
-                setTimeout(() => {
-                    button.innerHTML = originalHTML;
-                    button.classList.remove('copied');
-                }, 2000);
-            }).catch(() => {
-                const ta = document.createElement('textarea');
-                ta.value = text;
-                document.body.appendChild(ta);
-                ta.select();
-                document.execCommand('copy');
-                document.body.removeChild(ta);
-                showCopyNotification();
-            });
-        }
-
-        function showCopyNotification() {
-            const existing = document.querySelector('.copy-notification');
-            if (existing) existing.remove();
-            const n = document.createElement('div');
-            n.className = 'copy-notification';
-            n.innerHTML = '<i class="fas fa-check-circle"></i><span>Copied to clipboard!</span>';
-            document.body.appendChild(n);
-            setTimeout(() => { if (n.parentNode) n.remove(); }, 2000);
-        }
-
-        // ===== COMPANIES =====
-        const companies = [
-            "Leadbull", "Dyninno", "Realogy", "Insource", "OUTSOURCING SKILL", "NAOS",
-            "Telephonic", "Vitrin Clinic", "LTS", "Phoenix", "IntouchCX", "TTC",
-            "HANG-UP Solutions", "CXPERTS", "Ultatek", "CNS", "FOODHUB", "Creative Basket",
-            "Volumex", "BPO HIVE"
-        ];
-
-        function initCompanyGrid() {
-            const grid = document.getElementById('companyGrid');
-            if (!grid) return;
-            grid.innerHTML = '';
-            companies.forEach(company => {
-                const item = document.createElement('div');
-                item.className = 'company-item';
-                item.textContent = company;
-                item.onclick = () => {
-                    const text = `We are confirming your interview in ${company} tomorrow insha'allah.\n\nDetails:\n• Date: [Add Date]\n• Time: [Add Time]\n• Dress Code: Smart Casual\n• Location: [Add Location]\n\nPlease reply with "Confirmed" if you're coming in the stated time above for sure.\n\nImportant: Don't forget to tell them that you are recruited by "Voranix"\n\nWish you the best of Luck!`;
-                    copyText(text, item);
-                };
-                grid.appendChild(item);
-            });
-        }
-
-        // ===== AI =====
-        function askAI() {
-            const question = document.getElementById('aiQuestion').value.trim();
-            if (!question) { alert('Please enter a question first.'); return; }
-            const responseBox = document.getElementById('aiResponse');
-            const responseContent = document.getElementById('aiResponseContent');
-            responseContent.textContent = 'Thinking...';
-            responseBox.classList.add('active');
-
-            const responses = [
-                "For call center interviews, focus on clear communication skills and customer service attitude. Practice common questions like 'Tell me about yourself' and 'Why do you want this job?'",
-                "A good voice note should be 1-2 minutes, clear, and professional. Mention your experience, language skills, and why you're interested in the role.",
-                "To prepare for a call center interview, research the company, practice common scenarios, and prepare questions to ask the interviewer.",
-                "Successful candidates show enthusiasm, clear communication, and a customer-focused mindset. Highlight any relevant experience you have.",
-                "When sending a voice note, speak slowly and clearly. Mention your qualifications, language level, and availability."
-            ];
-
-            let response = "I recommend practicing common interview questions, speaking clearly in your voice note, and showing enthusiasm for customer service roles.";
-            const q = question.toLowerCase();
-            if (q.includes('interview')) response = responses[0];
-            else if (q.includes('voice note') || q.includes('voice')) response = responses[1];
-            else if (q.includes('prepare')) response = responses[2];
-            else if (q.includes('success') || q.includes('good')) response = responses[3];
-            else if (q.includes('send') || q.includes('record')) response = responses[4];
-
-            responseContent.textContent = '';
-            let i = 0;
-            const typing = setInterval(() => {
-                if (i < response.length) { responseContent.textContent += response.charAt(i); i++; }
-                else clearInterval(typing);
-            }, 30);
-        }
-
-        function scrollAssistantNav(amount) {
-            const nav = document.getElementById('assistantNav');
-            if (nav) nav.scrollBy({ left: amount, behavior: 'smooth' });
-        }
-
-        function copyAIResponse() {
-            const content = document.getElementById('aiResponseContent');
-            copyText(content.textContent, event.currentTarget);
-        }
-
-        // ===== POSTS =====
-        const recruitmentPosts = [
-            `اتخرجت ؟ لسه !!
-مش مهم 🤝
-Grads&Undergrads 😇
-عندي ليك اوفرز كتير وهتبقي Accepted كده كده 🔥🔥
-وبأعلي salaries في الماركت 🥰
-سيب كومنت وهبعتلك التفاصيل والخطوات اللي تساعدك تعدي الانترفيو🥰🤝`,
-
-            `Debt Settlement	
-🕑4:00Pm till 1:00Am
-6:00Pm till 3:00Am
-📍Nasr city
-💸17.5k net
-📌 English B2+`,
-
-            `📌 Appointment Setting  
-📍 5th Settlement 
-🕑 4pm to 1am
-💸 10k net+3k kpis+2k bouns
-📌 English B1+/B2`,
-
-            `Back office Lovers😍
-🕓 7pm to 4am
-💸12K Net +Transportation Allowance+bouns and commissions
-📍El Sheikh Zayed
-👨🏻‍🎓Grads only
-📌 English B2`,
-
-            `📞 Customer service 
-💸Salary up to 21k
-🚌Transportation provided 
-👨🏻‍🎓Grads without experience 
-📍 El maadi
-📌 English B2`,
-
-            `Telesales US account
-💸 Salary up to 17k
-🚎 Transportation allowance or provided
-🕑 3:30 to 11:30
-📍 El maadi
-📌 English B1+ بس🫣`,
-
-            `Telesales – USA Account 🇺🇸
-
-B2+ English مقبول 👌 (فرصتك كبيرة)
-💰 10K Basic + Commission لحد 20K
-🕒 3PM–11PM | Mon–Fri
-🎓 Paid Training
-
-الشغل خفيف ومناسب تبدأ بيه كارير قوي 🔥`,
-
-            `بدور ع ناس عندها انجليزي B1 
-يكون عندهم نية للشغل
-مش شرط خبرة بس لو عندك مرتبك هيوصل ل ٢٥٠٠٠
-وفي مواصلات للبنات لحد باب البيت 
-ولو راجل هتاخد بدل مواصلات 
-والاتش ار سوي نفسيا والناس هناك فرفوشة 
-مش عارف مستنيين ايه عشان تقدموا؟`,
-
-            `🎩Grads 
-🗣️🗣️English B2
-🔥No experience needed 
-Salary 🙈 
-Txt me ✉️📩`,
-
-            `مش بتقدموا معايا ليه
-
-بنقبل من +b1
-
-و سالاري up to 35k حسب اللغة🫣
-
-و فيها كذا اكونت لو متقبلتش في واحد تتقبل في الثاني و معايا كمان ماتريال الانترفيو🙏🏻`,
-
-            `We're hiring English speakers🇺🇸
-✅Grads,undergrads
-💰Salary up to 19K
-✅Maddi, New Cairo, October, Nasr city, sheraton 
-✅Transportation provided
- 
-     ✅الانترڤيو سهل وهبعتلك الماتريال         
-✅عايز ناس جاهزة تبدأ training الاسبوع ده`,
-
-            `يا تلحق يا متلحقش!!!! 🔥🔥
-
-معايا فرص شغل Call Center في شركات Multinational & International + بنوك داخل القاهرة.🔥
-
-متاح لغات مختلفة، وكل شركة ليها مميزات مختلفة.🔥
-
-• Salary up to 35,000 EGP (حسب اللغة)✅
-
-✅• Graduates & Undergraduates
-
-✅• Paid training
-
-✅• Transportation provided
-
-✅• Language level B2
-
-أنا معاك من أول Interview لحد آخر يوم Training.✅
-
-كلمنيي حالااا🔥🔥`,
-
-            `📢  English Customer Service Account
-
-🇬🇧 English B2+
-💰 Salary: 21,000 EGP Gross
-
-✅ Online interview
-✔ CS experience preferred (6 months+)
-⏰ Rotational shifts & days off
-🚐 Transportation provided
-🚗 Door to door after 9 PM (for girls)
-🛡 Insurance
-
-📍 Location: Maadi
-📩 Ready to start – Apply now!`,
-
-            `لو معاك English B2
-حتى لو طالب أو خريج 👌
-🎧 شغل كول سنتر
-💼 أكتر من Account
-🚀 فرصة بداية شغل محترمة أو نقلة في الكارير`,
-
-            `لغتك الانجلش B1 ومش لاقي شركة تعينك؟؟!!
-متقلقش خالص تعالي هناا
-Salary up to 22k🔥
-Location:  Cairo/Alex
-ومش اكونت واحد بس دول  اكونتات كتير يعني فرصتك انك تتقبل ف واحد منهم كبيره جدا😍
-مستني ايه ابعتلي حالا🫣`
-        ];
-
-        function openPostsModal() {
-            document.getElementById('postsModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
-            loadPosts();
-        }
-
-        function closePostsModal() {
-            document.getElementById('postsModal').classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-
-        function loadPosts() {
-            const track = document.getElementById('postsTrack');
-            if (!track) return;
-            track.innerHTML = '';
-            recruitmentPosts.forEach((post, index) => {
-                const item = document.createElement('div');
-                item.className = 'post-item';
-                item.innerHTML = `
-                    <div class="post-text">${post.replace(/\n/g, '<br>')}</div>
-                    <button class="posts-copy-btn" onclick="copyPost(this, ${index})">
-                        <i class="far fa-copy"></i> Copy Post
-                    </button>
-                `;
-                track.appendChild(item);
-            });
-
-            const leftBtn = document.getElementById('leftBtn');
-            const rightBtn = document.getElementById('rightBtn');
-            if (leftBtn) leftBtn.onclick = () => track.scrollBy({ left: -320, behavior: 'smooth' });
-            if (rightBtn) rightBtn.onclick = () => track.scrollBy({ left: 320, behavior: 'smooth' });
-
-            // Mouse drag scroll for posts track
-            let isDragging = false;
-            let startX = 0;
-            let scrollLeft = 0;
-
-            track.addEventListener('mousedown', (e) => {
-                isDragging = true;
-                track.style.cursor = 'grabbing';
-                startX = e.pageX - track.offsetLeft;
-                scrollLeft = track.scrollLeft;
-                e.preventDefault();
-            });
-
-            track.addEventListener('mousemove', (e) => {
-                if (!isDragging) return;
-                const x = e.pageX - track.offsetLeft;
-                const walk = (x - startX) * 1.5;
-                track.scrollLeft = scrollLeft - walk;
-            });
-
-            const stopDrag = () => {
-                isDragging = false;
-                track.style.cursor = 'grab';
-            };
-
-            track.addEventListener('mouseup', stopDrag);
-            track.addEventListener('mouseleave', stopDrag);
-            track.style.cursor = 'grab';
-        }
-
-        function copyPost(button, index) {
-            const text = recruitmentPosts[index];
-            navigator.clipboard.writeText(text).then(() => {
-                button.innerHTML = '<i class="fas fa-check"></i> Copied!';
-                button.classList.add('copied');
-                showCopyNotification();
-                setTimeout(() => {
-                    button.innerHTML = '<i class="far fa-copy"></i> Copy Post';
-                    button.classList.remove('copied');
-                }, 2000);
-            }).catch(() => alert('Failed to copy. Please try again.'));
-        }
-
-        function selectRandomPost() {
-            const posts = document.querySelectorAll('.post-item');
-            if (posts.length === 0) return;
-            posts.forEach(p => p.classList.remove('highlight'));
-            const randomIndex = Math.floor(Math.random() * posts.length);
-            const randomPost = posts[randomIndex];
-            randomPost.classList.add('highlight');
-            randomPost.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            setTimeout(() => {
-                const btn = randomPost.querySelector('.posts-copy-btn');
-                if (btn) btn.click();
-            }, 500);
-        }
-
-        function openAddPostModal() {
-            document.getElementById('addPostModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeAddPostModal() {
-            document.getElementById('addPostModal').classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-
-        function saveCustomPost() {
-            const text = document.getElementById('customPostText').value.trim();
-            if (text) {
-                recruitmentPosts.push(text);
-                loadPosts();
-                alert('Custom post saved and added to the list!');
-                closeAddPostModal();
-            } else {
-                alert('Please write a post first.');
-            }
-        }
-
-        // Modal outside-click handlers are now inside the main DOMContentLoaded block above
+        const data = await res.json();
+        alert(data.reply);
+      } catch (error) {
+        alert('❌ مش قادر أوصل للسيرفر');
+      }
+    }
     </script>
 </body>
 </html>
