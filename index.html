@@ -516,6 +516,218 @@
             .main-control-btns { gap: 8px; }
         }
 
+        /* ===== AI FLOATING BUTTON ===== */
+        /* ===== AI FLOAT BUTTON (uiverse wrapper style) ===== */
+        .ai-float-btn {
+            position: fixed;
+            bottom: 24px;
+            right: 340px;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: right 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                        bottom 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                        opacity 0.4s ease;
+        }
+        .ai-float-btn.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .ai-float-btn.solo {
+            right: 24px;
+        }
+
+        /* wrapper */
+        .ai-float-btn .wrapper {
+            --accent-1: #e01f7a;
+            --accent-2: #ff1744;
+            --accent-3: #e01f7a;
+            --accent-4: #c0185e;
+            --light-1: rgba(224,31,122,0.55);
+            --light-2: rgba(255,23,68,0.35);
+            --duration: 2s;
+            --transition: 3s infinite;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: max-content;
+            height: max-content;
+        }
+
+        .ai-float-btn .light-1,
+        .ai-float-btn .light-2 {
+            pointer-events: none;
+            position: absolute;
+            top: -20px;
+            left: -30px;
+            width: 100px;
+            height: 70px;
+            border-radius: 50%;
+            background-color: var(--light-1);
+            filter: blur(27px);
+            z-index: 1;
+            transition: opacity var(--transition) ease,
+                        top var(--transition) ease,
+                        left var(--transition) ease;
+            opacity: 0.4;
+        }
+        .ai-float-btn .light-2 {
+            top: auto;
+            bottom: -20px;
+            left: auto;
+            right: -20px;
+            width: 80px;
+            height: 40px;
+            background-color: var(--light-2);
+            transition-duration: calc(var(--transition) * 2);
+            z-index: -1;
+            opacity: 0.25;
+        }
+
+        .ai-float-btn .ai-bg {
+            position: absolute;
+            z-index: -1;
+            fill: none;
+            transition: filter var(--transition) ease;
+        }
+        .ai-float-btn .line-bg {
+            stroke: rgba(224,31,122,0.25);
+            stroke-width: 0.3;
+        }
+        .ai-float-btn .line {
+            stroke: none;
+            stroke-width: 0;
+            stroke-dasharray: 39 10;
+            transition: stroke var(--transition) ease-in-out;
+        }
+        .ai-float-btn .dot {
+            fill: #e01f7a;
+            opacity: 0.4;
+            transition: fill var(--transition) ease;
+        }
+
+        .ai-float-btn .ai-btn {
+            width: max-content;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 120px;
+            min-height: 48px;
+            border-radius: 7px;
+            background-color: #000;
+            background-image: linear-gradient(to bottom, rgba(224,31,122,0.18), transparent);
+            color: #f0a0c0;
+            border: 2px solid rgba(224,31,122,0.6);
+            font-size: 15px;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all var(--transition) ease;
+            box-shadow:
+                0 0 30px -12px var(--light-1),
+                inset -1px -1px 1px 1px #000,
+                inset -2px -2px 2px 1px rgba(255,255,255,0.08),
+                inset 1px 1px 1px 1px #000,
+                inset 2px 2px 2px 1px rgba(255,255,255,0.08);
+            position: relative;
+        }
+
+        .ai-float-btn .ai-btn .txt-1 {
+            position: absolute;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+        .ai-float-btn .ai-btn .txt-2 {
+            position: absolute;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+
+        /* hover */
+        .ai-float-btn .ai-btn:hover {
+            color: #ffffff;
+            border: 1px solid #e01f7a;
+            text-shadow: 0 0 10px var(--light-1);
+        }
+        .ai-float-btn .wrapper:has(.ai-btn:hover) .dot { fill: #ff1744; }
+        .ai-float-btn .wrapper:has(.ai-btn:hover) .light-1,
+        .ai-float-btn .wrapper:has(.ai-btn:hover) .light-2 { opacity: 0.7; }
+        .ai-float-btn .wrapper:has(.ai-btn:hover) .light-1 { top: -30px; left: -40px; }
+        .ai-float-btn .wrapper:has(.ai-btn:hover) .light-2 { bottom: -30px; right: -30px; }
+
+        /* active */
+        .ai-float-btn .ai-btn:active {
+            box-shadow: 0 0 10px var(--light-1),
+                inset -1px -1px 1px 1px #000,
+                inset 1px 1px 1px 1px #000;
+        }
+        .ai-float-btn .wrapper:has(.ai-btn:active) .light-1,
+        .ai-float-btn .wrapper:has(.ai-btn:active) .light-2 { opacity: 1; }
+
+        /* focus / thinking state */
+        .ai-float-btn .ai-btn:focus {
+            background-color: #0d0005;
+            border-color: #e01f7a;
+            animation: aiBtnPulse var(--duration) ease-in-out infinite;
+            outline: none;
+        }
+        .ai-float-btn .ai-btn:focus .txt-1 { opacity: 0; }
+        .ai-float-btn .ai-btn:focus .txt-2 { opacity: 1; animation: aiBtnPulseText var(--duration) ease-in-out infinite; }
+        .ai-float-btn .wrapper:has(.ai-btn:focus) .dot {
+            animation: aiDotOpac calc(var(--duration) * 0.5) linear infinite;
+            fill: #e01f7a;
+        }
+        .ai-float-btn .wrapper:has(.ai-btn:focus) .dot:nth-child(odd) {
+            animation-delay: calc(var(--duration) * 0.1);
+        }
+        .ai-float-btn .wrapper:has(.ai-btn:focus) .line {
+            animation: aiDash var(--duration) ease-out infinite;
+        }
+        .ai-float-btn .wrapper:has(.ai-btn:focus) .line:nth-child(odd) {
+            animation-direction: normal;
+            animation-delay: calc(var(--duration) * 0.1);
+        }
+        .ai-float-btn .wrapper:has(.ai-btn:focus) .ai-bg {
+            filter: drop-shadow(0px 0px 6px #e01f7a);
+        }
+
+        @keyframes aiBtnPulseText {
+            0%, 100% { text-shadow: 0 0 2px #0000; }
+            50% { text-shadow: 0 0 24px #e01f7a; }
+        }
+        @keyframes aiDotOpac {
+            0%, 100% { opacity: 0.1; }
+            20% { opacity: 1; }
+        }
+        @keyframes aiBtnPulse {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(224,31,122,0.3),
+                    inset -1px -1px 1px 1px #000,
+                    inset 1px 1px 1px 1px #000;
+                border-color: #0000;
+            }
+            50% {
+                box-shadow: 0 0 60px 0px rgba(224,31,122,0.7),
+                    inset -1px -1px 1px 1px #000,
+                    inset 1px 1px 1px 1px #000;
+            }
+            85% { border-color: #e01f7a; }
+        }
+        @keyframes aiDash {
+            0% { stroke-width: 0; stroke-dashoffset: 10; stroke: #c0185e; }
+            50% { stroke-width: 0.5; stroke-dashoffset: 88; stroke: #ff1744; }
+            100% { stroke-width: 0; stroke-dashoffset: 166; stroke: #c0185e; }
+        }
+
+        @media (max-width: 500px) {
+            .ai-float-btn { right: 260px; bottom: 18px; }
+            .ai-float-btn.solo { right: 20px; }
+            .ai-float-btn .ai-btn { min-width: 100px; min-height: 42px; font-size: 13px; }
+        }
+
         /* ===== ASSISTANT MODAL ===== */
         .assistant-modal {
             display: none;
@@ -878,6 +1090,221 @@
             to { opacity: 0; transform: translateX(-50%) translateY(-20px); }
         }
 
+        /* ===== CHAT INTERFACE ===== */
+        .chat-wrapper {
+            display: flex;
+            flex-direction: column;
+            height: 55vh;
+            min-height: 320px;
+            background: rgba(10, 10, 14, 0.95);
+            border-radius: 16px;
+            border: 1px solid rgba(224, 31, 122, 0.3);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 18px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(224,31,122,0.4) transparent;
+        }
+
+        .chat-messages::-webkit-scrollbar { width: 5px; }
+        .chat-messages::-webkit-scrollbar-thumb { background: rgba(224,31,122,0.4); border-radius: 3px; }
+
+        .chat-bubble {
+            display: flex;
+            align-items: flex-end;
+            gap: 10px;
+            max-width: 80%;
+            animation: bubbleIn 0.25s ease;
+        }
+
+        @keyframes bubbleIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .chat-bubble.user-bubble {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
+
+        .chat-bubble.ai-bubble {
+            align-self: flex-start;
+        }
+
+        .bubble-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+
+        .ai-bubble .bubble-avatar {
+            background: linear-gradient(135deg, #e01f7a, #ff1744);
+            color: #fff;
+        }
+
+        .user-bubble .bubble-avatar {
+            background: rgba(255,255,255,0.1);
+            color: #ccc;
+            font-size: 0.75rem;
+        }
+
+        .bubble-body {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .bubble-text {
+            display: block;
+            padding: 12px 16px;
+            border-radius: 18px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            -webkit-user-select: text !important;
+            user-select: text !important;
+        }
+
+        .ai-bubble .bubble-text {
+            background: rgba(224, 31, 122, 0.1);
+            border: 1px solid rgba(224, 31, 122, 0.2);
+            border-bottom-left-radius: 4px;
+            color: #f0f0f0;
+        }
+
+        .user-bubble .bubble-text {
+            background: linear-gradient(135deg, rgba(224,31,122,0.25), rgba(255,23,68,0.25));
+            border: 1px solid rgba(224,31,122,0.3);
+            border-bottom-right-radius: 4px;
+            color: #ffffff;
+        }
+
+        .bubble-copy-btn {
+            align-self: flex-end;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #999;
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s;
+        }
+
+        .bubble-copy-btn:hover { background: rgba(224,31,122,0.15); color: #e01f7a; border-color: rgba(224,31,122,0.3); }
+        .bubble-copy-btn.copied { color: #4ade80; border-color: rgba(74,222,128,0.4); }
+
+        .ai-bubble .bubble-copy-btn { align-self: flex-start; }
+
+        .typing-bubble .bubble-text {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+            padding: 14px 18px;
+        }
+
+        .typing-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #e01f7a;
+            animation: typingDot 1.2s infinite ease-in-out;
+        }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typingDot {
+            0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+
+        .chat-input-row {
+            display: flex;
+            align-items: flex-end;
+            gap: 10px;
+            padding: 12px 14px;
+            border-top: 1px solid rgba(224,31,122,0.15);
+            background: rgba(0,0,0,0.4);
+        }
+
+        .chat-input {
+            flex: 1;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 14px;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            padding: 11px 16px;
+            resize: none;
+            max-height: 120px;
+            overflow-y: auto;
+            line-height: 1.5;
+            transition: border-color 0.2s;
+        }
+
+        .chat-input:focus {
+            outline: none;
+            border-color: rgba(224,31,122,0.5);
+            box-shadow: 0 0 0 3px rgba(224,31,122,0.1);
+        }
+
+        .chat-send-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #e01f7a, #ff1744);
+            border: none;
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.25s;
+            box-shadow: 0 4px 15px rgba(224,31,122,0.4);
+        }
+
+        .chat-send-btn:hover { transform: scale(1.1); box-shadow: 0 6px 20px rgba(224,31,122,0.6); }
+        .chat-send-btn:disabled { opacity: 0.4; transform: none; cursor: not-allowed; }
+
+        .chat-toast {
+            position: absolute;
+            bottom: 72px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(74, 222, 128, 0.9);
+            color: #fff;
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 7px 18px;
+            border-radius: 20px;
+            white-space: nowrap;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 10;
+        }
+
+        .chat-toast.visible { opacity: 1; }
+
         /* Posts Modal */
         .posts-modal {
             display: none;
@@ -988,9 +1415,9 @@
             font-size: 0.95rem;
             white-space: pre-wrap;
             margin-bottom: 15px;
-            user-select: text;
-            -webkit-user-select: text;
             -moz-user-select: text;
+            -webkit-user-select: text;
+            user-select: text;
             flex: 1;
             overflow-y: auto;
             max-height: 180px;
@@ -1300,9 +1727,298 @@
             .nav-item { padding: 6px 9px; font-size: 0.74rem; }
             .post-item { min-width: 220px; max-width: 220px; }
         }
+
+        /* ===== LOADING ANIMATION ===== */
+        /* From Uiverse.io by andrew-manzyk */ 
+        .loader {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100vw;
+          height: 100vh;
+          background: rgba(0, 0, 0, 0.95);
+          z-index: 99999;
+          opacity: 0;
+          visibility: hidden;
+          transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .loader.show {
+          opacity: 1;
+          visibility: visible;
+        }
+
+        .loader-inner {
+          --main-size: 4em;
+          --text-color: #ffffff;
+          --shine-color: #ffffff40;
+          --shadow-color: #aaaaaa;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          overflow: hidden;
+          user-select: none;
+          position: relative;
+          font-size: var(--main-size);
+          font-weight: 900;
+          text-transform: uppercase;
+          color: var(--text-color);
+          width: 7.3em;
+          height: 1em;
+          filter: drop-shadow(0 0 0.05em var(--shine-color));
+        }
+
+        .loader-inner .text {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          white-space: nowrap;
+          overflow: hidden;
+          position: absolute;
+        }
+
+        .loader-inner .text:nth-child(1) {
+          clip-path: polygon(0% 0%, 11.11% 0%, 11.11% 100%, 0% 100%);
+          font-size: calc(var(--main-size) / 20);
+          margin-left: -2.1em;
+          opacity: 0.6;
+        }
+
+        .loader-inner .text:nth-child(2) {
+          clip-path: polygon(11.11% 0%, 22.22% 0%, 22.22% 100%, 11.11% 100%);
+          font-size: calc(var(--main-size) / 16);
+          margin-left: -0.98em;
+          opacity: 0.7;
+        }
+
+        .loader-inner .text:nth-child(3) {
+          clip-path: polygon(22.22% 0%, 33.33% 0%, 33.33% 100%, 22.22% 100%);
+          font-size: calc(var(--main-size) / 13);
+          margin-left: -0.33em;
+          opacity: 0.8;
+        }
+
+        .loader-inner .text:nth-child(4) {
+          clip-path: polygon(33.33% 0%, 44.44% 0%, 44.44% 100%, 33.33% 100%);
+          font-size: calc(var(--main-size) / 11);
+          margin-left: -0.05em;
+          opacity: 0.9;
+        }
+
+        .loader-inner .text:nth-child(5) {
+          clip-path: polygon(44.44% 0%, 55.55% 0%, 55.55% 100%, 44.44% 100%);
+          font-size: calc(var(--main-size) / 10);
+          margin-left: 0em;
+          opacity: 1;
+        }
+
+        .loader-inner .text:nth-child(6) {
+          clip-path: polygon(55.55% 0%, 66.66% 0%, 66.66% 100%, 55.55% 100%);
+          font-size: calc(var(--main-size) / 11);
+          margin-left: 0.05em;
+          opacity: 0.9;
+        }
+
+        .loader-inner .text:nth-child(7) {
+          clip-path: polygon(66.66% 0%, 77.77% 0%, 77.77% 100%, 66.66% 100%);
+          font-size: calc(var(--main-size) / 13);
+          margin-left: 0.33em;
+          opacity: 0.8;
+        }
+
+        .loader-inner .text:nth-child(8) {
+          clip-path: polygon(77.77% 0%, 88.88% 0%, 88.88% 100%, 77.77% 100%);
+          font-size: calc(var(--main-size) / 16);
+          margin-left: 0.98em;
+          opacity: 0.7;
+        }
+
+        .loader-inner .text:nth-child(9) {
+          clip-path: polygon(88.88% 0%, 100% 0%, 100% 100%, 88.88% 100%);
+          font-size: calc(var(--main-size) / 20);
+          margin-left: 2.1em;
+          opacity: 0.6;
+        }
+
+        .loader-inner .text span {
+          animation:
+            scrolling 2s cubic-bezier(0.1, 0.6, 0.9, 0.4) infinite,
+            shadow 2s cubic-bezier(0.1, 0.6, 0.9, 0.4) infinite;
+        }
+
+        .loader-inner .text:nth-child(1) span {
+          background: linear-gradient(
+            to right,
+            var(--text-color) 4%,
+            var(--shadow-color) 7%
+          );
+          background-size: 200% auto;
+          background-clip: text;
+          color: transparent;
+        }
+
+        .loader-inner .text:nth-child(2) span {
+          background: linear-gradient(
+            to right,
+            var(--text-color) 9%,
+            var(--shadow-color) 13%
+          );
+          background-size: 200% auto;
+          background-clip: text;
+          color: transparent;
+        }
+
+        .loader-inner .text:nth-child(3) span {
+          background: linear-gradient(
+            to right,
+            var(--text-color) 15%,
+            var(--shadow-color) 18%
+          );
+          background-size: 200% auto;
+          background-clip: text;
+          color: transparent;
+        }
+
+        .loader-inner .text:nth-child(4) span {
+          background: linear-gradient(
+            to right,
+            var(--text-color) 20%,
+            var(--shadow-color) 23%
+          );
+          background-size: 200% auto;
+          background-clip: text;
+          color: transparent;
+        }
+
+        .loader-inner .text:nth-child(6) span {
+          background: linear-gradient(
+            to right,
+            var(--shadow-color) 29%,
+            var(--text-color) 32%
+          );
+          background-size: 200% auto;
+          background-clip: text;
+          color: transparent;
+        }
+
+        .loader-inner .text:nth-child(7) span {
+          background: linear-gradient(
+            to right,
+            var(--shadow-color) 34%,
+            var(--text-color) 37%
+          );
+          background-size: 200% auto;
+          background-clip: text;
+          color: transparent;
+        }
+
+        .loader-inner .text:nth-child(8) span {
+          background: linear-gradient(
+            to right,
+            var(--shadow-color) 39%,
+            var(--text-color) 42%
+          );
+          background-size: 200% auto;
+          background-clip: text;
+          color: transparent;
+        }
+
+        .loader-inner .text:nth-child(9) span {
+          background: linear-gradient(
+            to right,
+            var(--shadow-color) 45%,
+            var(--text-color) 48%
+          );
+          background-size: 200% auto;
+          background-clip: text;
+          color: transparent;
+        }
+
+        .loader-inner .line {
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+          height: 0.05em;
+          width: calc(var(--main-size) / 2);
+          margin-top: 0.9em;
+          border-radius: 0.05em;
+        }
+
+        .loader-inner .line::before {
+          content: "";
+          position: absolute;
+          height: 100%;
+          width: 100%;
+          background-color: var(--text-color);
+          opacity: 0.3;
+        }
+
+        .loader-inner .line::after {
+          content: "";
+          position: absolute;
+          height: 100%;
+          width: 100%;
+          background-color: var(--text-color);
+          border-radius: 0.05em;
+          transform: translateX(-90%);
+          animation: wobble 2s cubic-bezier(0.5, 0.8, 0.5, 0.2) infinite;
+        }
+
+        @keyframes wobble {
+          0% {
+            transform: translateX(-90%);
+          }
+          50% {
+            transform: translateX(90%);
+          }
+          100% {
+            transform: translateX(-90%);
+          }
+        }
+
+        @keyframes scrolling {
+          0% {
+            transform: translateX(-100%);
+          }
+          100% {
+            transform: translateX(100%);
+          }
+        }
+
+        @keyframes shadow {
+          0% {
+            background-position: -98% 0;
+          }
+          100% {
+            background-position: 102% 0;
+          }
+        }
     </style>
 </head>
 <body>
+
+    <!-- ===== LOADING OVERLAY ===== -->
+    <div class="loader" id="pageLoader">
+      <div class="loader-inner">
+        <div class="text"><span>Loading</span></div>
+        <div class="text"><span>Loading</span></div>
+        <div class="text"><span>Loading</span></div>
+        <div class="text"><span>Loading</span></div>
+        <div class="text"><span>Loading</span></div>
+        <div class="text"><span>Loading</span></div>
+        <div class="text"><span>Loading</span></div>
+        <div class="text"><span>Loading</span></div>
+        <div class="text"><span>Loading</span></div>
+        <div class="line"></div>
+      </div>
+    </div>
+
     <header>
         <div class="container">
             <div class="header-content">
@@ -1399,6 +2115,104 @@
         </div>
     </section>
 
+    <!-- AI FLOATING BUTTON -->
+    <div class="ai-float-btn" id="aiFloatBtn">
+      <div class="wrapper">
+        <div class="light-1"></div>
+        <div class="light-2"></div>
+        <button class="ai-btn" onclick="openAssistantModal(); showSection('ai');">
+          <span class="txt-1">Ask AI</span>
+          <span class="txt-2">Thinking...</span>
+        </button>
+        <svg class="ai-bg" xmlns="http://www.w3.org/2000/svg" viewBox="70 70 160 160" width="300" height="300">
+          <line class="line-bg" x1="150" y1="143.58" x2="150" y2="97.31"></line>
+          <line class="line-bg" x1="157.98" y1="143.58" x2="157.98" y2="112.08"></line>
+          <line class="line-bg" x1="142.02" y1="143.58" x2="142.02" y2="118.08"></line>
+          <line class="line-bg" x1="130.05" y1="143.58" x2="130.05" y2="133.79"></line>
+          <line class="line-bg" x1="138.03" y1="143.58" x2="138.03" y2="131.83"></line>
+          <line class="line-bg" x1="146.01" y1="143.58" x2="146.01" y2="129.15"></line>
+          <line class="line-bg" x1="153.99" y1="143.58" x2="153.99" y2="129.15"></line>
+          <line class="line-bg" x1="161.97" y1="143.58" x2="161.97" y2="131.83"></line>
+          <line class="line-bg" x1="169.95" y1="143.58" x2="169.95" y2="133.79"></line>
+          <path class="line-bg" d="M126.06,143.58v-10.37c0-.72-.29-1.41-.8-1.92l-4.28-4.28c-.51-.51-.8-1.2-.8-1.92v-12.37"></path>
+          <path class="line-bg" d="M165.96,143.58v-18.37c0-.72.29-1.41.8-1.92l4.28-4.28c.51-.51.8-1.2.8-1.92v-14.37"></path>
+          <path class="line-bg" d="M173.94,143.58v-10.37c0-.72.29-1.41.8-1.92l4.28-4.28c.51-.51.8-1.2.8-1.92v-10.69"></path>
+          <path class="line-bg" d="M134.04,143.58v-20.37c0-.72-.29-1.41-.8-1.92l-4.28-4.28c-.51-.51-.8-1.2-.8-1.92v-9.37"></path>
+          <line class="line-bg" x1="176.04" y1="150" x2="217.32" y2="150"></line>
+          <path class="line-bg" d="M176.04,153.99h13.37c.72,0,1.41.29,1.92.8l4.28,4.28c.51.51,1.2.8,1.92.8h14.37"></path>
+          <path class="line-bg" d="M176.04,146.01h15.37c.72,0,1.41-.29,1.92-.8l4.28-4.28c.51-.51,1.2-.8,1.92-.8h9.37"></path>
+          <line class="line-bg" x1="123.96" y1="150" x2="82.68" y2="150"></line>
+          <path class="line-bg" d="M123.96,146.01h-13.37c-.72,0-1.41-.29-1.92-.8l-4.28-4.28c-.51-.51-1.2-.8-1.92-.8h-14.37"></path>
+          <path class="line-bg" d="M123.96,153.99h-15.37c-.72,0-1.41.29-1.92.8l-4.28,4.28c-.51.51-1.2.8-1.92.8h-9.37"></path>
+          <line class="line-bg" x1="150" y1="156.42" x2="150" y2="202.69"></line>
+          <line class="line-bg" x1="142.02" y1="156.42" x2="142.02" y2="187.92"></line>
+          <line class="line-bg" x1="157.98" y1="156.42" x2="157.98" y2="181.92"></line>
+          <line class="line-bg" x1="169.95" y1="156.42" x2="169.95" y2="166.21"></line>
+          <line class="line-bg" x1="161.97" y1="156.42" x2="161.97" y2="168.17"></line>
+          <line class="line-bg" x1="153.99" y1="156.42" x2="153.99" y2="170.85"></line>
+          <line class="line-bg" x1="146.01" y1="156.42" x2="146.01" y2="170.85"></line>
+          <line class="line-bg" x1="138.03" y1="156.42" x2="138.03" y2="168.17"></line>
+          <line class="line-bg" x1="130.05" y1="156.42" x2="130.05" y2="166.21"></line>
+          <path class="line-bg" d="M173.94,156.42v10.37c0,.72.29,1.41.8,1.92l4.28,4.28c.51.51.8,1.2.8,1.92v12.37"></path>
+          <path class="line-bg" d="M134.04,156.42v18.37c0,.72-.29,1.41-.8,1.92l-4.28,4.28c-.51.51-.8,1.2-.8,1.92v14.37"></path>
+          <path class="line-bg" d="M126.06,156.42v10.37c0,.72-.29,1.41-.8,1.92l-4.28,4.28c-.51.51-.8,1.2-.8,1.92v10.69"></path>
+          <path class="line-bg" d="M165.96,156.42v20.37c0,.72.29,1.41.8,1.92l4.28,4.28c.51.51.8,1.2.8,1.92v9.37"></path>
+          <line class="line" x1="150" y1="143.58" x2="150" y2="97.31"></line>
+          <line class="line" x1="157.98" y1="143.58" x2="157.98" y2="112.08"></line>
+          <line class="line" x1="142.02" y1="143.58" x2="142.02" y2="118.08"></line>
+          <line class="line" x1="130.05" y1="143.58" x2="130.05" y2="133.79"></line>
+          <line class="line" x1="138.03" y1="143.58" x2="138.03" y2="131.83"></line>
+          <line class="line" x1="146.01" y1="143.58" x2="146.01" y2="129.15"></line>
+          <line class="line" x1="153.99" y1="143.58" x2="153.99" y2="129.15"></line>
+          <line class="line" x1="161.97" y1="143.58" x2="161.97" y2="131.83"></line>
+          <line class="line" x1="169.95" y1="143.58" x2="169.95" y2="133.79"></line>
+          <path class="line" d="M126.06,143.58v-10.37c0-.72-.29-1.41-.8-1.92l-4.28-4.28c-.51-.51-.8-1.2-.8-1.92v-12.37"></path>
+          <path class="line" d="M165.96,143.58v-18.37c0-.72.29-1.41.8-1.92l4.28-4.28c.51-.51.8-1.2.8-1.92v-14.37"></path>
+          <path class="line" d="M173.94,143.58v-10.37c0-.72.29-1.41.8-1.92l4.28-4.28c.51-.51.8-1.2.8-1.92v-10.69"></path>
+          <path class="line" d="M134.04,143.58v-20.37c0-.72-.29-1.41-.8-1.92l-4.28-4.28c-.51-.51-.8-1.2-.8-1.92v-9.37"></path>
+          <line class="line" x1="176.04" y1="150" x2="217.32" y2="150"></line>
+          <path class="line" d="M176.04,153.99h13.37c.72,0,1.41.29,1.92.8l4.28,4.28c.51.51,1.2.8,1.92.8h14.37"></path>
+          <path class="line" d="M176.04,146.01h15.37c.72,0,1.41-.29,1.92-.8l4.28-4.28c.51-.51,1.2-.8,1.92-.8h9.37"></path>
+          <line class="line" x1="123.96" y1="150" x2="82.68" y2="150"></line>
+          <path class="line" d="M123.96,146.01h-13.37c-.72,0-1.41-.29-1.92-.8l-4.28-4.28c-.51-.51-1.2-.8-1.92-.8h-14.37"></path>
+          <path class="line" d="M123.96,153.99h-15.37c-.72,0-1.41.29-1.92.8l-4.28,4.28c-.51.51-1.2.8-1.92.8h-9.37"></path>
+          <line class="line" x1="150" y1="156.42" x2="150" y2="202.69"></line>
+          <line class="line" x1="142.02" y1="156.42" x2="142.02" y2="187.92"></line>
+          <line class="line" x1="157.98" y1="156.42" x2="157.98" y2="181.92"></line>
+          <line class="line" x1="169.95" y1="156.42" x2="169.95" y2="166.21"></line>
+          <line class="line" x1="161.97" y1="156.42" x2="161.97" y2="168.17"></line>
+          <line class="line" x1="153.99" y1="156.42" x2="153.99" y2="170.85"></line>
+          <line class="line" x1="146.01" y1="156.42" x2="146.01" y2="170.85"></line>
+          <line class="line" x1="138.03" y1="156.42" x2="138.03" y2="168.17"></line>
+          <line class="line" x1="130.05" y1="156.42" x2="130.05" y2="166.21"></line>
+          <path class="line" d="M173.94,156.42v10.37c0,.72.29,1.41.8,1.92l4.28,4.28c.51.51.8,1.2.8,1.92v12.37"></path>
+          <path class="line" d="M134.04,156.42v18.37c0,.72-.29,1.41-.8,1.92l-4.28,4.28c-.51.51-.8,1.2-.8,1.92v14.37"></path>
+          <path class="line" d="M126.06,156.42v10.37c0,.72-.29,1.41-.8,1.92l-4.28,4.28c-.51.51-.8,1.2-.8,1.92v10.69"></path>
+          <path class="line" d="M165.96,156.42v20.37c0,.72.29,1.41.8,1.92l4.28,4.28c.51.51.8,1.2.8,1.92v9.37"></path>
+          <circle class="dot" cx="150" cy="96.13" r="1.17"></circle>
+          <circle class="dot" cx="157.98" cy="110.91" r="1.17"></circle>
+          <circle class="dot" cx="142.02" cy="116.91" r="1.17"></circle>
+          <circle class="dot" cx="157.98" cy="183.09" r="1.17"></circle>
+          <circle class="dot" cx="171.83" cy="101.54" r="1.17"></circle>
+          <circle class="dot" cx="179.81" cy="113.23" r="1.17"></circle>
+          <circle class="dot" cx="128.17" cy="104.54" r="1.17"></circle>
+          <circle class="dot" cx="120.19" cy="111.54" r="1.17"></circle>
+          <circle class="dot" cx="150" cy="203.87" r="1.17"></circle>
+          <circle class="dot" cx="142.02" cy="189.09" r="1.17"></circle>
+          <circle class="dot" cx="128.17" cy="198.46" r="1.17"></circle>
+          <circle class="dot" cx="120.19" cy="186.77" r="1.17"></circle>
+          <circle class="dot" cx="171.83" cy="195.46" r="1.17"></circle>
+          <circle class="dot" cx="179.81" cy="188.46" r="1.17"></circle>
+          <circle class="dot" cx="210.08" cy="140.14" r="1.17"></circle>
+          <circle class="dot" cx="218.49" cy="150" r="1.17"></circle>
+          <circle class="dot" cx="213.08" cy="159.86" r="1.17"></circle>
+          <circle class="dot" cx="89.92" cy="159.86" r="1.17"></circle>
+          <circle class="dot" cx="81.51" cy="150" r="1.17"></circle>
+          <circle class="dot" cx="86.92" cy="140.14" r="1.17"></circle>
+        </svg>
+      </div>
+    </div>
+
     <!-- NEW MUSIC PLAYER -->
     <div class="music-player-fixed" id="newMusicPlayer">
         <div class="main-music-card">
@@ -1483,10 +2297,8 @@
                     <button class="nav-item" onclick="showSection('voice')"><i class="fas fa-microphone"></i> Voice Note</button>
                     <button class="nav-item" onclick="showSection('accepted')"><i class="fas fa-check-circle"></i> If Accepted</button>
                     <button class="nav-item" onclick="showSection('rejected')"><i class="fas fa-times-circle"></i> If Rejected</button>
-                    <button class="nav-item" onclick="showSection('confirmation')"><i class="fas fa-calendar-check"></i> Confirmation</button>
                     <button class="nav-item" onclick="showSection('form')"><i class="fas fa-file-alt"></i> Form</button>
-                    <button class="nav-item" onclick="showSection('interview')"><i class="fas fa-question-circle"></i> Interview Q&A</button>
-                    <button class="nav-item" onclick="showSection('companies')"><i class="fas fa-building"></i> Companies</button>
+                    <button class="nav-item" onclick="showSection('confirmation')"><i class="fas fa-calendar-check"></i> Confirmation</button>
                     <button class="nav-item" onclick="showSection('ai')"><i class="fas fa-brain"></i> Ask AI</button>
                 </div>
                 <button class="nav-scroll-btn right" onclick="scrollAssistantNav(200)">&#8250;</button>
@@ -1650,81 +2462,25 @@ Please send this information to complete your application.</div>
                     </div>
                 </div>
 
-                <!-- Interview Q&A Section -->
-                <div id="interviewSection" class="template-section">
-                    <h3 class="section-title-small">Interview Questions & Answers</h3>
-                    <div class="template-box">
-                        <div class="template-text">Call Center Interview Questions & Answers:
-
-Essential Questions:
-
-1. Tell me about yourself
-   Sample Answer:
-   I'm good in communication as a graduate. I like to work with people and help them solve their issues. I want a stable job and I want to learn English, practice customer service.
-
-2. Why do you want the call center job?
-   Sample Answer:
-   I personally would like to work in a call center to have the ability to improve my communication, enhance my English language acquiring skills and professionally grow where there is defined system.
-
-3. What do you know about our organization?
-   Sample Answer:
-   I understand your company to be a respected name in the customer service field, and that you offer high quality services to businesses overseas.
-
-4. How do you deal with a customer who's angry?
-   Sample Answer:
-   I keep my cool, listen tightly to the customer, say I'm sorry it didn't work and try to resolve the problem with a professional approach.
-
-5. What is customer service?
-   Sample Answer:
-   Customer service is about being of service to the customer, solving their problem and ensuring that they have a positive experience with the company.</div>
-                        <div class="template-actions">
-                            <button class="copy-btn" onclick="copyText('Call Center Interview Questions & Answers:\n\nEssential Questions:\n\n1. Tell me about yourself\n   Sample Answer:\n   I\'m good in communication as a graduate. I like to work with people and help them solve their issues. I want a stable job and I want to learn English, practice customer service.\n\n2. Why do you want the call center job?\n   Sample Answer:\n   I personally would like to work in a call center to have the ability to improve my communication, enhance my English language acquiring skills and professionally grow where there is defined system.\n\n3. What do you know about our organization?\n   Sample Answer:\n   I understand your company to be a respected name in the customer service field, and that you offer high quality services to businesses overseas.\n\n4. How do you deal with a customer who\'s angry?\n   Sample Answer:\n   I keep my cool, listen tightly to the customer, say I\'m sorry it didn\'t work and try to resolve the problem with a professional approach.\n\n5. What is customer service?\n   Sample Answer:\n   Customer service is about being of service to the customer, solving their problem and ensuring that they have a positive experience with the company.', this)">
-                                <i class="far fa-copy"></i> Copy Interview Q&A
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Companies Section -->
-                <div id="companiesSection" class="template-section">
-                    <h3 class="section-title-small">Our Partner Companies</h3>
-                    <div class="template-box">
-                        <div class="template-text">We work with 20+ top call centers and recruitment agencies including:
-
-Leadbull, Dyninno, Realogy, Insource, OUTSOURCING SKILL, NAOS,
-Telephonic, Vitrin Clinic, LTS, Phoenix, IntouchCX, TTC,
-HANG-UP Solutions, CXPERTS, Ultatek, CNS, FOODHUB, Creative Basket,
-Volumex, BPO HIVE
-
-These companies offer excellent opportunities for career growth and development in the customer service industry.</div>
-                        <div class="template-actions">
-                            <button class="copy-btn" onclick="copyText('We work with 20+ top call centers and recruitment agencies including:\n\nLeadbull, Dyninno, Realogy, Insource, OUTSOURCING SKILL, NAOS,\nTelephonic, Vitrin Clinic, LTS, Phoenix, IntouchCX, TTC,\nHANG-UP Solutions, CXPERTS, Ultatek, CNS, FOODHUB, Creative Basket,\nVolumex, BPO HIVE\n\nThese companies offer excellent opportunities for career growth and development in the customer service industry.', this)">
-                                <i class="far fa-copy"></i> Copy Company List
-                            </button>
-                        </div>
-                    </div>
-                </div>
 
                 <!-- AI Section -->
                 <div id="aiSection" class="template-section">
-                    <h3 class="section-title-small">Ask AI Assistant</h3>
-                    <div class="ai-question-box">
-                        <div class="ai-title">
-                            <i class="fas fa-robot"></i>
-                            Ask me anything about recruitment
-                        </div>
-                        <textarea id="aiQuestion" placeholder="Type your question here... Example: How can I improve my interview skills?"></textarea>
-                        <button class="copy-btn" onclick="askAI()">
-                            <i class="fas fa-paper-plane"></i> Ask Question
-                        </button>
-                        <div class="ai-response" id="aiResponse">
-                            <div class="ai-response-content" id="aiResponseContent"></div>
-                            <div class="template-actions" style="margin-top: 15px;">
-                                <button class="copy-btn" onclick="copyAIResponse()">
-                                    <i class="far fa-copy"></i> Copy Answer
-                                </button>
+                    <div class="chat-wrapper">
+                        <div class="chat-messages" id="chatMessages">
+                            <div class="chat-bubble ai-bubble">
+                                <div class="bubble-avatar"><i class="fas fa-robot"></i></div>
+                                <div class="bubble-body">
+                                    <span class="bubble-text">مرحباً! أنا مساعد VORANIX. اسألني أي حاجة عن الـ recruitment أو الـ interviews 🎯</span>
+                                </div>
                             </div>
                         </div>
+                        <div class="chat-input-row">
+                            <textarea id="aiQuestion" class="chat-input" placeholder="Write your message here" rows="1" onkeydown="handleChatKey(event)"></textarea>
+                            <button class="chat-send-btn" onclick="askAI()" id="chatSendBtn">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                        <div id="chatToast" class="chat-toast"></div>
                     </div>
                 </div>
             </div>
@@ -1891,7 +2647,21 @@ These companies offer excellent opportunities for career growth and development 
 
             const closeMusicBtn = document.getElementById('closeMusicBtn');
             if (closeMusicBtn) closeMusicBtn.addEventListener('click', function() {
-                document.getElementById('newMusicPlayer').classList.remove('show');
+                const musicPlayer = document.getElementById('newMusicPlayer');
+                const aiBtn = document.getElementById('aiFloatBtn');
+
+                // fade out music player
+                musicPlayer.style.transition = 'opacity 0.3s ease';
+                musicPlayer.style.opacity = '0';
+
+                setTimeout(() => {
+                    musicPlayer.classList.remove('show');
+                    musicPlayer.style.opacity = '';
+                    musicPlayer.style.transition = '';
+
+                    // slide AI button to where the music player was (right: 20px)
+                    aiBtn.classList.add('solo');
+                }, 300);
             });
 
             const radarBtn = document.getElementById('radarBtn');
@@ -1901,6 +2671,10 @@ These companies offer excellent opportunities for career growth and development 
 
             loadTrack(0);
             setUIpaused();
+
+            // Chat input auto-resize
+            const chatInput = document.getElementById('aiQuestion');
+            if (chatInput) chatInput.addEventListener('input', autoResizeChatInput);
 
             // Modal outside-click handlers
             document.getElementById('assistantModal')?.addEventListener('click', function(e) {
@@ -1929,6 +2703,7 @@ These companies offer excellent opportunities for career growth and development 
 
             setTimeout(() => {
                 document.getElementById('newMusicPlayer').classList.add('show');
+                document.getElementById('aiFloatBtn').classList.add('show');
             }, 600);
         });
 
@@ -1997,10 +2772,13 @@ These companies offer excellent opportunities for career growth and development 
 
         // ===== COMPANIES =====
         const companies = [
-            "Leadbull", "Dyninno", "Realogy", "Insource", "OUTSOURCING SKILL", "NAOS",
-            "Telephonic", "Vitrin Clinic", "LTS", "Phoenix", "IntouchCX", "TTC",
-            "HANG-UP Solutions", "CXPERTS", "Ultatek", "CNS", "FOODHUB", "Creative Basket",
-            "Volumex", "BPO HIVE"
+            "VORANIX", "Fly Pie", "eClerx", "Realogy", "BPO HIVE", "ABS", "ISON Xperience ES",
+            "AT&T", "WGS", "Outsourcing Skill", "Leadbull", "Octopus", "Callix", "Insource",
+            "NAOS", "LTS", "Intouch", "Elevate", "VolumeX", "TTC", "Geeky CX", "Dyninno",
+            "NetLink", "Foodhub", "Ultatek", "Phoenix", "Hangup", "Virtual Affiliates",
+            "Teleperformance", "BuzzCx", "Evolve", "Holvrine alex", "Assets Solutions", "CNS",
+            "Datalystic", "Cxperts Telesales", "Outsourcing 4 You", "Telephonic",
+            "Creative Basket", "ILEADS", "Cxperts", "Stereo outsourcing"
         ];
 
         function initCompanyGrid() {
@@ -2019,47 +2797,394 @@ These companies offer excellent opportunities for career growth and development 
             });
         }
 
+        // ===== AI CONFIG =====
+        const AI_CONFIG = {
+            apiKey: "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",
+            model: "openrouter/auto",
+            systemPrompt: `You are a Call Center recruitment assistant for VORANIX, managed by Saif from HR.
+
+## Your Role
+Help candidates find the right call center job offer based on their profile and answer their questions about available positions.
+
+## Rules
+1. **Stay on topic**: Only answer questions related to call center offers, HR, recruitment, salaries, shifts, requirements, and interview advice.
+2. **If asked anything off-topic**, respond with:
+"بعد إذنك، خلينا نتكلم في مجال الـ Call Center أحسن — أو مجال الـ HR — عشان أقدر أساعدك بشكل أحسن 😊"
+3. **Be direct**: No filler, no unnecessary intros. Answer the question immediately.
+4. **If you can't help**, say:
+"للمزيد من التفاصيل أو لأي استفسار تاني، تواصل مع سيف الـ HR مباشرةً."
+
+---
+
+## ACTIVE OFFERS
+
+### 1. ISON Xperience 🇪🇸
+- Account: Customer Service | Language: B2+ Spanish + B2 English
+- Salary: 32K NET + 5K Welcome Bonus | Shifts: Rotational
+- Location: Horizon Site, 6th of October | Graduation: Grads/UG no commitments
+- Age: Max 38 | Nationality: Egyptians Only
+- Interview: Online | Process: Call Interview
+- Training: 5 Weeks (Paid)
+
+### 2. Geeky CX (English)
+- Account: Customer Service | Language: B2+/C1 English
+- Salary: 17K Gross | Shifts: Fixed 7PM–4AM
+- Location: El Sheikh Zayed | Graduation: Grads Only
+- Interview: F2F – Friday 8PM–10PM | Process: Face to Face
+- Training: 30 Days
+
+### 3. Geeky CX (Spanish + English)
+- Account: Customer Service | Language: C1 English + C1 Spanish
+- Salary: 30K Gross | Shifts: Fixed 7PM–4AM
+- Location: El Sheikh Zayed | Graduation: Grads Only
+- Interview: F2F – Friday 8PM–10PM | Process: Face to Face
+- Training: 30 Days
+
+### 4. Teleperformance 🇺🇸
+- Account: Customer Service | Language: English B2–C1
+- Salary: Up to 18.5K NET | Shifts: Rotational 24/7
+- Location: 5th Settlement | Graduation: Undergrads/Grads/Gap Year
+- Age: Max 45 | Nationality: Egyptians Only
+- Benefits: Paid Training, Social & Medical Insurance, Transportation, Gym
+- Interview: Call Interview | Training: 30 Days
+
+### 5. Teleperformance 🇫🇷
+- Account: Customer Service | Language: English B1+ / French B2
+- Salary: Up to 26.5K NET | Shifts: Rotational 24/7
+- Location: 5th Settlement | Graduation: Grads Only
+- Age: Max 45 | Nationality: Egyptians Only
+- Benefits: Paid Training, Social & Medical Insurance, Transportation, Gym
+- Interview: Call Interview | Training: 30 Days
+
+### 6. Netlink (Telesales)
+- Account: Telesales | Language: English B2–C1
+- Salary: Up to 14K NET + 5K KPIs | Shifts: Fixed 4PM–1AM
+- Location: 5th Settlement, El Yasmen 7 | Age: Max 32
+- Nationality: Egyptians/Foreigners | Graduation: Undergrads/Grads/Gap Year
+- Interview: Call Interview | Training: 2 Weeks
+
+### 7. Netlink B2B
+- Account: Business Developer | Language: B2+/C1
+- Salary: Up to 14K NET + up to $1,000 commission/month | Shifts: Fixed 4PM–1AM
+- Location: 5th Settlement, El Yasmen 7 | Age: Max 32
+- Nationality: Egyptians/Foreigners
+- Interview: Call Interview | Training: 2 Weeks
+
+### 8. TTC
+- Account: US Account (Telesales) | Language: English B2+
+- Salary: 12K Net + Commission (2K+) + 1K KPIs | Shifts: Fixed 3PM–11PM
+- Location: Nasr City | Age: 19–28
+- Nationality: Egyptians Only | Graduation: All welcome
+- Interview: Mon–Fri 7:30PM–9PM | Training: 30 Days
+
+### 9. Assets Solutions
+- Account: Life Coaching | Language: English B2
+- Salary: 17K Gross | Shifts: Fixed 4PM–12AM
+- Location: Nasr City (Business Square) | Age: Max 35
+- Nationality: Egyptians Only | Graduation: All welcome
+- Interview: Mon–Thu 5PM–10PM
+
+### 10. AT&T (Solar)
+- Account: Solar Account | Language: English B2+
+- Salary: 10K Net + Unlimited Commission | Shifts: Fixed 4PM–12AM
+- Location: Maadi | Age: 18–27
+- Nationality: Egyptians Only | Graduation: All welcome
+- Interview: Mon–Fri 7PM–10:30PM | Training: 1 Month
+
+### 11. HANG-UP Solutions (DME)
+- Account: DME (Full Time) | Language: English B2
+- Salary: 10K + Commission | Shifts: Fixed 2:45PM–12AM
+- Location: Nasr City (Makram Ebeid) | Age: Max 27
+- Nationality: Egyptians Only | Graduation: Undergrads/Grads/Gap Year/Dropouts
+- Interview: Mon–Thu 8PM–10PM | Training: 1 Month
+
+### 12. Datalytics
+- Account: USA Account (Telesales) | Language: C1
+- Salary: 15K–20K Net + Uncapped USD Commission | Shifts: 3:45PM–1AM or 4PM–1:30AM
+- Location: El Mokattam | Age: Max 35
+- Nationality: Egyptians/Foreigners | Graduation: Undergrads/Grads/Gap Year/Dropouts
+- Interview: Mon–Fri 6PM–8PM
+
+### 13. CNS
+- Account: USA Account (Telesales) | Language: English B2/B2+
+- Salary: 10K Net + Commission up to 20K | Shifts: Fixed 3PM–11PM
+- Location: Nasr City (Makram Ebeid, 4th Delta Towers) | Age: Max 27
+- Nationality: Egyptians/Sudanese | Graduation: All welcome
+- Interview: Mon–Fri 4:30PM–8:30PM | Training: 5 Days (Paid)
+
+### 14. Ultatek
+- Account: US Account | Language: B2+/C1
+- Salary: Basic $345 + KPIs + Transportation Allowance | Shifts: Fixed 3:30PM–12:30AM
+- Location: Maadi | Age: Max 30
+- Nationality: Egyptians Only
+- Interview: Call Interview | Training: 3 Weeks (Paid in USD)
+- Note: 6 months cold calling/sales experience required | C1 required
+
+### 15. ABS CLA (Debt Settlement)
+- Account: Debt Settlement | Language: English B2+
+- Salary: 17.5K Net + Social & Medical Insurance | Shifts: 4PM–1AM or 6PM–3AM
+- Location: Nasr City | Age: Max 35
+- Nationality: Egyptians Only | Graduation: Undergrads/Grads/Dropout/Gap Year
+- Interview: Online | Training: 30 Days (Paid if passed)
+
+### 16. CXPERTS (Customer Service)
+- Account: Customer Service | Language: B2+/C1
+- Salary: 23K NET + 5K KPIs | Shifts: Fixed 4PM–2AM
+- Location: Nasr City | Age: Max 30
+- Nationality: Egyptians/Foreigners | Graduation: Grads/Gap Year
+- Interview: Mon–Fri 12PM–7PM | Note: Min 6 months CS experience
+
+### 17. CXPERTS (Telesales)
+- Account: Telesales Account | Language: B2+/C1
+- Salary: 19K Gross | Shifts: Fixed 4:30PM–1AM
+- Location: Tahrir, Downtown | Age: Max 30
+- Nationality: Egyptians/Foreigners
+- Interview: Mon–Fri 12PM–7PM | Training: 1–2 Weeks
+
+### 18. OUTSOURCING SKILL
+- Account: Telesales (DME) | Language: English B2
+- Salary: 10K–12K Net + Unlimited Commission | Shifts: Fixed 3PM–12AM
+- Location: Maadi | Age: Max 35
+- Nationality: Egyptians/Foreigners | Graduation: Undergrads/Grads
+- Interview: Call Interview | Training: 1 Month
+- WFH available after 1 month | Weekly payouts
+
+### 19. Creative Basket
+- Account: Travel Advisor (Telesales Opener) | Language: B2/C1
+- Salary: 9K–15K (based on experience) + Commission ($1/night) + Transportation
+- Shifts: Fixed 3PM–12AM | Location: Nasr City (Makram Ebeid)
+- Age: 20–30 | Min 3 months telesales in travel industry required
+- Interview: Mon–Thu 3PM–7PM | Training: 2 Weeks
+
+---
+
+## ON HOLD OFFERS
+The following companies currently have offers on hold. Do NOT present them as active. If asked, say:
+"الـ offer دي حالياً On Hold — لو حابب أحطك على اللستة لما تفتح تاني، تواصل مع سيف الـ HR."
+
+Companies on hold include: Octopus Arabic, Octopus Spanish, IntouchCX German, Realogy, Callix, eClerx, NAOS, Telephonic (Portuguese/Turkish/French/Italian/German), Vitrin Clinic, Phoenix, some VORANIX WFH roles, CXPERTS (some accounts), Ileads, Outsourcing 4 You, Fly Pie, Stereo Outsourcing, Evolve Marketing LLC, BuzzCx (Cairo/Italian/Greek/German/Alex/B1), ABS CLA (some), Elevate Holding, Holvrine, WGS, LTS, Virtual Affiliates, IntouchCX (English/French/Spanish), Win Global Solutions (WFH Part-time & Full-time), Insource, and others.
+
+---
+
+## How to Answer Common Questions
+
+**"الـ salary كام في [offer]?"**
+→ اذكر الـ basic salary، الـ KPIs، والـ commission بشكل مختصر ومباشر.
+
+**"الـ offer ده active ولا hold?"**
+→ راجع الليستة وجاوب مباشرةً.
+
+**"أسئلة الـ interview إيه؟"**
+→ قدم نصائح call center عامة:
+- Introduce yourself
+- Why call center?
+- How do you handle difficult customers?
+- What's your English level?
+- Are you okay with night shifts?
+
+**"مناسب لمين؟"**
+→ اسأل عن: مستوى الإنجليزي، اللغات التانية، الحالة الدراسية، المنطقة، الشيفت المناسب — وبعدين وجّهه للـ offer الأنسب.
+
+---
+Call Center Interview Questions & Answers:
+
+Essential Questions:
+
+1. Tell me about yourself
+   Sample Answer:
+   I'm good in communication as a graduate. I like to work with people and help them solve their issues. I want a stable job and I want to learn English, practice customer service.
+
+2. Why do you want the call center job?
+   Sample Answer:
+   I personally would like to work in a call center to have the ability to improve my communication, enhance my English language acquiring skills and professionally grow where there is defined system.
+
+3. What do you know about our organization?
+   Sample Answer:
+   I understand your company to be a respected name in the customer service field, and that you offer high quality services to businesses overseas.
+
+4. How do you deal with a customer who's angry?
+   Sample Answer:
+   I keep my cool, listen tightly to the customer, say I'm sorry it didn't work and try to resolve the problem with a professional approach.
+
+5. What is customer service?
+   Sample Answer:
+   Customer service is about being of service to the customer, solving their problem and ensuring that they have a positive experience with the company.
+## Contact
+For anything outside your scope: "تواصل مع سيف الـ HR مباشرةً."
+`
+        };
+
+        // ===== AI CONVERSATION HISTORY (Memory) =====
+        let conversationHistory = [];
+
+        // ===== CHAT HELPERS =====
+        function handleChatKey(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                askAI();
+            }
+        }
+
+        function autoResizeChatInput() {
+            const ta = document.getElementById('aiQuestion');
+            if (!ta) return;
+            ta.style.height = 'auto';
+            ta.style.height = Math.min(ta.scrollHeight, 120) + 'px';
+        }
+
+        function showChatToast(msg) {
+            const t = document.getElementById('chatToast');
+            if (!t) return;
+            t.textContent = msg;
+            t.classList.add('visible');
+            setTimeout(() => t.classList.remove('visible'), 1800);
+        }
+
+        function addBubble(role, text) {
+            const messages = document.getElementById('chatMessages');
+            if (!messages) return null;
+
+            const bubble = document.createElement('div');
+            bubble.className = `chat-bubble ${role === 'user' ? 'user-bubble' : 'ai-bubble'}`;
+
+            const avatar = document.createElement('div');
+            avatar.className = 'bubble-avatar';
+            avatar.innerHTML = role === 'user' ? '<i class="fas fa-user"></i>' : '<i class="fas fa-robot"></i>';
+
+            const body = document.createElement('div');
+            body.className = 'bubble-body';
+
+            const span = document.createElement('span');
+            span.className = 'bubble-text';
+            span.textContent = text;
+
+            const copyBtn = document.createElement('button');
+            copyBtn.className = 'bubble-copy-btn';
+            copyBtn.innerHTML = '<i class="far fa-copy"></i> Copy';
+            copyBtn.onclick = () => {
+                navigator.clipboard.writeText(span.textContent).then(() => {
+                    copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                    copyBtn.classList.add('copied');
+                    showChatToast('✅ Copied!');
+                    setTimeout(() => {
+                        copyBtn.innerHTML = '<i class="far fa-copy"></i> Copy';
+                        copyBtn.classList.remove('copied');
+                    }, 2000);
+                });
+            };
+
+            body.appendChild(span);
+            body.appendChild(copyBtn);
+            bubble.appendChild(avatar);
+            bubble.appendChild(body);
+            messages.appendChild(bubble);
+            messages.scrollTop = messages.scrollHeight;
+            return { bubble, span };
+        }
+
+        function addTypingIndicator() {
+            const messages = document.getElementById('chatMessages');
+            if (!messages) return null;
+            const bubble = document.createElement('div');
+            bubble.className = 'chat-bubble ai-bubble typing-bubble';
+            bubble.id = 'typingIndicator';
+            bubble.innerHTML = `
+                <div class="bubble-avatar"><i class="fas fa-robot"></i></div>
+                <div class="bubble-body">
+                    <span class="bubble-text">
+                        <span class="typing-dot"></span>
+                        <span class="typing-dot"></span>
+                        <span class="typing-dot"></span>
+                    </span>
+                </div>`;
+            messages.appendChild(bubble);
+            messages.scrollTop = messages.scrollHeight;
+            return bubble;
+        }
+
         // ===== AI =====
-        function askAI() {
-            const question = document.getElementById('aiQuestion').value.trim();
-            if (!question) { alert('Please enter a question first.'); return; }
-            const responseBox = document.getElementById('aiResponse');
-            const responseContent = document.getElementById('aiResponseContent');
-            responseContent.textContent = 'Thinking...';
-            responseBox.classList.add('active');
+        async function askAI() {
+            const input = document.getElementById('aiQuestion');
+            const sendBtn = document.getElementById('chatSendBtn');
+            const question = input ? input.value.trim() : '';
+            if (!question) return;
 
-            const responses = [
-                "For call center interviews, focus on clear communication skills and customer service attitude. Practice common questions like 'Tell me about yourself' and 'Why do you want this job?'",
-                "A good voice note should be 1-2 minutes, clear, and professional. Mention your experience, language skills, and why you're interested in the role.",
-                "To prepare for a call center interview, research the company, practice common scenarios, and prepare questions to ask the interviewer.",
-                "Successful candidates show enthusiasm, clear communication, and a customer-focused mindset. Highlight any relevant experience you have.",
-                "When sending a voice note, speak slowly and clearly. Mention your qualifications, language level, and availability."
-            ];
+            addBubble('user', question);
+            conversationHistory.push({ role: "user", content: question });
+            input.value = '';
+            input.style.height = 'auto';
+            if (sendBtn) sendBtn.disabled = true;
 
-            let response = "I recommend practicing common interview questions, speaking clearly in your voice note, and showing enthusiasm for customer service roles.";
-            const q = question.toLowerCase();
-            if (q.includes('interview')) response = responses[0];
-            else if (q.includes('voice note') || q.includes('voice')) response = responses[1];
-            else if (q.includes('prepare')) response = responses[2];
-            else if (q.includes('success') || q.includes('good')) response = responses[3];
-            else if (q.includes('send') || q.includes('record')) response = responses[4];
+            const typing = addTypingIndicator();
 
-            responseContent.textContent = '';
-            let i = 0;
-            const typing = setInterval(() => {
-                if (i < response.length) { responseContent.textContent += response.charAt(i); i++; }
-                else clearInterval(typing);
-            }, 30);
+            try {
+                const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${AI_CONFIG.apiKey}`,
+                        "HTTP-Referer": "https://voranix.com",
+                        "X-Title": "Voranix Assistant"
+                    },
+                    body: JSON.stringify({
+                        model: AI_CONFIG.model,
+                        messages: [
+                            { role: "system", content: AI_CONFIG.systemPrompt },
+                            ...conversationHistory
+                        ]
+                    })
+                });
+
+                const data = await response.json();
+                if (typing) typing.remove();
+
+                if (data.error) {
+                    addBubble('ai', '❌ Error: ' + data.error.message);
+                    conversationHistory.pop();
+                    return;
+                }
+
+                const aiReply = data.choices[0].message.content;
+                conversationHistory.push({ role: "assistant", content: aiReply });
+
+                const result = addBubble('ai', '');
+                if (result) {
+                    const { span } = result;
+                    let i = 0;
+                    const messages = document.getElementById('chatMessages');
+                    const typing2 = setInterval(() => {
+                        if (i < aiReply.length) {
+                            span.textContent += aiReply.charAt(i);
+                            i++;
+                            if (messages) messages.scrollTop = messages.scrollHeight;
+                        } else {
+                            clearInterval(typing2);
+                        }
+                    }, 12);
+                }
+
+            } catch (err) {
+                if (typing) typing.remove();
+                addBubble('ai', '❌ Connection error. Check your internet connection.');
+                console.error('AI Error:', err);
+                conversationHistory.pop();
+            } finally {
+                if (sendBtn) sendBtn.disabled = false;
+            }
+        }
+
+        function clearAIHistory() {
+            conversationHistory = [];
+        }
+
+        function copyAIResponse() {
+            const content = document.getElementById('aiResponseContent');
+            if (content) copyText(content.textContent, event.currentTarget);
         }
 
         function scrollAssistantNav(amount) {
             const nav = document.getElementById('assistantNav');
             if (nav) nav.scrollBy({ left: amount, behavior: 'smooth' });
-        }
-
-        function copyAIResponse() {
-            const content = document.getElementById('aiResponseContent');
-            copyText(content.textContent, event.currentTarget);
         }
 
         // ===== POSTS =====
@@ -2304,6 +3429,67 @@ Location:  Cairo/Alex
                 alert('Please write a post first.');
             }
         }
+
+        // ===== LOADER FUNCTIONALITY =====
+        function showLoaderThenAct(callback) {
+            const loader = document.getElementById('pageLoader');
+            loader.classList.add('show');
+            setTimeout(() => {
+                loader.classList.remove('show');
+                if (callback) callback();
+            }, 1500);
+        }
+
+        // Loader trigger selectors - only cards and specific elements, not buttons
+        const LOADER_TRIGGERS = [
+            '.service-card',
+            '.company-item',
+            '.template-box',
+            '.ai-question-box',
+            '.post-item'
+        ];
+
+        const LOADER_SKIP = [
+            '.copy-btn',
+            '.assistant-close',
+            '.close-modal',
+            '.music-close-btn',
+            '.copy-msg-btn',
+            '.posts-copy-btn'
+        ];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.addEventListener('click', function(e) {
+                // Allow re-fired clicks through
+                if (e._fromLoader) return;
+
+                // Check skip list first
+                if (LOADER_SKIP.some(sel => e.target.closest(sel))) return;
+
+                // Find matching trigger
+                const trigger = LOADER_TRIGGERS
+                    .map(sel => e.target.closest(sel))
+                    .find(el => el !== null);
+
+                if (!trigger) return;
+
+                // Block the original click
+                e.preventDefault();
+                e.stopImmediatePropagation();
+
+                // Show loader, then re-fire click after it hides
+                showLoaderThenAct(() => {
+                    const newClick = new MouseEvent('click', {
+                        bubbles: true,
+                        cancelable: true,
+                        clientX: e.clientX,
+                        clientY: e.clientY
+                    });
+                    newClick._fromLoader = true;
+                    trigger.dispatchEvent(newClick);
+                });
+            }, true);
+        });
 
         // Modal outside-click handlers are now inside the main DOMContentLoaded block above
     </script>
