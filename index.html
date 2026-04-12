@@ -517,7 +517,6 @@
         }
 
         /* ===== AI FLOATING BUTTON ===== */
-        /* ===== AI FLOAT BUTTON (uiverse wrapper style) ===== */
         .ai-float-btn {
             position: fixed;
             bottom: 24px;
@@ -536,196 +535,9 @@
         .ai-float-btn.solo {
             right: 24px;
         }
-
-        /* wrapper */
-        .ai-float-btn .wrapper {
-            --accent-1: #e01f7a;
-            --accent-2: #ff1744;
-            --accent-3: #e01f7a;
-            --accent-4: #c0185e;
-            --light-1: rgba(224,31,122,0.55);
-            --light-2: rgba(255,23,68,0.35);
-            --duration: 2s;
-            --transition: 3s infinite;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: max-content;
-            height: max-content;
-        }
-
-        .ai-float-btn .light-1,
-        .ai-float-btn .light-2 {
-            pointer-events: none;
-            position: absolute;
-            top: -20px;
-            left: -30px;
-            width: 100px;
-            height: 70px;
-            border-radius: 50%;
-            background-color: var(--light-1);
-            filter: blur(27px);
-            z-index: 1;
-            transition: opacity var(--transition) ease,
-                        top var(--transition) ease,
-                        left var(--transition) ease;
-            opacity: 0.4;
-        }
-        .ai-float-btn .light-2 {
-            top: auto;
-            bottom: -20px;
-            left: auto;
-            right: -20px;
-            width: 80px;
-            height: 40px;
-            background-color: var(--light-2);
-            transition-duration: calc(var(--transition) * 2);
-            z-index: -1;
-            opacity: 0.25;
-        }
-
-        .ai-float-btn .ai-bg {
-            position: absolute;
-            z-index: -1;
-            fill: none;
-            transition: filter var(--transition) ease;
-        }
-        .ai-float-btn .line-bg {
-            stroke: rgba(224,31,122,0.25);
-            stroke-width: 0.3;
-        }
-        .ai-float-btn .line {
-            stroke: none;
-            stroke-width: 0;
-            stroke-dasharray: 39 10;
-            transition: stroke var(--transition) ease-in-out;
-        }
-        .ai-float-btn .dot {
-            fill: #e01f7a;
-            opacity: 0.4;
-            transition: fill var(--transition) ease;
-        }
-
-        .ai-float-btn .ai-btn {
-            width: max-content;
-            box-sizing: border-box;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-width: 120px;
-            min-height: 48px;
-            border-radius: 7px;
-            background-color: #000;
-            background-image: linear-gradient(to bottom, rgba(224,31,122,0.18), transparent);
-            color: #f0a0c0;
-            border: 2px solid rgba(224,31,122,0.6);
-            font-size: 15px;
-            font-weight: 600;
-            font-family: 'Inter', sans-serif;
-            letter-spacing: 0.5px;
-            cursor: pointer;
-            transition: all var(--transition) ease;
-            box-shadow:
-                0 0 30px -12px var(--light-1),
-                inset -1px -1px 1px 1px #000,
-                inset -2px -2px 2px 1px rgba(255,255,255,0.08),
-                inset 1px 1px 1px 1px #000,
-                inset 2px 2px 2px 1px rgba(255,255,255,0.08);
-            position: relative;
-        }
-
-        .ai-float-btn .ai-btn .txt-1 {
-            position: absolute;
-            opacity: 1;
-            transition: opacity 0.5s ease;
-        }
-        .ai-float-btn .ai-btn .txt-2 {
-            position: absolute;
-            opacity: 0;
-            transition: opacity 0.8s ease;
-        }
-
-        /* hover */
-        .ai-float-btn .ai-btn:hover {
-            color: #ffffff;
-            border: 1px solid #e01f7a;
-            text-shadow: 0 0 10px var(--light-1);
-        }
-        .ai-float-btn .wrapper:has(.ai-btn:hover) .dot { fill: #ff1744; }
-        .ai-float-btn .wrapper:has(.ai-btn:hover) .light-1,
-        .ai-float-btn .wrapper:has(.ai-btn:hover) .light-2 { opacity: 0.7; }
-        .ai-float-btn .wrapper:has(.ai-btn:hover) .light-1 { top: -30px; left: -40px; }
-        .ai-float-btn .wrapper:has(.ai-btn:hover) .light-2 { bottom: -30px; right: -30px; }
-
-        /* active */
-        .ai-float-btn .ai-btn:active {
-            box-shadow: 0 0 10px var(--light-1),
-                inset -1px -1px 1px 1px #000,
-                inset 1px 1px 1px 1px #000;
-        }
-        .ai-float-btn .wrapper:has(.ai-btn:active) .light-1,
-        .ai-float-btn .wrapper:has(.ai-btn:active) .light-2 { opacity: 1; }
-
-        /* focus / thinking state */
-        .ai-float-btn .ai-btn:focus {
-            background-color: #0d0005;
-            border-color: #e01f7a;
-            animation: aiBtnPulse var(--duration) ease-in-out infinite;
-            outline: none;
-        }
-        .ai-float-btn .ai-btn:focus .txt-1 { opacity: 0; }
-        .ai-float-btn .ai-btn:focus .txt-2 { opacity: 1; animation: aiBtnPulseText var(--duration) ease-in-out infinite; }
-        .ai-float-btn .wrapper:has(.ai-btn:focus) .dot {
-            animation: aiDotOpac calc(var(--duration) * 0.5) linear infinite;
-            fill: #e01f7a;
-        }
-        .ai-float-btn .wrapper:has(.ai-btn:focus) .dot:nth-child(odd) {
-            animation-delay: calc(var(--duration) * 0.1);
-        }
-        .ai-float-btn .wrapper:has(.ai-btn:focus) .line {
-            animation: aiDash var(--duration) ease-out infinite;
-        }
-        .ai-float-btn .wrapper:has(.ai-btn:focus) .line:nth-child(odd) {
-            animation-direction: normal;
-            animation-delay: calc(var(--duration) * 0.1);
-        }
-        .ai-float-btn .wrapper:has(.ai-btn:focus) .ai-bg {
-            filter: drop-shadow(0px 0px 6px #e01f7a);
-        }
-
-        @keyframes aiBtnPulseText {
-            0%, 100% { text-shadow: 0 0 2px #0000; }
-            50% { text-shadow: 0 0 24px #e01f7a; }
-        }
-        @keyframes aiDotOpac {
-            0%, 100% { opacity: 0.1; }
-            20% { opacity: 1; }
-        }
-        @keyframes aiBtnPulse {
-            0%, 100% {
-                box-shadow: 0 0 20px rgba(224,31,122,0.3),
-                    inset -1px -1px 1px 1px #000,
-                    inset 1px 1px 1px 1px #000;
-                border-color: #0000;
-            }
-            50% {
-                box-shadow: 0 0 60px 0px rgba(224,31,122,0.7),
-                    inset -1px -1px 1px 1px #000,
-                    inset 1px 1px 1px 1px #000;
-            }
-            85% { border-color: #e01f7a; }
-        }
-        @keyframes aiDash {
-            0% { stroke-width: 0; stroke-dashoffset: 10; stroke: #c0185e; }
-            50% { stroke-width: 0.5; stroke-dashoffset: 88; stroke: #ff1744; }
-            100% { stroke-width: 0; stroke-dashoffset: 166; stroke: #c0185e; }
-        }
-
         @media (max-width: 500px) {
             .ai-float-btn { right: 260px; bottom: 18px; }
             .ai-float-btn.solo { right: 20px; }
-            .ai-float-btn .ai-btn { min-width: 100px; min-height: 42px; font-size: 13px; }
         }
 
         /* ===== ASSISTANT MODAL ===== */
@@ -1999,7 +1811,84 @@
             background-position: 102% 0;
           }
         }
+        /* ===== UI-BTN (Uiverse by Galahhad) ===== */
+        .ui-btn {
+          --btn-default-bg: #0a0a0a;
+          --btn-padding: 14px 28px;
+          --btn-hover-bg: #110008;
+          --btn-transition: .3s;
+          --btn-letter-spacing: .1rem;
+          --btn-animation-duration: 1.2s;
+          --btn-shadow-color: rgba(224, 31, 122, 0.3);
+          --btn-shadow: 0 0 20px 0 var(--btn-shadow-color);
+          --hover-btn-color: #e01f7a;
+          --default-btn-color: #fff;
+          --font-size: 15px;
+          --font-weight: 700;
+          --font-family: 'Inter', sans-serif;
+          box-sizing: border-box;
+          padding: var(--btn-padding);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: var(--default-btn-color);
+          font: var(--font-weight) var(--font-size) var(--font-family);
+          background: var(--btn-default-bg);
+          border: 2px solid rgba(224, 31, 122, 0.5);
+          border-radius: 8px;
+          cursor: pointer;
+          transition: var(--btn-transition);
+          overflow: hidden;
+          box-shadow: var(--btn-shadow);
+          letter-spacing: var(--btn-letter-spacing);
+        }
+        .ui-btn span {
+          letter-spacing: var(--btn-letter-spacing);
+          transition: var(--btn-transition);
+          box-sizing: border-box;
+          position: relative;
+          background: inherit;
+        }
+        .ui-btn span::before {
+          box-sizing: border-box;
+          position: absolute;
+          content: "";
+          background: inherit;
+        }
+        .ui-btn:hover, .ui-btn:focus {
+          background: var(--btn-hover-bg);
+        }
+        .ui-btn:hover span, .ui-btn:focus span {
+          color: var(--hover-btn-color);
+        }
+        .ui-btn:hover span::before, .ui-btn:focus span::before {
+          animation: chitchat linear both var(--btn-animation-duration);
+        }
+        @keyframes chitchat {
+          0% { content: "#"; }
+          5% { content: "."; }
+          10% { content: "^{"; }
+          15% { content: "-!"; }
+          20% { content: "#$_"; }
+          25% { content: "№:0"; }
+          30% { content: "#{+."; }
+          35% { content: "@}-?"; }
+          40% { content: "?{4@%"; }
+          45% { content: "=.,^!"; }
+          50% { content: "?2@%"; }
+          55% { content: "\;1}]"; }
+          60% { content: "?{%:%"; right: 0; }
+          65% { content: "|{f[4"; right: 0; }
+          70% { content: "{4%0%"; right: 0; }
+          75% { content: "'1_0<"; right: 0; }
+          80% { content: "{0%"; right: 0; }
+          85% { content: "]>'"; right: 0; }
+          90% { content: "4"; right: 0; }
+          95% { content: "2"; right: 0; }
+          100% { content: ""; right: 0; }
+        }
     </style>
+
 </head>
 <body>
 
@@ -2117,100 +2006,9 @@
 
     <!-- AI FLOATING BUTTON -->
     <div class="ai-float-btn" id="aiFloatBtn">
-      <div class="wrapper">
-        <div class="light-1"></div>
-        <div class="light-2"></div>
-        <button class="ai-btn" onclick="openAssistantModal(); showSection('ai');">
-          <span class="txt-1">Ask AI</span>
-          <span class="txt-2">Thinking...</span>
+        <button class="ui-btn" onclick="openAssistantModal(); showSection('ai');">
+          <span>Ask AI</span>
         </button>
-        <svg class="ai-bg" xmlns="http://www.w3.org/2000/svg" viewBox="70 70 160 160" width="300" height="300">
-          <line class="line-bg" x1="150" y1="143.58" x2="150" y2="97.31"></line>
-          <line class="line-bg" x1="157.98" y1="143.58" x2="157.98" y2="112.08"></line>
-          <line class="line-bg" x1="142.02" y1="143.58" x2="142.02" y2="118.08"></line>
-          <line class="line-bg" x1="130.05" y1="143.58" x2="130.05" y2="133.79"></line>
-          <line class="line-bg" x1="138.03" y1="143.58" x2="138.03" y2="131.83"></line>
-          <line class="line-bg" x1="146.01" y1="143.58" x2="146.01" y2="129.15"></line>
-          <line class="line-bg" x1="153.99" y1="143.58" x2="153.99" y2="129.15"></line>
-          <line class="line-bg" x1="161.97" y1="143.58" x2="161.97" y2="131.83"></line>
-          <line class="line-bg" x1="169.95" y1="143.58" x2="169.95" y2="133.79"></line>
-          <path class="line-bg" d="M126.06,143.58v-10.37c0-.72-.29-1.41-.8-1.92l-4.28-4.28c-.51-.51-.8-1.2-.8-1.92v-12.37"></path>
-          <path class="line-bg" d="M165.96,143.58v-18.37c0-.72.29-1.41.8-1.92l4.28-4.28c.51-.51.8-1.2.8-1.92v-14.37"></path>
-          <path class="line-bg" d="M173.94,143.58v-10.37c0-.72.29-1.41.8-1.92l4.28-4.28c.51-.51.8-1.2.8-1.92v-10.69"></path>
-          <path class="line-bg" d="M134.04,143.58v-20.37c0-.72-.29-1.41-.8-1.92l-4.28-4.28c-.51-.51-.8-1.2-.8-1.92v-9.37"></path>
-          <line class="line-bg" x1="176.04" y1="150" x2="217.32" y2="150"></line>
-          <path class="line-bg" d="M176.04,153.99h13.37c.72,0,1.41.29,1.92.8l4.28,4.28c.51.51,1.2.8,1.92.8h14.37"></path>
-          <path class="line-bg" d="M176.04,146.01h15.37c.72,0,1.41-.29,1.92-.8l4.28-4.28c.51-.51,1.2-.8,1.92-.8h9.37"></path>
-          <line class="line-bg" x1="123.96" y1="150" x2="82.68" y2="150"></line>
-          <path class="line-bg" d="M123.96,146.01h-13.37c-.72,0-1.41-.29-1.92-.8l-4.28-4.28c-.51-.51-1.2-.8-1.92-.8h-14.37"></path>
-          <path class="line-bg" d="M123.96,153.99h-15.37c-.72,0-1.41.29-1.92.8l-4.28,4.28c-.51.51-1.2.8-1.92.8h-9.37"></path>
-          <line class="line-bg" x1="150" y1="156.42" x2="150" y2="202.69"></line>
-          <line class="line-bg" x1="142.02" y1="156.42" x2="142.02" y2="187.92"></line>
-          <line class="line-bg" x1="157.98" y1="156.42" x2="157.98" y2="181.92"></line>
-          <line class="line-bg" x1="169.95" y1="156.42" x2="169.95" y2="166.21"></line>
-          <line class="line-bg" x1="161.97" y1="156.42" x2="161.97" y2="168.17"></line>
-          <line class="line-bg" x1="153.99" y1="156.42" x2="153.99" y2="170.85"></line>
-          <line class="line-bg" x1="146.01" y1="156.42" x2="146.01" y2="170.85"></line>
-          <line class="line-bg" x1="138.03" y1="156.42" x2="138.03" y2="168.17"></line>
-          <line class="line-bg" x1="130.05" y1="156.42" x2="130.05" y2="166.21"></line>
-          <path class="line-bg" d="M173.94,156.42v10.37c0,.72.29,1.41.8,1.92l4.28,4.28c.51.51.8,1.2.8,1.92v12.37"></path>
-          <path class="line-bg" d="M134.04,156.42v18.37c0,.72-.29,1.41-.8,1.92l-4.28,4.28c-.51.51-.8,1.2-.8,1.92v14.37"></path>
-          <path class="line-bg" d="M126.06,156.42v10.37c0,.72-.29,1.41-.8,1.92l-4.28,4.28c-.51.51-.8,1.2-.8,1.92v10.69"></path>
-          <path class="line-bg" d="M165.96,156.42v20.37c0,.72.29,1.41.8,1.92l4.28,4.28c.51.51.8,1.2.8,1.92v9.37"></path>
-          <line class="line" x1="150" y1="143.58" x2="150" y2="97.31"></line>
-          <line class="line" x1="157.98" y1="143.58" x2="157.98" y2="112.08"></line>
-          <line class="line" x1="142.02" y1="143.58" x2="142.02" y2="118.08"></line>
-          <line class="line" x1="130.05" y1="143.58" x2="130.05" y2="133.79"></line>
-          <line class="line" x1="138.03" y1="143.58" x2="138.03" y2="131.83"></line>
-          <line class="line" x1="146.01" y1="143.58" x2="146.01" y2="129.15"></line>
-          <line class="line" x1="153.99" y1="143.58" x2="153.99" y2="129.15"></line>
-          <line class="line" x1="161.97" y1="143.58" x2="161.97" y2="131.83"></line>
-          <line class="line" x1="169.95" y1="143.58" x2="169.95" y2="133.79"></line>
-          <path class="line" d="M126.06,143.58v-10.37c0-.72-.29-1.41-.8-1.92l-4.28-4.28c-.51-.51-.8-1.2-.8-1.92v-12.37"></path>
-          <path class="line" d="M165.96,143.58v-18.37c0-.72.29-1.41.8-1.92l4.28-4.28c.51-.51.8-1.2.8-1.92v-14.37"></path>
-          <path class="line" d="M173.94,143.58v-10.37c0-.72.29-1.41.8-1.92l4.28-4.28c.51-.51.8-1.2.8-1.92v-10.69"></path>
-          <path class="line" d="M134.04,143.58v-20.37c0-.72-.29-1.41-.8-1.92l-4.28-4.28c-.51-.51-.8-1.2-.8-1.92v-9.37"></path>
-          <line class="line" x1="176.04" y1="150" x2="217.32" y2="150"></line>
-          <path class="line" d="M176.04,153.99h13.37c.72,0,1.41.29,1.92.8l4.28,4.28c.51.51,1.2.8,1.92.8h14.37"></path>
-          <path class="line" d="M176.04,146.01h15.37c.72,0,1.41-.29,1.92-.8l4.28-4.28c.51-.51,1.2-.8,1.92-.8h9.37"></path>
-          <line class="line" x1="123.96" y1="150" x2="82.68" y2="150"></line>
-          <path class="line" d="M123.96,146.01h-13.37c-.72,0-1.41-.29-1.92-.8l-4.28-4.28c-.51-.51-1.2-.8-1.92-.8h-14.37"></path>
-          <path class="line" d="M123.96,153.99h-15.37c-.72,0-1.41.29-1.92.8l-4.28,4.28c-.51.51-1.2.8-1.92.8h-9.37"></path>
-          <line class="line" x1="150" y1="156.42" x2="150" y2="202.69"></line>
-          <line class="line" x1="142.02" y1="156.42" x2="142.02" y2="187.92"></line>
-          <line class="line" x1="157.98" y1="156.42" x2="157.98" y2="181.92"></line>
-          <line class="line" x1="169.95" y1="156.42" x2="169.95" y2="166.21"></line>
-          <line class="line" x1="161.97" y1="156.42" x2="161.97" y2="168.17"></line>
-          <line class="line" x1="153.99" y1="156.42" x2="153.99" y2="170.85"></line>
-          <line class="line" x1="146.01" y1="156.42" x2="146.01" y2="170.85"></line>
-          <line class="line" x1="138.03" y1="156.42" x2="138.03" y2="168.17"></line>
-          <line class="line" x1="130.05" y1="156.42" x2="130.05" y2="166.21"></line>
-          <path class="line" d="M173.94,156.42v10.37c0,.72.29,1.41.8,1.92l4.28,4.28c.51.51.8,1.2.8,1.92v12.37"></path>
-          <path class="line" d="M134.04,156.42v18.37c0,.72-.29,1.41-.8,1.92l-4.28,4.28c-.51.51-.8,1.2-.8,1.92v14.37"></path>
-          <path class="line" d="M126.06,156.42v10.37c0,.72-.29,1.41-.8,1.92l-4.28,4.28c-.51.51-.8,1.2-.8,1.92v10.69"></path>
-          <path class="line" d="M165.96,156.42v20.37c0,.72.29,1.41.8,1.92l4.28,4.28c.51.51.8,1.2.8,1.92v9.37"></path>
-          <circle class="dot" cx="150" cy="96.13" r="1.17"></circle>
-          <circle class="dot" cx="157.98" cy="110.91" r="1.17"></circle>
-          <circle class="dot" cx="142.02" cy="116.91" r="1.17"></circle>
-          <circle class="dot" cx="157.98" cy="183.09" r="1.17"></circle>
-          <circle class="dot" cx="171.83" cy="101.54" r="1.17"></circle>
-          <circle class="dot" cx="179.81" cy="113.23" r="1.17"></circle>
-          <circle class="dot" cx="128.17" cy="104.54" r="1.17"></circle>
-          <circle class="dot" cx="120.19" cy="111.54" r="1.17"></circle>
-          <circle class="dot" cx="150" cy="203.87" r="1.17"></circle>
-          <circle class="dot" cx="142.02" cy="189.09" r="1.17"></circle>
-          <circle class="dot" cx="128.17" cy="198.46" r="1.17"></circle>
-          <circle class="dot" cx="120.19" cy="186.77" r="1.17"></circle>
-          <circle class="dot" cx="171.83" cy="195.46" r="1.17"></circle>
-          <circle class="dot" cx="179.81" cy="188.46" r="1.17"></circle>
-          <circle class="dot" cx="210.08" cy="140.14" r="1.17"></circle>
-          <circle class="dot" cx="218.49" cy="150" r="1.17"></circle>
-          <circle class="dot" cx="213.08" cy="159.86" r="1.17"></circle>
-          <circle class="dot" cx="89.92" cy="159.86" r="1.17"></circle>
-          <circle class="dot" cx="81.51" cy="150" r="1.17"></circle>
-          <circle class="dot" cx="86.92" cy="140.14" r="1.17"></circle>
-        </svg>
-      </div>
     </div>
 
     <!-- NEW MUSIC PLAYER -->
@@ -2455,7 +2253,7 @@ Wish you the best of Luck!</div>
 
 Please send this information to complete your application.</div>
                         <div class="template-actions">
-                            <button class="copy-btn" onclick="copyText('Fill in the below data, please.\n\n• Full Name:\n• Phone:\n• National Id:\n• Email address:\n• Graduation Status:\n• Experience:\n\nPlease send this information to complete your application.', this)">
+                            <button class="copy-btn" onclick="copyText('Fill in the below data, please.\\n\\n• Full Name:\\n• Phone:\\n• National Id:\\n• Email address:\\n• Graduation Status:\\n• Experience:\\n\\nPlease send this information to complete your application.', this)">
                                 <i class="far fa-copy"></i> Copy Form Template
                             </button>
                         </div>
@@ -2801,18 +2599,20 @@ Please send this information to complete your application.</div>
         const AI_CONFIG = {
             apiKey: "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",
             model: "openrouter/auto",
-            systemPrompt: `You are a Call Center recruitment assistant for VORANIX, managed by Saif from HR.
+            systemPrompt: `أنت مساعد VORANIX للـ recruitment.
 
-## Your Role
-Help candidates find the right call center job offer based on their profile and answer their questions about available positions.
+## شخصيتك
+- كلامك بالعامية المصرية، دافي، خفيف الدم، مش رسمي خالص
+- ردودك مختصرة ومباشرة — مش بتحشو ولا بترغي
+- بتحس إن في ناس بتكلمها مش بتجاوب على أسئلة
+- لو حد قالك صباح الخير أو إيه الأخبار، ردّ عليه بطبيعية زي ما تقول لصاحبك
+-  ممنوع تذكر إنك او بتبين بس لو حد سال او فرض عليك مش لازم تبين اوي او كل شويه bot أو assistant أو إنك بتشتغل لـ VORANIX في كل رسالة
+- بس لو حد سألك مين اللي بيديرك أو مين قايلك تعمل كده، قوله: "لو في اي مشكله بتواجهك او متضيقاك، تقدر تتواصل مع سيف على واتساب: 01283391426"
 
-## Rules
-1. **Stay on topic**: Only answer questions related to call center offers, HR, recruitment, salaries, shifts, requirements, and interview advice.
-2. **If asked anything off-topic**, respond with:
-"بعد إذنك، خلينا نتكلم في مجال الـ Call Center أحسن — أو مجال الـ HR — عشان أقدر أساعدك بشكل أحسن 😊"
-3. **Be direct**: No filler, no unnecessary intros. Answer the question immediately.
-4. **If you can't help**, say:
-"للمزيد من التفاصيل أو لأي استفسار تاني، تواصل مع سيف الـ HR مباشرةً."
+## قواعد
+1. بتتكلم بس في الـ call center offers والـ recruitment والـ HR والـ interviews
+2. لو حد سأل في حاجة تانية: "يسطا خليك معايا في الـ شغل — هساعدك أحسن 😄"
+3. لو مش قادر تساعده: "ده فوق طاقتي دلوقتي، كلم سيف على واتساب هيساعدك انا حقيقي مش عارف اوصل لحاجه: 01283391426"
 
 ---
 
@@ -2956,61 +2756,56 @@ Help candidates find the right call center job offer based on their profile and 
 - Age: 20–30 | Min 3 months telesales in travel industry required
 - Interview: Mon–Thu 3PM–7PM | Training: 2 Weeks
 
+### 20. Drakom
+- Account: Telemarketing | Language: B1+/C1			
+- Salary: 11K Net + Commission up to 20K
+- Shifts: Fixed 3:30PM–11:30PM | Location: Nasr City
+- Age: 18–29
+- Interview: Online | Training: 30 Days (Paid if passed)
+
 ---
+## Contact
+For anything outside your scope: "تواصل مع سيف الـ HR مباشرةً."
 
 ## ON HOLD OFFERS
-The following companies currently have offers on hold. Do NOT present them as active. If asked, say:
-"الـ offer دي حالياً On Hold — لو حابب أحطك على اللستة لما تفتح تاني، تواصل مع سيف الـ HR."
 
-Companies on hold include: Octopus Arabic, Octopus Spanish, IntouchCX German, Realogy, Callix, eClerx, NAOS, Telephonic (Portuguese/Turkish/French/Italian/German), Vitrin Clinic, Phoenix, some VORANIX WFH roles, CXPERTS (some accounts), Ileads, Outsourcing 4 You, Fly Pie, Stereo Outsourcing, Evolve Marketing LLC, BuzzCx (Cairo/Italian/Greek/German/Alex/B1), ABS CLA (some), Elevate Holding, Holvrine, WGS, LTS, Virtual Affiliates, IntouchCX (English/French/Spanish), Win Global Solutions (WFH Part-time & Full-time), Insource, and others.
+Companies on hold: Octopus Arabic, Octopus Spanish, IntouchCX German, Realogy, Callix, eClerx, NAOS, Telephonic (Portuguese/Turkish/French/Italian/German), Vitrin Clinic, Phoenix, some VORANIX WFH roles, CXPERTS (some accounts), Ileads, Outsourcing 4 You, Fly Pie, Stereo Outsourcing, Evolve Marketing LLC, BuzzCx (Cairo/Italian/Greek/German/Alex/B1), ABS CLA (some), Elevate Holding, Holvrine, WGS, LTS, Virtual Affiliates, IntouchCX (English/French/Spanish), Win Global Solutions (WFH Part-time & Full-time), Insource, and others.
 
 ---
 
-## How to Answer Common Questions
+## الأسئلة الشائعة
 
-**"الـ salary كام في [offer]?"**
-→ اذكر الـ basic salary، الـ KPIs، والـ commission بشكل مختصر ومباشر.
+**"الـ salary كام في [offer]؟"** → اذكر الـ basic والـ KPIs والـ commission بشكل مختصر
 
-**"الـ offer ده active ولا hold?"**
-→ راجع الليستة وجاوب مباشرةً.
+**"الـ offer active ولا hold؟"** → راجع اللستة وجاوب مباشرة
 
-**"أسئلة الـ interview إيه؟"**
-→ قدم نصائح call center عامة:
+**"أسئلة الـ interview إيه؟"** → نصايح مختصرة:
 - Introduce yourself
 - Why call center?
 - How do you handle difficult customers?
 - What's your English level?
 - Are you okay with night shifts?
 
-**"مناسب لمين؟"**
-→ اسأل عن: مستوى الإنجليزي، اللغات التانية، الحالة الدراسية، المنطقة، الشيفت المناسب — وبعدين وجّهه للـ offer الأنسب.
+**"مناسب لمين؟"** → اسأل عن: مستوى الإنجليزي، لغات تانية، حالة دراسية، منطقة، شيفت — وبعدين وجّهه
 
 ---
-Call Center Interview Questions & Answers:
 
-Essential Questions:
+## Interview Answers (لو حد طلب)
 
-1. Tell me about yourself
-   Sample Answer:
-   I'm good in communication as a graduate. I like to work with people and help them solve their issues. I want a stable job and I want to learn English, practice customer service.
+1. Tell me about yourself:
+   "I'm a good communicator, I enjoy helping people solve problems, and I'm looking to grow professionally in a structured environment."
 
-2. Why do you want the call center job?
-   Sample Answer:
-   I personally would like to work in a call center to have the ability to improve my communication, enhance my English language acquiring skills and professionally grow where there is defined system.
+2. Why call center?
+   "I want to improve my communication skills, practice my English, and build a solid career path."
 
 3. What do you know about our organization?
-   Sample Answer:
-   I understand your company to be a respected name in the customer service field, and that you offer high quality services to businesses overseas.
+   "You're a respected name in customer service, providing high-quality support to international clients."
 
-4. How do you deal with a customer who's angry?
-   Sample Answer:
-   I keep my cool, listen tightly to the customer, say I'm sorry it didn't work and try to resolve the problem with a professional approach.
+4. How do you handle an angry customer?
+   "I stay calm, listen carefully, apologize for the inconvenience, and focus on solving the issue professionally."
 
 5. What is customer service?
-   Sample Answer:
-   Customer service is about being of service to the customer, solving their problem and ensuring that they have a positive experience with the company.
-## Contact
-For anything outside your scope: "تواصل مع سيف الـ HR مباشرةً."
+   "It's about genuinely helping customers, solving their problems, and making sure they leave with a positive experience."
 `
         };
 
